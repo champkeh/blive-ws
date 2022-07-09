@@ -77,52 +77,86 @@ function DanmakuWebSocket() {
         function (e, t, n) {
             // 2
             let o = n(3)
-            let i = function () {
-                function e(e, t) {
-                    for (var n = 0; n < t.length; n++) {
-                        var o = t[n];
-                        o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, o.key, o)
+            let defineProps = function () {
+                function defineProperty(obj, descriptors) {
+                    for (let i = 0; i < descriptors.length; i++) {
+                        const descriptor = descriptors[i]
+                        descriptor.enumerable = descriptor.enumerable || false
+                        descriptor.configurable = true
+                        "value" in descriptor && (descriptor.writable = true)
+                        Object.defineProperty(obj, descriptor.key, descriptor)
                     }
                 }
 
-                return function (t, n, o) {
-                    return n && e(t.prototype, n), o && e(t, o), t
+                return function (cls, instanceProps, staticProps) {
+                    instanceProps && defineProperty(cls.prototype, instanceProps)
+                    staticProps && defineProperty(cls, staticProps)
+                    return cls
                 }
             }()
             t.default = function () {
-                function e(t) {
-                    return function (e, t) {
-                        if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function")
-                    }(this, e), "development" === e.CONFIG.bundleType && (console.clear(), console.dir(e.CONFIG)), this.initialize(t)
+                function App(options) {
+                    if (!(this instanceof App)) {
+                        throw new TypeError("Cannot call a class as a function")
+                    }
+                    if (App.CONFIG.bundleType === 'development') {
+                        console.clear()
+                        console.dir(App.CONFIG)
+                    }
+                    return this.initialize(options)
                 }
 
-                return e.prototype.initialize = function (t) {
-                    var n = this;
-                    "development" === e.CONFIG.bundleType && console.log("App Initialized.");
-                    var i = document.createElement("script");
-                    return i.src = "//activity.hdslb.com/blackboard/static/20210425/d0411babbbf77c49ca42a3320eb804ae/0NCT06vruR.js", i.onload = function () {
-                        n.ws = new o.a(t)
-                    }, window.document.head.append(i), this.getReturn()
-                }, e.prototype.getReturn = function () {
-                    return "development" === e.CONFIG.bundleType ? this : {
-                        destroy: this.destroy.bind(this),
-                        send: this.send.bind(this),
-                        getAuthInfo: this.getAuthInfo.bind(this),
-                        getRetryCount: this.getRetryCount.bind(this)
+                App.prototype.initialize = function (options) {
+                    if (App.CONFIG.bundleType === 'development') {
+                        console.log("App Initialized.")
                     }
-                }, e.prototype.destroy = function () {
+                    // 加载 BrotliDecode 解码器
+                    let script = document.createElement("script")
+                    script.src = "//activity.hdslb.com/blackboard/static/20210425/d0411babbbf77c49ca42a3320eb804ae/0NCT06vruR.js"
+                    script.onload = () => {
+                        this.ws = new o.a(options)
+                    }
+                    window.document.head.append(script)
+                    return this.getReturn()
+                }
+                App.prototype.getReturn = function () {
+                    if (App.CONFIG.bundleType === 'development') {
+                        return this
+                    } else {
+                        return {
+                            destroy: this.destroy.bind(this),
+                            send: this.send.bind(this),
+                            getAuthInfo: this.getAuthInfo.bind(this),
+                            getRetryCount: this.getRetryCount.bind(this)
+                        }
+                    }
+                }
+                App.prototype.destroy = function () {
                     this.ws && this.ws.destroy()
-                }, e.prototype.send = function (e) {
-                    this.ws && this.ws.send(e)
-                }, e.prototype.getAuthInfo = function () {
+                }
+                App.prototype.send = function (data) {
+                    this.ws && this.ws.send(data)
+                }
+                App.prototype.getAuthInfo = function () {
                     return this.ws && this.ws.getAuthInfo()
-                }, e.prototype.getRetryCount = function () {
+                }
+                App.prototype.getRetryCount = function () {
                     return this.ws && this.ws.getRetryCount()
-                }, i(e, null, [{
-                    key: "CONFIG", get: function () {
-                        return {version: "1.4.4", gitHash: "cfc1ae5b", build: "33", bundleType: "release"}
+                }
+                defineProps(App, null, [
+                    {
+                        key: "CONFIG",
+                        get: function () {
+                            return {
+                                version: "1.4.4",
+                                gitHash: "cfc1ae5b",
+                                build: "33",
+                                bundleType: "release",
+                            }
+                        }
                     }
-                }]), e
+                ])
+                return App
             }()
         },
         function (e, t, n) {
@@ -131,24 +165,26 @@ function DanmakuWebSocket() {
             let i = n(4)
             let r = n(5)
             t.a = function () {
-                function e(t) {
-                    if (function (e, t) {
-                        if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function")
-                    }(this, e), e.checkOptions(t)) {
-                        var n = {
+                function DanmakuWebSocket(options) {
+                    if (!(this instanceof DanmakuWebSocket)) {
+                        throw new TypeError("Cannot call a class as a function")
+                    }
+
+                    if (DanmakuWebSocket.checkOptions(options)) {
+                        const n = {
                             url: "",
                             urlList: [],
                             rid: 0,
                             aid: 0,
                             uid: 0,
                             from: -1,
-                            retry: !0,
+                            retry: true,
                             retryMaxCount: 0,
                             retryInterval: 5,
                             retryThreadCount: 10,
                             connectTimeout: 5e3,
                             retryConnectCount: 3,
-                            retryconnectTimeout: 1e4,
+                            retryConnectTimeout: 1e4,
                             retryRoundInterval: Math.floor(2 * Math.random()) + 3,
                             customAuthParam: [],
                             fallback: function () {
@@ -171,17 +207,24 @@ function DanmakuWebSocket() {
                             onListConnectError: function () {
                             },
                             onLogger: function () {
-                            }
+                            },
                         };
-                        this.options = r.a.extend({}, n, t), this.wsBinaryHeaderList = r.a.extend([], i.a), this.authInfo = {
+                        this.options = r.a.extend({}, n, options)
+                        this.wsBinaryHeaderList = r.a.extend([], i.a)
+                        this.authInfo = {
                             origin: "",
                             encode: ""
-                        }, 0 !== this.options.urlList.length && 0 !== this.options.retryMaxCount && this.options.retryMaxCount < this.options.urlList.length && (this.options.retryMaxCount = this.options.urlList.length - 1), this.state = {
+                        }
+                        if (this.options.retryMaxCount > 0 && this.options.retryMaxCount < this.options.urlList.length) {
+                            this.options.retryMaxCount = this.options.urlList.length - 1
+                        }
+                        this.state = {
                             retryCount: 0,
                             listConnectFinishedCount: 0,
                             index: 0,
                             connectTimeoutTimes: 0
-                        }, this.callbackQueueList = {
+                        }
+                        this.callbackQueueList = {
                             onInitializedQueue: [],
                             onOpenQueue: [],
                             onCloseQueue: [],
@@ -191,12 +234,14 @@ function DanmakuWebSocket() {
                             onRetryFallbackQueue: [],
                             onListConnectErrorQueue: [],
                             onReceiveAuthResQueue: []
-                        }, this.HEART_BEAT_INTERVAL = 0, this.CONNECT_TIMEOUT = 0, this.mixinCallback().initialize(this.options.urlList.length > 0 ? this.options.urlList[0] : this.options.url)
+                        }
+                        this.HEART_BEAT_INTERVAL = 0
+                        this.CONNECT_TIMEOUT = 0
+                        this.mixinCallback().initialize(this.options.urlList.length > 0 ? this.options.urlList[0] : this.options.url)
                     }
                 }
 
-                e.prototype.initialize = function (url) {
-                    let t = this
+                DanmakuWebSocket.prototype.initialize = function (url) {
                     const WebSocket = "MozWebSocket" in window ? window.MozWebSocket : window.WebSocket
                     let options = this.options
 
@@ -212,18 +257,18 @@ function DanmakuWebSocket() {
                         r.a.callFunction(this.callbackQueueList.onInitializedQueue)
                         this.callbackQueueList.onInitializedQueue = []
 
-                        let timeout = this.state.connectTimeoutTimes >= 3 ? options.retryconnectTimeout : options.connectTimeout
-                        this.CONNECT_TIMEOUT = setTimeout(function () {
-                            t.state.connectTimeoutTimes += 1
-                            t.options.onLogger("connect timeout " + t.state.connectTimeoutTimes)
-                            t.ws.close()
+                        let timeout = this.state.connectTimeoutTimes >= 3 ? options.retryConnectTimeout : options.connectTimeout
+                        this.CONNECT_TIMEOUT = setTimeout( () => {
+                            this.state.connectTimeoutTimes += 1
+                            this.options.onLogger("connect timeout " + this.state.connectTimeoutTimes)
+                            thsi.ws.close()
                         }, timeout)
                     } catch (e) {
                         "function" == typeof options.fallback && options.fallback()
                     }
                     return this
                 }
-                e.prototype.onOpen = function () {
+                DanmakuWebSocket.prototype.onOpen = function () {
                     // 执行 onOpen 钩子
                     r.a.callFunction(this.callbackQueueList.onOpenQueue)
                     this.state.connectTimeoutTimes = 0
@@ -231,8 +276,7 @@ function DanmakuWebSocket() {
                     this.userAuthentication()
                     return this
                 }
-                e.prototype.userAuthentication = function () {
-                    let t = this
+                DanmakuWebSocket.prototype.userAuthentication = function () {
                     let options = this.options
 
                     let params = {
@@ -274,14 +318,14 @@ function DanmakuWebSocket() {
                     let encodedParams = this.convertToArrayBuffer(JSON.stringify(params), 7)
                     this.authInfo.origin = params
                     this.authInfo.encode = encodedParams
-                    setTimeout(function () {
-                        t.ws.send(encodedParams)
+                    setTimeout(() => {
+                        this.ws.send(encodedParams)
                     }, 0)
                 }
-                e.prototype.getAuthInfo = function () {
+                DanmakuWebSocket.prototype.getAuthInfo = function () {
                     return this.authInfo
                 }
-                e.prototype.heartBeat = function () {
+                DanmakuWebSocket.prototype.heartBeat = function () {
                     clearTimeout(this.HEART_BEAT_INTERVAL)
 
                     let data = this.convertToArrayBuffer({}, 2)
@@ -291,7 +335,7 @@ function DanmakuWebSocket() {
                         this.heartBeat()
                     }, 1000 * this.options.heartBeatInterval)
                 }
-                e.prototype.onMessage = function (msg) {
+                DanmakuWebSocket.prototype.onMessage = function (msg) {
                     try {
                         let data = this.convertToObject(msg.data)
                         if (Array.isArray(data)) {
@@ -331,7 +375,7 @@ function DanmakuWebSocket() {
                     }
                     return this
                 }
-                e.prototype.onMessageReply = function (data, seq) {
+                DanmakuWebSocket.prototype.onMessageReply = function (data, seq) {
                     try {
                         if (Array.isArray(data)) {
                             data.forEach(data => {
@@ -344,11 +388,10 @@ function DanmakuWebSocket() {
                         this.options.onLogger("On Message Resolve Error: ", e)
                     }
                 }
-                e.prototype.onHeartBeatReply = function (data) {
+                DanmakuWebSocket.prototype.onHeartBeatReply = function (data) {
                     r.a.callFunction(this.callbackQueueList.onHeartBeatReplyQueue, data)
                 }
-                e.prototype.onClose = function () {
-                    let e = this
+                DanmakuWebSocket.prototype.onClose = function () {
                     let t = this.options.urlList.length
 
                     // 执行 onClose 钩子
@@ -385,19 +428,19 @@ function DanmakuWebSocket() {
 
                     return this
                 }
-                e.prototype.onError = function (e) {
+                DanmakuWebSocket.prototype.onError = function (e) {
                     this.options.onLogger("Danmaku Websocket On Error.", e)
                     r.a.callFunction(this.callbackQueueList.onErrorQueue, e)
                     return this
                 }
-                e.prototype.destroy = function () {
+                DanmakuWebSocket.prototype.destroy = function () {
                     this.HEART_BEAT_INTERVAL && clearTimeout(this.HEART_BEAT_INTERVAL)
                     this.CONNECT_TIMEOUT && clearTimeout(this.CONNECT_TIMEOUT)
                     this.options.retry = false
                     this.ws && this.ws.close()
                     this.ws = null
                 }
-                e.prototype.convertToArrayBuffer = function (payload, header) {
+                DanmakuWebSocket.prototype.convertToArrayBuffer = function (payload, header) {
                     this.encoder || (this.encoder = r.a.getEncoder())
                     const buf = new ArrayBuffer(16)
                     const dataView = new DataView(buf, 0)
@@ -414,7 +457,7 @@ function DanmakuWebSocket() {
                     })
                     return r.a.mergeArrayBuffer(buf, s)
                 }
-                e.prototype.convertToObject = function (buf) {
+                DanmakuWebSocket.prototype.convertToObject = function (buf) {
                     const dataView = new DataView(buf)
                     const data = {body: []}
 
@@ -458,16 +501,16 @@ function DanmakuWebSocket() {
                         }
                     return data
                 }
-                e.prototype.send = function (e) {
+                DanmakuWebSocket.prototype.send = function (e) {
                     this.ws && this.ws.send(e)
                 }
-                e.prototype.addCallback = function (fn, queue) {
+                DanmakuWebSocket.prototype.addCallback = function (fn, queue) {
                     if (typeof fn === 'function' && Array.isArray(queue)) {
                         queue.push(fn)
                     }
                     return this
                 }
-                e.prototype.mixinCallback = function () {
+                DanmakuWebSocket.prototype.mixinCallback = function () {
                     let e = this.options
                     let t = this.callbackQueueList
 
@@ -483,10 +526,10 @@ function DanmakuWebSocket() {
                         .addCallback(e.onReceiveAuthRes, t.onReceiveAuthResQueue)
                     return this
                 }
-                e.prototype.getRetryCount = function () {
+                DanmakuWebSocket.prototype.getRetryCount = function () {
                     return this.state.retryCount
                 }
-                e.prototype.checkRetryState = function () {
+                DanmakuWebSocket.prototype.checkRetryState = function () {
                     let t = false
                     if (this.options.retryMaxCount === 0 || this.state.retryCount < this.options.retryMaxCount) {
                         this.state.retryCount += 1
@@ -494,14 +537,23 @@ function DanmakuWebSocket() {
                     }
                     return t
                 }
-                e.checkOptions = function (e) {
-                    return e || e instanceof Object
-                        ? e.url
-                            ? !!e.rid || (this.options.onLogger("WebSocket Initialize options rid(cid) missing."), !1)
-                            : (this.options.onLogger("WebSocket Initialize options url missing."), !1)
-                        : (this.options.onLogger("WebSocket Initialize options missing or error.", e), !1)
+                DanmakuWebSocket.checkOptions = function (options) {
+                    if (options || options instanceof Object) {
+                        if (options.url) {
+                            if (!options.rid) {
+                                this.options.onLogger("WebSocket Initialize options rid(cid) missing.")
+                                return false
+                            }
+                        } else {
+                            this.options.onLogger("WebSocket Initialize options url missing.")
+                            return false
+                        }
+                    } else {
+                        this.options.onLogger("WebSocket Initialize options missing or error.", options)
+                        return false
+                    }
                 }
-                return e
+                return DanmakuWebSocket
             }()
         },
         function (e, t, n) {
@@ -541,24 +593,35 @@ function DanmakuWebSocket() {
             // 5
             t.a = {
                 getDecoder: function () {
-                    return window.TextDecoder ? new window.TextDecoder : {
-                        decode: function (e) {
-                            return decodeURIComponent(window.escape(String.fromCharCode.apply(String, new Uint8Array(e))))
+                    return window.TextDecoder
+                        ? new window.TextDecoder
+                        : {
+                            decode: function (data) {
+                                return decodeURIComponent(window.escape(String.fromCharCode.apply(String, new Uint8Array(data))))
+                            }
                         }
-                    }
                 },
                 getEncoder: function () {
-                    return window.TextEncoder ? new window.TextEncoder : {
-                        encode: function (e) {
-                            for (var t = new ArrayBuffer(e.length), n = new Uint8Array(t), o = 0, i = e.length; o < i; o++) n[o] = e.charCodeAt(o);
-                            return t
+                    return window.TextEncoder
+                        ? new window.TextEncoder
+                        : {
+                            encode: function (data) {
+                                let buf = new ArrayBuffer(data.length)
+                                let u8 = new Uint8Array(buf)
+                                for (let i = 0, len = data.length; i < len; i++) {
+                                    u8[i] = data.charCodeAt(i)
+                                }
+                                return buf
+                            }
                         }
-                    }
                 },
-                mergeArrayBuffer: function (e, t) {
-                    var n = new Uint8Array(e), o = new Uint8Array(t),
-                        i = new Uint8Array(n.byteLength + o.byteLength);
-                    return i.set(n, 0), i.set(o, n.byteLength), i.buffer
+                mergeArrayBuffer: function (buf1, buf2) {
+                    let b1 = new Uint8Array(buf1)
+                    let b2 = new Uint8Array(buf2)
+                    let buf = new Uint8Array(b1.byteLength + b2.byteLength)
+                    buf.set(b1, 0)
+                    buf.set(b2, b1.byteLength)
+                    return buf.buffer
                 },
                 callFunction: function (fns, params) {
                     if (Array.isArray(fns) && fns.length > 0) {
@@ -569,16 +632,23 @@ function DanmakuWebSocket() {
                         typeof fns === 'function' && fns(params)
                     }
                 },
-                extend: function (e) {
-                    for (let len = arguments.length, n = Array(len > 1 ? len - 1 : 0), idx = 1; idx < len; idx++)
-                        n[idx - 1] = arguments[idx];
-                    const i = e || {};
-                    i instanceof Object && n.forEach(function (e) {
-                        e instanceof Object && Object.keys(e).forEach(function (t) {
-                            i[t] = e[t]
+                extend: function (obj) {
+                    let len = arguments.length
+                    let args = Array(len > 1 ? len - 1 : 0)
+                    for (let i = 1; i < len; i++) {
+                        args[i - 1] = arguments[i]
+                    }
+                    const merge = obj || {}
+                    if (merge instanceof Object) {
+                        args.forEach((arg) => {
+                            if (arg instanceof Object) {
+                                Object.keys(arg).forEach((key) => {
+                                    merge[key] = arg[key]
+                                })
+                            }
                         })
-                    })
-                    return i
+                    }
+                    return merge
                 }
             }
         },
