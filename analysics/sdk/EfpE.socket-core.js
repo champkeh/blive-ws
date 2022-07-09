@@ -511,19 +511,19 @@ function DanmakuWebSocket() {
                     return this
                 }
                 DanmakuWebSocket.prototype.mixinCallback = function () {
-                    let e = this.options
-                    let t = this.callbackQueueList
+                    let options = this.options
+                    let cbQueueList = this.callbackQueueList
 
                     this
-                        .addCallback(e.onReceivedMessage, t.onReceivedMessageQueue)
-                        .addCallback(e.onHeartBeatReply, t.onHeartBeatReplyQueue)
-                        .addCallback(e.onInitialized, t.onInitializedQueue)
-                        .addCallback(e.onOpen, t.onOpenQueue)
-                        .addCallback(e.onClose, t.onCloseQueue)
-                        .addCallback(e.onError, t.onErrorQueue)
-                        .addCallback(e.onRetryFallback, t.onRetryFallbackQueue)
-                        .addCallback(e.onListConnectError, t.onListConnectErrorQueue)
-                        .addCallback(e.onReceiveAuthRes, t.onReceiveAuthResQueue)
+                        .addCallback(options.onReceivedMessage, cbQueueList.onReceivedMessageQueue)
+                        .addCallback(options.onHeartBeatReply, cbQueueList.onHeartBeatReplyQueue)
+                        .addCallback(options.onInitialized, cbQueueList.onInitializedQueue)
+                        .addCallback(options.onOpen, cbQueueList.onOpenQueue)
+                        .addCallback(options.onClose, cbQueueList.onCloseQueue)
+                        .addCallback(options.onError, cbQueueList.onErrorQueue)
+                        .addCallback(options.onRetryFallback, cbQueueList.onRetryFallbackQueue)
+                        .addCallback(options.onListConnectError, cbQueueList.onListConnectErrorQueue)
+                        .addCallback(options.onReceiveAuthRes, cbQueueList.onReceiveAuthResQueue)
                     return this
                 }
                 DanmakuWebSocket.prototype.getRetryCount = function () {
