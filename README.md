@@ -41,3 +41,7 @@
   }
 }
 ```
+
+> Note
+> 
+> ks-live-dmcmt-bj6-pm-02.chat.bilibili.com/sub
