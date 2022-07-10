@@ -6,6 +6,7 @@ class SocketCore {
 
     /**
      * 检查 options 是否正确
+     * 确保url和rid都有值
      * @param options
      * @return {boolean}
      */
@@ -36,22 +37,23 @@ class SocketCore {
         const opts = {
             url: "",
             urlList: [],
-            rid: 0,
+            rid: 0, // 房间id
             aid: 0,
-            uid: 0,
+            uid: 0, // 用户id
             from: -1,
-            retry: true,
+            retry: true, // 断开重连
             retryMaxCount: 0,
             retryInterval: 5,
             retryThreadCount: 10,
-            connectTimeout: 5e3,
-            retryConnectCount: 3,
-            retryConnectTimeout: 1e4,
+            connectTimeout: 5e3, // ws连接超时时间，5s
+            retryConnectCount: 3, // 重连次数
+            retryConnectTimeout: 1e4, // 重连超时时间，10s
             retryRoundInterval: Math.floor(2 * Math.random()) + 3,
             customAuthParam: [],
+            heartBeatInterval: 30, // 心跳包间隔
             fallback: function () {
+                // 浏览器不支持 websocket 的降级处理
             },
-            heartBeatInterval: 30,
             onReceivedMessage: function () {
             },
             onReceiveAuthRes: function () {
@@ -79,13 +81,15 @@ class SocketCore {
             origin: "",
             encode: "",
         }
-        if (this.options.retryMaxCount > 0 && this.options.retryMaxCount < this.options.urlList.length) {
+        if (this.options.retryMaxCount !== 0 && this.options.urlList.length !== 0 && this.options.retryMaxCount < this.options.urlList.length) {
             this.options.retryMaxCount = this.options.urlList.length - 1
         }
         this.state = {
             retryCount: 0,
             listConnectFinishedCount: 0,
             index: 0,
+
+            // 连接超时次数
             connectTimeoutTimes: 0,
         }
         this.callbackQueueList = {
@@ -97,11 +101,11 @@ class SocketCore {
             onHeartBeatReplyQueue: [],
             onRetryFallbackQueue: [],
             onListConnectErrorQueue: [],
-            onReceiveAuthResQueue: []
+            onReceiveAuthResQueue: [],
         }
-        // 心跳间隔
+        // 心跳定时器
         this.HEART_BEAT_INTERVAL = 0
-        // 连接超时
+        // 连接超时定时器
         this.CONNECT_TIMEOUT = 0
         this.mixinCallback().initialize(this.options.urlList.length > 0 ? this.options.urlList[0] : this.options.url)
     }
@@ -118,12 +122,13 @@ class SocketCore {
             this.ws.onclose = this.onClose.bind(this)
             this.ws.onerror = this.onError.bind(this)
 
-            // 执行 onInitialized 钩子
+            // 执行 onInitialized 钩子，执行一遍之后进行清空，避免在断开重连时重复执行这些钩子
             callFunction(this.callbackQueueList.onInitializedQueue)
             this.callbackQueueList.onInitializedQueue = []
 
             const timeout = this.state.connectTimeoutTimes >= 3 ? options.retryConnectTimeout : options.connectTimeout
             this.CONNECT_TIMEOUT = setTimeout(() => {
+                // 连接超时
                 this.state.connectTimeoutTimes += 1
                 onLogger("connect timeout " + this.state.connectTimeoutTimes)
                 this.ws.close()
@@ -135,7 +140,9 @@ class SocketCore {
     }
 
     onOpen() {
+        // 执行 onOpenQueue 钩子
         callFunction(this.callbackQueueList.onOpenQueue)
+
         this.state.connectTimeoutTimes = 0
         this.CONNECT_TIMEOUT && clearTimeout(this.CONNECT_TIMEOUT)
         this.userAuthentication()
@@ -181,7 +188,7 @@ class SocketCore {
                     return void onLogger("Unsupported customAuthParam type!【" + paramType + "】")
             }
         }
-        let encodedParams = this.convertToArrayBuffer(JSON.stringify(params), WS_CODE.WS_OP_USER_AUTHENTICATION)
+        const encodedParams = this.convertToArrayBuffer(JSON.stringify(params), WS_CODE.WS_OP_USER_AUTHENTICATION)
         this.authInfo.origin = params
         this.authInfo.encode = encodedParams
         setTimeout(() => {
