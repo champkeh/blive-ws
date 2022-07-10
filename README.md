@@ -1,5 +1,5 @@
-# live.bilibili
-哔哩哔哩直播技术分析
+# danmaku.bilibili
+哔哩哔哩直播弹幕技术分析
 
 ## 一、分析弹幕的传输协议
 
