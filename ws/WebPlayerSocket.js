@@ -108,6 +108,9 @@ export const SocketMsgType = {
      */
     PkMicEnd: "PK_MIC_END",
 
+    PKBattlePreNew: "PK_BATTLE_PRE_NEW",
+    PKBattleStartNew: "PK_BATTLE_START_NEW",
+
     /**
      * 热播通知？
      */
@@ -192,6 +195,8 @@ export const SocketMsgType = {
      * 房间实时信息更新
      */
     RoomRealTimeMessageUpdate: "ROOM_REAL_TIME_MESSAGE_UPDATE",
+
+
 }
 
 const e = new WeakMap()
@@ -356,7 +361,7 @@ export default class WebPlayerSocket {
                      * Top3 排名更新
                      */
                     case SocketMsgType.OnlineRankTop3:
-                        console.log(data.data.list)
+                        // console.log(data.data.list)
                         break
 
                     /**
@@ -446,6 +451,14 @@ export default class WebPlayerSocket {
                         console.log(`【结束】直播间${data.roomid}已结束`)
                         break
 
+                    case SocketMsgType.PKBattlePreNew:
+                        const battleNew = {
+                            roomId: data.data.room_id,
+                            uid: data.data.uid,
+                            name: data.data.uname,
+                            sessionId: data.data.session_id,
+                        }
+                        break
 
                     default:
                         console.log(data)
