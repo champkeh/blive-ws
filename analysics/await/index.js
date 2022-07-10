@@ -31,78 +31,101 @@ function __awaiter(thisArg, args, Promise, fn) {
     })
 }
 
-function __generator(e, t) {
-    let n, o, r
-    let s = {
+function __generator(thisArg, fn) {
+    let executing, o, r
+    let state = {
         label: 0,
         sent: function () {
-            if (1 & r[0]) throw r[1];
+            if (1 & r[0]) {
+                throw r[1]
+            }
             return r[1]
         },
         trys: [],
         ops: [],
-    };
+    }
 
-    function a(i) {
-        return function (a) {
-            return function (i) {
-                if (n) throw new TypeError("Generator is already executing.");
-                for (; s;)
-                    try {
-                        if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 0) : o.next) && !(r = r.call(o, i[1])).done) return r;
-                        switch (o = 0, r && (i = [2 & i[0], r.value]), i[0]) {
-                            case 0:
-                            case 1:
-                                r = i;
-                                break;
-                            case 4:
-                                return s.label++, {value: i[1], done: !1};
-                            case 5:
-                                s.label++, o = i[1], i = [0];
-                                continue;
-                            case 7:
-                                i = s.ops.pop(), s.trys.pop();
-                                continue;
-                            default:
-                                if (!(r = (r = s.trys).length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
-                                    s = 0;
-                                    continue
-                                }
-                                if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
-                                    s.label = i[1];
-                                    break
-                                }
-                                if (6 === i[0] && s.label < r[1]) {
-                                    s.label = r[1], r = i;
-                                    break
-                                }
-                                if (r && s.label < r[2]) {
-                                    s.label = r[2], s.ops.push(i);
-                                    break
-                                }
-                                r[2] && s.ops.pop(), s.trys.pop();
-                                continue
-                        }
-                        i = t.call(e, s)
-                    } catch (a) {
-                        i = [6, a]
-                        o = 0
-                    } finally {
-                        n = r = 0
+    function createFn(flag) {
+        return function (yieldValue) {
+            if (executing) {
+                throw new TypeError("Generator is already executing.")
+            }
+
+            for (; state;) {
+                try {
+                    executing = true
+                    if (o && (r = 2 & flag ? o.return : flag ? o.throw || ((r = o.return) && r.call(o), 0) : o.next) && !(r = r.call(o, yieldValue)).done) return r;
+
+                    o = 0
+                    if (r) {
+                        [flag, yieldValue] = [2 & flag, r.value]
                     }
-                if (5 & i[0]) throw i[1];
-                return {
-                    value: i[0] ? i[1] : undefined,
-                    done: true,
+                    switch (flag) {
+                        case 0:
+                        case 1:
+                            r = [flag, yieldValue]
+                            break
+                        case 4:
+                            state.label++
+                            return {value: yieldValue, done: false}
+                        case 5:
+                            state.label++
+                            o = yieldValue
+                            ;[flag, yieldValue] = [0]
+                            continue
+                        case 7:
+                            [flag, yieldValue] = state.ops.pop()
+                            state.trys.pop()
+                            continue
+                        default:
+                            if (!(r = (r = state.trys).length > 0 && r[r.length - 1]) && (flag === 6 || flag === 2)) {
+                                state = 0
+                                // 退出 for 循环
+                                continue
+                            }
+                            if (3 === flag && (!r || yieldValue > r[0] && yieldValue < r[3])) {
+                                state.label = yieldValue
+                                break
+                            }
+                            if (6 === flag && state.label < r[1]) {
+                                state.label = r[1]
+                                r = [flag, yieldValue]
+                                break
+                            }
+                            if (r && state.label < r[2]) {
+                                state.label = r[2]
+                                state.ops.push([flag, yieldValue])
+                                break
+                            }
+                            r[2] && state.ops.pop()
+                            state.trys.pop()
+                            continue
+                    }
+
+                    [flag, yieldValue] = fn.call(thisArg, state)
+                } catch (error) {
+                    [flag, yieldValue] = [6, error]
+                    o = 0
+                } finally {
+                    r = 0
+                    executing = false
                 }
-            }([i, a])
+            }
+
+            if (5 & flag) {
+                throw yieldValue
+            }
+            return {
+                value: flag ? yieldValue : undefined,
+                done: true,
+            }
         }
     }
 
     return {
-        next: a(0),
-        throw: a(1),
-        return: a(2),
+        next: createFn(0),
+        throw: createFn(1),
+        return: createFn(2),
         [Symbol.iterator]: function () {
             return this
         }
