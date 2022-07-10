@@ -42,6 +42,10 @@
 }
 ```
 
-> Note
-> 
-> ks-live-dmcmt-bj6-pm-02.chat.bilibili.com/sub
+## 二进制消息协议
+
+todo
+
+## 客户端实现
+
+参考 `ws/client.js` 代码
