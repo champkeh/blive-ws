@@ -62,3 +62,20 @@ todo
 ## 客户端实现
 
 参考 `ws` 目录下相关代码
+
+## 如何使用？
+
+1. 安装依赖
+```shell
+npm install
+```
+
+2. 启动代理服务器
+> 主要是代理B站的相关接口
+```shell
+npm run start
+```
+
+3. 根据自己的需求修改`ws/client.js`文件中的房间ID(roomId)的值
+
+4. 浏览器访问`ws/index.html`文件，查看控制台，即可看到实时弹幕内容
