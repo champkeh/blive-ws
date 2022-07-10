@@ -9,6 +9,16 @@ export const SocketMsgType = {
     Danmaku: "DANMU_MSG",
 
     /**
+     * 聚合弹幕
+     */
+    DanmakuAggregation: "DANMU_AGGREGATION",
+
+    /**
+     * 通知类弹幕
+     */
+    CommonNoticeDanmaku: "COMMON_NOTICE_DANMAKU",
+
+    /**
      * 系统消息
      */
     SysMsg: "SYS_MSG",
@@ -34,7 +44,7 @@ export const SocketMsgType = {
     Live: "LIVE",
 
     /**
-     * 准备中
+     * 直播结束
      */
     Preparing: "PREPARING",
 
@@ -162,6 +172,26 @@ export const SocketMsgType = {
      * 连送
      */
     ComboSend: "COMBO_SEND",
+
+    /**
+     * Top3 排名更新
+     */
+    OnlineRankTop3: "ONLINE_RANK_TOP3",
+
+    /**
+     * 热榜更新
+     */
+    HotRankChanged: "HOT_RANK_CHANGED",
+
+    /**
+     * 热榜更新v2
+     */
+    HotRankChangedV2: "HOT_RANK_CHANGED_V2",
+
+    /**
+     * 房间实时信息更新
+     */
+    RoomRealTimeMessageUpdate: "ROOM_REAL_TIME_MESSAGE_UPDATE",
 }
 
 const e = new WeakMap()
@@ -246,6 +276,37 @@ export default class WebPlayerSocket {
                         break
 
                     /**
+                     * 聚合弹幕
+                     */
+                    case SocketMsgType.DanmakuAggregation:
+                        const danmakuInfo = {
+                            text: data.data.msg,
+                            num: data.data.aggregation_num,
+                        }
+                        console.log(`【聚合弹幕】${danmakuInfo.text} x${danmakuInfo.num}`)
+                        break
+
+                    /**
+                     * 通知类弹幕
+                     */
+                    case SocketMsgType.CommonNoticeDanmaku:
+                        const contentSegs = data.data.content_segments.map(seg => seg.text).join('\n')
+                        console.log(`【通知弹幕】${contentSegs}`)
+                        break
+
+                    /**
+                     * 房间实时信息更新
+                     */
+                    case SocketMsgType.RoomRealTimeMessageUpdate:
+                        const updateInfo = {
+                            fans: data.data.fans,
+                            fansClub: data.data.fans_club,
+                            roomId: data.data.roomid,
+                        }
+                        console.log(`【房间信息更新】房间id: ${updateInfo.roomId}，粉丝: ${updateInfo.fans}，粉丝俱乐部: ${updateInfo.fansClub}`)
+                        break
+
+                    /**
                      * 互动文字，比如xxx进入直播间等等这些消息
                      */
                     case SocketMsgType.InteractWord:
@@ -289,6 +350,26 @@ export default class WebPlayerSocket {
                      */
                     case SocketMsgType.OnlineRank:
                         // console.log(data.data.list)
+                        break
+
+                    /**
+                     * Top3 排名更新
+                     */
+                    case SocketMsgType.OnlineRankTop3:
+                        console.log(data.data.list)
+                        break
+
+                    /**
+                     * 热榜更新
+                     */
+                    case SocketMsgType.HotRankChanged:
+                    case SocketMsgType.HotRankChangedV2:
+                        const rankInfo = {
+                            area: data.data.area_name,
+                            rank: data.data.rank,
+                            rankDesc: data.data.rank_desc,
+                        }
+                        console.log(`【热榜更新】${rankInfo.area} 排名更新到 ${rankInfo.rank}`)
                         break
 
                     /**
@@ -343,6 +424,28 @@ export default class WebPlayerSocket {
                         }
                         console.log(`【连送】${info3.name} ${info3.action} ${info3.giftName}`)
                         break
+
+                    /**
+                     * 开播
+                     */
+                    case SocketMsgType.Live:
+                        const liveInfo = {
+                            key: data.live_key,
+                            platform: data.live_platform,
+                            roomId: data.roomid,
+                            sessionKey: data.sub_session_key,
+                            liveTime: data.live_time,
+                        }
+                        console.log(`【开播】直播间${liveInfo.roomId}已开播`)
+                        break
+
+                    /**
+                     * 直播结束
+                     */
+                    case SocketMsgType.Preparing:
+                        console.log(`【结束】直播间${data.roomid}已结束`)
+                        break
+
 
                     default:
                         console.log(data)
