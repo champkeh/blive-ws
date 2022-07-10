@@ -2,7 +2,7 @@ import {onLogger} from './logger.js'
 import {extend, wsBinaryHeaderList, getEncoder, getDecoder, mergeArrayBuffer, callFunction} from './utils.js'
 import {WS_CODE} from "./const.js"
 
-export default class DanmakuWebSocket {
+class SocketCore {
 
     /**
      * 检查 options 是否正确
@@ -29,7 +29,7 @@ export default class DanmakuWebSocket {
     }
 
     constructor(options) {
-        if (!DanmakuWebSocket.checkOptions(options)) {
+        if (!SocketCore.checkOptions(options)) {
             return
         }
 
@@ -434,5 +434,68 @@ export default class DanmakuWebSocket {
             t = true
         }
         return t
+    }
+}
+
+export default class DanmakuSocketApp {
+    static get CONFIG() {
+        return {
+            version: "1.4.4",
+            gitHash: "cfc1ae5b",
+            build: "33",
+            bundleType: "release",
+        }
+    }
+
+    constructor(options) {
+        if (DanmakuSocketApp.CONFIG.bundleType === 'development') {
+            console.clear()
+            console.dir(DanmakuSocketApp.CONFIG)
+        }
+        return this.initialize(options)
+    }
+
+    initialize(options) {
+        if (DanmakuSocketApp.CONFIG.bundleType === 'development') {
+            console.log("App Initialized.")
+        }
+
+        // 加载 BrotliDecode 解码器
+        const script = document.createElement("script")
+        script.src = "//activity.hdslb.com/blackboard/static/20210425/d0411babbbf77c49ca42a3320eb804ae/0NCT06vruR.js"
+        script.onload = () => {
+            this.ws = new SocketCore(options)
+        }
+        window.document.head.append(script)
+        return this.getReturn()
+    }
+
+    getReturn() {
+        if (DanmakuSocketApp.CONFIG.bundleType === 'development') {
+            return this
+        } else {
+            return {
+                destroy: this.destroy.bind(this),
+                send: this.send.bind(this),
+                getAuthInfo: this.getAuthInfo.bind(this),
+                getRetryCount: this.getRetryCount.bind(this)
+            }
+        }
+    }
+
+    destroy() {
+        this.ws && this.ws.destroy()
+    }
+
+    send(data) {
+        this.ws && this.ws.send(data)
+    }
+
+    getAuthInfo() {
+        return this.ws && this.ws.getAuthInfo()
+    }
+
+    getRetryCount() {
+        return this.ws && this.ws.getRetryCount()
     }
 }

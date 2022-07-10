@@ -53,3 +53,6 @@ export const WS_CODE = {
     // 认证token错误
     WS_AUTH_TOKEN_ERROR: -101
 }
+
+// export const API_BASE = 'https://api.live.bilibili.com'
+export const API_BASE = 'http://localhost:3000/proxy'
