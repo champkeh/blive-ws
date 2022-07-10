@@ -1,11 +1,9 @@
 # danmaku.bilibili
 哔哩哔哩直播弹幕技术分析
 
-## 一、分析弹幕的传输协议
+## 一、直播间弹幕的传输协议
 
-### 直播间
-
-首先调用接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`、`host_list`等建立`ws`的基本参数。
+首先调用接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`、`host_list`等建立`ws`所需的基本参数。
 
 `host_list`用于轮训ws服务。
 
