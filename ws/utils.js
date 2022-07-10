@@ -1,34 +1,3 @@
-export const wsBinaryHeaderList = [
-    {
-        name: "Header Length",
-        key: "headerLen",
-        bytes: 2,
-        offset: 4,
-        value: 16
-    },
-    {
-        name: "Protocol Version",
-        key: "ver",
-        bytes: 2,
-        offset: 6,
-        value: 1
-    },
-    {
-        name: "Operation",
-        key: "op",
-        bytes: 4,
-        offset: 8,
-        value: 1
-    },
-    {
-        name: "Sequence Id",
-        key: "seq",
-        bytes: 4,
-        offset: 12,
-        value: 1
-    }
-]
-
 export function mergeArrayBuffer(buf1, buf2) {
     let b1 = new Uint8Array(buf1)
     let b2 = new Uint8Array(buf2)

@@ -1,6 +1,6 @@
 import {onLogger} from './logger.js'
-import {extend, wsBinaryHeaderList, getEncoder, getDecoder, mergeArrayBuffer, callFunction} from './utils.js'
-import {WS_CODE} from "./const.js"
+import {extend, getEncoder, getDecoder, mergeArrayBuffer, callFunction} from './utils.js'
+import {WS_CODE, wsBinaryHeaderList} from "./const.js"
 
 class SocketCore {
 
@@ -181,11 +181,10 @@ class SocketCore {
                     return void onLogger("Unsupported customAuthParam type!【" + paramType + "】")
             }
         }
-        let encodedParams = this.convertToArrayBuffer(JSON.stringify(params), 7)
+        let encodedParams = this.convertToArrayBuffer(JSON.stringify(params), WS_CODE.WS_OP_USER_AUTHENTICATION)
         this.authInfo.origin = params
         this.authInfo.encode = encodedParams
         setTimeout(() => {
-            console.log(params)
             this.ws.send(encodedParams)
         }, 0)
     }
@@ -197,8 +196,7 @@ class SocketCore {
     heartBeat() {
         clearTimeout(this.HEART_BEAT_INTERVAL)
 
-        console.log({})
-        let data = this.convertToArrayBuffer({}, 2)
+        const data = this.convertToArrayBuffer({}, WS_CODE.WS_OP_HEARTBEAT)
         this.ws.send(data)
 
         this.HEART_BEAT_INTERVAL = setTimeout(() => {
@@ -209,7 +207,6 @@ class SocketCore {
     onMessage(msg) {
         try {
             let data = this.convertToObject(msg.data)
-            console.log(data)
             if (Array.isArray(data)) {
                 data.forEach((data) => {
                     this.onMessage(data)
@@ -327,14 +324,14 @@ class SocketCore {
         this.ws = null
     }
 
-    convertToArrayBuffer(payload, header) {
+    convertToArrayBuffer(payload, op) {
         this.encoder = this.encoder || getEncoder()
-        const buf = new ArrayBuffer(16)
-        const dataView = new DataView(buf, 0)
-        let s = this.encoder.encode(payload)
+        const header = new ArrayBuffer(WS_CODE.WS_PACKAGE_HEADER_TOTAL_LENGTH)
+        const dataView = new DataView(header, WS_CODE.WS_PACKAGE_OFFSET)
+        const body = this.encoder.encode(payload)
 
-        dataView.setInt32(0, 16 + s.byteLength)
-        this.wsBinaryHeaderList[2].value = header
+        dataView.setInt32(WS_CODE.WS_PACKAGE_OFFSET, WS_CODE.WS_PACKAGE_HEADER_TOTAL_LENGTH + body.byteLength)
+        this.wsBinaryHeaderList[2].value = op
         this.wsBinaryHeaderList.forEach(head => {
             if (head.bytes === 4) {
                 dataView.setInt32(head.offset, head.value)
@@ -342,7 +339,7 @@ class SocketCore {
                 dataView.setInt16(head.offset, head.value)
             }
         })
-        return mergeArrayBuffer(buf, s)
+        return mergeArrayBuffer(header, body)
     }
 
     convertToObject(buf) {
@@ -351,7 +348,7 @@ class SocketCore {
             body: [],
         }
 
-        data.packetLen = dataView.getInt32(0)
+        data.packetLen = dataView.getInt32(WS_CODE.WS_PACKAGE_OFFSET)
         this.wsBinaryHeaderList.forEach(head => {
             if (head.bytes === 4) {
                 data[head.key] = dataView.getInt32(head.offset)
@@ -366,27 +363,27 @@ class SocketCore {
         this.decoder = this.decoder || getDecoder()
 
         if (!data.op || WS_CODE.WS_OP_MESSAGE !== data.op && data.op !== WS_CODE.WS_OP_CONNECT_SUCCESS) {
-            if (data.op && WS_CODE.WS_OP_HEARTBEAT_REPLY === data.op) {
+            if (data.op === WS_CODE.WS_OP_HEARTBEAT_REPLY) {
                 data.body = {
                     count: dataView.getInt32(WS_CODE.WS_PACKAGE_HEADER_TOTAL_LENGTH)
                 }
-            } else {
-                for (let i = WS_CODE.WS_PACKAGE_OFFSET, s = data.packetLen, a = "", u = ""; i < buf.byteLength; i += s) {
-                    s = dataView.getInt32(i)
-                    a = dataView.getInt16(i + WS_CODE.WS_HEADER_OFFSET)
-                    try {
-                        if (data.ver === WS_CODE.WS_BODY_PROTOCOL_VERSION_NORMAL) {
-                            let c = this.decoder.decode(buf.slice(i + a, i + s))
-                            u = 0 !== c.length ? JSON.parse(c) : null
-                        } else if (data.ver === WS_CODE.WS_BODY_PROTOCOL_VERSION_BROTLI) {
-                            let l = buf.slice(i + a, i + s)
-                            let h = window.BrotliDecode(new Uint8Array(l))
-                            u = this.convertToObject(h.buffer).body
-                        }
-                        u && data.body.push(u)
-                    } catch (err) {
-                        onLogger("decode body error:", new Uint8Array(buf), data, err)
+            }
+        } else {
+            for (let i = WS_CODE.WS_PACKAGE_OFFSET, s = data.packetLen, a = "", u = ""; i < buf.byteLength; i += s) {
+                s = dataView.getInt32(i)
+                a = dataView.getInt16(i + WS_CODE.WS_HEADER_OFFSET)
+                try {
+                    if (data.ver === WS_CODE.WS_BODY_PROTOCOL_VERSION_NORMAL) {
+                        let c = this.decoder.decode(buf.slice(i + a, i + s))
+                        u = 0 !== c.length ? JSON.parse(c) : null
+                    } else if (data.ver === WS_CODE.WS_BODY_PROTOCOL_VERSION_BROTLI) {
+                        let l = buf.slice(i + a, i + s)
+                        let h = window.BrotliDecode(new Uint8Array(l))
+                        u = this.convertToObject(h.buffer).body
                     }
+                    u && data.body.push(u)
+                } catch (err) {
+                    onLogger("decode body error:", new Uint8Array(buf), data, err)
                 }
             }
         }

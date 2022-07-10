@@ -46,8 +46,7 @@ export default class WebPlayerSocket {
 
     async init() {
         const { data } = await getDanmuInfo(this.opts.roomId)
-        // console.log(data)
-        onLogger("Socket init, serverInfo: ", JSON.stringify(data))
+        // onLogger("Socket init, serverInfo: ", JSON.stringify(data))
 
         const app = new DanmakuSocketApp({
             rid: this.opts.roomId,
@@ -87,8 +86,12 @@ export default class WebPlayerSocket {
             onInitialized: function () {
                 onLogger("WebSocket Initialized.")
             },
-            onReceivedMessage: function () {
-                // todo: cc
+            onReceivedMessage: function (data) {
+                switch (data.cmd) {
+                    case SocketMsgType.Danmaku:
+                        console.log(`弹幕内容: ${data.info[1]}`)
+                        break
+                }
             },
             onHeartBeatReply: function () {
 
