@@ -261,7 +261,7 @@ function DanmakuWebSocket() {
                         this.CONNECT_TIMEOUT = setTimeout( () => {
                             this.state.connectTimeoutTimes += 1
                             this.options.onLogger("connect timeout " + this.state.connectTimeoutTimes)
-                            thsi.ws.close()
+                            this.ws.close()
                         }, timeout)
                     } catch (e) {
                         "function" == typeof options.fallback && options.fallback()
