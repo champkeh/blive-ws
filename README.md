@@ -97,6 +97,20 @@ npm run start
 4. 浏览器访问`ws/index.html`文件，查看控制台，即可看到该直播间的实时弹幕内容
 
 
+## 关于 `roomId` 的获取
+
+有的直播间页面地址栏上面显示的那个 id 不一定是真实的 roomId，比如下面这个地址：
+```
+https://live.bilibili.com/76?hotRank=0&visit_id=7y401yrbfc80
+```
+这个 76 明显不是 roomId，正常的 roomId 都至少是7位数，可以从列表页面看到真实的 roomId，如下图：
+
+![真实的roomId](assets/roomId.png)
+
+鼠标放在【2022OWL守望先锋联赛】上面，浏览器左下角会显示跳转链接，这个链接里面的 id 才是真实的 roomId。
+
+> 后续看看是不是有接口可以根据直播间页面的那个id获取到真实的roomId
+
 ## LICENSE
 
 MIT
