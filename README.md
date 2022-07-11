@@ -103,13 +103,20 @@ npm run start
 ```
 https://live.bilibili.com/76?hotRank=0&visit_id=7y401yrbfc80
 ```
-这个 76 明显不是 roomId，正常的 roomId 都至少是7位数，可以从列表页面看到真实的 roomId，如下图：
+这个 76 明显不是 roomId，正常的 roomId 都至少是4位数，可以从列表页面看到真实的 roomId，如下图：
 
-![真实的roomId](assets/roomId.png)
+![获取真实的roomId](assets/roomId.png)
 
 鼠标放在【2022OWL守望先锋联赛】上面，浏览器左下角会显示跳转链接，这个链接里面的 id 才是真实的 roomId。
 
 > 后续看看是不是有接口可以根据直播间页面的那个id获取到真实的roomId
+
+补充：
+
+由于列表页并不是所有的元素都是采用 a 标签跳转的，所以不一定能看到跳转链接。此时需要查看 DOM 元素上绑定的 roomId，如下：
+
+![获取真实的roomId](assets/roomId2.png)
+
 
 ## 想要二次开发？
 
