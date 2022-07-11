@@ -49,7 +49,7 @@ export default class WebPlayerSocket {
     }
 
     async initialize() {
-        const { data } = await getDanmuInfo(this.options.roomId)
+        const {data} = await getDanmuInfo(this.options.roomId)
 
         this.app = new DanmakuSocketApp({
             rid: this.options.roomId,
@@ -136,161 +136,34 @@ export default class WebPlayerSocket {
  * @type {string[]}
  */
 const ALLOW_MSG_CONFIG = [
-    "DANMU_MSG", // 普通弹幕消息
-    "DANMU_AGGREGATION", // 聚合弹幕消息
-    "COMMON_NOTICE_DANMAKU", // 公共通知弹幕
-    "ROOM_REAL_TIME_MESSAGE_UPDATE", // 房间实时信息更新消息
-    "INTERACT_WORD", // 互动文字消息
-    "WATCHED_CHANGE", // 观看人数更新消息
-    "STOP_LIVE_ROOM_LIST", // 停播房间列表通知
-    "NOTICE_MSG", // 任务通知
-    "ONLINE_RANK_V2", // 直播间高能用户排名
-    "ONLINE_RANK_COUNT", // 直播间高能用户数
-    "ONLINE_RANK_TOP3", // 直播间Top3高能用户
-    "HOT_RANK_CHANGED", // 热榜更新
-    "HOT_RANK_CHANGED_V2", // 热榜更新
-    "ENTRY_EFFECT", // 进入特效
-    "GUARD_BUY", // 购买舰长
-    "SEND_GIFT", // 送礼物
-    "COMBO_SEND", // 连送礼物
-    "LIVE", // 开播
-    "PREPARING", // 直播结束
-    "PK_BATTLE_PRE_NEW", // PK
+    "COMMON_NOTICE_DANMAKU",            // 公共通知
+    "NOTICE_MSG",                       // 任务通知
+    "STOP_LIVE_ROOM_LIST",              // 停播直播间列表
+    "HOT_RANK_CHANGED",                 // 热榜更新
+    "HOT_RANK_CHANGED_V2",              // 热榜更新
+    "HOT_RANK_SETTLEMENT_V2",           // 热榜结算
+    "DANMU_MSG",                        // 普通弹幕
+    "DANMU_AGGREGATION",                // 聚合弹幕
+    "ROOM_REAL_TIME_MESSAGE_UPDATE",    // 直播间实时信息更新
+    "INTERACT_WORD",                    // 直播间互动文字
+    "WATCHED_CHANGE",                   // 直播间观看人数更新
+    "ONLINE_RANK_V2",                   // 直播间高能用户排名
+    "ONLINE_RANK_COUNT",                // 直播间高能用户数
+    "ONLINE_RANK_TOP3",                 // 直播间Top3高能用户
+    "ENTRY_EFFECT",                     // 进入特效
+    "GUARD_BUY",                        // 购买舰长
+    "SEND_GIFT",                        // 送礼物
+    "COMBO_SEND",                       // 连送礼物
+    "LIVE",                             // 开始直播
+    "PREPARING",                        // 结束直播
+    "PK_BATTLE_PRE_NEW",                // PK
+    "WIDGET_BANNER",                    // 小部件
 ]
 
 
-/**
- * websocket消息处理中心
- * @param data
- * @param allowMsgType
- */
-function handleMessage(data, allowMsgType) {
-    // console.log(data)
-    if (!allowMsgType.includes(data.cmd)) {
-        return
-    }
-
-    switch (data.cmd) {
-        // 弹幕消息
-        case "DANMU_MSG":
-            return handleDanmuMsg(data)
-
-        // 聚合弹幕
-        case "DANMU_AGGREGATION":
-            return handleDanmuAggregationMsg(data)
-
-        // 公共通知弹幕
-        case "COMMON_NOTICE_DANMAKU":
-            return handleCommonNoticeDanmakuMsg(data)
-
-        // 房间实时信息更新
-        case "ROOM_REAL_TIME_MESSAGE_UPDATE":
-            return handleRoomRealTimeMessageUpdate(data)
-
-        // 互动文字，比如xxx进入直播间等等这些消息
-        case "INTERACT_WORD":
-            return handleInteractWordMsg(data)
-
-        // 观看人数更新
-        case "WATCHED_CHANGE":
-            return handleWatchedChangeMsg(data)
-
-        // 停播房间列表
-        case "STOP_LIVE_ROOM_LIST":
-            return handleStopLiveRoomListMsg(data)
-
-        // 直播间高能用户数
-        case "ONLINE_RANK_COUNT":
-            return handleOnlineRankCountMsg(data)
-
-        // 一些通知消息，比如任务啥的
-        case "NOTICE_MSG":
-            return handleNoticeMsg(data)
-
-        // 直播间高能用户排名
-        case "ONLINE_RANK_V2":
-            return handleOnlineRankV2Msg(data)
-
-        // Top3 排名更新
-        case "ONLINE_RANK_TOP3":
-            return handleOnlineRankTop3Msg(data)
-
-        // 热榜更新
-        case "HOT_RANK_CHANGED":
-        case "HOT_RANK_CHANGED_V2":
-            return handleHotRankChangedMsg(data)
-
-        // 进入特效
-        case "ENTRY_EFFECT":
-            return handleEntryEffectMsg(data)
-
-        // 购买舰长
-        case "GUARD_BUY":
-            return handleGuardBuyMsg(data)
-
-        // 送礼物
-        case "SEND_GIFT":
-            return handleSendGiftMsg(data)
-
-        // 连送礼物
-        case "COMBO_SEND":
-            return handleComboSendMsg(data)
-
-        // 开播
-        case "LIVE":
-            return handleLiveMsg(data)
-
-        /**
-         * 直播结束
-         */
-        case "PREPARING":
-            return handlePreparingMsg(data)
-
-        case "PK_BATTLE_PRE_NEW":
-            return handlePkBattlePreNewMsg(data)
-
-        default:
-            console.log(data)
-            break
-    }
-}
 
 /**
- * 处理普通弹幕消息: DANMU_MSG
- * @param data
- */
-function handleDanmuMsg(data) {
-    // 示例如下：
-    // data.info = [
-    //     [],
-    //     '主播好可爱啊',
-    //     [346319245, "crazywang1", 0, 0, 0, 10000, 1, ""],
-    //     [3, "生态", "籽岷"]
-    // ]
-
-    printDanmaku({
-        uid: data.info[2][0],
-        uname: data.info[2][1],
-        text: data.info[1],
-    })
-}
-
-/**
- * 处理聚合弹幕消息: DANMU_AGGREGATION
- * @param data
- */
-function handleDanmuAggregationMsg(data) {
-    console.log(data)
-
-    const danmakuInfo = {
-        text: data.data.msg,
-        num: data.data.aggregation_num,
-    }
-    info("聚合弹幕", `${danmakuInfo.text} x${danmakuInfo.num}`)
-}
-
-/**
- * 处理公共通知弹幕消息: COMMON_NOTICE_DANMAKU
+ * 处理【公共通知】: COMMON_NOTICE_DANMAKU
  * @param data
  */
 function handleCommonNoticeDanmakuMsg(data) {
@@ -312,108 +185,7 @@ function handleCommonNoticeDanmakuMsg(data) {
 }
 
 /**
- * 处理房间实时信息更新消息: ROOM_REAL_TIME_MESSAGE_UPDATE
- * @param data
- */
-function handleRoomRealTimeMessageUpdate(data) {
-    // 示例如下：
-    // data.data = {
-    //     fans: 1276418,
-    //     fans_club: 25796,
-    //     red_notice: -1,
-    //     roomid: 47867,
-    // }
-
-    const updateInfo = {
-        fans: data.data.fans,
-        fansClub: data.data.fans_club,
-        roomId: data.data.roomid,
-    }
-    // info("房间信息更新",`房间id: ${updateInfo.roomId}，粉丝: ${updateInfo.fans}，粉丝俱乐部: ${updateInfo.fansClub}`)
-}
-
-/**
- * 处理互动文字消息: INTERACT_WORD
- * @param data
- */
-function handleInteractWordMsg(data) {
-    // 示例如下：
-    // data.data = {
-    //     contribution: {
-    //         grade: 0,
-    //     },
-    //     dmscore: 10,
-    //     fans_medal: {
-    //         anchor_roomid: 544853,
-    //         guard_level: 0,
-    //         icon_id: 0,
-    //         is_lighted: 0,
-    //         medal_color: 6067854,
-    //         medal_color_border: 12632256,
-    //         medal_color_end: 12632256,
-    //         medal_color_start: 12632256,
-    //         medal_level: 3,
-    //         medal_name: "生态",
-    //         score: 702,
-    //         special: "",
-    //         target_id: 686127,
-    //     },
-    //     is_spread: 0,
-    //     msg_type: 2,
-    //     privilege_type: 0,
-    //     roomid: 23654348,
-    //     score: 1657548725386,
-    //     spread_desc: "",
-    //     spread_info: "",
-    //     tail_icon: 0,
-    //     timestamp: 1657548725,
-    //     trigger_time: 1657548723382260000,
-    //     uid: 346319245,
-    //     uname: "crazywang1",
-    //     uname_color: "",
-    // }
-
-    const user = {
-        uid: data.data.uid,
-        name: data.data.uname,
-    }
-    // info("互动",`${user.name}(${user.uid})进入直播间`)
-}
-
-/**
- * 处理观看变化消息: WATCHED_CHANGE
- * @param data
- */
-function handleWatchedChangeMsg(data) {
-    // 示例如下：
-    // data.data = {
-    //     num: 134,
-    //     text_large: '134人看过',
-    //     text_small: '134',
-    // }
-
-    // info("直播间更新", data.data.text_large)
-}
-
-/**
- * 处理停播房间列表消息: STOP_LIVE_ROOM_LIST
- * @param data
- */
-function handleStopLiveRoomListMsg(data) {
-    // 示例如下：
-    // data.data = {
-    //     room_id_list: [
-    //         10962615,
-    //         22983207,
-    //         23476001,
-    //     ]
-    // }
-
-    // warn("全网通知", `${data.data.room_id_list.length}个直播间已停播`)
-}
-
-/**
- * 处理通知消息: NOTICE_MSG
+ * 处理【任务通知】: NOTICE_MSG
  * @param data
  */
 function handleNoticeMsg(data) {
@@ -473,59 +245,24 @@ function handleNoticeMsg(data) {
 }
 
 /**
- * 处理直播间高能用户排名消息: ONLINE_RANK_V2
+ * 处理【停播直播间列表】: STOP_LIVE_ROOM_LIST
  * @param data
  */
-function handleOnlineRankV2Msg(data) {
-    // note: 这里可以拿到直播间内的高能用户排名，
+function handleStopLiveRoomListMsg(data) {
     // 示例如下：
     // data.data = {
-    //     list: [
-    //         {
-    //             face: 'http://i2.hdslb.com/bfs/face/7aab0a3450ad85b288e130a7d2c9863e1d4d4511.jpg',
-    //             guard_level: 0,
-    //             rank: 1,
-    //             score: '11',
-    //             uid: 487408043,
-    //             uname: '叫我起床吃肉',
-    //         },
-    //     ],
-    //     rank_type: 'gold-rank'
-    // }
-}
-
-/**
- * 处理直播间高能用户数消息: ONLINE_RANK_COUNT
- * @param data
- */
-function handleOnlineRankCountMsg(data) {
-    // 示例如下：
-    // data.data = {
-    //     count: 3
-    // }
-}
-
-/**
- * 处理Top3排名更新消息: ONLINE_RANK_TOP3
- * @param data
- */
-function handleOnlineRankTop3Msg(data) {
-    // 示例如下：
-    // data.data = {
-    //     dmscore: 112,
-    //     list: [
-    //         {
-    //             msg: "恭喜 <%crazywang1%> 成为高能用户",
-    //             rank: 3,
-    //         }
+    //     room_id_list: [
+    //         10962615,
+    //         22983207,
+    //         23476001,
     //     ]
     // }
 
-    // console.log(data.data.list)
+    // warn("全网通知", `${data.data.room_id_list.length}个直播间已停播`)
 }
 
 /**
- * 处理热榜更新消息: HOT_RANK_CHANGED/HOT_RANK_CHANGED_V2
+ * 处理【热榜更新】: HOT_RANK_CHANGED / HOT_RANK_CHANGED_V2
  * @param data
  */
 function handleHotRankChangedMsg(data) {
@@ -554,7 +291,210 @@ function handleHotRankChangedMsg(data) {
 }
 
 /**
- * 处理进入特效消息: ENTRY_EFFECT
+ * 处理【热榜结算】: HOT_RANK_SETTLEMENT_V2
+ * @param data
+ * @return {undefined}
+ */
+function handleHotRankSettlementV2(data) {
+    // 示例如下：
+    // data.data = {
+    //     area_name: "独立游戏",
+    //     cache_key: "deed0bbb08390138f0ff5955d28cec94",
+    //     dm_msg: "恭喜主播 <% 神奇陆夫人 %> 荣登限时热门榜独立游戏榜top2! 即将获得热门流量推荐哦！",
+    //     face: "http://i0.hdslb.com/bfs/face/ad2f08dd806b0da46039bb2fd737eb5855924c80.jpg",
+    //     icon: "https://i0.hdslb.com/bfs/live/cb2e160ac4f562b347bb5ae6e635688ebc69580f.png",
+    //     rank: 2,
+    //     timestamp: 1657558500,
+    //     uname: "神奇陆夫人",
+    //     url: "https://live.bilibili.com/p/html/live-app-hotrank/result.html?is_live_half_webview=1&hybrid_half_ui=1,5,250,200,f4eefa,0,30,0,0,0;2,5,250,200,f4eefa,0,30,0,0,0;3,5,250,200,f4eefa,0,30,0,0,0;4,5,250,200,f4eefa,0,30,0,0,0;5,5,250,200,f4eefa,0,30,0,0,0;6,5,250,200,f4eefa,0,30,0,0,0;7,5,250,200,f4eefa,0,30,0,0,0;8,5,250,200,f4eefa,0,30,0,0,0&areaId=283&cache_key=deed0bbb08390138f0ff5955d28cec94",
+    // }
+
+}
+
+/**
+ * 处理【普通弹幕】: DANMU_MSG
+ * @param data
+ */
+function handleDanmuMsg(data) {
+    // 示例如下：
+    // data.info = [
+    //     [],
+    //     '主播好可爱啊',
+    //     [346319245, "crazywang1", 0, 0, 0, 10000, 1, ""],
+    //     [3, "生态", "籽岷"]
+    // ]
+
+    printDanmaku({
+        uid: data.info[2][0],
+        uname: data.info[2][1],
+        text: data.info[1],
+    })
+}
+
+/**
+ * 处理【聚合弹幕】: DANMU_AGGREGATION
+ * @param data
+ */
+function handleDanmuAggregationMsg(data) {
+    // 示例如下：
+    // data.data = {
+    //     activity_identity: "2860380",
+    //     activity_source: 1,
+    //     aggregation_cycle: 1,
+    //     aggregation_icon: "https://i0.hdslb.com/bfs/live/c8fbaa863bf9099c26b491d06f9efe0c20777721.png",
+    //     aggregation_num: 35,
+    //     dmscore: 144,
+    //     msg: "嗷呜",
+    //     show_rows: 1,
+    //     show_time: 2,
+    //     timestamp: 1657552328,
+    // }
+
+    const danmakuInfo = {
+        text: data.data.msg,
+        num: data.data.aggregation_num,
+    }
+    info("聚合弹幕", `${danmakuInfo.text} x${danmakuInfo.num}`)
+}
+
+/**
+ * 处理【直播间实时信息更新】: ROOM_REAL_TIME_MESSAGE_UPDATE
+ * @param data
+ */
+function handleRoomRealTimeMessageUpdate(data) {
+    // 示例如下：
+    // data.data = {
+    //     fans: 1276418,
+    //     fans_club: 25796,
+    //     red_notice: -1,
+    //     roomid: 47867,
+    // }
+
+    const updateInfo = {
+        fans: data.data.fans,
+        fansClub: data.data.fans_club,
+        roomId: data.data.roomid,
+    }
+    // info("直播间信息更新",`房间id: ${updateInfo.roomId}，粉丝: ${updateInfo.fans}，粉丝俱乐部: ${updateInfo.fansClub}`)
+}
+
+/**
+ * 处理【直播间互动文字】: INTERACT_WORD
+ * @param data
+ */
+function handleInteractWordMsg(data) {
+    // 示例如下：
+    // data.data = {
+    //     contribution: {
+    //         grade: 0,
+    //     },
+    //     dmscore: 10,
+    //     fans_medal: {
+    //         anchor_roomid: 544853,
+    //         guard_level: 0,
+    //         icon_id: 0,
+    //         is_lighted: 0,
+    //         medal_color: 6067854,
+    //         medal_color_border: 12632256,
+    //         medal_color_end: 12632256,
+    //         medal_color_start: 12632256,
+    //         medal_level: 3,
+    //         medal_name: "生态",
+    //         score: 702,
+    //         special: "",
+    //         target_id: 686127,
+    //     },
+    //     is_spread: 0,
+    //     msg_type: 2,
+    //     privilege_type: 0,
+    //     roomid: 23654348,
+    //     score: 1657548725386,
+    //     spread_desc: "",
+    //     spread_info: "",
+    //     tail_icon: 0,
+    //     timestamp: 1657548725,
+    //     trigger_time: 1657548723382260000,
+    //     uid: 346319245,
+    //     uname: "crazywang1",
+    //     uname_color: "",
+    // }
+
+    const user = {
+        uid: data.data.uid,
+        name: data.data.uname,
+    }
+    // info("互动",`${user.name}(${user.uid})进入直播间`)
+}
+
+/**
+ * 处理【直播间观看人数更新】: WATCHED_CHANGE
+ * @param data
+ */
+function handleWatchedChangeMsg(data) {
+    // 示例如下：
+    // data.data = {
+    //     num: 134,
+    //     text_large: '134人看过',
+    //     text_small: '134',
+    // }
+
+    // info("直播间更新", data.data.text_large)
+}
+
+/**
+ * 处理【直播间高能用户排名】: ONLINE_RANK_V2
+ * @param data
+ */
+function handleOnlineRankV2Msg(data) {
+    // note: 这里可以拿到直播间内的高能用户排名，
+    // 示例如下：
+    // data.data = {
+    //     list: [
+    //         {
+    //             face: 'http://i2.hdslb.com/bfs/face/7aab0a3450ad85b288e130a7d2c9863e1d4d4511.jpg',
+    //             guard_level: 0,
+    //             rank: 1,
+    //             score: '11',
+    //             uid: 487408043,
+    //             uname: '叫我起床吃肉',
+    //         },
+    //     ],
+    //     rank_type: 'gold-rank'
+    // }
+}
+
+/**
+ * 处理【直播间高能用户数】: ONLINE_RANK_COUNT
+ * @param data
+ */
+function handleOnlineRankCountMsg(data) {
+    // 示例如下：
+    // data.data = {
+    //     count: 3
+    // }
+}
+
+/**
+ * 处理【直播间 Top3 高能用户】: ONLINE_RANK_TOP3
+ * @param data
+ */
+function handleOnlineRankTop3Msg(data) {
+    // 示例如下：
+    // data.data = {
+    //     dmscore: 112,
+    //     list: [
+    //         {
+    //             msg: "恭喜 <%crazywang1%> 成为高能用户",
+    //             rank: 3,
+    //         }
+    //     ]
+    // }
+
+    // console.log(data.data.list)
+}
+
+/**
+ * 处理【进入特效】: ENTRY_EFFECT
  * @param data
  */
 function handleEntryEffectMsg(data) {
@@ -590,15 +530,26 @@ function handleEntryEffectMsg(data) {
     //     web_effective_time: 2,
     // }
 
-    warn("特效", `${data.data.copy_writing}`)
+    warn("进入特效", `${data.data.copy_writing}`)
 }
 
 /**
- * 处理送礼物消息: GUARD_BUY
+ * 处理【购买舰长】: GUARD_BUY
  * @param data
  */
 function handleGuardBuyMsg(data) {
-    console.log(data)
+    // 示例如下：
+    // data.data = {
+    //     end_time: 1657555214,
+    //     gift_id: 10003,
+    //     gift_name: "舰长",
+    //     guard_level: 3,
+    //     num: 1,
+    //     price: 198000,
+    //     start_time: 1657555214,
+    //     uid: 13420921,
+    //     username: "NAVIです",
+    // }
 
     const info1 = {
         uid: data.data.uid,
@@ -610,11 +561,11 @@ function handleGuardBuyMsg(data) {
         start: data.data.start_time,
         end: data.data.end_time,
     }
-    info("礼物", `${info1.name} 赠送了礼物 ${info1.giftName}`)
+    warn("购买舰长", `${info1.name} 赠送了礼物 ${info1.giftName}`)
 }
 
 /**
- * 处理送礼物消息: SEND_GIFT
+ * 处理【送礼物】: SEND_GIFT
  * @param data
  */
 function handleSendGiftMsg(data) {
@@ -697,15 +648,50 @@ function handleSendGiftMsg(data) {
         price: data.data.price,
         action: data.data.action,
     }
-    info("礼物", `${info2.name} ${info2.action} ${info2.giftName}x${info2.num}`)
+    warn("送礼物", `${info2.name} ${info2.action} ${info2.giftName}x${info2.num}`)
 }
 
 /**
- * 处理连送礼物消息: COMBO_SEND
+ * 处理【连送礼物】: COMBO_SEND
  * @param data
  */
 function handleComboSendMsg(data) {
-    console.log(data)
+    // 示例如下：
+    // data.data = {
+    //     action: "投喂",
+    //     batch_combo_id: "batch:gift:combo_id:301679728:67141:31036:1657552353.7089",
+    //     batch_combo_num: 7,
+    //     combo_id: "gift:combo_id:301679728:67141:31036:1657552353.7079",
+    //     combo_num: 7,
+    //     combo_total_coin: 700,
+    //     dmscore: 56,
+    //     gift_id: 31036,
+    //     gift_name: "小花花",
+    //     gift_num: 0,
+    //     is_show: 1,
+    //     medal_info: {
+    //         anchor_roomid: 0,
+    //         anchor_uname: "",
+    //         guard_level: 0,
+    //         icon_id: 0,
+    //         is_lighted: 1,
+    //         medal_color: 9272486,
+    //         medal_color_border: 9272486,
+    //         medal_color_end: 9272486,
+    //         medal_color_start: 9272486,
+    //         medal_level: 12,
+    //         medal_name: "C酱",
+    //         special: "",
+    //         target_id: 67141,
+    //     },
+    //     name_color: "",
+    //     r_uname: "C酱です",
+    //     ruid: 67141,
+    //     send_master: null,
+    //     total_num: 7,
+    //     uid: 301679728,
+    //     uname: "悠哉de日常大魔王",
+    // }
 
     const info3 = {
         uid: data.data.uid,
@@ -714,11 +700,11 @@ function handleComboSendMsg(data) {
         giftName: data.data.gift_name,
         action: data.data.action,
     }
-    info("连送", `${info3.name} ${info3.action} ${info3.giftName}`)
+    warn("连送", `${info3.name} ${info3.action} ${info3.giftName}x${info3.total}`)
 }
 
 /**
- * 处理开播消息: LIVE
+ * 处理【开始直播】: LIVE
  * @param data
  */
 function handleLiveMsg(data) {
@@ -739,21 +725,21 @@ function handleLiveMsg(data) {
         sessionKey: data.sub_session_key,
         liveTime: data.live_time,
     }
-    // info("开播", `直播间${liveInfo.roomId}已开播`)
+    // info("开始直播", `直播间${liveInfo.roomId}已开播`)
 }
 
 /**
- * 处理直播结束消息: PREPARING
+ * 处理【结束直播】: PREPARING
  * @param data
  */
 function handlePreparingMsg(data) {
     console.log(data)
 
-    info("停播", `直播间${data.roomid}已结束`)
+    info("结束直播", `直播间${data.roomid}已结束`)
 }
 
 /**
- * 处理PK消息: PK_BATTLE_PRE_NEW
+ * 处理【PK】: PK_BATTLE_PRE_NEW
  * @param data
  */
 function handlePkBattlePreNewMsg(data) {
@@ -764,5 +750,144 @@ function handlePkBattlePreNewMsg(data) {
         uid: data.data.uid,
         name: data.data.uname,
         sessionId: data.data.session_id,
+    }
+}
+
+/**
+ * 处理【小部件】: WIDGET_BANNER
+ * @param data
+ */
+function handleWidgetBanner(data) {
+    console.log(data)
+    // 示例如下：
+    // data.data = {
+    //     timestamp: 1657558420,
+    //     widget_list: {
+    //         205: {
+    //             band_id: 100542,
+    //             cover: "",
+    //             id: 205,
+    //             is_add: true,
+    //             jump_url: "https://live.bilibili.com/activity/live-activity-battle/index.html?app_name=bls_red_envelope&is_live_half_webview=1&hybrid_rotate_d=1&hybrid_half_ui=1,3,100p,70p,0,0,0,0,12,0;2,2,375,100p,0,0,0,0,12,0;3,3,100p,70p,0,0,0,0,12,0;4,2,375,100p,0,0,0,0,12,0;5,3,100p,70p,0,0,0,0,12,0;6,3,100p,70p,0,0,0,0,12,0;7,3,100p,70p,0,0,0,0,12,0;8,3,100p,70p,0,0,0,0,12,0&room_id=1016&uid=419220#/",
+    //             platform_in: ["live", "blink", "live_link", "web", "pc_link"],
+    //             site: 1,
+    //             stay_time: 5,
+    //             sub_data: "%7B%22task_status%22%3A0%2C%22current_val%22%3A371%2C%22target_val%22%3A32150%2C%22timeout%22%3A2108%2C%22reward_price%22%3A160%7D",
+    //             sub_key: "",
+    //             tip_bottom_color: "#56DDF2",
+    //             tip_text: "限时红包任务",
+    //             tip_text_color: "#FFFFFF",
+    //             title: "BLS限时红包任务",
+    //             type: 1,
+    //             url: "",
+    //             web_cover: "",
+    //         }
+    //     }
+    // }
+
+    warn("小部件", Object.values(data.data.widget_list).map(v => v.title).join('\n'))
+}
+
+
+/**
+ * websocket消息处理中心
+ * @param data
+ * @param allowMsgType
+ */
+function handleMessage(data, allowMsgType) {
+    // console.log(data)
+    // if (!allowMsgType.includes(data.cmd)) {
+    //     return
+    // }
+
+    switch (data.cmd) {
+        // 公共通知
+        case "COMMON_NOTICE_DANMAKU":
+            return handleCommonNoticeDanmakuMsg(data)
+
+        // 任务通知
+        case "NOTICE_MSG":
+            return handleNoticeMsg(data)
+
+        // 停播直播间列表
+        case "STOP_LIVE_ROOM_LIST":
+            return handleStopLiveRoomListMsg(data)
+
+        // 热榜更新
+        case "HOT_RANK_CHANGED":
+        case "HOT_RANK_CHANGED_V2":
+            return handleHotRankChangedMsg(data)
+
+        // 热榜结算
+        case "HOT_RANK_SETTLEMENT_V2":
+            return handleHotRankSettlementV2(data)
+
+        // 普通弹幕
+        case "DANMU_MSG":
+            return handleDanmuMsg(data)
+
+        // 聚合弹幕
+        case "DANMU_AGGREGATION":
+            return handleDanmuAggregationMsg(data)
+
+        // 直播间实时信息更新
+        case "ROOM_REAL_TIME_MESSAGE_UPDATE":
+            return handleRoomRealTimeMessageUpdate(data)
+
+        // 直播间互动文字
+        case "INTERACT_WORD":
+            return handleInteractWordMsg(data)
+
+        // 直播间观看人数更新
+        case "WATCHED_CHANGE":
+            return handleWatchedChangeMsg(data)
+
+        // 直播间高能用户排名
+        case "ONLINE_RANK_V2":
+            return handleOnlineRankV2Msg(data)
+
+        // 直播间高能用户数
+        case "ONLINE_RANK_COUNT":
+            return handleOnlineRankCountMsg(data)
+
+        // 直播间 Top3 高能用户
+        case "ONLINE_RANK_TOP3":
+            return handleOnlineRankTop3Msg(data)
+
+        // 进入特效
+        case "ENTRY_EFFECT":
+            return handleEntryEffectMsg(data)
+
+        // 购买舰长
+        case "GUARD_BUY":
+            return handleGuardBuyMsg(data)
+
+        // 送礼物
+        case "SEND_GIFT":
+            return handleSendGiftMsg(data)
+
+        // 连送礼物
+        case "COMBO_SEND":
+            return handleComboSendMsg(data)
+
+        // 开始直播
+        case "LIVE":
+            return handleLiveMsg(data)
+
+        // 结束直播
+        case "PREPARING":
+            return handlePreparingMsg(data)
+
+        // PK
+        case "PK_BATTLE_PRE_NEW":
+            return handlePkBattlePreNewMsg(data)
+
+        // 小部件
+        case "WIDGET_BANNER":
+            return handleWidgetBanner(data)
+
+        default:
+            console.log(data)
+            break
     }
 }

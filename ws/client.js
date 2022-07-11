@@ -1,7 +1,7 @@
 import WebPlayerSocket from "./WebPlayerSocket.js"
 
 new WebPlayerSocket({
-    roomId: 47867,
+    roomId: 1016,
     // allowMsgType: [
     //     "DANMU_MSG"
     // ]
