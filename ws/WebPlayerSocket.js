@@ -144,6 +144,8 @@ const ALLOW_MSG_CONFIG = [
     "HOT_RANK_SETTLEMENT_V2",           // 热榜结算
     "DANMU_MSG",                        // 普通弹幕
     "DANMU_AGGREGATION",                // 聚合弹幕
+    "SUPER_CHAT_MESSAGE",               // 超级聊天消息
+    "SUPER_CHAT_MESSAGE_JPN",           // 超级聊天消息
     "ROOM_REAL_TIME_MESSAGE_UPDATE",    // 直播间实时信息更新
     "INTERACT_WORD",                    // 直播间互动文字
     "WATCHED_CHANGE",                   // 直播间观看人数更新
@@ -758,7 +760,6 @@ function handlePkBattlePreNewMsg(data) {
  * @param data
  */
 function handleWidgetBanner(data) {
-    console.log(data)
     // 示例如下：
     // data.data = {
     //     timestamp: 1657558420,
@@ -788,6 +789,76 @@ function handleWidgetBanner(data) {
     warn("小部件", Object.values(data.data.widget_list).map(v => v.title).join('\n'))
 }
 
+/**
+ * 处理【超级聊天消息】: SUPER_CHAT_MESSAGE
+ * @param data
+ */
+function handleSuperChatMessage(data) {
+    // 示例如下：
+    // data.data = {
+    //     background_bottom_color: "#2A60B2",
+    //     background_color: "#EDF5FF",
+    //     background_color_end: "#405D85",
+    //     background_color_start: "#3171D2",
+    //     background_icon: "",
+    //     background_image: "https://i0.hdslb.com/bfs/live/a712efa5c6ebc67bafbe8352d3e74b820a00c13e.png",
+    //     background_price_color: "#7497CD",
+    //     color_point: 0.7,
+    //     dmscore: 112,
+    //     end_time: 1657559211,
+    //     gift: {
+    //         gift_id: 12000,
+    //         gift_name: "醒目留言",
+    //         num: 1,
+    //     },
+    //     id: 4504166,
+    //     is_ranked: 1,
+    //     is_send_audit: 0,
+    //     medal_info: {
+    //         anchor_roomid: 22143763,
+    //         anchor_uname: "裔书Izu",
+    //         guard_level: 0,
+    //         icon_id: 0,
+    //         is_lighted: 1,
+    //         medal_color: "#be6686",
+    //         medal_color_border: 12478086,
+    //         medal_color_end: 12478086,
+    //         medal_color_start: 12478086,
+    //         medal_level: 16,
+    //         medal_name: "Reader",
+    //         special: "",
+    //         target_id: 10759587,
+    //     },
+    //     message: "看着阿妈玩！我又想了买NS毕竟好久没有这种要考虑的RPG了",
+    //     message_font_color: "#A3F6FF",
+    //     message_trans: "",
+    //     price: 30,
+    //     rate: 1000,
+    //     start_time: 1657559151,
+    //     time: 60,
+    //     token: "665822AF",
+    //     trans_mark: 0,
+    //     ts: 1657559151,
+    //     uid: 350146,
+    //     user_info: {
+    //         face: "http://i1.hdslb.com/bfs/face/d2bae5fec33825da740f3b862154adf8b3282490.jpg",
+    //         face_frame: "",
+    //         guard_level: 0,
+    //         is_main_vip: 1,
+    //         is_svip: 0,
+    //         is_vip: 0,
+    //         level_color: "#5896de",
+    //         manager: 0,
+    //         name_color: "#666666",
+    //         title: "title-109-1",
+    //         uname: "移动的爆炸装置",
+    //         user_level: 27,
+    //     },
+    // }
+    // data.roomid = 1016
+
+    info("超级消息", data.data.message)
+}
 
 /**
  * websocket消息处理中心
@@ -829,6 +900,11 @@ function handleMessage(data, allowMsgType) {
         // 聚合弹幕
         case "DANMU_AGGREGATION":
             return handleDanmuAggregationMsg(data)
+
+        // 超级聊天消息
+        case "SUPER_CHAT_MESSAGE":
+        case "SUPER_CHAT_MESSAGE_JPN":
+            return handleSuperChatMessage(data)
 
         // 直播间实时信息更新
         case "ROOM_REAL_TIME_MESSAGE_UPDATE":
