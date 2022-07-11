@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const morgan = require('morgan')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
@@ -10,6 +11,10 @@ const API_SERVICE_URL = "https://api.live.bilibili.com"
 
 // Logging
 app.use(morgan('dev'))
+
+app.use(cors({
+    origin: '*'
+}))
 
 // Proxy endpoints
 app.use('/proxy', createProxyMiddleware({
