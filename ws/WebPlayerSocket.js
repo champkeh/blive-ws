@@ -1,5 +1,5 @@
 import {API_BASE} from './const.js'
-import {onLogger} from './logger.js'
+import {onLogger, info, warn, error, debug, printDanmaku} from './logger.js'
 import DanmakuSocketApp from "./SocketCore.js"
 
 export const SocketMsgType = {
@@ -245,13 +245,13 @@ export default class WebPlayerSocket {
                 },
             ],
             onOpen: function () {
-                // onLogger("WebSocket On Open")
+                debug('WS', "WebSocket On Open")
             },
             onClose: function () {
-                // onLogger("WebSocket On Close.")
+                debug("WS", "WebSocket On Close")
             },
             onError: function (err) {
-                onLogger("WebSocket On Error. url: " + JSON.stringify(err.code))
+                error("WS", "WebSocket On Error. url: " + JSON.stringify(err.code))
                 // d({type:1, evt:err.code})
             },
 
@@ -259,7 +259,7 @@ export default class WebPlayerSocket {
              * 初始化websocket
              */
             onInitialized: function () {
-                // onLogger("WebSocket Initialized.")
+                debug("WS", "WebSocket Initialized.")
             },
 
             /**
@@ -272,12 +272,11 @@ export default class WebPlayerSocket {
                      * 弹幕消息
                      */
                     case SocketMsgType.Danmaku:
-                        const danmaku = {
-                            text: data.info[1],
+                        printDanmaku({
                             uid: data.info[2][0],
-                            name: data.info[2][1],
-                        }
-                        console.log(`【弹幕】${danmaku.name}(${danmaku.uid}): ${danmaku.text}`)
+                            uname: data.info[2][1],
+                            text: data.info[1],
+                        })
                         break
 
                     /**
@@ -288,15 +287,15 @@ export default class WebPlayerSocket {
                             text: data.data.msg,
                             num: data.data.aggregation_num,
                         }
-                        console.log(`【聚合弹幕】${danmakuInfo.text} x${danmakuInfo.num}`)
+                        info("聚合弹幕", `${danmakuInfo.text} x${danmakuInfo.num}`)
                         break
 
                     /**
                      * 通知类弹幕
                      */
                     case SocketMsgType.CommonNoticeDanmaku:
-                        const contentSegs = data.data.content_segments.map(seg => seg.text).join('\n')
-                        console.log(`【通知弹幕】${contentSegs}`)
+                        const contentMsg = data.data.content_segments.map(seg => seg.text).join('\n')
+                        warn("通知弹幕", contentMsg)
                         break
 
                     /**
@@ -308,7 +307,7 @@ export default class WebPlayerSocket {
                             fansClub: data.data.fans_club,
                             roomId: data.data.roomid,
                         }
-                        console.log(`【房间信息更新】房间id: ${updateInfo.roomId}，粉丝: ${updateInfo.fans}，粉丝俱乐部: ${updateInfo.fansClub}`)
+                        info("房间信息更新",`房间id: ${updateInfo.roomId}，粉丝: ${updateInfo.fans}，粉丝俱乐部: ${updateInfo.fansClub}`)
                         break
 
                     /**
@@ -318,20 +317,23 @@ export default class WebPlayerSocket {
                         const user = {
                             uid: data.data.uid,
                             name: data.data.uname,
+                            c: '#e95020'
                         }
-                        console.log(`${user.name}(${user.uid})进入直播间`)
+                        info("互动",`${user.name}(${user.uid})进入直播间`)
                         break
 
                     /**
                      * 更新xx人看过
                      */
                     case SocketMsgType.WatchedChange:
-                        console.log(data.data.text_large)
+                        info("直播间更新", data.data.text_large)
                         break
 
+                    /**
+                     * 停播房间列表
+                     */
                     case SocketMsgType.StopLiveRoomList:
-                        // console.log(data.data.room_id_list)
-                        console.log(`【通知】${data.data.room_id_list.length}个直播间已停播`)
+                        warn("全网通知", `${data.data.room_id_list.length}个直播间已停播`)
                         break
 
                     case SocketMsgType.OnlineRankCount:
@@ -347,7 +349,7 @@ export default class WebPlayerSocket {
                             msg: data.msg_self,
                             roomId: data.roomid,
                         }
-                        console.log(`【通知】${msg.name}`)
+                        warn("通知", `${msg.name}`)
                         break
 
                     /**
@@ -374,14 +376,14 @@ export default class WebPlayerSocket {
                             rank: data.data.rank,
                             rankDesc: data.data.rank_desc,
                         }
-                        console.log(`【热榜更新】${rankInfo.area} 排名更新到 ${rankInfo.rank}`)
+                        warn("热榜更新",`${rankInfo.area}区 排名更新至 ${rankInfo.rank}名`)
                         break
 
                     /**
                      * 进入特效
                      */
                     case SocketMsgType.EntryEffect:
-                        console.log(`【特效】${data.data.copy_writing}`)
+                        warn("特效", `${data.data.copy_writing}`)
                         break
 
                     /**
@@ -398,7 +400,7 @@ export default class WebPlayerSocket {
                             start: data.data.start_time,
                             end: data.data.end_time,
                         }
-                        console.log(`【礼物】${info1.name} 赠送了礼物 ${info1.giftName}`)
+                        info("礼物", `${info1.name} 赠送了礼物 ${info1.giftName}`)
                         break
 
                     /**
@@ -413,7 +415,7 @@ export default class WebPlayerSocket {
                             price: data.data.price,
                             action: data.data.action,
                         }
-                        console.log(`【礼物】${info2.name} ${info2.action} ${info2.giftName}`)
+                        info("礼物", `${info2.name} ${info2.action} ${info2.giftName}`)
                         break
 
                     /**
@@ -427,7 +429,7 @@ export default class WebPlayerSocket {
                             giftName: data.data.gift_name,
                             action: data.data.action,
                         }
-                        console.log(`【连送】${info3.name} ${info3.action} ${info3.giftName}`)
+                        info("连送", `${info3.name} ${info3.action} ${info3.giftName}`)
                         break
 
                     /**
@@ -441,14 +443,14 @@ export default class WebPlayerSocket {
                             sessionKey: data.sub_session_key,
                             liveTime: data.live_time,
                         }
-                        console.log(`【开播】直播间${liveInfo.roomId}已开播`)
+                        info("开播", `直播间${liveInfo.roomId}已开播`)
                         break
 
                     /**
                      * 直播结束
                      */
                     case SocketMsgType.Preparing:
-                        console.log(`【结束】直播间${data.roomid}已结束`)
+                        info("停播", `直播间${data.roomid}已结束`)
                         break
 
                     case SocketMsgType.PKBattlePreNew:
