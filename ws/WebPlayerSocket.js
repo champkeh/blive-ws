@@ -160,6 +160,7 @@ const ALLOW_MSG_CONFIG = [
     "PREPARING",                        // 结束直播
     "PK_BATTLE_PRE_NEW",                // PK
     "WIDGET_BANNER",                    // 小部件
+    "LIVE_INTERACTIVE_GAME",            // 现场交互游戏(弹幕？)
 ]
 
 
@@ -357,6 +358,77 @@ function handleDanmuAggregationMsg(data) {
         num: data.data.aggregation_num,
     }
     info("聚合弹幕", `${danmakuInfo.text} x${danmakuInfo.num}`)
+}
+
+/**
+ * 处理【超级聊天消息】: SUPER_CHAT_MESSAGE
+ * @param data
+ */
+function handleSuperChatMessage(data) {
+    // 示例如下：
+    // data.data = {
+    //     background_bottom_color: "#2A60B2",
+    //     background_color: "#EDF5FF",
+    //     background_color_end: "#405D85",
+    //     background_color_start: "#3171D2",
+    //     background_icon: "",
+    //     background_image: "https://i0.hdslb.com/bfs/live/a712efa5c6ebc67bafbe8352d3e74b820a00c13e.png",
+    //     background_price_color: "#7497CD",
+    //     color_point: 0.7,
+    //     dmscore: 112,
+    //     end_time: 1657559211,
+    //     gift: {
+    //         gift_id: 12000,
+    //         gift_name: "醒目留言",
+    //         num: 1,
+    //     },
+    //     id: 4504166,
+    //     is_ranked: 1,
+    //     is_send_audit: 0,
+    //     medal_info: {
+    //         anchor_roomid: 22143763,
+    //         anchor_uname: "裔书Izu",
+    //         guard_level: 0,
+    //         icon_id: 0,
+    //         is_lighted: 1,
+    //         medal_color: "#be6686",
+    //         medal_color_border: 12478086,
+    //         medal_color_end: 12478086,
+    //         medal_color_start: 12478086,
+    //         medal_level: 16,
+    //         medal_name: "Reader",
+    //         special: "",
+    //         target_id: 10759587,
+    //     },
+    //     message: "看着阿妈玩！我又想了买NS毕竟好久没有这种要考虑的RPG了",
+    //     message_font_color: "#A3F6FF",
+    //     message_trans: "",
+    //     price: 30,
+    //     rate: 1000,
+    //     start_time: 1657559151,
+    //     time: 60,
+    //     token: "665822AF",
+    //     trans_mark: 0,
+    //     ts: 1657559151,
+    //     uid: 350146,
+    //     user_info: {
+    //         face: "http://i1.hdslb.com/bfs/face/d2bae5fec33825da740f3b862154adf8b3282490.jpg",
+    //         face_frame: "",
+    //         guard_level: 0,
+    //         is_main_vip: 1,
+    //         is_svip: 0,
+    //         is_vip: 0,
+    //         level_color: "#5896de",
+    //         manager: 0,
+    //         name_color: "#666666",
+    //         title: "title-109-1",
+    //         uname: "移动的爆炸装置",
+    //         user_level: 27,
+    //     },
+    // }
+    // data.roomid = 1016
+
+    info("超级消息", data.data.message)
 }
 
 /**
@@ -790,74 +862,29 @@ function handleWidgetBanner(data) {
 }
 
 /**
- * 处理【超级聊天消息】: SUPER_CHAT_MESSAGE
+ * 处理【现场交互游戏】: LIVE_INTERACTIVE_GAME
  * @param data
  */
-function handleSuperChatMessage(data) {
+function handleLiveInteractiveGame(data) {
     // 示例如下：
     // data.data = {
-    //     background_bottom_color: "#2A60B2",
-    //     background_color: "#EDF5FF",
-    //     background_color_end: "#405D85",
-    //     background_color_start: "#3171D2",
-    //     background_icon: "",
-    //     background_image: "https://i0.hdslb.com/bfs/live/a712efa5c6ebc67bafbe8352d3e74b820a00c13e.png",
-    //     background_price_color: "#7497CD",
-    //     color_point: 0.7,
-    //     dmscore: 112,
-    //     end_time: 1657559211,
-    //     gift: {
-    //         gift_id: 12000,
-    //         gift_name: "醒目留言",
-    //         num: 1,
-    //     },
-    //     id: 4504166,
-    //     is_ranked: 1,
-    //     is_send_audit: 0,
-    //     medal_info: {
-    //         anchor_roomid: 22143763,
-    //         anchor_uname: "裔书Izu",
-    //         guard_level: 0,
-    //         icon_id: 0,
-    //         is_lighted: 1,
-    //         medal_color: "#be6686",
-    //         medal_color_border: 12478086,
-    //         medal_color_end: 12478086,
-    //         medal_color_start: 12478086,
-    //         medal_level: 16,
-    //         medal_name: "Reader",
-    //         special: "",
-    //         target_id: 10759587,
-    //     },
-    //     message: "看着阿妈玩！我又想了买NS毕竟好久没有这种要考虑的RPG了",
-    //     message_font_color: "#A3F6FF",
-    //     message_trans: "",
-    //     price: 30,
-    //     rate: 1000,
-    //     start_time: 1657559151,
-    //     time: 60,
-    //     token: "665822AF",
-    //     trans_mark: 0,
-    //     ts: 1657559151,
-    //     uid: 350146,
-    //     user_info: {
-    //         face: "http://i1.hdslb.com/bfs/face/d2bae5fec33825da740f3b862154adf8b3282490.jpg",
-    //         face_frame: "",
-    //         guard_level: 0,
-    //         is_main_vip: 1,
-    //         is_svip: 0,
-    //         is_vip: 0,
-    //         level_color: "#5896de",
-    //         manager: 0,
-    //         name_color: "#666666",
-    //         title: "title-109-1",
-    //         uname: "移动的爆炸装置",
-    //         user_level: 27,
-    //     },
+    //     anchor_info: null,
+    //     anchor_lottery: null,
+    //     fans_medal_level: 0,
+    //     gift_id: 0,
+    //     gift_name: "",
+    //     gift_num: 0,
+    //     guard_level: 0,
+    //     msg: "爱你",
+    //     paid: false,
+    //     pk_info: null,
+    //     price: 0,
+    //     timestamp: 1657561579,
+    //     type: 2,
+    //     uface: "",
+    //     uid: 487408043,
+    //     uname: "叫我起床吃肉",
     // }
-    // data.roomid = 1016
-
-    info("超级消息", data.data.message)
 }
 
 /**
@@ -961,6 +988,9 @@ function handleMessage(data, allowMsgType) {
         // 小部件
         case "WIDGET_BANNER":
             return handleWidgetBanner(data)
+
+        case "LIVE_INTERACTIVE_GAME":
+            return handleLiveInteractiveGame(data)
 
         default:
             console.log(data)
