@@ -1,207 +1,13 @@
 import {API_BASE} from './const.js'
-import {onLogger, info, warn, error, debug, printDanmaku} from './logger.js'
+import {info, warn, error, debug, printDanmaku, onLogger} from './logger.js'
 import DanmakuSocketApp from "./SocketCore.js"
+import {extend} from "./utils.js"
 
-export const SocketMsgType = {
-    /**
-     * 弹幕消息
-     */
-    Danmaku: "DANMU_MSG",
-
-    /**
-     * 聚合弹幕
-     */
-    DanmakuAggregation: "DANMU_AGGREGATION",
-
-    /**
-     * 通知类弹幕
-     */
-    CommonNoticeDanmaku: "COMMON_NOTICE_DANMAKU",
-
-    /**
-     * 系统消息
-     */
-    SysMsg: "SYS_MSG",
-
-    /**
-     * 系统礼物
-     */
-    SysGift: "SYS_GIFT",
-
-    /**
-     * 警卫消息
-     */
-    GuardMsg: "GUARD_MSG",
-
-    /**
-     * 送礼物
-     */
-    SendGift: "SEND_GIFT",
-
-    /**
-     * 开播
-     */
-    Live: "LIVE",
-
-    /**
-     * 直播结束
-     */
-    Preparing: "PREPARING",
-
-    /**
-     * 结束
-     */
-    End: "END",
-
-    /**
-     * 关闭？
-     */
-    Close: "CLOSE",
-
-    /**
-     * 屏蔽
-     */
-    Block: "BLOCK",
-
-    /**
-     *
-     */
-    Round: "ROUND",
-
-    /**
-     * 欢迎
-     */
-    Welcome: "WELCOME",
-
-    /**
-     * 刷新？
-     */
-    Refresh: "REFRESH",
-
-    /**
-     * 活动红包
-     */
-    ActivityRedPacket: "ACTIVITY_RED_PACKET",
-
-    /**
-     * 地区屏蔽？
-     */
-    AreaBlock: "ROOM_LIMIT",
-
-    /**
-     * PK准备中
-     */
-    PkPre: "PK_PRE",
-
-    /**
-     * PK结束
-     */
-    PkEnd: "PK_END",
-
-    /**
-     * PK结算
-     */
-    PkSettle: "PK_SETTLE",
-
-    /**
-     *
-     */
-    PkMicEnd: "PK_MIC_END",
-
-    PKBattlePreNew: "PK_BATTLE_PRE_NEW",
-    PKBattleStartNew: "PK_BATTLE_START_NEW",
-
-    /**
-     * 热播通知？
-     */
-    HotRoomNotify: "HOT_ROOM_NOTIFY",
-
-    /**
-     * 播放标签
-     */
-    PLAY_TAG: "PLAY_TAG",
-
-    /**
-     * 播放进度条
-     */
-    PLAY_PROGRESS_BAR: "PLAY_PROGRESS_BAR",
-
-    /**
-     * 播放器日志回收
-     */
-    PlayerLogRecycle: "LIVE_PLAYER_LOG_RECYCLE",
-
-    /**
-     * 互动文字
-     */
-    InteractWord: "INTERACT_WORD",
-
-    /**
-     * xx人看过数据更新
-     */
-    WatchedChange: "WATCHED_CHANGE",
-
-    /**
-     * 停播房间列表
-     */
-    StopLiveRoomList: "STOP_LIVE_ROOM_LIST",
-
-    /**
-     * 在线排名数？
-     */
-    OnlineRankCount: "ONLINE_RANK_COUNT",
-
-    /**
-     * 通知消息
-     */
-    NoticeMsg: "NOTICE_MSG",
-
-    /**
-     * 在线排名
-     */
-    OnlineRank: "ONLINE_RANK_V2",
-
-    /**
-     * 进入特效
-     */
-    EntryEffect: "ENTRY_EFFECT",
-
-    /**
-     * 续费？
-     */
-    GuardBuy: "GUARD_BUY",
-
-    /**
-     * 连送
-     */
-    ComboSend: "COMBO_SEND",
-
-    /**
-     * Top3 排名更新
-     */
-    OnlineRankTop3: "ONLINE_RANK_TOP3",
-
-    /**
-     * 热榜更新
-     */
-    HotRankChanged: "HOT_RANK_CHANGED",
-
-    /**
-     * 热榜更新v2
-     */
-    HotRankChangedV2: "HOT_RANK_CHANGED_V2",
-
-    /**
-     * 房间实时信息更新
-     */
-    RoomRealTimeMessageUpdate: "ROOM_REAL_TIME_MESSAGE_UPDATE",
-
-
-}
-
-const e = new WeakMap()
-const t = new WeakMap()
-
+/**
+ * 获取弹幕服务参数
+ * @param roomId 房间id
+ * @return {Promise<any>}
+ */
 function getDanmuInfo(roomId) {
     return fetch(`${API_BASE}/xlive/web-room/v1/index/getDanmuInfo?id=${roomId}`, {
         method: 'GET',
@@ -209,19 +15,45 @@ function getDanmuInfo(roomId) {
 }
 
 export default class WebPlayerSocket {
-    constructor(opts) {
-        this.opts = opts
-
-        this.init()
+    static checkOptions(options) {
+        if (options) {
+            if (options.allowMsgType && !Array.isArray(options.allowMsgType)) {
+                error("check", "WebPlayerSocket Initialize options allowMsgType only support array.")
+                return false
+            }
+            if (options.roomId) {
+                return true
+            } else {
+                error("check", "WebPlayerSocket Initialize options roomId missing.")
+                return false
+            }
+        } else {
+            error("check", "WebPlayerSocket Initialize options missing or error.")
+            return false
+        }
     }
 
-    async init() {
-        const { data } = await getDanmuInfo(this.opts.roomId)
-        // onLogger("Socket init, serverInfo: ", JSON.stringify(data))
+    constructor(options) {
+        if (!WebPlayerSocket.checkOptions(options)) {
+            return
+        }
 
-        const app = new DanmakuSocketApp({
-            rid: this.opts.roomId,
-            uid: this.opts.userId || 0,
+        const opts = {
+            allowMsgType: ALLOW_MSG_CONFIG, // 默认处理所有消息
+        }
+        this.options = extend({}, opts, options)
+
+        this.initialize().catch(err => {
+            error("WebPlayerSocket", "初始化应用失败: " + JSON.stringify(err))
+        })
+    }
+
+    async initialize() {
+        const { data } = await getDanmuInfo(this.options.roomId)
+
+        this.app = new DanmakuSocketApp({
+            rid: this.options.roomId,
+            uid: this.options.userId || 0,
             url: "wss://broadcastlv.chat.bilibili.com:443/sub",
             urlList: data.host_list.map(h => `wss://${h.host}:${h.wss_port}/sub`),
             retry: true,
@@ -252,7 +84,6 @@ export default class WebPlayerSocket {
             },
             onError: function (err) {
                 error("WS", "WebSocket On Error. url: " + JSON.stringify(err.code))
-                // d({type:1, evt:err.code})
             },
 
             /**
@@ -266,207 +97,7 @@ export default class WebPlayerSocket {
              * 普通消息
              * @param data
              */
-            onReceivedMessage: function (data) {
-                switch (data.cmd) {
-                    /**
-                     * 弹幕消息
-                     */
-                    case SocketMsgType.Danmaku:
-                        printDanmaku({
-                            uid: data.info[2][0],
-                            uname: data.info[2][1],
-                            text: data.info[1],
-                        })
-                        break
-
-                    /**
-                     * 聚合弹幕
-                     */
-                    case SocketMsgType.DanmakuAggregation:
-                        const danmakuInfo = {
-                            text: data.data.msg,
-                            num: data.data.aggregation_num,
-                        }
-                        info("聚合弹幕", `${danmakuInfo.text} x${danmakuInfo.num}`)
-                        break
-
-                    /**
-                     * 通知类弹幕
-                     */
-                    case SocketMsgType.CommonNoticeDanmaku:
-                        const contentMsg = data.data.content_segments.map(seg => seg.text).join('\n')
-                        warn("通知弹幕", contentMsg)
-                        break
-
-                    /**
-                     * 房间实时信息更新
-                     */
-                    case SocketMsgType.RoomRealTimeMessageUpdate:
-                        const updateInfo = {
-                            fans: data.data.fans,
-                            fansClub: data.data.fans_club,
-                            roomId: data.data.roomid,
-                        }
-                        info("房间信息更新",`房间id: ${updateInfo.roomId}，粉丝: ${updateInfo.fans}，粉丝俱乐部: ${updateInfo.fansClub}`)
-                        break
-
-                    /**
-                     * 互动文字，比如xxx进入直播间等等这些消息
-                     */
-                    case SocketMsgType.InteractWord:
-                        const user = {
-                            uid: data.data.uid,
-                            name: data.data.uname,
-                            c: '#e95020'
-                        }
-                        info("互动",`${user.name}(${user.uid})进入直播间`)
-                        break
-
-                    /**
-                     * 更新xx人看过
-                     */
-                    case SocketMsgType.WatchedChange:
-                        info("直播间更新", data.data.text_large)
-                        break
-
-                    /**
-                     * 停播房间列表
-                     */
-                    case SocketMsgType.StopLiveRoomList:
-                        warn("全网通知", `${data.data.room_id_list.length}个直播间已停播`)
-                        break
-
-                    case SocketMsgType.OnlineRankCount:
-                        // console.log(data.data.count)
-                        break
-
-                    /**
-                     * 一些通知消息，比如任务啥的
-                     */
-                    case SocketMsgType.NoticeMsg:
-                        const msg = {
-                            name: data.name,
-                            msg: data.msg_self,
-                            roomId: data.roomid,
-                        }
-                        warn("通知", `${msg.name}`)
-                        break
-
-                    /**
-                     * 高能用户排名
-                     */
-                    case SocketMsgType.OnlineRank:
-                        // console.log(data.data.list)
-                        break
-
-                    /**
-                     * Top3 排名更新
-                     */
-                    case SocketMsgType.OnlineRankTop3:
-                        // console.log(data.data.list)
-                        break
-
-                    /**
-                     * 热榜更新
-                     */
-                    case SocketMsgType.HotRankChanged:
-                    case SocketMsgType.HotRankChangedV2:
-                        const rankInfo = {
-                            area: data.data.area_name,
-                            rank: data.data.rank,
-                            rankDesc: data.data.rank_desc,
-                        }
-                        warn("热榜更新",`${rankInfo.area}区 排名更新至 ${rankInfo.rank}名`)
-                        break
-
-                    /**
-                     * 进入特效
-                     */
-                    case SocketMsgType.EntryEffect:
-                        warn("特效", `${data.data.copy_writing}`)
-                        break
-
-                    /**
-                     * 送礼物
-                     */
-                    case SocketMsgType.GuardBuy:
-                        const info1 = {
-                            uid: data.data.uid,
-                            name: data.data.username,
-                            giftName: data.data.gift_name,
-                            giftId: data.data.gift_id,
-                            num: data.data.num,
-                            price: data.data.price,
-                            start: data.data.start_time,
-                            end: data.data.end_time,
-                        }
-                        info("礼物", `${info1.name} 赠送了礼物 ${info1.giftName}`)
-                        break
-
-                    /**
-                     * 送礼物
-                     */
-                    case SocketMsgType.SendGift:
-                        const info2 = {
-                            uid: data.data.uid,
-                            name: data.data.uname,
-                            giftName: data.data.giftName,
-                            num: data.data.num,
-                            price: data.data.price,
-                            action: data.data.action,
-                        }
-                        info("礼物", `${info2.name} ${info2.action} ${info2.giftName}`)
-                        break
-
-                    /**
-                     * 连送礼物
-                     */
-                    case SocketMsgType.ComboSend:
-                        const info3 = {
-                            uid: data.data.uid,
-                            name: data.data.uname,
-                            total: data.data.combo_num,
-                            giftName: data.data.gift_name,
-                            action: data.data.action,
-                        }
-                        info("连送", `${info3.name} ${info3.action} ${info3.giftName}`)
-                        break
-
-                    /**
-                     * 开播
-                     */
-                    case SocketMsgType.Live:
-                        const liveInfo = {
-                            key: data.live_key,
-                            platform: data.live_platform,
-                            roomId: data.roomid,
-                            sessionKey: data.sub_session_key,
-                            liveTime: data.live_time,
-                        }
-                        info("开播", `直播间${liveInfo.roomId}已开播`)
-                        break
-
-                    /**
-                     * 直播结束
-                     */
-                    case SocketMsgType.Preparing:
-                        info("停播", `直播间${data.roomid}已结束`)
-                        break
-
-                    case SocketMsgType.PKBattlePreNew:
-                        const battleNew = {
-                            roomId: data.data.room_id,
-                            uid: data.data.uid,
-                            name: data.data.uname,
-                            sessionId: data.data.session_id,
-                        }
-                        break
-
-                    default:
-                        console.log(data)
-                        break
-                }
-            },
+            onReceivedMessage: this.handleMessage.bind(this),
 
             /**
              * 心跳回复包
@@ -478,26 +109,365 @@ export default class WebPlayerSocket {
             },
 
             onReceiveAuthRes: function () {
-
             },
             onListConnectError: function () {
-
             },
             onRetryFallback: function () {
-
             },
 
             /**
              * 浏览器不支持 websocket 的降级处理
              */
             fallback: function () {
-                //
             },
 
-
             onLogger: function () {
-
             }
         })
+    }
+
+    handleMessage(data) {
+        handleMessage(data, this.options.allowMsgType)
+    }
+}
+
+/**
+ * 需要处理的消息类型
+ * @type {string[]}
+ */
+const ALLOW_MSG_CONFIG = [
+    "DANMU_MSG", // 普通弹幕消息
+    "DANMU_AGGREGATION", // 聚合弹幕消息
+    "COMMON_NOTICE_DANMAKU", // 通知类弹幕
+    "ROOM_REAL_TIME_MESSAGE_UPDATE", // 房间实时信息更新消息
+    "INTERACT_WORD", // 互动文字消息
+    "WATCHED_CHANGE", // 观看人数更新消息
+    "STOP_LIVE_ROOM_LIST", // 停播房间列表通知
+    "ONLINE_RANK_COUNT", // 在线排名数
+    "NOTICE_MSG", // 任务通知
+    "ONLINE_RANK_V2", // 高能用户排名
+    "ONLINE_RANK_TOP3", // Top3排名
+    "HOT_RANK_CHANGED", // 热榜更新
+    "HOT_RANK_CHANGED_V2", // 热榜更新
+    "ENTRY_EFFECT", // 进入特效
+    "GUARD_BUY", // 购买舰长
+    "SEND_GIFT", // 送礼物
+    "COMBO_SEND", // 连送礼物
+    "LIVE", // 开播
+    "PREPARING", // 直播结束
+    "PK_BATTLE_PRE_NEW", // PK
+]
+
+
+/**
+ * websocket消息处理中心
+ * @param data
+ * @param allowMsgType
+ */
+function handleMessage(data, allowMsgType) {
+    if (!allowMsgType.includes(data.cmd)) {
+        return
+    }
+
+    switch (data.cmd) {
+        // 弹幕消息
+        case "DANMU_MSG":
+            return handleDanmuMsg(data)
+
+        // 聚合弹幕
+        case "DANMU_AGGREGATION":
+            return handleDanmuAggregationMsg(data)
+
+        // 通知类弹幕
+        case "COMMON_NOTICE_DANMAKU":
+            return handleCommonNoticeDanmakuMsg(data)
+
+        // 房间实时信息更新
+        case "ROOM_REAL_TIME_MESSAGE_UPDATE":
+            return handleRoomRealTimeMessageUpdate(data)
+
+        // 互动文字，比如xxx进入直播间等等这些消息
+        case "INTERACT_WORD":
+            return handleInteractWordMsg(data)
+
+        // 观看人数更新
+        case "WATCHED_CHANGE":
+            return handleWatchedChangeMsg(data)
+
+        // 停播房间列表
+        case "STOP_LIVE_ROOM_LIST":
+            return handleStopLiveRoomListMsg(data)
+
+        // 在线排名数?
+        case "ONLINE_RANK_COUNT":
+            return handleOnlineRankCountMsg(data)
+
+        // 一些通知消息，比如任务啥的
+        case "NOTICE_MSG":
+            return handleNoticeMsg(data)
+
+        // 高能用户排名
+        case "ONLINE_RANK_V2":
+            return handleOnlineRankV2Msg(data)
+
+        // Top3 排名更新
+        case "ONLINE_RANK_TOP3":
+            return handleOnlineRankTop3Msg(data)
+
+        // 热榜更新
+        case "HOT_RANK_CHANGED":
+        case "HOT_RANK_CHANGED_V2":
+            return handleHotRankChangedMsg(data)
+
+        // 进入特效
+        case "ENTRY_EFFECT":
+            return handleEntryEffectMsg(data)
+
+        // 购买舰长
+        case "GUARD_BUY":
+            return handleGuardBuyMsg(data)
+
+        // 送礼物
+        case "SEND_GIFT":
+            return handleSendGiftMsg(data)
+
+        // 连送礼物
+        case "COMBO_SEND":
+            return handleComboSendMsg(data)
+
+        // 开播
+        case "LIVE":
+            return handleLiveMsg(data)
+
+        /**
+         * 直播结束
+         */
+        case "PREPARING":
+            return handlePreparingMsg(data)
+
+        case "PK_BATTLE_PRE_NEW":
+            return handlePkBattlePreNewMsg(data)
+
+        default:
+            console.log(data)
+            break
+    }
+}
+
+/**
+ * 处理普通弹幕消息: DANMU_MSG
+ * @param data
+ */
+function handleDanmuMsg(data) {
+    printDanmaku({
+        uid: data.info[2][0],
+        uname: data.info[2][1],
+        text: data.info[1],
+    })
+}
+
+/**
+ * 处理聚合弹幕消息: DANMU_AGGREGATION
+ * @param data
+ */
+function handleDanmuAggregationMsg(data) {
+    const danmakuInfo = {
+        text: data.data.msg,
+        num: data.data.aggregation_num,
+    }
+    info("聚合弹幕", `${danmakuInfo.text} x${danmakuInfo.num}`)
+}
+
+/**
+ * 处理通知类弹幕消息: COMMON_NOTICE_DANMAKU
+ * @param data
+ */
+function handleCommonNoticeDanmakuMsg(data) {
+    const contentMsg = data.data.content_segments.map(seg => seg.text).join('\n')
+    warn("通知弹幕", contentMsg)
+}
+
+/**
+ * 处理房间实时信息更新消息: ROOM_REAL_TIME_MESSAGE_UPDATE
+ * @param data
+ */
+function handleRoomRealTimeMessageUpdate(data) {
+    const updateInfo = {
+        fans: data.data.fans,
+        fansClub: data.data.fans_club,
+        roomId: data.data.roomid,
+    }
+    info("房间信息更新",`房间id: ${updateInfo.roomId}，粉丝: ${updateInfo.fans}，粉丝俱乐部: ${updateInfo.fansClub}`)
+}
+
+/**
+ * 处理互动文字消息: INTERACT_WORD
+ * @param data
+ */
+function handleInteractWordMsg(data) {
+    const user = {
+        uid: data.data.uid,
+        name: data.data.uname,
+        c: '#e95020'
+    }
+    info("互动",`${user.name}(${user.uid})进入直播间`)
+}
+
+/**
+ * 处理观看变化消息: WATCHED_CHANGE
+ * @param data
+ */
+function handleWatchedChangeMsg(data) {
+    info("直播间更新", data.data.text_large)
+}
+
+/**
+ * 处理停播房间列表消息: STOP_LIVE_ROOM_LIST
+ * @param data
+ */
+function handleStopLiveRoomListMsg(data) {
+    warn("全网通知", `${data.data.room_id_list.length}个直播间已停播`)
+}
+
+/**
+ * 处理在线排名数消息: ONLINE_RANK_COUNT
+ * @param data
+ */
+function handleOnlineRankCountMsg(data) {
+// console.log(data.data.count)
+}
+
+/**
+ * 处理通知消息: NOTICE_MSG
+ * @param data
+ */
+function handleNoticeMsg(data) {
+    const msg = {
+        name: data.name,
+        msg: data.msg_self,
+        roomId: data.roomid,
+    }
+    warn("通知", `${msg.name}`)
+}
+
+/**
+ * 处理高能用户排名消息: ONLINE_RANK_V2
+ * @param data
+ */
+function handleOnlineRankV2Msg(data) {
+// console.log(data.data.list)
+}
+
+/**
+ * 处理Top3排名更新消息: ONLINE_RANK_TOP3
+ * @param data
+ */
+function handleOnlineRankTop3Msg(data) {
+// console.log(data.data.list)
+}
+
+/**
+ * 处理热榜更新消息: HOT_RANK_CHANGED/HOT_RANK_CHANGED_V2
+ * @param data
+ */
+function handleHotRankChangedMsg(data) {
+    const rankInfo = {
+        area: data.data.area_name,
+        rank: data.data.rank,
+        rankDesc: data.data.rank_desc,
+    }
+    warn("热榜更新",`${rankInfo.area}区 排名更新至 ${rankInfo.rank}名`)
+}
+
+/**
+ * 处理进入特效消息: ENTRY_EFFECT
+ * @param data
+ */
+function handleEntryEffectMsg(data) {
+    warn("特效", `${data.data.copy_writing}`)
+}
+
+/**
+ * 处理送礼物消息: GUARD_BUY
+ * @param data
+ */
+function handleGuardBuyMsg(data) {
+    const info1 = {
+        uid: data.data.uid,
+        name: data.data.username,
+        giftName: data.data.gift_name,
+        giftId: data.data.gift_id,
+        num: data.data.num,
+        price: data.data.price,
+        start: data.data.start_time,
+        end: data.data.end_time,
+    }
+    info("礼物", `${info1.name} 赠送了礼物 ${info1.giftName}`)
+}
+
+/**
+ * 处理送礼物消息: SEND_GIFT
+ * @param data
+ */
+function handleSendGiftMsg(data) {
+    const info2 = {
+        uid: data.data.uid,
+        name: data.data.uname,
+        giftName: data.data.giftName,
+        num: data.data.num,
+        price: data.data.price,
+        action: data.data.action,
+    }
+    info("礼物", `${info2.name} ${info2.action} ${info2.giftName}`)
+}
+
+/**
+ * 处理连送礼物消息: COMBO_SEND
+ * @param data
+ */
+function handleComboSendMsg(data) {
+    const info3 = {
+        uid: data.data.uid,
+        name: data.data.uname,
+        total: data.data.combo_num,
+        giftName: data.data.gift_name,
+        action: data.data.action,
+    }
+    info("连送", `${info3.name} ${info3.action} ${info3.giftName}`)
+}
+
+/**
+ * 处理开播消息: LIVE
+ * @param data
+ */
+function handleLiveMsg(data) {
+    const liveInfo = {
+        key: data.live_key,
+        platform: data.live_platform,
+        roomId: data.roomid,
+        sessionKey: data.sub_session_key,
+        liveTime: data.live_time,
+    }
+    info("开播", `直播间${liveInfo.roomId}已开播`)
+}
+
+/**
+ * 处理直播结束消息: PREPARING
+ * @param data
+ */
+function handlePreparingMsg(data) {
+    info("停播", `直播间${data.roomid}已结束`)
+}
+
+/**
+ * 处理PK消息: PK_BATTLE_PRE_NEW
+ * @param data
+ */
+function handlePkBattlePreNewMsg(data) {
+    const battleNew = {
+        roomId: data.data.room_id,
+        uid: data.data.uid,
+        name: data.data.uname,
+        sessionId: data.data.session_id,
     }
 }
