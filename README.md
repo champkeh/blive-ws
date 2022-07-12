@@ -98,6 +98,18 @@ npm run start
 ![使用效果](assets/demo.png)
 
 
+默认监听直播间的【普通弹幕】、【文本交互】、【送礼物】以及【连接】和【断开】事件，想要监听更多消息，可以通过`addEventListener`添加更多类型的监听器。
+
+比如，监听【进入特效】消息代码如下：
+
+```js
+socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
+    // 进入特效的数据 detail
+})
+```
+
+目前可用的消息类型可以查看[代码](source/ws/WebPlayerSocket.js#L138:L164)
+
 ## 目录说明
 
 下面是各个目录的说明：
