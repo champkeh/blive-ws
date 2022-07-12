@@ -7,7 +7,26 @@ import {onSocketOpen, onSocketClose, onDanmuMsg, onSendGiftMsg, onInteractWordMs
  * @return {Promise<any>}
  */
 function getDanmuInfo(rid) {
-    return fetch(`/proxy/xlive/web-room/v1/index/getDanmuInfo?id=${rid}`).then(resp => resp.json())
+    return fetch(`/proxy-api/xlive/web-room/v1/index/getDanmuInfo?id=${rid}`).then(resp => resp.json())
+}
+
+/**
+ * 根据uid获取头像(爬虫实现)
+ * @param uid
+ * @return {Promise<string>}
+ */
+function getFace(uid) {
+    return new Promise((resolve, reject) => {
+        fetch(`/proxy-space/${uid}/`).then(resp => resp.text()).then(body => {
+            // 正则匹配
+            const matchRes = body.match(/href="(?<face>[^"]+?face[^"]+?)"/)
+            if (matchRes && matchRes.groups.face) {
+                resolve(matchRes.groups.face)
+            } else {
+                reject(new Error("解析无果"))
+            }
+        }).catch(reject)
+    })
 }
 
 // 一些dom元素

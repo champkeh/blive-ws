@@ -15,14 +15,24 @@ app.use(morgan('dev'))
 app.use(express.static('.'))
 
 // 代理B站API
-app.use('/proxy', createProxyMiddleware({
+app.use('/proxy-api', createProxyMiddleware({
     target: "https://api.live.bilibili.com",
     changeOrigin: true,
     headers: {
         referer: 'https://live.bilibili.com/'
     },
     pathRewrite: {
-        [`^/proxy`]: '',
+        [`^/proxy-api`]: '',
+    }
+}))
+app.use('/proxy-space', createProxyMiddleware({
+    target: "https://space.bilibili.com",
+    changeOrigin: true,
+    headers: {
+        referer: 'https://bilibili.com/'
+    },
+    pathRewrite: {
+        [`^/proxy-space`]: '',
     }
 }))
 
