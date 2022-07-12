@@ -1,24 +1,21 @@
 const express = require('express')
-const cors = require('cors')
 const morgan = require('morgan')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
 const app = express()
 
-const PORT = 3000
+const PORT = 1991
 const HOST = "localhost"
-const API_SERVICE_URL = "https://api.live.bilibili.com"
 
-// Logging
+// 开启日志
 app.use(morgan('dev'))
 
-app.use(cors({
-    origin: '*'
-}))
+// 开启一个静态服务器
+app.use(express.static('.'))
 
-// Proxy endpoints
+// 代理B站API
 app.use('/proxy', createProxyMiddleware({
-    target: API_SERVICE_URL,
+    target: "https://api.live.bilibili.com",
     changeOrigin: true,
     headers: {
         referer: 'https://live.bilibili.com/'
@@ -28,7 +25,7 @@ app.use('/proxy', createProxyMiddleware({
     }
 }))
 
-// Start the Proxy
+// 启动服务器
 app.listen(PORT, HOST, () => {
-    console.log(`Starting Proxy at ${HOST}:${PORT}`)
+    console.log(`Starting Server at http://${HOST}:${PORT}`)
 })

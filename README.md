@@ -1,5 +1,5 @@
 # danmaku.bilibili
-B站直播间实时弹幕技术分析
+B站直播间实时弹幕获取
 
 ## 缘起
 
@@ -21,7 +21,7 @@ B站直播间实时弹幕技术分析
 
 首先调用接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`、`host_list`等建立`ws`所需的基本参数。
 
-`host_list`用于轮训ws服务。
+`host_list`用于服务断开后的重连服务列表，每次都会随机返回2个链接地址。
 
 下面是一个接口返回示例：
 ```json
@@ -56,6 +56,8 @@ B站直播间实时弹幕技术分析
 }
 ```
 
+有了`token`，我们就可以建立`websocket`连接了，`websocket`内部传输的数据为二进制格式，数据格式如下。
+
 ## 二进制消息协议
 
 ### 消息编码结构
@@ -75,27 +77,25 @@ body 部分是变长的，采用 utf-8 进行编码。
 
 todo
 
-## 客户端实现
-
-参考 `ws` 目录下相关代码
 
 ## 如何使用？
 
 1. 安装依赖
 ```shell
-npm install
+pnpm i
 ```
 
-2. 启动代理服务器
-> 主要是代理B站的相关接口
+2. 启动服务
+
+> 该服务器主要是用来代理B站的相关接口，防止出现 CORS 错误
+
 ```shell
 npm run start
 ```
 
-3. 根据自己的需求修改`ws/client.js`文件中的房间ID(roomId)的值
+3. 输入直播间id即可开始采集弹幕数据了
 
-4. 浏览器访问`ws/index.html`文件，查看控制台，即可看到该直播间的实时弹幕内容
-
+![使用效果](assets/demo.png)
 
 ## 关于 `roomId` 的获取
 
@@ -125,8 +125,10 @@ https://live.bilibili.com/76?hotRank=0&visit_id=7y401yrbfc80
 - raw: 从b站获取的压缩版js文件，保留不动
 - analysis: 对上面的压缩版js进行格式化，也可能会把一些文件拆成多个文件方便分析，但不会对代码进行额外的处理
 - apis: b站网页调用的一些接口，后续看看能不能利用一下
-- proxy: 代理服务器，用于在本地代理b站的一些api接口(主要是解决CORS问题)
 - source/ws: 最终还原出的源码，目前只关注websocket弹幕服务，后面如果要分析其他部分，可能会单独创建目录
+- apps: 基于分析出来的源码做的一些案例
+
+> 核心实现已经发布到npm [blive-ws](https://www.npmjs.com/package/blive-ws)，可以直接基于它进行二次开发。
 
 ## LICENSE
 
