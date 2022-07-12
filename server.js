@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
+const open = require('open')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
 const app = express()
@@ -28,4 +29,5 @@ app.use('/proxy', createProxyMiddleware({
 // 启动服务器
 app.listen(PORT, HOST, () => {
     console.log(`Starting Server at http://${HOST}:${PORT}`)
+    open(`http://${HOST}:${PORT}`)
 })
