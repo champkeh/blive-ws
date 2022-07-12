@@ -25,6 +25,7 @@ app.use('/proxy-api', createProxyMiddleware({
         [`^/proxy-api`]: '',
     }
 }))
+// 代理space子域
 app.use('/proxy-space', createProxyMiddleware({
     target: "https://space.bilibili.com",
     changeOrigin: true,
@@ -33,6 +34,16 @@ app.use('/proxy-space', createProxyMiddleware({
     },
     pathRewrite: {
         [`^/proxy-space`]: '',
+    }
+}))
+app.use('/proxy-live', createProxyMiddleware({
+    target: "https://live.bilibili.com",
+    changeOrigin: true,
+    headers: {
+        referer: 'https://bilibili.com/'
+    },
+    pathRewrite: {
+        [`^/proxy-live`]: '',
     }
 }))
 

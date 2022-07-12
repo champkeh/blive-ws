@@ -11,7 +11,7 @@ function getDanmuInfo(rid) {
 }
 
 /**
- * 根据uid获取头像(爬虫实现)
+ * 根据uid获取头像 (爬虫实现)
  * @param uid
  * @return {Promise<string>}
  */
@@ -28,6 +28,30 @@ function getFace(uid) {
         }).catch(reject)
     })
 }
+
+/**
+ * 根据url获取roomid (爬虫实现)
+ * @param url
+ * @return {Promise<string>}
+ */
+function getRoomId(url) {
+    return new Promise((resolve, reject) => {
+        if (!/^https?:\/\/live.bilibili.com\/\d+/i.test(url)) {
+            reject(new Error('url格式不正确'))
+        }
+        url = url.replace(/^https?:\/\/live.bilibili.com/, '/proxy-live')
+        fetch(url).then(resp => resp.text()).then(body => {
+            // 正则匹配
+            const matchRes = body.match(/"web_share_link":"https?.+?u002F(?<roomid>\d+)"/)
+            if (matchRes && matchRes.groups.roomid) {
+                resolve(matchRes.groups.roomid)
+            } else {
+                reject(new Error('解析无果'))
+            }
+        }).catch(reject)
+    })
+}
+
 
 // 一些dom元素
 const form = document.getElementById('form')
@@ -98,7 +122,18 @@ const rooms = new Map()
 form.addEventListener('submit', async (evt) => {
     evt.preventDefault()
 
-    const rid = +ridEl.value
+    let rid = ridEl.value
+    // 判断rid是否为url
+    if (/\D/.test(rid)) {
+        if (!/^https?:\/\/live.bilibili.com\/\d+/i.test(rid)) {
+            console.warn(`房间号${rid}不正确，请输入真实房间号或者直播间地址`)
+            return
+        }
+
+        rid = await getRoomId(rid)
+    }
+    rid = +rid
+
     if (!rooms.has(rid)) {
         connectToLiveRoom(rid).then(socket => {
             rooms.set(rid, socket)
