@@ -108,7 +108,7 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 })
 ```
 
-目前可用的消息类型可以查看[代码](source/ws/WebPlayerSocket.js#L138:L164)
+目前可用的消息类型可以查看 [WebPlayerSocket.js#L138:L164](source/ws/WebPlayerSocket.js#L138:L164)
 
 ## 目录说明
 
