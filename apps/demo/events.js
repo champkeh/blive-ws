@@ -1,18 +1,19 @@
 import Logger from "./logger.js"
 
-export function onSocketOpen(detail) {
+export function onSocketOpen(options, detail) {
     console.log(`直播间${detail.rid}连接成功`)
 }
 
-export function onSocketClose(detail) {
+export function onSocketClose(options, detail) {
     console.log(`直播间${detail.rid}断开连接`)
 }
 
 /**
  * 监听【普通弹幕】: DANMU_MSG
+ * @param options
  * @param data
  */
-export function onDanmuMsg(data) {
+export function onDanmuMsg(options, data) {
     // 示例如下：
     // data.info = [
     //     [],
@@ -26,14 +27,15 @@ export function onDanmuMsg(data) {
         uname: data.info[2][1],
         text: data.info[1],
     }
-    Logger.info('弹幕', `${info.uname}(${info.uid}): ${info.text}`)
+    Logger.printDanmaku(options.rid, info)
 }
 
 /**
  * 监听【直播间互动文字】: INTERACT_WORD
+ * @param options
  * @param data
  */
-export function onInteractWordMsg(data) {
+export function onInteractWordMsg(options, data) {
     // 示例如下：
     // data.data = {
     //     contribution: {
@@ -74,14 +76,15 @@ export function onInteractWordMsg(data) {
         uid: data.data.uid,
         name: data.data.uname,
     }
-    Logger.info("互动",`${user.name}(${user.uid})进入直播间`)
+    Logger.info(options.rid, "互动",`${user.name}(${user.uid})进入直播间`)
 }
 
 /**
  * 监听【送礼物】: SEND_GIFT
+ * @param options
  * @param data
  */
-export function onSendGiftMsg(data) {
+export function onSendGiftMsg(options, data) {
     // 示例如下：
     // data.data = {
     //     action: "投喂",
@@ -161,5 +164,5 @@ export function onSendGiftMsg(data) {
         price: data.data.price,
         action: data.data.action,
     }
-    Logger.warn("送礼物", `${info.name} ${info.action} ${info.giftName}x${info.num}`)
+    Logger.warn(options.rid, "送礼物", `${info.name} ${info.action} ${info.giftName}x${info.num}`)
 }

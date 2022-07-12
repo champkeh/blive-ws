@@ -85,19 +85,19 @@ form.addEventListener('submit', async (evt) => {
             rooms.set(rid, socket)
             // 绑定事件
             socket.addEventListener('open', ({detail}) => {
-                onSocketOpen(detail)
+                onSocketOpen(socket.options, detail)
             })
             socket.addEventListener('close', ({detail}) => {
-                onSocketClose(detail)
+                onSocketClose(socket.options, detail)
             })
             socket.addEventListener('DANMU_MSG', ({detail}) => {
-                onDanmuMsg(detail)
+                onDanmuMsg(socket.options, detail)
             })
             socket.addEventListener('INTERACT_WORD', ({detail}) => {
-                onInteractWordMsg(detail)
+                onInteractWordMsg(socket.options, detail)
             })
             socket.addEventListener('SEND_GIFT', ({detail}) => {
-                onSendGiftMsg(detail)
+                onSendGiftMsg(socket.options, detail)
             })
 
             renderRoomList()
@@ -119,7 +119,7 @@ roomsEl.addEventListener('click', evt => {
 }, {capture: false})
 
 /**
- *
+ * 渲染房间列表
  */
 function renderRoomList() {
     const ul = document.querySelector('#rooms > ul')

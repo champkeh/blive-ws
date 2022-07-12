@@ -7,9 +7,9 @@ p {
 #app {
     position: relative;
     max-width: 800px;
+    min-width: 580px;
     background-color: antiquewhite;
     margin: 10px auto;
-    /*padding: 10px 20px 40px;*/
     border-radius: 8px;
 }
 #app > header {
