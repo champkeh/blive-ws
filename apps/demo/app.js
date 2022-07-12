@@ -1,56 +1,6 @@
 import WebPlayerSocket from 'https://esm.sh/blive-ws'
 import {onSocketOpen, onSocketClose, onDanmuMsg, onSendGiftMsg, onInteractWordMsg} from './events.js'
-
-/**
- * 获取弹幕服务参数
- * @param rid 直播间id
- * @return {Promise<any>}
- */
-function getDanmuInfo(rid) {
-    return fetch(`/proxy-api/xlive/web-room/v1/index/getDanmuInfo?id=${rid}`).then(resp => resp.json())
-}
-
-/**
- * 根据uid获取头像 (爬虫实现)
- * @param uid
- * @return {Promise<string>}
- */
-function getFace(uid) {
-    return new Promise((resolve, reject) => {
-        fetch(`/proxy-space/${uid}/`).then(resp => resp.text()).then(body => {
-            // 正则匹配
-            const matchRes = body.match(/href="(?<face>[^"]+?face[^"]+?)"/)
-            if (matchRes && matchRes.groups.face) {
-                resolve(matchRes.groups.face)
-            } else {
-                reject(new Error("解析无果"))
-            }
-        }).catch(reject)
-    })
-}
-
-/**
- * 根据url获取roomid (爬虫实现)
- * @param url
- * @return {Promise<string>}
- */
-function getRoomId(url) {
-    return new Promise((resolve, reject) => {
-        if (!/^https?:\/\/live.bilibili.com\/\d+/i.test(url)) {
-            reject(new Error('url格式不正确'))
-        }
-        url = url.replace(/^https?:\/\/live.bilibili.com/, '/proxy-live')
-        fetch(url).then(resp => resp.text()).then(body => {
-            // 正则匹配
-            const matchRes = body.match(/"web_share_link":"https?.+?u002F(?<roomid>\d+)"/)
-            if (matchRes && matchRes.groups.roomid) {
-                resolve(matchRes.groups.roomid)
-            } else {
-                reject(new Error('解析无果'))
-            }
-        }).catch(reject)
-    })
-}
+import {getDanmuInfo, getRoomPlayInfo} from '../../apis/utils.js'
 
 
 // 一些dom元素
@@ -61,7 +11,7 @@ const connectBtnEl = document.getElementById('connect')
 
 /**
  * 连接直播间弹幕系统
- * @param rid 直播间id 271744
+ * @param rid 直播间id
  * @return {Promise<WebPlayerSocket>}
  */
 async function connectToLiveRoom(rid) {
@@ -122,17 +72,15 @@ const rooms = new Map()
 form.addEventListener('submit', async (evt) => {
     evt.preventDefault()
 
-    let rid = ridEl.value
-    // 判断rid是否为url
-    if (/\D/.test(rid)) {
-        if (!/^https?:\/\/live.bilibili.com\/\d+/i.test(rid)) {
-            console.warn(`房间号${rid}不正确，请输入真实房间号或者直播间地址`)
-            return
-        }
-
-        rid = await getRoomId(rid)
+    let rid = +ridEl.value
+    const roomInfo = await getRoomPlayInfo(rid)
+    if (roomInfo.code !== 0) {
+        // 房间异常
+        console.warn(roomInfo.message)
+        return
     }
-    rid = +rid
+    rid = roomInfo.data.room_id
+
 
     if (!rooms.has(rid)) {
         connectToLiveRoom(rid).then(socket => {
