@@ -17,67 +17,6 @@ B站直播间实时弹幕采集
 > 
 > 感兴趣的可以查看下`analysics/await/`目录下面的相关代码
 
-## 直播间弹幕的传输协议
-
-首先调用接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`、`host_list`等建立`ws`所需的基本参数。
-
-`host_list`用于服务断开后的重连服务列表，每次都会随机返回2个链接地址。
-
-下面是一个接口返回示例：
-```json
-{
-  "code": 0,
-  "message": "0",
-  "ttl": 1,
-  "data": {
-    "group": "live",
-    "business_id": 0,
-    "refresh_row_factor": 0.125,
-    "refresh_rate": 100,
-    "max_delay": 5000,
-    "token": "t_E3lrIA1UuNvoz-NbFUN-h2P8Gw75hyBqpd_7bwSKKcMq6mfkTyfPhAummm4KSxdJxoXOxswzQHDMYQODTXqDgJM0qixkFcvzPmCUWQzLFDkK8PeDK4VqBcmLCD0kiYz9WZQLELZn1J5Wwg9pxVJa5-un5J2gOJgMfB7EJnlQ0CLg==",
-    "host_list": [{
-        "host": "ks-live-dmcmt-sh2-pm-03.chat.bilibili.com",
-        "port": 2243,
-        "wss_port": 443,
-        "ws_port": 2244
-      }, {
-        "host": "ks-live-dmcmt-sh2-pm-01.chat.bilibili.com",
-        "port": 2243,
-        "wss_port": 443,
-        "ws_port": 2244
-      }, {
-      "host": "broadcastlv.chat.bilibili.com",
-      "port": 2243,
-      "wss_port": 443,
-      "ws_port": 2244
-    }]
-  }
-}
-```
-
-有了`token`，我们就可以建立`websocket`连接了，`websocket`内部传输的数据为二进制格式，协议如下
-
-## 二进制消息协议
-
-### 消息编码结构
-
-![消息编码结构](assets/packet-struct-1.png)
-
-如上图所示，整个消息分为消息头 header 和消息体 body，header 部分占用16字节，内部包含5个字段：
-- packetLen: 整个消息的字节大小，该字段本身占用4个字节
-- headerLen: 消息头大小，固定为16，该字段占用2个字节
-- ver: 协议版本号，当前为1，该字段占用2个字节
-- op: 操作码，当前共有5种操作码，具体可以查看`ws/const.js`代码中的`WS_CODE`字典，该字段占用4个字节
-- seq: 消息序列号，初始值为1，该字段占用4个字节
-
-body 部分是变长的，采用 utf-8 进行编码。
-
-### 消息解码结构
-
-todo
-
-
 ## 如何使用？
 
 1. 安装依赖
@@ -110,6 +49,11 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 
 目前可用的消息类型可以查看 [WebPlayerSocket.js#L138:L164](source/ws/WebPlayerSocket.js#L138:L164)
 
+### 额外说明
+
+由于建立`websocket`连接需要首先调用`http`接口获取token值(下面的原理部分有讲解)，而该`http`接口并未开启CORS，所以这里需要启动一个本地代理服务器来处理跨域问题，如果需要部署到线上，则需要自行解决代理服务器的问题。
+
+
 ## 目录说明
 
 下面是各个目录的说明：
@@ -121,6 +65,176 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 - apps: 基于分析出来的源码做的一些案例
 
 > 核心实现已经发布到npm [blive-ws](https://www.npmjs.com/package/blive-ws)，可以直接基于它进行二次开发。
+
+## 传输协议细节
+
+首先根据房间号调用 `HTTP` 接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`、`host_list`等建立`websocket`连接所需的基本参数。
+
+`host_list`是`websocket`断开后的重连服务列表，每次都会随机返回2个地址外加一个固定地址: `broadcastlv.chat.bilibili.com`。
+
+`token`用于`websocket`连接建立之后进行用户认证，只有认证成功才会接收到数据。
+
+下面是接口返回的示例：
+```json
+{
+  "code": 0,
+  "message": "0",
+  "ttl": 1,
+  "data": {
+    "group": "live",
+    "business_id": 0,
+    "refresh_row_factor": 0.125,
+    "refresh_rate": 100,
+    "max_delay": 5000,
+    "token": "t_E3lrIA1UuNvoz-NbFUN-h2P8Gw75hyBqpd_7bwSKKcMq6mfkTyfPhAummm4KSxdJxoXOxswzQHDMYQODTXqDgJM0qixkFcvzPmCUWQzLFDkK8PeDK4VqBcmLCD0kiYz9WZQLELZn1J5Wwg9pxVJa5-un5J2gOJgMfB7EJnlQ0CLg==",
+    "host_list": [{
+        "host": "ks-live-dmcmt-sh2-pm-03.chat.bilibili.com",
+        "port": 2243,
+        "wss_port": 443,
+        "ws_port": 2244
+      }, {
+        "host": "ks-live-dmcmt-sh2-pm-01.chat.bilibili.com",
+        "port": 2243,
+        "wss_port": 443,
+        "ws_port": 2244
+      }, {
+      "host": "broadcastlv.chat.bilibili.com",
+      "port": 2243,
+      "wss_port": 443,
+      "ws_port": 2244
+    }]
+  }
+}
+```
+
+有了`token`，我们就可以建立`websocket`连接了，`websocket`内部传输的数据为二进制格式，数据会经过下面这样的方式进行编码：
+
+```js
+// TextEncoder 默认是 UTF-8 编码
+const body = new TextEncoder().encode(payload)
+```
+
+建立`websocket`连接之后，客户端需要发送`Token认证包`进行认证，只有认证通过之后才能进行后续的通信。认证包采用的是json格式，如下所示：
+
+![认证数据包](assets/auth-packet.png)
+
+前16个字节是消息头，后面会讲。接下来就是一个 json 字符串，结构为:
+
+```json5
+{
+  "uid": 0, // 用户id，为0时表示没有登录
+  "roomid": 5440, // 房间id
+  "protover": 3, // 协议版本，目前为3
+  "platform": "web", // 所在平台，浏览器的话就是web
+  "type": 2, // 固定为2，目的不详
+  "key": "上一步拿到的token"
+}
+```
+
+如果认证成功，服务器会返回下面这样的包：
+
+![认证结果数据包](assets/auth-reply-packet.png)
+
+前16个字节同样是消息头，接下来是一个json字符串表示结果。`code`为`0`表示成功。
+
+到这里，`websocket`连接就算建立起来了。
+接下来会设置一个定时器，每隔30秒发送一个心跳包：
+
+![心跳包](assets/heartbeat-packet.png)
+
+因为心跳包会发送一个空对象`{}`，而这个空对象经过上面的编码之后会变成：
+
+![心跳包的内容](assets/heartbeat-body.png)
+
+所以才会出现上面那些心跳包的数据部分都是`[object Object]`这个字符串。
+
+接下来是时候讲一下消息头的格式了
+
+### 二进制消息协议
+
+`websocket`传输的数据为二进制格式，如下所示：
+```js
+const ws = new WebSocket(url)
+ws.binaryType = "arraybuffer"
+```
+
+### 消息(packet)编码结构
+
+![消息编码结构](assets/packet-struct-1.png)
+
+如上图所示，整个消息分为消息头 header 和消息体 body，header 部分占用16字节，内部包含5个字段：
+```ts
+interface PacketHeader {
+    // 整个消息(包含header和body)所占字节数
+    packetLen: uint32
+
+    // 消息头所占字节数，固定为16
+    headerLen: uint16
+    
+    // body 的协议版本，主要指压缩格式，取值为[0, 1, 3]
+    // - 0和1表示 无压缩
+    // - 3表示 Brotli 压缩
+    // 客户端发给服务器的包始终为1
+    bodyVersion: uint16
+
+    // 操作码，当前共有5种操作码，见下面的 【操作码类型】
+    op: uint32
+    
+    // 消息序列号
+    // 客户端发给服务器的包为1
+    // 服务器发给客户端的包不确定
+    seq: uint32
+}
+```
+
+### 操作码类型
+
+```js
+const OPCODE = {
+    // 心跳包
+    WS_OP_HEARTBEAT: 2,
+
+    // 心跳应答包
+    WS_OP_HEARTBEAT_REPLY: 3,
+
+    // 消息包
+    WS_OP_MESSAGE: 5,
+
+    // 用户认证包
+    WS_OP_USER_AUTHENTICATION: 7,
+
+    // 认证结果包
+    WS_OP_CONNECT_SUCCESS: 8,
+}
+```
+
+如果你仔细研究过ws里面传输的数据细节的话，可能会发现 **心跳应答包** 有一些特殊，如下所示：
+
+![心跳应答包](assets/heartbeat-reply-packet.png)
+
+这个结果其实是不满足上面的编码结构的，根据上面的编码结构解析header如下：
+```json5
+{
+  packetLen: 20,
+  headerLen: 16,
+  bodyVersion: 1,
+  op: 3,
+  seq: 0,
+}
+```
+包总大小为20字节，但实际传输的却是35个字节。
+
+我们根据上面心跳包知道，这个数据最后的`[object Object]`是服务器返回了一个空对象`{}`导致的。而`body`的前4个字节表示的其实是`ack`，类似于`tcp`协议里面的**确认包**，表示这个应答包是对哪个心跳进行的确认，也就是说，这4个字节其实就是心跳包的`seq`值。
+
+另外，消息头加上这个`ack`正好是20字节，也就是`header.packetLen`值，也就是说，心跳应答包其实不需要返回后面的空对象的(浪费15个字节的传输流量)。
+
+### 消息体(body)编码结构
+
+根据上面可知，`body`分压缩和无压缩2个版本，其中无压缩的`body`编码格式为`UTF-8`编码的`JSON`对象，`Brotli`压缩版是在无压缩版的基础上进行的处理。
+
+另外，一次传输可以编码多个`packet`，第一个`packet`的`bodyVersion`字段表示所有的`packet`的消息体编码结构。也就是说，同一次传输的数据要么全是压缩的，要么全是无压缩的，不能同时包含压缩和无压缩的数据。
+
+> todo: 这里应该有插图
 
 ## LICENSE
 

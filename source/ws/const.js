@@ -20,22 +20,22 @@ export const WS_CODE = {
     // 包偏移
     WS_PACKAGE_OFFSET: 0,
 
-    // 包头偏移
+    // headerLen字段偏移
     WS_HEADER_OFFSET: 4,
 
-    // 版本号偏移
+    // ver字段偏移
     WS_VERSION_OFFSET: 6,
 
-    // OP 偏移
+    // op字段偏移
     WS_OPERATION_OFFSET: 8,
 
-    // 序列号偏移
+    // seq字段偏移
     WS_SEQUENCE_OFFSET: 12,
 
-    // 普通消息体(json格式)
+    // 普通消息体(无压缩)
     WS_BODY_PROTOCOL_VERSION_NORMAL: 0,
 
-    // BROTLI消息体(采用Brotli编码的)
+    // BROTLI消息体(采用Brotli压缩)
     WS_BODY_PROTOCOL_VERSION_BROTLI: 3,
 
     // 消息头默认版本

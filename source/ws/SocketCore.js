@@ -364,28 +364,41 @@ class SocketCore {
             }
         })
         if (data.packetLen < buf.byteLength) {
+            // 这里感觉没有作用
             this.convertToObject(buf.slice(0, data.packetLen))
         }
 
         this.decoder = this.decoder || getDecoder()
 
         if (!data.op || WS_CODE.WS_OP_MESSAGE !== data.op && data.op !== WS_CODE.WS_OP_CONNECT_SUCCESS) {
+            // 消息头中的 op 字段没有设置(默认0) 或者 设置的不是【普通消息】和【连接成功消息】
             if (data.op === WS_CODE.WS_OP_HEARTBEAT_REPLY) {
+                // 消息是【心跳应答包】，body的前4个字节是一个count值(ack)，表示应答的哪个心跳包
                 data.body = {
                     count: dataView.getInt32(WS_CODE.WS_PACKAGE_HEADER_TOTAL_LENGTH)
                 }
+                // op = 3, data.body = {count: seq}
             }
+            // op = [0, 2, 7], data.body = []
         } else {
-            for (let i = WS_CODE.WS_PACKAGE_OFFSET, s = data.packetLen, a = "", u = ""; i < buf.byteLength; i += s) {
-                s = dataView.getInt32(i)
-                a = dataView.getInt16(i + WS_CODE.WS_HEADER_OFFSET)
+            // op = [5, 8], data.body = {}
+            let packetLen = data.packetLen
+            let headerLen = ""
+            let u = ""
+
+            // 因为一个 buf 里面可能包含多个 packet，所以这里进行遍历
+            for (let i = WS_CODE.WS_PACKAGE_OFFSET; i < buf.byteLength; i += packetLen) {
+                packetLen = dataView.getInt32(i)
+                headerLen = dataView.getInt16(i + WS_CODE.WS_HEADER_OFFSET)
                 try {
                     if (data.ver === WS_CODE.WS_BODY_PROTOCOL_VERSION_NORMAL) {
-                        let c = this.decoder.decode(buf.slice(i + a, i + s))
+                        // 消息体是 utf-8 编码的 json 字符串
+                        let c = this.decoder.decode(buf.slice(i + headerLen, i + packetLen))
                         u = 0 !== c.length ? JSON.parse(c) : null
                     } else if (data.ver === WS_CODE.WS_BODY_PROTOCOL_VERSION_BROTLI) {
-                        let l = buf.slice(i + a, i + s)
-                        let h = window.BrotliDecode(new Uint8Array(l))
+                        // 消息体是 Brotli 格式
+                        let bodyBuf = buf.slice(i + headerLen, i + packetLen)
+                        let h = window.BrotliDecode(new Uint8Array(bodyBuf))
                         u = this.convertToObject(h.buffer).body
                     }
                     u && data.body.push(u)
