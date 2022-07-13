@@ -1,4 +1,5 @@
 # danmaku.bilibili
+
 B站直播间实时弹幕采集
 
 ## 项目背景
@@ -12,14 +13,15 @@ B站直播间实时弹幕采集
 接下来就是弹幕游戏的实现了，这个就比较简单了，因为已经能拿到实时弹幕内容了。
 
 > 目前遇到的难点可能就是await代码不太好还原成源码，基本只能靠猜。因为await编译之后变成了generator的实现，中间的逻辑我还没分析出来。
-> 
+>
 > 不过，单靠猜基本也能还原个八九不离十。
-> 
+>
 > 感兴趣的可以查看下`analysics/await/`目录下面的相关代码
 
 ## 如何使用？
 
 1. 安装依赖
+
 ```shell
 pnpm i
 ```
@@ -36,7 +38,6 @@ npm run start
 
 ![使用效果](assets/demo.png)
 
-
 默认监听直播间的【普通弹幕】、【文本交互】、【送礼物】以及【连接】和【断开】事件，想要监听更多消息，可以通过`addEventListener`添加更多类型的监听器。
 
 比如，监听【进入特效】消息代码如下：
@@ -51,8 +52,8 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 
 ### 额外说明
 
-由于建立`websocket`连接需要首先调用`http`接口获取token值(下面的原理部分有讲解)，而该`http`接口并未开启CORS，所以这里需要启动一个本地代理服务器来处理跨域问题，如果需要部署到线上，则需要自行解决代理服务器的问题。
-
+由于建立`websocket`连接需要首先调用`http`接口获取token值(下面的原理部分有讲解)，而该`http`
+接口并未开启CORS，所以这里需要启动一个本地代理服务器来处理跨域问题，如果需要部署到线上，则需要自行解决代理服务器的问题。
 
 ## 目录说明
 
@@ -68,13 +69,15 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 
 ## 传输协议细节
 
-首先根据房间号调用 `HTTP` 接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`、`host_list`等建立`websocket`连接所需的基本参数。
+首先根据房间号调用 `HTTP` 接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`
+、`host_list`等建立`websocket`连接所需的基本参数。
 
 `host_list`是`websocket`断开后的重连服务列表，每次都会随机返回2个地址外加一个固定地址: `broadcastlv.chat.bilibili.com`。
 
 `token`用于`websocket`连接建立之后进行用户认证，只有认证成功才会接收到数据。
 
 下面是接口返回的示例：
+
 ```json
 {
   "code": 0,
@@ -87,22 +90,26 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
     "refresh_rate": 100,
     "max_delay": 5000,
     "token": "t_E3lrIA1UuNvoz-NbFUN-h2P8Gw75hyBqpd_7bwSKKcMq6mfkTyfPhAummm4KSxdJxoXOxswzQHDMYQODTXqDgJM0qixkFcvzPmCUWQzLFDkK8PeDK4VqBcmLCD0kiYz9WZQLELZn1J5Wwg9pxVJa5-un5J2gOJgMfB7EJnlQ0CLg==",
-    "host_list": [{
+    "host_list": [
+      {
         "host": "ks-live-dmcmt-sh2-pm-03.chat.bilibili.com",
         "port": 2243,
         "wss_port": 443,
         "ws_port": 2244
-      }, {
+      },
+      {
         "host": "ks-live-dmcmt-sh2-pm-01.chat.bilibili.com",
         "port": 2243,
         "wss_port": 443,
         "ws_port": 2244
-      }, {
-      "host": "broadcastlv.chat.bilibili.com",
-      "port": 2243,
-      "wss_port": 443,
-      "ws_port": 2244
-    }]
+      },
+      {
+        "host": "broadcastlv.chat.bilibili.com",
+        "port": 2243,
+        "wss_port": 443,
+        "ws_port": 2244
+      }
+    ]
   }
 }
 ```
@@ -122,11 +129,16 @@ const body = new TextEncoder().encode(payload)
 
 ```json5
 {
-  "uid": 0, // 用户id，为0时表示没有登录
-  "roomid": 5440, // 房间id
-  "protover": 3, // 协议版本，目前为3
-  "platform": "web", // 所在平台，浏览器的话就是web
-  "type": 2, // 固定为2，目的不详
+  "uid": 0,
+  // 用户id，为0时表示没有登录
+  "roomid": 5440,
+  // 房间id
+  "protover": 3,
+  // 协议版本，目前为3
+  "platform": "web",
+  // 所在平台，浏览器的话就是web
+  "type": 2,
+  // 固定为2，目的不详
   "key": "上一步拿到的token"
 }
 ```
@@ -155,6 +167,7 @@ const body = new TextEncoder().encode(payload)
 ### 二进制消息协议
 
 `websocket`传输的数据为二进制格式，如下所示：
+
 ```js
 const ws = new WebSocket(url)
 ws.binaryType = "arraybuffer"
@@ -165,6 +178,7 @@ ws.binaryType = "arraybuffer"
 ![消息编码结构](assets/packet-struct-1.png)
 
 如上图所示，整个消息分为消息头 header 和消息体 body，header 部分占用16字节，内部包含5个字段：
+
 ```ts
 interface PacketHeader {
     // 整个消息(包含header和body)所占字节数
@@ -172,22 +186,27 @@ interface PacketHeader {
 
     // 消息头所占字节数，固定为16
     headerLen: uint16
-    
+
     // body 的协议版本，主要指压缩格式，取值为[0, 1, 3]
     // - 0和1表示 无压缩
-    // - 3表示 Brotli 压缩
+    // - 3表示 Brotli 压缩，也就是浏览器中常见的 br 压缩算法
     // 客户端发给服务器的包始终为1
     bodyVersion: uint16
 
     // 操作码，当前共有5种操作码，见下面的 【操作码类型】
     op: uint32
-    
+
     // 消息序列号
     // 客户端发给服务器的包为1
     // 服务器发给客户端的包不确定
     seq: uint32
 }
 ```
+
+> 关于压缩算法：
+>
+> 大部分现代浏览器都支持3种压缩算法：gzip / deflate / br  
+> br 就指的是 Brotli 算法，这3种算法的比较可以阅读[这篇文章](https://www.siteground.com/blog/brotli-vs-gzip-compression/)
 
 ### 操作码类型
 
@@ -215,6 +234,7 @@ const OPCODE = {
 ![心跳应答包](assets/heartbeat-reply-packet.png)
 
 这个结果其实是不满足上面的编码结构的，根据上面的编码结构解析header如下：
+
 ```json5
 {
   packetLen: 20,
@@ -224,9 +244,11 @@ const OPCODE = {
   seq: 0,
 }
 ```
+
 包总大小为20字节，但实际传输的却是35个字节。
 
-我们根据上面心跳包知道，这个数据最后的`[object Object]`是服务器返回了一个空对象`{}`导致的。而`body`的前4个字节表示的其实是`ack`，类似于`tcp`协议里面的**确认包**，表示这个应答包是对哪个心跳进行的确认，也就是说，这4个字节其实就是心跳包的`seq`值。
+我们根据上面心跳包知道，这个数据最后的`[object Object]`是服务器返回了一个空对象`{}`导致的。而`body`的前4个字节表示的其实是`ack`，类似于`tcp`协议里面的**确认包**
+，表示这个应答包是对哪个心跳进行的确认，也就是说，这4个字节其实就是心跳包的`seq`值。
 
 另外，消息头加上这个`ack`正好是20字节，也就是`header.packetLen`值，也就是说，心跳应答包其实不需要返回后面的空对象的(浪费15个字节的传输流量)。
 
