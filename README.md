@@ -107,7 +107,7 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 }
 ```
 
-有了`token`，我们就可以建立`websocket`连接了，`websocket`内部传输的数据为二进制格式，数据会经过下面这样的方式进行编码：
+有了`token`，我们就可以建立`websocket`连接了，`websocket`内部传输的数据为二进制buffer格式的数据，会经过下面这样的方式进行编码：
 
 ```js
 // TextEncoder 默认是 UTF-8 编码
@@ -136,6 +136,8 @@ const body = new TextEncoder().encode(payload)
 ![认证结果数据包](assets/auth-reply-packet.png)
 
 前16个字节同样是消息头，接下来是一个json字符串表示结果。`code`为`0`表示成功。
+
+> 在实际测试过程中，如果认证失败，服务器不会回复任何消息
 
 到这里，`websocket`连接就算建立起来了。
 接下来会设置一个定时器，每隔30秒发送一个心跳包：

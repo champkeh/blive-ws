@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const open = require('open')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
@@ -13,6 +14,11 @@ app.use(morgan('dev'))
 
 // 开启一个静态服务器
 app.use(express.static('.'))
+
+// 开启代理服务器的 CORS
+app.use(cors({
+    origin: '*'
+}))
 
 // 代理B站API
 app.use('/proxy-api', createProxyMiddleware({

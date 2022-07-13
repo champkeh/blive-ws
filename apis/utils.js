@@ -20,7 +20,7 @@ export function getUserFace(uid) {
 
 
 /**
- * 获取弹幕服务参数
+ * 获取 websocket 连接参数
  * @param rid 直播间id
  * @return {Promise<any>}
  */

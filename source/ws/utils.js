@@ -60,3 +60,52 @@ export function getEncoder() {
             }
         }
 }
+
+const wsBinaryHeaderList = [
+    {
+        name: "Header Length",
+        key: "headerLen",
+        bytes: 2,
+        offset: 4,
+        value: 16
+    },
+    {
+        name: "Protocol Version",
+        key: "ver",
+        bytes: 2,
+        offset: 6,
+        value: 1
+    },
+    {
+        name: "Operation",
+        key: "op",
+        bytes: 4,
+        offset: 8,
+        value: 1
+    },
+    {
+        name: "Sequence Id",
+        key: "seq",
+        bytes: 4,
+        offset: 12,
+        value: 1
+    }
+]
+
+export function convertToArrayBuffer(payload, op) {
+    const encoder = getEncoder()
+    const header = new ArrayBuffer(16)
+    const dataView = new DataView(header, 0)
+    const body = encoder.encode(payload)
+
+    dataView.setInt32(0, 16 + body.byteLength)
+    wsBinaryHeaderList[2].value = op
+    wsBinaryHeaderList.forEach(head => {
+        if (head.bytes === 4) {
+            dataView.setInt32(head.offset, head.value)
+        } else if (head.bytes === 2) {
+            dataView.setInt16(head.offset, head.value)
+        }
+    })
+    return mergeArrayBuffer(header, body)
+}
