@@ -6,17 +6,17 @@ B站直播间实时弹幕采集
 
 周末在家偶尔看到B站直播间有一个用弹幕玩的游戏，根据用户输入的弹幕内容进行的实时游戏，感觉挺不错的，于是就想做一个自己的弹幕游戏。
 
-网上大概搜了一下，B站没有提供相关API，网上有用python爬虫实现的，但我作为一枚前端，首先想到的就是直接连接B站的`websocket`弹幕服务器，直接接收弹幕消息。
+网上大概搜了一下，B 站没有提供相关 API，网上有用 python 爬虫实现的，但我作为一枚前端，首先想到的就是直接连接B站的 websocket 弹幕服务器，直接接收弹幕消息。
 
 想法有了，于是就开干吧。整个过程其实就是把B站的相关js代码拉下来，然后将压缩版的js代码还原成接近源码的程度，这个过程其实没那么难，只是需要花一些时间。利用周末2天时间，基本上把弹幕的接收端调通了，可以实时接收直播间的弹幕消息。
 
 接下来就是弹幕游戏的实现了，这个就比较简单了，因为已经能拿到实时弹幕内容了。
 
-> 目前遇到的难点可能就是await代码不太好还原成源码，基本只能靠猜。因为await编译之后变成了generator的实现，中间的逻辑我还没分析出来。
+> 目前遇到的难点可能就是 await 代码不太好还原成源码，基本只能靠猜。因为 await 编译之后变成了 generator 的实现，中间的逻辑我还没分析出来。
 >
 > 不过，单靠猜基本也能还原个八九不离十。
 >
-> 感兴趣的可以查看下`analysics/await/`目录下面的相关代码
+> 感兴趣的可以查看下 analysis/await/ 目录下面的相关代码
 
 ## 如何使用？
 
@@ -34,7 +34,7 @@ pnpm i
 npm run start
 ```
 
-3. 输入直播间 room_id 即可开始采集实时弹幕数据了(支持short id)，效果如下
+3. 输入直播间 roomid 即可开始采集实时弹幕数据了(支持short id)，效果如下
 
 ![使用效果](assets/demo.png)
 
@@ -52,8 +52,7 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 
 ### 额外说明
 
-由于建立`websocket`连接需要首先调用`http`接口获取token值(下面的原理部分有讲解)，而该`http`
-接口并未开启CORS，所以这里需要启动一个本地代理服务器来处理跨域问题，如果需要部署到线上，则需要自行解决代理服务器的问题。
+由于建立 websocket 连接需要首先调用 http 接口获取`token`值(下面的原理部分有讲解)，而该 http 接口并未开启 CORS，所以这里需要启动一个本地代理服务器来处理跨域问题，如果需要部署到线上，则需要自行解决代理服务器的问题。
 
 ## 目录说明
 
@@ -62,19 +61,19 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 - raw: 从b站获取的压缩版js文件，保留不动
 - analysis: 对上面的压缩版js进行格式化，也可能会把一些文件拆成多个文件方便分析，但不会对代码进行额外的处理
 - apis: b站网页调用的一些接口，后续看看能不能利用一下
-- source/ws: 最终还原出的源码，目前只关注websocket弹幕服务，后面如果要分析其他部分，可能会单独创建目录
+- source/ws: 最终还原出的源码，目前只关注 websocket 弹幕服务，后面如果要分析其他部分，可能会单独创建目录
 - apps: 基于分析出来的源码做的一些案例
 
 > 核心实现已经发布到npm [blive-ws](https://www.npmjs.com/package/blive-ws)，可以直接基于它进行二次开发。
 
 ## 传输协议细节
 
-首先根据房间号调用 `HTTP` 接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`
-、`host_list`等建立`websocket`连接所需的基本参数。
+首先根据房间号调用 HTTP 接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`
+、`host_list`等建立 websocket 连接所需的基本参数。
 
-`host_list`是`websocket`断开后的重连服务列表，每次都会随机返回2个地址外加一个固定地址: `broadcastlv.chat.bilibili.com`。
+`host_list`是 websocket 断开后的重连服务列表，每次都会随机返回2个地址外加一个固定地址: `broadcastlv.chat.bilibili.com`。
 
-`token`用于`websocket`连接建立之后进行用户认证，只有认证成功才会接收到数据。
+`token`用于 websocket 连接建立之后进行用户认证，只有认证成功才会接收到数据。
 
 下面是接口返回的示例：
 
@@ -114,14 +113,14 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 }
 ```
 
-有了`token`，我们就可以建立`websocket`连接了，`websocket`内部传输的数据为二进制buffer格式的数据，会经过下面这样的方式进行编码：
+有了`token`，我们就可以建立 websocket 连接了，websocket 内部传输的数据为二进制 buffer 格式的数据，会经过下面这样的方式进行编码：
 
 ```js
 // TextEncoder 默认是 UTF-8 编码
 const body = new TextEncoder().encode(payload)
 ```
 
-建立`websocket`连接之后，客户端需要发送`Token认证包`进行认证，只有认证通过之后才能进行后续的通信。认证包采用的是json格式，如下所示：
+建立 websocket 连接之后，客户端需要发送 【Token认证包】进行认证，只有认证通过之后才能进行后续的通信。认证包采用的是 json 格式，如下所示：
 
 ![认证数据包](assets/auth-packet.png)
 
@@ -147,11 +146,11 @@ const body = new TextEncoder().encode(payload)
 
 ![认证结果数据包](assets/auth-reply-packet.png)
 
-前16个字节同样是消息头，接下来是一个json字符串表示结果。`code`为`0`表示成功。
+前16个字节同样是消息头，接下来是一个 json 字符串表示结果。`code`为 0 表示成功。
 
 > 在实际测试过程中，如果认证失败，服务器不会回复任何消息
 
-到这里，`websocket`连接就算建立起来了。
+到这里，websocket 连接就算建立起来了。
 接下来会设置一个定时器，每隔30秒发送一个心跳包：
 
 ![心跳包](assets/heartbeat-packet.png)
@@ -166,7 +165,7 @@ const body = new TextEncoder().encode(payload)
 
 ### 二进制消息协议
 
-`websocket`传输的数据为二进制格式，如下所示：
+websocket 传输的数据为二进制格式，如下所示：
 
 ```js
 const ws = new WebSocket(url)
@@ -229,11 +228,11 @@ const OPCODE = {
 }
 ```
 
-如果你仔细研究过ws里面传输的数据细节的话，可能会发现 **心跳应答包** 有一些特殊，如下所示：
+如果你仔细研究过ws里面传输的数据细节的话，可能会发现【心跳应答包】有一些特殊，如下所示：
 
 ![心跳应答包](assets/heartbeat-reply-packet.png)
 
-这个结果其实是不满足上面的编码结构的，根据上面的编码结构解析header如下：
+这个结果其实是不满足上面的编码结构的，根据上面的编码结构解析 header 如下：
 
 ```json5
 {
@@ -247,16 +246,16 @@ const OPCODE = {
 
 包总大小为20字节，但实际传输的却是35个字节。
 
-我们根据上面心跳包知道，这个数据最后的`[object Object]`是服务器返回了一个空对象`{}`导致的。而`body`的前4个字节表示的其实是`ack`，类似于`tcp`协议里面的**确认包**
+我们根据上面心跳包知道，这个数据最后的`[object Object]`是服务器返回了一个空对象`{}`导致的。而 body 的前4个字节表示的其实是`ack`，类似于 tcp 协议里面的**确认包**
 ，表示这个应答包是对哪个心跳进行的确认，也就是说，这4个字节其实就是心跳包的`seq`值。
 
 另外，消息头加上这个`ack`正好是20字节，也就是`header.packetLen`值，也就是说，心跳应答包其实不需要返回后面的空对象的(浪费15个字节的传输流量)。
 
 ### 消息体(body)编码结构
 
-根据上面可知，`body`分压缩和无压缩2个版本，其中无压缩的`body`编码格式为`UTF-8`编码的`JSON`对象，`Brotli`压缩版是在无压缩版的基础上进行的处理。
+根据上面可知，body 分压缩和无压缩2个版本，其中无压缩的 body 编码格式为 UTF-8 编码的 JSON 对象，Brotli 压缩版是在无压缩版的基础上进行的处理。
 
-另外，一次传输可以编码多个`packet`，第一个`packet`的`bodyVersion`字段表示所有的`packet`的消息体编码结构。也就是说，同一次传输的数据要么全是压缩的，要么全是无压缩的，不能同时包含压缩和无压缩的数据。
+另外，一次传输可以编码多个 packet，第一个 packet 的`bodyVersion`字段表示所有的 packet 的消息体编码结构。也就是说，同一次传输的数据要么全是压缩的，要么全是无压缩的，不能同时包含压缩和无压缩的数据。
 
 > todo: 这里应该有插图
 
