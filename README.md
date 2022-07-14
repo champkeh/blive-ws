@@ -128,17 +128,18 @@ const body = new TextEncoder().encode(payload)
 
 ```json5
 {
-  "uid": 0,
   // 用户id，为0时表示没有登录
-  "roomid": 5440,
+  "uid": 0,
   // 房间id
-  "protover": 3,
+  "roomid": 5440,
   // 协议版本，目前为3
-  "platform": "web",
+  "protover": 3,
   // 所在平台，浏览器的话就是web
-  "type": 2,
+  "platform": "web",
   // 固定为2，目的不详
-  "key": "上一步拿到的token"
+  "type": 2,
+  // 上一步拿到的token
+  "key": "",
 }
 ```
 
@@ -174,31 +175,31 @@ ws.binaryType = "arraybuffer"
 
 ### 消息(packet)编码结构
 
-![消息编码结构](assets/packet-struct-1.png)
+![消息编码结构](assets/packet-structure.svg)
 
 如上图所示，整个消息分为消息头 header 和消息体 body，header 部分占用16字节，内部包含5个字段：
 
 ```ts
 interface PacketHeader {
     // 整个消息(包含header和body)所占字节数
-    packetLen: uint32
+    packetLen: int32
 
     // 消息头所占字节数，固定为16
-    headerLen: uint16
+    headerLen: int16
 
-    // body 的协议版本，主要指压缩格式，取值为[0, 1, 3]
-    // - 0和1表示 无压缩
+    // body 的编码格式，主要指压缩格式，取值为[0, 1, 3]
+    // - 0表示业务通信消息，无压缩
+    // - 1表示连接通信消息，无压缩 (比如心跳包、认证包等与业务无关的数据包)
     // - 3表示 Brotli 压缩，也就是浏览器中常见的 br 压缩算法
-    // 客户端发给服务器的包始终为1
-    bodyVersion: uint16
+    bodyEncoding: int16
 
     // 操作码，当前共有5种操作码，见下面的 【操作码类型】
-    op: uint32
+    op: int32
 
     // 消息序列号
     // 客户端发给服务器的包为1
     // 服务器发给客户端的包不确定
-    seq: uint32
+    seq: int32
 }
 ```
 
@@ -238,7 +239,7 @@ const OPCODE = {
 {
   packetLen: 20,
   headerLen: 16,
-  bodyVersion: 1,
+  bodyEncoding: 1,
   op: 3,
   seq: 0,
 }
@@ -255,7 +256,7 @@ const OPCODE = {
 
 根据上面可知，body 分压缩和无压缩2个版本，其中无压缩的 body 编码格式为 UTF-8 编码的 JSON 对象，Brotli 压缩版是在无压缩版的基础上进行的处理。
 
-另外，一次传输可以编码多个 packet，第一个 packet 的`bodyVersion`字段表示所有的 packet 的消息体编码结构。也就是说，同一次传输的数据要么全是压缩的，要么全是无压缩的，不能同时包含压缩和无压缩的数据。
+另外，一次传输可以编码多个 packet，第一个 packet 的`bodyEncoding`字段表示所有的 packet 的消息体编码结构。也就是说，同一次传输的数据要么全是压缩的，要么全是无压缩的，不能同时包含压缩和无压缩的数据。
 
 > todo: 这里应该有插图
 

@@ -1,4 +1,4 @@
-import WebPlayerSocket from 'https://esm.sh/blive-ws'
+import WebPlayerSocket from 'https://esm.sh/blive-ws?bundle'
 import {onSocketOpen, onSocketClose, onDanmuMsg, onSendGiftMsg, onInteractWordMsg} from './events.js'
 import {getDanmuInfo, getRoomPlayInfo} from '../../apis/utils.js'
 
@@ -33,6 +33,7 @@ async function connectToLiveRoom(rid) {
 
                 const socket = new WebPlayerSocket({
                     rid,
+                    uid: 549621446,
                     token,
                     hostList,
                 })
