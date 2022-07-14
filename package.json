@@ -1,6 +1,14 @@
 {
   "name": "live.bilibili",
   "version": "1.0.0",
+  "description": "一个B站直播间弹幕抓取程序",
+  "keywords": [
+    "B站弹幕",
+    "B站",
+    "直播间弹幕",
+    "弹幕抓取",
+    "danmaku"
+  ],
   "main": "index.js",
   "license": "MIT",
   "scripts": {
