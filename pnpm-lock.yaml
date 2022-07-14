@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  blive-ws: 0.0.2-beta.2
+  blive-ws: 0.1.1-alpha.2
   cors: ^2.8.5
   express: ^4.18.1
   http-proxy-middleware: ^2.0.6
@@ -9,7 +9,7 @@ specifiers:
   open: ^8.4.0
 
 dependencies:
-  blive-ws: 0.0.2-beta.2
+  blive-ws: 0.1.1-alpha.2
   cors: 2.8.5
   express: 4.18.1
   http-proxy-middleware: 2.0.6
@@ -47,8 +47,8 @@ packages:
       safe-buffer: 5.1.2
     dev: false
 
-  /blive-ws/0.0.2-beta.2:
-    resolution: {integrity: sha512-PkW5nYUcL/Cb+PHkZUPyUKY/QyuvQ3enxLPJIMDuHjjOlWL1qjA9OAbc9TuIXYXY/59xQqluLPReI2Xw4fBEuA==}
+  /blive-ws/0.1.1-alpha.2:
+    resolution: {integrity: sha512-EzwEeEel8HXo0bnDi7Savxb35Xu0psP+6ARekmDMdbnsKokA3mL9/t7HPUCD8VAVpqEM2eaLSdZb1VEGXVSIsg==}
     dev: false
 
   /body-parser/1.20.0:

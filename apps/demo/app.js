@@ -8,6 +8,7 @@ const form = document.getElementById('form')
 const ridEl = document.getElementById('rid')
 const roomsEl = document.getElementById('rooms')
 const connectBtnEl = document.getElementById('connect')
+const uid = 0
 
 /**
  * 连接直播间弹幕系统
@@ -33,9 +34,10 @@ async function connectToLiveRoom(rid) {
 
                 const socket = new WebPlayerSocket({
                     rid,
-                    uid: 549621446,
+                    uid,
                     token,
                     hostList,
+                    debug: true,
                 })
                 resolve(socket)
             } else {
