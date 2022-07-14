@@ -254,9 +254,9 @@ const OPCODE = {
 
 ### 消息体(body)编码结构
 
-根据上面可知，body 分压缩和无压缩2个版本，其中无压缩的 body 编码格式为 UTF-8 编码的 JSON 字符串，Brotli 压缩版是在无压缩版的基础上进行的处理。
+根据上面可知，body 分压缩和无压缩2个版本，其中无压缩的 body 编码格式为 UTF-8 编码的 JSON 字符串，Brotli 压缩版是在无压缩版的基础上进行的封装。
 
-另外，一次传输可以编码多个 packet，第一个 packet 的`protoVersion`字段表示所有的 packet 的消息体编码结构。也就是说，同一次传输的数据要么全是压缩的，要么全是无压缩的，不能同时包含压缩和无压缩的数据。
+另外，一次传输的 buffer 可以编码多个 packet。
 
 ![packet无压缩编码](assets/packet编码(无压缩).svg)
 
