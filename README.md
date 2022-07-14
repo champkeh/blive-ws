@@ -175,7 +175,7 @@ ws.binaryType = "arraybuffer"
 
 ### 消息(packet)编码结构
 
-![消息编码结构](assets/packet-structure.svg)
+![消息编码结构](assets/packet编码.svg)
 
 如上图所示，整个消息分为消息头 header 和消息体 body，header 部分占用16字节，内部包含5个字段：
 
@@ -187,11 +187,11 @@ interface PacketHeader {
     // 消息头所占字节数，固定为16
     headerLen: int16
 
-    // body 的编码格式，主要指压缩格式，取值为[0, 1, 3]
+    // 协议版本，主要指body的压缩格式，取值为[0, 1, 3]
     // - 0表示业务通信消息，无压缩
     // - 1表示连接通信消息，无压缩 (比如心跳包、认证包等与业务无关的数据包)
     // - 3表示 Brotli 压缩，也就是浏览器中常见的 br 压缩算法
-    bodyEncoding: int16
+    protoVersion: int16
 
     // 操作码，当前共有5种操作码，见下面的 【操作码类型】
     op: int32
@@ -239,7 +239,7 @@ const OPCODE = {
 {
   packetLen: 20,
   headerLen: 16,
-  bodyEncoding: 1,
+  protoVersion: 1,
   op: 3,
   seq: 0,
 }
@@ -254,11 +254,13 @@ const OPCODE = {
 
 ### 消息体(body)编码结构
 
-根据上面可知，body 分压缩和无压缩2个版本，其中无压缩的 body 编码格式为 UTF-8 编码的 JSON 对象，Brotli 压缩版是在无压缩版的基础上进行的处理。
+根据上面可知，body 分压缩和无压缩2个版本，其中无压缩的 body 编码格式为 UTF-8 编码的 JSON 字符串，Brotli 压缩版是在无压缩版的基础上进行的处理。
 
-另外，一次传输可以编码多个 packet，第一个 packet 的`bodyEncoding`字段表示所有的 packet 的消息体编码结构。也就是说，同一次传输的数据要么全是压缩的，要么全是无压缩的，不能同时包含压缩和无压缩的数据。
+另外，一次传输可以编码多个 packet，第一个 packet 的`protoVersion`字段表示所有的 packet 的消息体编码结构。也就是说，同一次传输的数据要么全是压缩的，要么全是无压缩的，不能同时包含压缩和无压缩的数据。
 
-> todo: 这里应该有插图
+![packet无压缩编码](assets/packet编码(无压缩).svg)
+
+![packet br压缩编码](assets/packet编码(br压缩).svg)
 
 ## LICENSE
 
