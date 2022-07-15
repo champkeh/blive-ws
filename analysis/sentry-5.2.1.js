@@ -433,7 +433,6 @@ var Sentry = function (sentry) {
         }
     }
 
-    let L
     let TaskQueue = function () {
         function TaskQueue(n) {
             this.s = n
@@ -540,9 +539,9 @@ var Sentry = function (sentry) {
         try {
             new Headers
             new Request("")
-            new Response,
+            new Responses
             return true
-        } catch () {
+        } catch (e) {
             return false
         }
     }
@@ -552,7 +551,7 @@ var Sentry = function (sentry) {
         try {
             new Request("_", {referrerPolicy: "origin"})
             return true
-        } catch () {
+        } catch (e) {
             return false
         }
     }
@@ -680,7 +679,7 @@ var Sentry = function (sentry) {
         }
         return n
     }()
-    let X = function () {
+    let Scope = function () {
         function n() {
             this.D = false
             this.I = []
@@ -869,7 +868,7 @@ var Sentry = function (sentry) {
     let V = 3
     let SentryHub = function () {
         function SentryHub(n, t, r) {
-            void 0 === t && (t = new X), void 0 === r && (r = V), this.J = r, this.X = [], this.X.push({
+            void 0 === t && (t = new Scope), void 0 === r && (r = V), this.J = r, this.X = [], this.X.push({
                 client: n,
                 scope: t
             })
@@ -887,7 +886,7 @@ var Sentry = function (sentry) {
             this.getStackTop().client = n
         }
         SentryHub.prototype.pushScope = function () {
-            var n = this.getStack(), t = n.length > 0 ? n[n.length - 1].scope : void 0, r = X.clone(t);
+            var n = this.getStack(), t = n.length > 0 ? n[n.length - 1].scope : void 0, r = Scope.clone(t);
             return this.getStack().push({client: this.getClient(), scope: r}), r
         }
         SentryHub.prototype.popScope = function () {
@@ -981,26 +980,26 @@ var Sentry = function (sentry) {
 
     function Q(n) {
         let t = setupSentry()
-        let r = getSentryHub(t)
+        let r = getHubFromCarrier(t)
         setSentryHub(t, n)
         return r
     }
 
-    function Y() {
+    function getCurrentHub() {
         var n, t, r = setupSentry();
-        nn(r) && !getSentryHub(r).isOlderThan(V) || setSentryHub(r, new SentryHub);
+        nn(r) && !getHubFromCarrier(r).isOlderThan(V) || setSentryHub(r, new SentryHub);
         try {
             n = module
             t = "domain"
             var e = n.require(t).active
-            if (!e) return getSentryHub(r)
-            if (!nn(e) || getSentryHub(e).isOlderThan(V)) {
-                var i = getSentryHub(r).getStackTop();
-                setSentryHub(e, new SentryHub(i.client, X.clone(i.scope)))
+            if (!e) return getHubFromCarrier(r)
+            if (!nn(e) || getHubFromCarrier(e).isOlderThan(V)) {
+                var i = getHubFromCarrier(r).getStackTop();
+                setSentryHub(e, new SentryHub(i.client, Scope.clone(i.scope)))
             }
-            return getSentryHub(e)
+            return getHubFromCarrier(e)
         } catch (n) {
-            return getSentryHub(r)
+            return getHubFromCarrier(r)
         }
     }
 
@@ -1008,7 +1007,7 @@ var Sentry = function (sentry) {
         return !!(global && global.__SENTRY__ && global.__SENTRY__.hub)
     }
 
-    function getSentryHub(global) {
+    function getHubFromCarrier(global) {
         if (global && global.__SENTRY__ && global.__SENTRY__.hub) {
             return global.__SENTRY__.hub
         } else {
@@ -1028,11 +1027,11 @@ var Sentry = function (sentry) {
     }
 
     function en(n) {
-        var t = []
+        const t = []
         for (let i = 1; i < arguments.length; i++) {
             t[i - 1] = arguments[i]
         }
-        var e = Y();
+        const e = getCurrentHub();
         if (e && e[n]) {
             return e[n].apply(e, s(t))
         }
@@ -1046,114 +1045,188 @@ var Sentry = function (sentry) {
         } catch (n) {
             t = n
         }
-        return en("captureException", n, {originalException: n, syntheticException: t})
+        return en("captureException", n, {
+            originalException: n,
+            syntheticException: t
+        })
     }
 
     function on(n) {
         en("withScope", n)
     }
 
-    let un = /^(?:(\w+):)\/\/(?:(\w+)(?::(\w+))?@)([\w\.-]+)(?::(\d+))?\/(.+)/
-    let cn = function () {
-        function n(n) {
+    let urlRe = /^(?:(?<protocol>\w+):)\/\/(?:(?<user>\w+)(?::(?<pass>\w+))?@)(?<host>[\w\.-]+)(?::(?<port>\d+))?\/(?<path>.+)/
+    let Dsn = function () {
+        function Dsn(n) {
             "string" == typeof n ? this.K(n) : this.Z(n), this.Y()
         }
 
-        return n.prototype.toString = function (n) {
-            void 0 === n && (n = !1);
-            var t = this, r = t.host, e = t.path, i = t.pass, o = t.port, u = t.projectId;
-            return t.protocol + "://" + t.user + (n && i ? ":" + i : "") + "@" + r + (o ? ":" + o : "") + "/" + (e ? e + "/" : e) + u
-        }, n.prototype.K = function (n) {
-            var t = un.exec(n);
-            if (!t) throw new CustomError("Invalid Dsn");
-            var r = c(t.slice(1), 6), e = r[0], i = r[1], o = r[2], u = void 0 === o ? "" : o, s = r[3], f = r[4],
-                h = void 0 === f ? "" : f, l = "", v = r[5], d = v.split("/");
-            d.length > 1 && (l = d.slice(0, -1).join("/"), v = d.pop()), Object.assign(this, {
-                host: s,
-                pass: u,
-                path: l,
-                projectId: v,
-                port: h,
-                protocol: e,
-                user: i
+        Dsn.prototype.toString = function (n) {
+            if (n === undefined) {
+                n = false
+            }
+            const {protocol, user, host, path, pass, port, projectId} = this
+            return protocol + "://" + user + (n && pass ? ":" + pass : "") + "@" + host + (port ? ":" + port : "") + "/" + (path ? path + "/" : path) + projectId
+        }
+        Dsn.prototype.K = function (n) {
+            let t = urlRe.exec(n);
+            if (!t) {
+                throw new CustomError("Invalid Dsn")
+            }
+
+            let r = c(t.slice(1), 6)
+            let protocol = r[0]
+            let user = r[1]
+            let o = r[2]
+            let pass = void 0 === o ? "" : o
+            let host = r[3]
+            let f = r[4]
+            let port = void 0 === f ? "" : f
+            let path = ""
+            let projectId = r[5]
+            let d = projectId.split("/");
+
+            if (d.length > 1) {
+                path = d.slice(0, -1).join("/")
+                projectId = d.pop()
+            }
+            Object.assign(this, {
+                host: host,
+                pass: pass,
+                path: path,
+                projectId: projectId,
+                port: port,
+                protocol: protocol,
+                user: user
             })
-        }, n.prototype.Z = function (n) {
-            this.protocol = n.protocol, this.user = n.user, this.pass = n.pass || "", this.host = n.host, this.port = n.port || "", this.path = n.path || "", this.projectId = n.projectId
-        }, n.prototype.Y = function () {
-            var n = this;
-            if (["protocol", "user", "host", "projectId"].forEach(function (t) {
-                if (!n[t]) throw new CustomError("Invalid Dsn")
-            }), "http" !== this.protocol && "https" !== this.protocol) throw new CustomError("Invalid Dsn");
-            if (this.port && Number.isNaN(parseInt(this.port, 10))) throw new CustomError("Invalid Dsn")
-        }, n
+        }
+        Dsn.prototype.Z = function (n) {
+            this.protocol = n.protocol
+            this.user = n.user
+            this.pass = n.pass || ""
+            this.host = n.host
+            this.port = n.port || ""
+            this.path = n.path || ""
+            this.projectId = n.projectId
+        }
+        Dsn.prototype.Y = function () {
+            // 必填
+            ["protocol", "user", "host", "projectId"].forEach((t) => {
+                if (!this[t]) {
+                    throw new CustomError("Invalid Dsn")
+                }
+            })
+            if ("http" !== this.protocol && "https" !== this.protocol) {
+                throw new CustomError("Invalid Dsn")
+            }
+            if (this.port && Number.isNaN(parseInt(this.port, 10))) {
+                throw new CustomError("Invalid Dsn")
+            }
+        }
+        return Dsn
     }()
+
     let sn = function () {
         function n(n) {
-            this.dsn = n, this.nn = new cn(n)
+            this.dsn = n
+            this.nn = new Dsn(n)
         }
 
-        return n.prototype.getDsn = function () {
+        n.prototype.getDsn = function () {
             return this.nn
-        }, n.prototype.getStoreEndpoint = function () {
+        }
+        n.prototype.getStoreEndpoint = function () {
             return "" + this.tn() + this.getStoreEndpointPath()
-        }, n.prototype.getStoreEndpointWithUrlEncodedAuth = function () {
-            var n, t = {sentry_key: this.nn.user, sentry_version: "7"};
-            return this.getStoreEndpoint() + "?" + (n = t, Object.keys(n).map(function (t) {
-                return encodeURIComponent(t) + "=" + encodeURIComponent(n[t])
-            }).join("&"))
-        }, n.prototype.tn = function () {
-            var n = this.nn, t = n.protocol ? n.protocol + ":" : "", r = n.port ? ":" + n.port : "";
-            return t + "//" + n.host + r
-        }, n.prototype.getStoreEndpointPath = function () {
-            var n = this.nn;
+        }
+        n.prototype.getStoreEndpointWithUrlEncodedAuth = function () {
+            let obj = {
+                sentry_key: this.nn.user,
+                sentry_version: "7"
+            };
+            return this.getStoreEndpoint() + "?" + Object.keys(obj).map(key => {
+                return encodeURIComponent(key) + "=" + encodeURIComponent(obj[key])
+            }).join("&")
+        }
+        n.prototype.tn = function () {
+            let n = this.nn
+            let protocol = n.protocol ? n.protocol + ":" : ""
+            let port = n.port ? ":" + n.port : ""
+            return protocol + "//" + n.host + port
+        }
+        n.prototype.getStoreEndpointPath = function () {
+            let n = this.nn;
             return (n.path ? "/" + n.path : "") + "/api/" + n.projectId + "/store/"
-        }, n.prototype.getRequestHeaders = function (n, t) {
-            var r = this.nn, e = ["Sentry sentry_version=7"];
-            return e.push("sentry_timestamp=" + (new Date).getTime()), e.push("sentry_client=" + n + "/" + t), e.push("sentry_key=" + r.user), r.pass && e.push("sentry_secret=" + r.pass), {
+        }
+        n.prototype.getRequestHeaders = function (n, t) {
+            let r = this.nn
+            let e = ["Sentry sentry_version=7"]
+            e.push("sentry_timestamp=" + (new Date).getTime())
+            e.push("sentry_client=" + n + "/" + t)
+            e.push("sentry_key=" + r.user)
+            r.pass && e.push("sentry_secret=" + r.pass)
+            return {
                 "Content-Type": "application/json",
                 "X-Sentry-Auth": e.join(", ")
             }
-        }, n.prototype.getReportDialogEndpoint = function (n) {
+        }
+        n.prototype.getReportDialogEndpoint = function (n) {
             void 0 === n && (n = {});
-            var t = this.nn, r = this.tn() + (t.path ? "/" + t.path : "") + "/api/embed/error-page/", e = [];
-            for (var i in e.push("dsn=" + t.toString()), n) if ("user" === i) {
+            let t = this.nn
+            let r = this.tn() + (t.path ? "/" + t.path : "") + "/api/embed/error-page/"
+            let e = []
+            for (let i in e.push("dsn=" + t.toString()), n) if ("user" === i) {
                 if (!n.user) continue;
                 n.user.name && e.push("name=" + encodeURIComponent(n.user.name)), n.user.email && e.push("email=" + encodeURIComponent(n.user.email))
             } else e.push(encodeURIComponent(i) + "=" + encodeURIComponent(n[i]));
             return e.length ? r + "?" + e.join("&") : r
-        }, n
+        }
+        return n
     }()
     let an = [];
 
     function fn(n) {
-        var t = {};
-        return function (n) {
-            var t = n.defaultIntegrations && s(n.defaultIntegrations) || [], r = n.integrations, e = [];
+        const t = {}
+
+        function aaa(n) {
+            let t = n.defaultIntegrations && s(n.defaultIntegrations) || []
+            let r = n.integrations
+            let e = [];
             if (Array.isArray(r)) {
-                var i = r.map(function (n) {
-                    return n.name
-                }), o = [];
+                let i = r.map((n) => n.name)
+                let o = [];
                 t.forEach(function (n) {
                     -1 === i.indexOf(n.name) && -1 === o.indexOf(n.name) && (e.push(n), o.push(n.name))
-                }), r.forEach(function (n) {
-                    -1 === o.indexOf(n.name) && (e.push(n), o.push(n.name))
+                })
+                r.forEach(n => {
+                    if (o.indexOf(n.name) === -1) {
+                        e.push(n)
+                        o.push(n.name)
+                    }
                 })
             } else {
                 if ("function" != typeof r) return s(t);
-                e = r(t), e = Array.isArray(e) ? e : [e]
+                e = r(t)
+                e = Array.isArray(e) ? e : [e]
             }
             return e
-        }(n).forEach(function (n) {
-            t[n.name] = n, function (n) {
-                -1 === an.indexOf(n.name) && (n.setupOnce(addGlobalEventProcessor, Y), an.push(n.name), logger.log("Integration installed: " + n.name))
-            }(n)
-        }), t
+        }
+
+        (n).forEach(function (n) {
+            t[n.name] = n
+
+            function aaa(n) {
+                -1 === an.indexOf(n.name) && (n.setupOnce(addGlobalEventProcessor, getCurrentHub), an.push(n.name), logger.log("Integration installed: " + n.name))
+            }
+
+            (n)
+        })
+        return t
     }
 
     let hn
     let ln = function () {
         function n(n, t) {
-            this.rn = !1, this.en = new n(t), this.in = t, t.dsn && (this.on = new cn(t.dsn)), this.un = fn(this.in)
+            this.rn = !1, this.en = new n(t), this.in = t, t.dsn && (this.on = new Dsn(t.dsn)), this.un = fn(this.in)
         }
 
         return n.prototype.captureException = function (n, t, r) {
@@ -1314,7 +1387,7 @@ var Sentry = function (sentry) {
 
         return n.prototype.setupOnce = function () {
             addGlobalEventProcessor(function (t) {
-                var r = Y();
+                var r = getCurrentHub();
                 if (!r) return t;
                 var e = r.getIntegration(n);
                 if (e) {
@@ -1668,7 +1741,7 @@ var Sentry = function (sentry) {
             }))
         }, e
     }(Ln)
-    let Pn = Object.freeze({BaseTransport: Ln, FetchTransport: Fn, XHRTransport: Un})
+    let Transports = Object.freeze({BaseTransport: Ln, FetchTransport: Fn, XHRTransport: Un})
     let $n = function (t) {
         function e() {
             return null !== t && t.apply(this, arguments) || this
@@ -1722,19 +1795,26 @@ var Sentry = function (sentry) {
             return SyncPromise.resolve(i)
         }, e
     }(dn)
-    let qn = "sentry.javascript.browser"
-    let Hn = function (n) {
-        function t(t) {
-            return void 0 === t && (t = {}), n.call(this, $n, t) || this
+    let sdkName = "sentry.javascript.browser"
+    let BrowserClient = function (n) {
+        function BrowserClient(t) {
+            if (t === undefined) {
+                t = {}
+            }
+            return n.call(this, $n, t) || this
         }
 
-        return setSuperClass(t, n), t.prototype.ln = function (t, r, e) {
-            return t.platform = t.platform || "javascript", t.sdk = u({}, t.sdk, {
-                name: qn,
+        setSuperClass(BrowserClient, n)
+        BrowserClient.prototype.ln = function (t, r, e) {
+            t.platform = t.platform || "javascript"
+            t.sdk = u({}, t.sdk, {
+                name: sdkName,
                 packages: s(t.sdk && t.sdk.packages || [], [{name: "npm:@sentry/browser", version: "5.2.1"}]),
                 version: "5.2.1"
-            }), n.prototype.ln.call(this, t, r, e)
-        }, t.prototype.showReportDialog = function (n) {
+            })
+            return n.prototype.ln.call(this, t, r, e)
+        }
+        BrowserClient.prototype.showReportDialog = function (n) {
             void 0 === n && (n = {});
             var t = getGlobalObject().document;
             if (t) if (this.hn()) {
@@ -1744,7 +1824,8 @@ var Sentry = function (sentry) {
                     e.async = !0, e.src = new sn(r).getReportDialogEndpoint(n), n.onLoad && (e.onload = n.onLoad), (t.head || t.body).appendChild(e)
                 } else logger.error("Missing `Dsn` option in showReportDialog call"); else logger.error("Missing `eventId` option in showReportDialog call")
             } else logger.error("Trying to call showReportDialog with Sentry Client is disabled")
-        }, t
+        }
+        return BrowserClient
     }(ln)
     let Wn = 1e3
     let Bn = 0
@@ -1811,7 +1892,10 @@ var Sentry = function (sentry) {
                     } catch (n) {
                         t = "<unknown>"
                     }
-                    0 !== t.length && Y().addBreadcrumb({category: "ui." + n, message: t}, {event: r, name: n})
+                    0 !== t.length && getCurrentHub().addBreadcrumb({category: "ui." + n, message: t}, {
+                        event: r,
+                        name: n
+                    })
                 };
                 Xn && clearTimeout(Xn), t ? Xn = setTimeout(e) : e()
             }
@@ -1855,8 +1939,8 @@ var Sentry = function (sentry) {
         return n.prototype.setupOnce = function () {
             Error.stackTraceLimit = 50, Sn(function (t, r, e) {
                 if (!(Bn > 0)) {
-                    var i = Y().getIntegration(n);
-                    i && Y().captureEvent(i.Ln(t), {data: {stack: t}, originalException: e})
+                    var i = getCurrentHub().getIntegration(n);
+                    i && getCurrentHub().captureEvent(i.Ln(t), {data: {stack: t}, originalException: e})
                 }
             }), this.in.onerror && (logger.log("Global Handler attached: onerror"), On()), this.in.onunhandledrejection && (logger.log("Global Handler attached: onunhandledrejection"), kn())
         }, n.prototype.Ln = function (n) {
@@ -1866,7 +1950,7 @@ var Sentry = function (sentry) {
             }
             var r = In(n), e = {mode: n.mode};
             n.message && (e.message = n.message), n.name && (e.name = n.name);
-            var i = Y().getClient(), o = i && i.getOptions().maxValueLength || 250;
+            var i = getCurrentHub().getClient(), o = i && i.getOptions().maxValueLength || 250;
             return setException(r, n.original ? substr(JSON.stringify(deepClone(n.original)), o) : "", "onunhandledrejection" === n.mechanism ? "UnhandledRejection" : "Error", {
                 data: e,
                 handled: !1,
@@ -1953,15 +2037,16 @@ var Sentry = function (sentry) {
     }
 
     let nt
-    let tt = getGlobalObject()
+    let global = getGlobalObject()
     let rt = function () {
         function t(n) {
-            this.name = t.id, this.in = u({console: !0, dom: !0, fetch: !0, history: !0, sentry: !0, xhr: !0}, n)
+            this.name = t.id
+            this.in = u({console: !0, dom: !0, fetch: !0, history: !0, sentry: !0, xhr: !0}, n)
         }
 
-        return t.prototype.$n = function () {
-            "console" in tt && ["debug", "info", "warn", "error", "log", "assert"].forEach(function (r) {
-                r in tt.console && R(tt.console, r, function (e) {
+        t.prototype.$n = function () {
+            "console" in global && ["debug", "info", "warn", "error", "log", "assert"].forEach(function (r) {
+                r in global.console && R(global.console, r, function (e) {
                     return function () {
                         for (var i = [], o = 0; o < arguments.length; o++) i[o] = arguments[o];
                         var u = {
@@ -1973,75 +2058,114 @@ var Sentry = function (sentry) {
                         "assert" === r && !1 === i[0] && (u.message = "Assertion failed: " + (serializeArray(i.slice(1), " ") || "console.assert"), u.data.extra.arguments = deepClone(i.slice(1), 3)), t.addBreadcrumb(u, {
                             input: i,
                             level: r
-                        }), e && Function.prototype.apply.call(e, tt.console, i)
+                        }), e && Function.prototype.apply.call(e, global.console, i)
                     }
                 })
             })
-        }, t.prototype.qn = function () {
-            "document" in tt && (tt.document.addEventListener("click", Gn("click"), !1), tt.document.addEventListener("keypress", zn(), !1), ["EventTarget", "Node"].forEach(function (n) {
-                var t = tt[n] && tt[n].prototype;
-                t && t.hasOwnProperty && t.hasOwnProperty("addEventListener") && (R(t, "addEventListener", function (n) {
-                    return function (t, r, e) {
-                        return r && r.handleEvent ? ("click" === t && R(r, "handleEvent", function (n) {
-                            return function (t) {
-                                return Gn("click")(t), n.call(this, t)
+        }
+        t.prototype.qn = function () {
+            if ("document" in global) {
+                global.document.addEventListener("click", Gn("click"), false)
+                global.document.addEventListener("keypress", zn(), false)
+                ;["EventTarget", "Node"].forEach(function (n) {
+                    let proto = global[n] && global[n].prototype
+                    if (proto && proto.hasOwnProperty && proto.hasOwnProperty("addEventListener")) {
+                        R(proto, "addEventListener", function (n) {
+                            return function (t, r, e) {
+                                return r && r.handleEvent ? ("click" === t && R(r, "handleEvent", function (n) {
+                                    return function (t) {
+                                        return Gn("click")(t), n.call(this, t)
+                                    }
+                                }), "keypress" === t && R(r, "handleEvent", zn())) : ("click" === t && Gn("click", !0)(this), "keypress" === t && zn()(this)), n.call(this, t, r, e)
                             }
-                        }), "keypress" === t && R(r, "handleEvent", zn())) : ("click" === t && Gn("click", !0)(this), "keypress" === t && zn()(this)), n.call(this, t, r, e)
+                        })
+                        R(proto, "removeEventListener", function (n) {
+                            return function (t, r, e) {
+                                var i = r;
+                                try {
+                                    i = i && (i.__sentry_wrapped__ || i)
+                                } catch (n) {
+                                }
+                                return n.call(this, t, i, e)
+                            }
+                        })
                     }
-                }), R(t, "removeEventListener", function (n) {
-                    return function (t, r, e) {
-                        var i = r;
-                        try {
-                            i = i && (i.__sentry_wrapped__ || i)
-                        } catch (n) {
+                })
+            }
+        }
+        t.prototype.Hn = function () {
+            if (q() && -1 !== getGlobalObject().fetch.toString().indexOf("native")) {
+                R(global, "fetch", function (r) {
+                    return function () {
+                        let args = []
+                        for (let i = 0; i < arguments.length; i++) {
+                            args[i] = arguments[i]
                         }
-                        return n.call(this, t, i, e)
+                        let url
+                        let u = args[0]
+                        let method = "GET"
+                        if (typeof u === "string") {
+                            url = u
+                        } else if ("Request" in global && u instanceof Request) {
+                            url = u.url
+                            if (u.method) {
+                                method = u.method
+                            }
+                        } else {
+                            url = String(u)
+                        }
+
+                        if (args[1] && args[1].method) {
+                            method = args[1].method
+                        }
+                        let client = getCurrentHub().getClient()
+                        let dsn = client && client.getDsn()
+                        if (dsn) {
+                            let f = new sn(dsn).getStoreEndpoint();
+                            if (f && url.includes(f)) {
+                                if ("POST" === method && args[1] && args[1].body) {
+                                    et(args[1].body)
+                                }
+                                return r.apply(global, args)
+                            }
+                        }
+                        let h = {method: method, url: url};
+                        return r.apply(global, args).then(function (resp) {
+                            h.status_code = resp.status
+                            t.addBreadcrumb({
+                                category: "fetch",
+                                data: h,
+                                type: "http"
+                            }, {input: args, response: resp})
+                            return  resp
+                        }).catch(function (r) {
+                            throw t.addBreadcrumb({
+                                category: "fetch",
+                                data: h,
+                                level: sentry.Severity.Error,
+                                type: "http"
+                            }, {error: r, input: args}), r
+                        })
                     }
-                }))
-            }))
-        }, t.prototype.Hn = function () {
-            q() && -1 !== getGlobalObject().fetch.toString().indexOf("native") && R(tt, "fetch", function (r) {
-                return function () {
-                    for (var e = [], i = 0; i < arguments.length; i++) e[i] = arguments[i];
-                    var o, u = e[0], c = "GET";
-                    "string" == typeof u ? o = u : "Request" in tt && u instanceof Request ? (o = u.url, u.method && (c = u.method)) : o = String(u), e[1] && e[1].method && (c = e[1].method);
-                    var s = Y().getClient(), a = s && s.getDsn();
-                    if (a) {
-                        var f = new sn(a).getStoreEndpoint();
-                        if (f && o.includes(f)) return "POST" === c && e[1] && e[1].body && et(e[1].body), r.apply(tt, e)
-                    }
-                    var h = {method: c, url: o};
-                    return r.apply(tt, e).then(function (n) {
-                        return h.status_code = n.status, t.addBreadcrumb({
-                            category: "fetch",
-                            data: h,
-                            type: "http"
-                        }, {input: e, response: n}), n
-                    }).catch(function (r) {
-                        throw t.addBreadcrumb({
-                            category: "fetch",
-                            data: h,
-                            level: sentry.Severity.Error,
-                            type: "http"
-                        }, {error: r, input: e}), r
-                    })
-                }
-            })
-        }, t.prototype.Wn = function () {
+                })
+            }
+
+        }
+        t.prototype.Wn = function () {
             var n = this;
             if (r = getGlobalObject(), e = r.chrome, i = e && e.app && e.app.runtime, o = "history" in r && !!r.history.pushState && !!r.history.replaceState, !i && o) {
                 var r, e, i, o, u = function (n, r) {
-                    var e = parseUrl(tt.location.href), i = parseUrl(r), o = parseUrl(n);
+                    var e = parseUrl(global.location.href), i = parseUrl(r), o = parseUrl(n);
                     o.path || (o = e), nt = r, e.protocol === i.protocol && e.host === i.host && (r = i.relative), e.protocol === o.protocol && e.host === o.host && (n = o.relative), t.addBreadcrumb({
                         category: "navigation",
                         data: {from: n, to: r}
                     })
-                }, c = tt.onpopstate;
-                tt.onpopstate = function () {
+                }, c = global.onpopstate;
+                global.onpopstate = function () {
                     for (var t = [], r = 0; r < arguments.length; r++) t[r] = arguments[r];
-                    var e = tt.location.href;
+                    var e = global.location.href;
                     if (u(nt, e), c) return c.apply(n, t)
-                }, R(tt.history, "pushState", s), R(tt.history, "replaceState", s)
+                }, R(global.history, "pushState", s), R(global.history, "replaceState", s)
             }
 
             function s(n) {
@@ -2051,15 +2175,16 @@ var Sentry = function (sentry) {
                     return e && u(nt, String(e)), n.apply(this, t)
                 }
             }
-        }, t.prototype.Bn = function () {
-            if ("XMLHttpRequest" in tt) {
+        }
+        t.prototype.Bn = function () {
+            if ("XMLHttpRequest" in global) {
                 var n = XMLHttpRequest.prototype;
                 R(n, "open", function (n) {
                     return function () {
                         for (var t = [], r = 0; r < arguments.length; r++) t[r] = arguments[r];
                         var e = t[1];
                         this.__sentry_xhr__ = {method: t[0], url: t[1]};
-                        var i = Y().getClient(), o = i && i.getDsn();
+                        var i = getCurrentHub().getClient(), o = i && i.getDsn();
                         if (o) {
                             var u = new sn(o).getStoreEndpoint();
                             isString(e) && u && e.includes(u) && (this.__sentry_own_request__ = !0)
@@ -2108,11 +2233,15 @@ var Sentry = function (sentry) {
                     }
                 })
             }
-        }, t.addBreadcrumb = function (n, r) {
-            Y().getIntegration(t) && Y().addBreadcrumb(n, r)
-        }, t.prototype.setupOnce = function () {
+        }
+        t.addBreadcrumb = function (n, r) {
+            getCurrentHub().getIntegration(t) && getCurrentHub().addBreadcrumb(n, r)
+        }
+        t.prototype.setupOnce = function () {
             this.in.console && this.$n(), this.in.dom && this.qn(), this.in.xhr && this.Bn(), this.in.fetch && this.Hn(), this.in.history && this.Wn()
-        }, t.id = "Breadcrumbs", t
+        }
+        t.id = "Breadcrumbs"
+        return t
     }()
 
     function et(t) {
@@ -2138,7 +2267,7 @@ var Sentry = function (sentry) {
 
         return n.prototype.setupOnce = function () {
             addGlobalEventProcessor(function (t, r) {
-                var e = Y().getIntegration(n);
+                var e = getCurrentHub().getIntegration(n);
                 return e ? e.Xn(t, r) : t
             })
         }, n.prototype.Xn = function (n, t) {
@@ -2159,7 +2288,7 @@ var Sentry = function (sentry) {
 
         return n.prototype.setupOnce = function () {
             addGlobalEventProcessor(function (t) {
-                if (Y().getIntegration(n)) {
+                if (getCurrentHub().getIntegration(n)) {
                     if (!ct.navigator || !ct.location) return t;
                     var r = t.request || {};
                     return r.url = r.url || ct.location.href, r.headers = r.headers || {}, r.headers["User-Agent"] = ct.navigator.userAgent, u({}, t, {request: r})
@@ -2169,20 +2298,20 @@ var Sentry = function (sentry) {
         }, n.id = "UserAgent", n
     }()
     let at = Object.freeze({GlobalHandlers: Zn, TryCatch: Qn, Breadcrumbs: rt, LinkedErrors: ut, UserAgent: st})
-    let ft = [new yn, new pn, new Qn, new rt, new Zn, new ut, new st]
+    let defaultIntegrations = [new yn, new pn, new Qn, new rt, new Zn, new ut, new st]
 
     let ht = {}
     let lt = getGlobalObject()
     lt.Sentry && lt.Sentry.Integrations && (ht = lt.Sentry.Integrations)
 
-    let vt = u({}, ht, bn, at)
-    sentry.BrowserClient = Hn
+    let Integrations = u({}, ht, bn, at)
+    sentry.BrowserClient = BrowserClient
     sentry.Hub = SentryHub
-    sentry.Integrations = vt
-    sentry.SDK_NAME = qn
+    sentry.Integrations = Integrations
+    sentry.SDK_NAME = sdkName
     sentry.SDK_VERSION = "5.2.1"
-    sentry.Scope = X
-    sentry.Transports = Pn
+    sentry.Scope = Scope
+    sentry.Transports = Transports
     sentry.addBreadcrumb = function (n) {
         en("addBreadcrumb", n)
     }
@@ -2201,36 +2330,45 @@ var Sentry = function (sentry) {
         return en("captureMessage", n, t, {originalException: n, syntheticException: r})
     }
     sentry.close = function (n) {
-        var t = Y().getClient();
-        return t ? t.close(n) : Promise.reject(!1)
+        const client = getCurrentHub().getClient();
+        return client ? client.close(n) : Promise.reject(false)
     }
     sentry.configureScope = function (n) {
         en("configureScope", n)
     }
-    sentry.defaultIntegrations = ft
+    sentry.defaultIntegrations = defaultIntegrations
     sentry.flush = function (n) {
-        var t = Y().getClient();
-        return t ? t.flush(n) : Promise.reject(!1)
+        const client = getCurrentHub().getClient();
+        return client ? client.flush(n) : Promise.reject(false)
     }
     sentry.forceLoad = function () {
     }
-    sentry.getCurrentHub = Y
-    sentry.getHubFromCarrier = getSentryHub
+    sentry.getCurrentHub = getCurrentHub
+    sentry.getHubFromCarrier = getHubFromCarrier
     sentry.init = function (n) {
-        void 0 === n && (n = {}), void 0 === n.defaultIntegrations && (n.defaultIntegrations = ft), function (n, t) {
-            !0 === t.debug && logger.enable(), Y().bindClient(new n(t))
-        }(Hn, n)
+        if (n === undefined) {
+            n = {}
+        }
+        if (n.defaultIntegrations === undefined) {
+            n.defaultIntegrations = defaultIntegrations
+        }
+
+        if (n.debug) {
+            logger.enable()
+        }
+        getCurrentHub().bindClient(new BrowserClient(n))
     }
     sentry.lastEventId = function () {
-        return Y().lastEventId()
+        return getCurrentHub().lastEventId()
     }
     sentry.onLoad = function (n) {
         n()
     }
     sentry.showReportDialog = function (n) {
-        void 0 === n && (n = {}), n.eventId || (n.eventId = Y().lastEventId());
-        var t = Y().getClient();
-        t && t.showReportDialog(n)
+        void 0 === n && (n = {})
+        n.eventId || (n.eventId = getCurrentHub().lastEventId())
+        const client = getCurrentHub().getClient()
+        client && client.showReportDialog(n)
     }
     sentry.withScope = on
     sentry.wrap = function (n) {
