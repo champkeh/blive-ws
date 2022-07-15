@@ -37,7 +37,7 @@ async function connectToLiveRoom(rid) {
                     uid,
                     token,
                     hostList,
-                    debug: true,
+                    // debug: true,
                 })
                 resolve(socket)
             } else {
@@ -103,6 +103,9 @@ form.addEventListener('submit', async (evt) => {
             })
             socket.addEventListener('SEND_GIFT', ({detail}) => {
                 onSendGiftMsg(socket.options, detail)
+            })
+            socket.addEventListener('heartbeatreply', ({detail}) => {
+                console.log('人气值: ', detail)
             })
 
             renderRoomList()

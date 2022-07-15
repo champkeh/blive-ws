@@ -48,7 +48,7 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 })
 ```
 
-目前可用的消息类型可以查看 [WebPlayerSocket.js#L138:L164](source/ws/WebPlayerSocket.js#L138:L164)
+目前可用的消息类型可以查看 [Events](https://github.com/champkeh/blive#events)
 
 ### 额外说明
 
@@ -59,12 +59,11 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 下面是各个目录的说明：
 
 - raw: 从b站获取的压缩版js文件，保留不动
-- analysis: 对上面的压缩版js进行格式化，也可能会把一些文件拆成多个文件方便分析，但不会对代码进行额外的处理
+- analysis: 对上面的压缩版js进行格式化，也可能会把一些文件拆成多个文件方便分析
 - apis: b站网页调用的一些接口，后续看看能不能利用一下
-- source/ws: 最终还原出的源码，目前只关注 websocket 弹幕服务，后面如果要分析其他部分，可能会单独创建目录
+- <del>source/ws: 最终还原出的源码，目前只关注 websocket 弹幕服务，后面如果要分析其他部分，可能会单独创建目录</del> 该目录已迁移到单独的 [blive-ws](https://github.com/champkeh/blive) 进行维护，方便二次开发
 - apps: 基于分析出来的源码做的一些案例
 
-> 核心实现已经发布到npm [blive-ws](https://www.npmjs.com/package/blive-ws)，可以直接基于它进行二次开发。
 
 ## 传输协议细节
 
