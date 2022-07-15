@@ -261,6 +261,10 @@ const OPCODE = {
 
 ![packet br压缩编码](assets/packet编码(br压缩).svg)
 
+## 类似项目
+
+- [Bilibili-Live-API](https://github.com/lovelyyoshino/Bilibili-Live-API)
+
 ## LICENSE
 
 MIT
