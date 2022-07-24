@@ -13,7 +13,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js"
+    "start": "deno run --allow-net websocket/deno/ws-echo.ts"
   },
   "dependencies": {
     "blive-ws": "0.1.1-alpha.2",
