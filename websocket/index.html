@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deno</title>
+</head>
+<body>
+<input type="text" id="rid" value="25376179">
+<button id="enterBtn">进入</button>
+<button id="leaveBtn">离开</button>
+<script>
+    let ws = null
+    const inputEl = document.querySelector('#rid')
+    document.querySelector('#enterBtn').addEventListener('click', () => {
+        const rid = inputEl.value
+        if (rid) {
+            if (!ws) {
+                ws = new WebSocket('ws://localhost:8000')
+                ws.onopen = () => {
+                    ws.send(JSON.stringify({cmd: 'enter', rid, events: ['DANMU_MSG']}))
+                }
+            } else {
+                ws.send(JSON.stringify({cmd: 'enter', rid, events: ['DANMU_MSG']}))
+            }
+        }
+    })
+    document.querySelector('#leaveBtn').addEventListener('click', () => {
+        const rid = inputEl.value
+        if (rid && ws) {
+            ws.send(JSON.stringify({cmd: 'leave', rid}))
+        }
+    })
+</script>
+</body>
+</html>
