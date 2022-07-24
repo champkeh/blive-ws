@@ -10,9 +10,9 @@ export function connectRoom(rid: string, events: string[], client: WebSocketClie
     events.forEach(event => {
         socket.addEventListener(event, (data: CustomEventInit) => {
             if (data.detail) {
-                client.socket.send(JSON.stringify(data.detail))
+                client.socket.send(JSON.stringify({rid, payload: data.detail}))
             } else {
-                client.socket.send(event)
+                client.socket.send(JSON.stringify({rid, payload: {event}}))
             }
         })
     })

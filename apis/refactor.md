@@ -19,11 +19,11 @@
 const socket = new WebSocket('wss://xxx.com/danmaku')
 
 socket.addEventListener('open', () => {
-    // 添加房间
-    socket.send({cmd: 'add', roomId: 123})
+    // 进入房间
+    socket.send(JSON.stringify({cmd: 'enter', rid: 123, events: ['DANMU_MSG']}))
 
-    // 删除房间
-    socket.send({cmd: 'remove', roomId: 123})
+    // 离开房间
+    socket.send(JSON.stringify({cmd: 'leave', rid: 123}))
 })
 
 socket.addEventListener('message', ({data}) => {
@@ -39,11 +39,11 @@ import WebSocket from 'ws'
 const socket = new WebSocket('wss://xxx.com/danmaku')
 
 socket.on('open', () => {
-    // 添加房间
-    socket.send({cmd: 'add', roomId: 123})
+    // 进入房间
+    socket.send(JSON.stringify({cmd: 'enter', rid: 123, events: ['DANMU_MSG']}))
 
-    // 删除房间
-    socket.send({cmd: 'remove', roomId: 123})
+    // 离开房间
+    socket.send(JSON.stringify({cmd: 'leave', rid: 123}))
 });
 
 socket.on('message', (data) => {
@@ -54,3 +54,8 @@ socket.on('message', (data) => {
 ### golang
 
 todo
+
+
+## 测试地址
+
+`wss://ws-echo.deno.dev/`

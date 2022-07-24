@@ -1,6 +1,7 @@
 import {serve} from 'https://deno.land/std@0.149.0/http/server.ts'
 import {connectRoom} from "./cmd.ts";
 import {WebSocketClient} from './types.d.ts'
+import BliveSocket from "./BliveSocket.ts";
 
 
 const clients: WebSocketClient[] = []
@@ -30,7 +31,6 @@ function handleError(e: Event | ErrorEvent) {
 
 interface UserCmd {
     cmd: string
-
     [k: string]: any
 }
 
@@ -38,15 +38,24 @@ function handleMessage(client: WebSocketClient, data: string) {
     console.log(`CLIENT ${client.id} >> ${data}`)
     const userCmd = JSON.parse(data) as UserCmd
     if (userCmd.cmd === "exit") {
-        client._socket && client._socket.destroy()
-        return client.socket.close()
+        client.room_socket.forEach((_socket) => {
+            _socket.destroy()
+        })
+        client.room_socket.clear()
+        client.socket.close()
     } else if (userCmd.cmd === "inspect") {
         console.log(clients)
-        return client.socket.send(JSON.stringify(clients))
-    } else if (userCmd.cmd === 'connect') {
-        client._socket = connectRoom(userCmd.rid, userCmd.events, client)
+        client.socket.send(JSON.stringify(clients))
+    } else if (userCmd.cmd === 'enter') {
+        const _socket = connectRoom(userCmd.rid, userCmd.events, client)
+        client.room_socket.set(userCmd.rid, _socket)
+    } else if (userCmd.cmd === 'leave') {
+        const _socket = client.room_socket.get(userCmd.rid)
+        if (_socket) {
+            _socket.destroy()
+            client.room_socket.delete(userCmd.rid)
+        }
     }
-    // client.socket.send(data.toString())
 }
 
 function reqHandler(req: Request): Response {
@@ -54,7 +63,11 @@ function reqHandler(req: Request): Response {
         return new Response(null, {status: 501})
     }
     const {response, socket} = Deno.upgradeWebSocket(req)
-    const client: WebSocketClient = {id: crypto.randomUUID(), socket: socket, _socket: null}
+    const client: WebSocketClient = {
+        id: crypto.randomUUID(),
+        socket: socket,
+        room_socket: new Map(),
+    }
 
     socket.onopen = () => {
         handleConnected(client)

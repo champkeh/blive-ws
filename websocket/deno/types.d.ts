@@ -94,5 +94,5 @@ export type EventType = 'open' | 'close' | 'error' | 'authorized' | 'message' | 
 export interface WebSocketClient {
     id: string
     socket: WebSocket
-    _socket: BliveSocket | null
+    room_socket: Map<number, BliveSocket>
 }
