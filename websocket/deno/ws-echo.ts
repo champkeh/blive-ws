@@ -12,7 +12,7 @@ function handleConnected(client: WebSocketInstance) {
     console.log(`Connected to client: ${client.id}`)
     setInterval(() => {
         client.socket.send('')
-    }, 10000)
+    }, 30000)
 }
 
 function handleDisconnected(client: WebSocketInstance) {
