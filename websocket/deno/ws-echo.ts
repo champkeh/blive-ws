@@ -10,6 +10,9 @@ const clients: WebSocketInstance[] = []
 function handleConnected(client: WebSocketInstance) {
     clients.push(client)
     console.log(`Connected to client: ${client.id}`)
+    setInterval(() => {
+        client.socket.send('')
+    }, 10000)
 }
 
 function handleDisconnected(client: WebSocketInstance) {
