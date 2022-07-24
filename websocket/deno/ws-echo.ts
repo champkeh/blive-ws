@@ -1,4 +1,6 @@
 import {serve} from 'https://deno.land/std@0.149.0/http/server.ts'
+import {getUserFace} from './api.ts'
+import BliveSocket from "./BliveSocket.ts"
 
 interface WebSocketInstance {
     id: string
@@ -11,6 +13,7 @@ function handleConnected(client: WebSocketInstance) {
     clients.push(client)
     console.log(`Connected to client: ${client.id}`)
     setInterval(() => {
+        // 用 data frame 模拟 ping frame
         client.socket.send('')
     }, 30000)
 }
@@ -36,6 +39,15 @@ function handleMessage(client: WebSocketInstance, data: string) {
     } else if (data === "inspect") {
         console.log(clients)
         return client.socket.send(JSON.stringify(clients))
+    } else if (data.startsWith('face:')) {
+        const [, uid] = data.split(':')
+        getUserFace(parseInt(uid)).then(url => {
+            client.socket.send(url as string)
+        }).catch(e => {
+            client.socket.send(e.message)
+        })
+    } else if (data === 'setup') {
+        new BliveSocket({rid: 12})
     }
     client.socket.send(data.toString())
 }
