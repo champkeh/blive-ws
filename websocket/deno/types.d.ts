@@ -1,3 +1,5 @@
+import BliveSocket from "./BliveSocket.ts"
+
 export type CallbackFn = (...params: unknown[]) => void
 
 export interface BliveSocketCallbackQueueList {
@@ -27,7 +29,7 @@ export interface DataPacket {
     ver?: number
     op?: number
     seq?: number
-    body: { count: number } | unknown[]
+    body: MessageBody
 }
 
 export interface BliveSocketOptions {
@@ -52,6 +54,8 @@ export interface BliveSocketOptions {
     onRetryFallback?: CallbackFn
     onListConnectError?: CallbackFn
     onReceiveAuthRes?: CallbackFn
+
+    events: string[]
 }
 
 export interface Options {
@@ -66,6 +70,8 @@ export interface Options {
     retryThreadCount?: number
     retryRoundInterval?: number
     retryInterval?: number
+
+    events?: string[]
 }
 
 export interface WSHost {
@@ -73,4 +79,20 @@ export interface WSHost {
     port: number
     wss_port: number
     ws_port: number
+}
+
+export type MessageBody = CountMessageData | MessageData | MessageData[]
+export interface MessageData {
+    cmd: string
+}
+export interface CountMessageData {
+    count: number
+}
+
+export type EventType = 'open' | 'close' | 'error' | 'authorized' | 'message' | 'heart_beat_reply'
+
+export interface WebSocketClient {
+    id: string
+    socket: WebSocket
+    _socket: BliveSocket | null
 }

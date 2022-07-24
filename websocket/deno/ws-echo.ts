@@ -1,24 +1,20 @@
 import {serve} from 'https://deno.land/std@0.149.0/http/server.ts'
-import {getUserFace} from './api.ts'
-import BliveSocket from "./BliveSocket.ts"
+import {connectRoom} from "./cmd.ts";
+import {WebSocketClient} from './types.d.ts'
 
-interface WebSocketInstance {
-    id: string
-    socket: WebSocket
-}
 
-const clients: WebSocketInstance[] = []
+const clients: WebSocketClient[] = []
 
-function handleConnected(client: WebSocketInstance) {
+function handleConnected(client: WebSocketClient) {
     clients.push(client)
     console.log(`Connected to client: ${client.id}`)
     setInterval(() => {
         // 用 data frame 模拟 ping frame
         client.socket.send('')
-    }, 30000)
+    }, 20000)
 }
 
-function handleDisconnected(client: WebSocketInstance) {
+function handleDisconnected(client: WebSocketClient) {
     const idx = clients.findIndex(c => c.id === client.id)
     if (idx !== -1) {
         clients.splice(idx, 1)
@@ -32,24 +28,25 @@ function handleError(e: Event | ErrorEvent) {
     console.log(e instanceof ErrorEvent ? e.message : e.type)
 }
 
-function handleMessage(client: WebSocketInstance, data: string) {
+interface UserCmd {
+    cmd: string
+
+    [k: string]: any
+}
+
+function handleMessage(client: WebSocketClient, data: string) {
     console.log(`CLIENT ${client.id} >> ${data}`)
-    if (data === "exit") {
+    const userCmd = JSON.parse(data) as UserCmd
+    if (userCmd.cmd === "exit") {
+        client._socket && client._socket.destroy()
         return client.socket.close()
-    } else if (data === "inspect") {
+    } else if (userCmd.cmd === "inspect") {
         console.log(clients)
         return client.socket.send(JSON.stringify(clients))
-    } else if (data.startsWith('face:')) {
-        const [, uid] = data.split(':')
-        getUserFace(parseInt(uid)).then(url => {
-            client.socket.send(url as string)
-        }).catch(e => {
-            client.socket.send(e.message)
-        })
-    } else if (data === 'setup') {
-        new BliveSocket({rid: 12})
+    } else if (userCmd.cmd === 'connect') {
+        client._socket = connectRoom(userCmd.rid, userCmd.events, client)
     }
-    client.socket.send(data.toString())
+    // client.socket.send(data.toString())
 }
 
 function reqHandler(req: Request): Response {
@@ -57,7 +54,7 @@ function reqHandler(req: Request): Response {
         return new Response(null, {status: 501})
     }
     const {response, socket} = Deno.upgradeWebSocket(req)
-    const client: WebSocketInstance = {id: crypto.randomUUID(), socket: socket}
+    const client: WebSocketClient = {id: crypto.randomUUID(), socket: socket, _socket: null}
 
     socket.onopen = () => {
         handleConnected(client)

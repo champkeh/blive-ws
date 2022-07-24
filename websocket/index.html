@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deno</title>
+</head>
+<body>
+<input type="text" id="rid" value="22088595">
+<button id="connectBtn">连接</button>
+<script>
+
+    const inputEl = document.querySelector('#rid')
+    document.querySelector('#connectBtn').addEventListener('click', () => {
+        const rid = inputEl.value
+        if (rid) {
+            const ws = new WebSocket('ws://localhost:8000')
+
+            ws.onopen = () => {
+                ws.send(JSON.stringify({cmd: 'connect', rid, events: ['DANMU_MSG', 'open', 'authorized', 'heart_beat_reply']}))
+            }
+        }
+    })
+</script>
+</body>
+</html>

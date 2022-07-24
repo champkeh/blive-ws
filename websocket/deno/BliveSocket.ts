@@ -8,7 +8,7 @@ import {
     BliveSocketOptions,
     DataPacket,
     Options,
-    WSHost
+    WSHost, EventType, MessageData, MessageBody
 } from './types.d.ts'
 import {getDanmuInfo} from './api.ts'
 
@@ -26,9 +26,10 @@ const defaultBliveSocketOptions = {
     retryConnectTimeout: 1e4, // 重连超时时间，10s
     retryRoundInterval: Math.floor(2 * Math.random()) + 3,
     heartBeatInterval: 30, // 心跳包间隔
+    events: []
 }
 
-export default class BliveSocket {
+export default class BliveSocket extends EventTarget {
     private readonly options: BliveSocketOptions
     private wsBinaryHeaderList: WSBinaryHeader[]
     private state: BliveSocketState
@@ -41,6 +42,8 @@ export default class BliveSocket {
 
 
     constructor(options: Options) {
+        super()
+
         this.options = {
             ...defaultBliveSocketOptions,
             ...options,
@@ -81,7 +84,7 @@ export default class BliveSocket {
         })
     }
 
-    async getHostList(rid: number) {
+    private async getHostList(rid: number) {
         const danmuInfo = await getDanmuInfo(rid)
         if (danmuInfo.code !== 0) {
             throw new Error('获取token失败')
@@ -95,7 +98,7 @@ export default class BliveSocket {
         return this
     }
 
-    initialize(url: string) {
+    private initialize(url: string) {
         try {
             this.ws = new WebSocket(url)
             this.ws.binaryType = "arraybuffer"
@@ -121,9 +124,11 @@ export default class BliveSocket {
         return this
     }
 
-    onOpen() {
+    private onOpen() {
         // 执行 onOpenQueue 钩子
         callFunction(this.callbackQueueList.onOpenQueue)
+
+        this.emit('open')
 
         this.state.connectTimeoutTimes = 0
         this.CONNECT_TIMEOUT && clearTimeout(this.CONNECT_TIMEOUT)
@@ -131,7 +136,7 @@ export default class BliveSocket {
         return this
     }
 
-    userAuthentication() {
+    private userAuthentication() {
         const options = this.options
 
         const params = {
@@ -149,7 +154,7 @@ export default class BliveSocket {
         }, 0)
     }
 
-    heartBeat() {
+    private heartBeat() {
         clearTimeout(this.HEART_BEAT_INTERVAL)
 
         const data = this.convertToArrayBuffer({}, WS_CODE.WS_OP_HEARTBEAT)
@@ -160,19 +165,18 @@ export default class BliveSocket {
         }, 1000 * this.options.heartBeatInterval)
     }
 
-    onMessage(msg: MessageEvent) {
+    private onMessage(msg: MessageEvent) {
         try {
             const data = this.convertToObject(msg.data)
-
-            if (this.options.debug) {
-                console.log('message: ', data)
-            }
 
             if (Array.isArray(data)) {
                 data.forEach((data) => {
                     this.onMessage(data)
                 })
             } else if (data instanceof Object) {
+                if (this.options.debug) {
+                    // console.log('message: ', data)
+                }
                 switch (data.op) {
                     // 心跳应答包: 3
                     case WS_CODE.WS_OP_HEARTBEAT_REPLY:
@@ -181,15 +185,16 @@ export default class BliveSocket {
 
                     // 普通消息: 5
                     case WS_CODE.WS_OP_MESSAGE:
-                        this.onMessageReply(data.body, data.seq!)
+                        this.onMessageReply(data.body as MessageData | MessageData[])
                         break
 
                     // 连接成功: 8
                     case WS_CODE.WS_OP_CONNECT_SUCCESS:
                         if ((data.body as unknown[]).length !== 0 && (data.body as unknown[])[0]) {
-                            switch ((data.body as { code: unknown }[])[0].code) {
+                            switch (((data.body as unknown) as { code: number }[])[0].code) {
                                 // 认证成功: 0
                                 case WS_CODE.WS_AUTH_OK:
+                                    this.emit('authorized')
                                     this.heartBeat()
                                     break
 
@@ -204,6 +209,7 @@ export default class BliveSocket {
                                     this.onClose()
                             }
                         } else {
+                            this.emit('authorized')
                             this.heartBeat()
                         }
                 }
@@ -214,30 +220,33 @@ export default class BliveSocket {
         return this
     }
 
-    onMessageReply(data: unknown, seq: number) {
+    private onMessageReply(data: MessageData | MessageData[]) {
         try {
             if (Array.isArray(data)) {
                 data.forEach(data => {
-                    this.onMessageReply(data, seq)
+                    this.onMessageReply(data)
                 })
-            } else if (data instanceof Object && typeof this.options.onReceivedMessage === 'function') {
-                this.options.onReceivedMessage(data, seq)
+            } else if (data.cmd) {
+                this.emit(data.cmd, {detail: data})
             }
         } catch (e) {
             console.error("On Message Resolve Error: ", e)
         }
     }
 
-    onHeartBeatReply(data: unknown) {
+    private onHeartBeatReply(data: unknown) {
         callFunction(this.callbackQueueList.onHeartBeatReplyQueue, data)
+        this.emit('heart_beat_reply')
     }
 
-    onClose() {
+    private onClose() {
         const t = this.state.urlList.length
 
         // 执行 onClose 钩子
         callFunction(this.callbackQueueList.onCloseQueue)
         clearTimeout(this.HEART_BEAT_INTERVAL)
+
+        this.emit('close')
 
         if (this.options.retry) {
             // 重新连接
@@ -271,9 +280,11 @@ export default class BliveSocket {
         return this
     }
 
-    onError(err: Event | ErrorEvent) {
+    private onError(err: Event | ErrorEvent) {
         console.error("Danmaku Websocket On Error.", err)
         callFunction(this.callbackQueueList.onErrorQueue, err)
+
+        this.emit('error', err)
         return this
     }
 
@@ -285,7 +296,7 @@ export default class BliveSocket {
         this.ws = (null as unknown as WebSocket)
     }
 
-    convertToArrayBuffer(payload: string | unknown, op: number) {
+    private convertToArrayBuffer(payload: string | unknown, op: number) {
         const header = new ArrayBuffer(WS_CODE.WS_PACKAGE_HEADER_TOTAL_LENGTH)
         const dataView = new DataView(header, WS_CODE.WS_PACKAGE_OFFSET)
         const body = this.encoder.encode(payload as string)
@@ -302,7 +313,7 @@ export default class BliveSocket {
         return mergeArrayBuffer(header, body)
     }
 
-    convertToObject(buf: ArrayBuffer) {
+    private convertToObject(buf: ArrayBuffer) {
         const dataView = new DataView(buf)
         const data: DataPacket = {
             body: [],
@@ -325,7 +336,7 @@ export default class BliveSocket {
             }
         } else {
             let a = 0
-            let u: { count: number } | unknown[] | null = null
+            let u: MessageBody | null = null
             for (let i = WS_CODE.WS_PACKAGE_OFFSET, s = data.packetLen; i < buf.byteLength; i += s) {
                 s = dataView.getInt32(i)
                 a = dataView.getInt16(i + WS_CODE.WS_HEADER_OFFSET)
@@ -348,18 +359,18 @@ export default class BliveSocket {
         return data
     }
 
-    send(data: string) {
+    private send(data: string) {
         this.ws && this.ws.send(data)
     }
 
-    addCallback(fn: CallbackFn | undefined, queue: CallbackFn[]) {
+    private addCallback(fn: CallbackFn | undefined, queue: CallbackFn[]) {
         if (typeof fn === 'function' && Array.isArray(queue)) {
             queue.push(fn)
         }
         return this
     }
 
-    mixinCallback() {
+    private mixinCallback() {
         const options = this.options
         const cbQueueList = this.callbackQueueList
 
@@ -377,16 +388,23 @@ export default class BliveSocket {
         return this
     }
 
-    getRetryCount() {
+    private getRetryCount() {
         return this.state.retryCount
     }
 
-    checkRetryState() {
+    private checkRetryState() {
         let t = false
         if (this.options.retryMaxCount === 0 || this.state.retryCount < this.options.retryMaxCount) {
             this.state.retryCount += 1
             t = true
         }
         return t
+    }
+
+    emit(event: string, payload?: unknown) {
+        // console.log(event)
+        if (this.options.events.includes(event)) {
+            this.dispatchEvent(new CustomEvent(event, payload as CustomEventInit))
+        }
     }
 }
