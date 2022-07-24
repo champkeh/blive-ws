@@ -20,13 +20,24 @@ B站直播间实时弹幕采集
 
 ## 如何使用？
 
-1. 安装依赖
+### 使用在线服务
+
+请阅读 [websocket重构](apis/refactor.md) 查看具体用法。
+
+### 浏览器
+
+1. 克隆项目
+```shell
+git clone git@github.com:champkeh/danmaku.bilibili.git
+```
+
+2. 安装依赖
 
 ```shell
 pnpm i
 ```
 
-2. 启动服务
+3. 启动服务
 
 > 该服务主要用来代理B站的相关接口，防止出现 CORS 错误
 
@@ -34,7 +45,7 @@ pnpm i
 npm run start
 ```
 
-3. 输入直播间 roomid 即可开始采集实时弹幕数据了(支持short id)，效果如下
+4. 输入直播间 roomid 即可开始采集实时弹幕数据了(支持short id)，效果如下
 
 ![使用效果](assets/demo.png)
 
