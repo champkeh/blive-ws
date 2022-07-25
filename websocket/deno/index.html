@@ -79,6 +79,32 @@
         #rooms li > a {
             font-size: 14px;
         }
+        #command {
+            position: relative;
+            max-width: 800px;
+            min-width: 580px;
+            margin: 10px auto;
+            border-radius: 8px;
+        }
+        #command select {
+            padding: 2px 5px;
+            margin-right: 10px;
+        }
+        #command input {
+            padding: 2px 5px;
+            margin-right: 10px;
+        }
+        #command .result {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        #command > .result > textarea {
+            resize: none;
+        }
+        #command > .result > button {
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -107,7 +133,110 @@
         <p class="notice">注意: 请打开控制台查看弹幕数据</p>
     </footer>
 </section>
+<section id="command">
+    <p>
+        <label>
+            <input type="checkbox" v-model="show">
+            构造命令
+        </label>
+    </p>
 
+    <template v-if="show">
+        <select v-model="cmd">
+            <option value="" disabled>请选择命令</option>
+            <option v-for="command in commands" :key="command" :value="command">{{command}}</option>
+        </select>
+        <input type="text" v-model="rid" placeholder="房间号">
+        <select multiple v-model="evt">
+            <option v-for="event in events" :key="event" :value="event">{{event}}</option>
+        </select>
+        <button @click="generate">生成指令</button>
+        <div class="result">
+            <textarea rows="10" v-model="text"></textarea>
+            <button @click="send">发送</button>
+        </div>
+    </template>
+</section>
+<script src="https://unpkg.com/vue@3"></script>
+<script>
+    const { createApp } = Vue
+
+    const commands = ['enter', 'leave', 'exit']
+    const events = [
+        'COMMON_NOTICE_DANMAKU', // 公共通知
+        'NOTICE_MSG', // 任务通知
+        'STOP_LIVE_ROOM_LIST', // 停播直播间列表
+        'HOT_RANK_CHANGED', // 热榜更新
+        'HOT_RANK_CHANGED_V2', // 热榜更新
+        'HOT_RANK_SETTLEMENT_V2', // 热榜结算
+        'DANMU_MSG', // 普通弹幕
+        'DANMU_AGGREGATION', // 聚合弹幕
+        'SUPER_CHAT_MESSAGE', // 超级聊天消息
+        'SUPER_CHAT_MESSAGE_JPN', // 超级聊天消息
+        'ROOM_REAL_TIME_MESSAGE_UPDATE',
+        'INTERACT_WORD',
+        'WATCHED_CHANGE',
+        'ONLINE_RANK_V2',
+        'ONLINE_RANK_COUNT',
+        'ONLINE_RANK_TOP3',
+        'ENTRY_EFFECT',
+        'GUARD_BUY',
+        'SEND_GIFT',
+        'COMBO_SEND',
+        'LIVE',
+        'PREPARING',
+    ]
+
+    createApp({
+        data() {
+            return {
+                show: false,
+                commands: commands,
+                cmd: '',
+                rid: '',
+                events: events,
+                evt: [],
+                text: '',
+            }
+        },
+        methods: {
+            generate() {
+                if (!this.cmd || !this.cmd.trim()) {
+                    return
+                } else if (this.cmd !== 'exit' && (!this.rid || !this.rid.trim())) {
+                    return
+                }
+                if (this.cmd === 'enter') {
+                    this.text = JSON.stringify({
+                        cmd: this.cmd,
+                        rid: this.rid,
+                        events: this.evt,
+                    })
+                } else if (this.cmd === 'leave') {
+                    this.text = JSON.stringify({
+                        cmd: this.cmd,
+                        rid: this.rid,
+                    })
+                } else if (this.cmd === 'exit') {
+                    this.text = JSON.stringify({
+                        cmd: this.cmd,
+                    })
+                }
+            },
+            send() {
+                if (!this.text || !this.text.trim()) {
+                    console.warn('请输入指令')
+                } else if (!window.bliveWs || window.bliveWs.readyState !== WebSocket.OPEN) {
+                    console.log(window.bliveWs)
+                    console.warn('websocket 还没有建立')
+                } else {
+                    window.bliveWs.send(this.text)
+                    this.text = ''
+                }
+            }
+        }
+    }).mount('#command')
+</script>
 <script type="module">
     class Logger {
         static debug(rid, type, msg) {
@@ -362,8 +491,9 @@
 
             if (!bliveWs) {
                 bliveWs = new WebSocket(bliveEndpoint)
+                window.bliveWs = bliveWs
                 bliveWs.onopen = () => {
-                    bliveWs.send(JSON.stringify({cmd: 'enter', rid: rid, events: ['authorized', 'DANMU_MSG', 'INTERACT_WORD', 'SEND_GIFT']}))
+                    bliveWs.send(JSON.stringify({cmd: 'enter', rid: rid, events: ['DANMU_MSG', 'INTERACT_WORD', 'SEND_GIFT']}))
                 }
                 bliveWs.onmessage = (msg) => {
                     if (!msg.data) {
@@ -389,7 +519,7 @@
                     }
                 }
             } else if (bliveWs.readyState === WebSocket.OPEN) {
-                bliveWs.send(JSON.stringify({cmd: 'enter', rid: rid, events: ['authorized', 'DANMU_MSG', 'INTERACT_WORD', 'SEND_GIFT']}))
+                bliveWs.send(JSON.stringify({cmd: 'enter', rid: rid, events: ['DANMU_MSG', 'INTERACT_WORD', 'SEND_GIFT']}))
             } else {
                 console.warn('blive ws 未打开')
             }

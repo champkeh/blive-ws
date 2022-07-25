@@ -126,6 +126,12 @@ function enterRoom(rid: string, events: string[], client: WebSocketClient) {
     if (!events.includes('authorized')) {
         events.push('authorized')
     }
+    if (client.rooms.has(rid)) {
+        // 销毁之前的room
+        const socket = client.rooms.get(rid)
+        socket!.destroy()
+        client.rooms.delete(rid)
+    }
     const socket = new BliveSocket({
         rid: parseInt(rid),
         events,
