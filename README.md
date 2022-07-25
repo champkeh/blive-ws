@@ -4,13 +4,11 @@ B站直播间 WebSocket 服务，可用于实时获取直播间弹幕
 
 ## 项目背景
 
-周末在家偶尔看到B站直播间有一个用弹幕玩的游戏，根据用户输入的弹幕内容进行的实时游戏，感觉挺不错的，于是就想做一个自己的弹幕游戏。
+周末在家偶尔看到B站直播间有一个用弹幕玩的游戏，根据用户输入的弹幕内容进行的实时游戏，感觉挺不错的，于是就想研究一下是怎么做的。
 
-网上大概搜了一下，B 站没有提供相关 API，网上有用 python 爬虫实现的，但我作为一枚前端，首先想到的就是直接连接B站的 websocket 弹幕服务器，直接接收弹幕消息。
+网上大概搜了一下，B 站没有提供相关 API，网上有用 python 爬虫实现的，但我作为一枚前端，首先想到的就是看看能不能直接连接B站的 websocket 弹幕服务器，直接接收弹幕消息。
 
 想法有了，于是就开干吧。整个过程其实就是把B站的相关js代码拉下来，然后将压缩版的js代码还原成接近源码的程度，这个过程其实没那么难，只是需要花一些时间。利用周末2天时间，基本上把弹幕的接收端调通了，可以实时接收直播间的弹幕消息。
-
-接下来就是弹幕游戏的实现了，这个就比较简单了，因为已经能拿到实时弹幕内容了。
 
 > 目前遇到的难点可能就是 await 代码不太好还原成源码，基本只能靠猜。因为 await 编译之后变成了 generator 的实现，中间的逻辑我还没分析出来。
 >
@@ -35,14 +33,14 @@ B站直播间 WebSocket 服务，可用于实时获取直播间弹幕
 const socket = new WebSocket('wss://blive.deno.dev')
 
 socket.addEventListener('open', () => {
-    // 进入房间
+    // 进入房间命令
     socket.send(JSON.stringify({
         cmd: 'enter',           // 命令
         rid: '123',             // 房间号
         events: ['DANMU_MSG'],  // 监听这个房间中的事件列表
     }))
 
-    // 离开房间
+    // 离开房间命令
     socket.send(JSON.stringify({
         cmd: 'leave',           // 命令
         rid: '123',             // 房间号
@@ -102,11 +100,22 @@ Demo地址: https://blive.deno.dev
 1. 克隆项目
 
 ```shell
-git clone git@github.com:champkeh/danmaku.bilibili.git
+git clone git@github.com:champkeh/blive-ws.git
 ```
 
 2. 安装依赖
 
+npm:
+```shell
+npm i
+```
+
+yarn:
+```shell
+yarn install
+```
+
+pnpm
 ```shell
 pnpm i
 ```
@@ -133,12 +142,9 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 })
 ```
 
-目前可用的消息类型可以查看 [Events](https://github.com/champkeh/blive#events)
+### 浏览器运行的额外说明
 
-### 额外说明
-
-由于建立 websocket 连接需要首先调用 http 接口获取`token`值(下面的原理部分有讲解)，而该 http 接口并未开启
-CORS，所以这里需要启动一个本地代理服务器来处理跨域问题，如果需要部署到线上，则需要自行解决代理服务器的问题。
+由于建立 websocket 连接需要首先调用 http 接口获取`token`值(下面的原理部分有讲解)，而该 http 接口并未开启 CORS，所以这里需要启动一个本地代理服务器来处理跨域问题，如果需要部署到线上，则需要自行解决代理服务器的问题。
 
 ## 目录说明
 
@@ -148,7 +154,6 @@ CORS，所以这里需要启动一个本地代理服务器来处理跨域问题�
 - analysis: 对上面的压缩版js进行格式化，也可能会把一些文件拆成多个文件方便分析
 - apis: b站网页调用的一些接口，后续看看能不能利用一下
 - <del>source/ws: 最终还原出的源码，目前只关注 websocket 弹幕服务，后面如果要分析其他部分，可能会单独创建目录</del>
-  该目录已迁移到单独的 [blive-ws](https://github.com/champkeh/blive) 进行维护，方便二次开发
 - apps: 基于分析出来的源码做的一些案例
 - websocket/deno: 部署到 Deno Deploy 的公共代理服务器
 

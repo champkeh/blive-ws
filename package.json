@@ -15,7 +15,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "deno run --allow-read --allow-net websocket/deno/app.ts"
+    "deno": "deno run --allow-read --allow-net websocket/deno/app.ts",
+    "start": "node server.js"
   },
   "dependencies": {
     "blive-ws": "0.1.1-alpha.2",
