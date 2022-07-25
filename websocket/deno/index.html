@@ -10,7 +10,7 @@
             box-sizing: border-box;
         }
 
-        p {
+        body, p {
             margin: 0;
         }
 
@@ -105,6 +105,19 @@
         #command > .result > button {
             font-size: 18px;
         }
+        #notify {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            background-color: gainsboro;
+            color: red;
+            text-align: center;
+        }
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -157,11 +170,13 @@
         </div>
     </template>
 </section>
+<div id="notify" class="hide">WebSocket 中断，可能是因为服务在重新部署，请稍后重试。</div>
+
 <script src="https://unpkg.com/vue@3"></script>
 <script>
     const { createApp } = Vue
 
-    const commands = ['enter', 'leave', 'exit']
+    const commands = ['enter', 'leave', 'exit', 'inspect']
     const events = [
         'COMMON_NOTICE_DANMAKU', // 公共通知
         'NOTICE_MSG', // 任务通知
@@ -203,7 +218,7 @@
             generate() {
                 if (!this.cmd || !this.cmd.trim()) {
                     return
-                } else if (this.cmd !== 'exit' && (!this.rid || !this.rid.trim())) {
+                } else if (!['exit', 'inspect'].includes(this.cmd) && (!this.rid || !this.rid.trim())) {
                     return
                 }
                 if (this.cmd === 'enter') {
@@ -218,6 +233,10 @@
                         rid: this.rid,
                     })
                 } else if (this.cmd === 'exit') {
+                    this.text = JSON.stringify({
+                        cmd: this.cmd,
+                    })
+                } else if (this.cmd === 'inspect') {
                     this.text = JSON.stringify({
                         cmd: this.cmd,
                     })
@@ -467,6 +486,7 @@
     const ridEl = document.getElementById('rid')
     const roomsEl = document.getElementById('rooms')
     const connectBtnEl = document.getElementById('connect')
+    const notifyEl = document.querySelector('#notify')
 
     let bliveWs = null
     // const bliveEndpoint = 'ws://localhost:8000'
@@ -493,6 +513,16 @@
                 window.bliveWs = bliveWs
                 bliveWs.onopen = () => {
                     bliveWs.send(JSON.stringify({cmd: 'enter', rid: rid, events: ['DANMU_MSG', 'INTERACT_WORD', 'SEND_GIFT']}))
+                    notifyEl.classList.add('hide')
+                }
+                bliveWs.onclose = (evt) => {
+                    notifyEl.classList.remove('hide')
+                    bliveWs = null
+                }
+                bliveWs.onerror = (err) => {
+                    ridEl.removeAttribute('disabled')
+                    connectBtnEl.removeAttribute('disabled')
+                    connectBtnEl.textContent = '连接直播间弹幕系统'
                 }
                 bliveWs.onmessage = (msg) => {
                     if (!msg.data) {

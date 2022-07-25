@@ -1,5 +1,6 @@
 import {WebSocketClient} from "./types.d.ts"
 import BliveSocket from "./BliveSocket.ts"
+import {CloseReason} from "./const.ts"
 
 
 type UserDirective =
@@ -40,9 +41,8 @@ export function initClient(socket: WebSocket) {
         socket: socket,
         rooms: new Map(),
     }
-    clients.push(client)
 
-    // 设置事件处理器
+    // 为客户端 socket 绑定事件处理器
     client.socket.onopen = clientOnOpen.bind(client)
     client.socket.onmessage = clientOnMessage.bind(client)
     client.socket.onerror = clientOnError.bind(client)
@@ -69,15 +69,20 @@ function clientOnClose(this: WebSocketClient, event: CloseEvent) {
     const idx = clients.findIndex(client => client.id === this.id)
     if (idx !== -1) {
         clients.splice(idx, 1)
-        console.log(`Disconnected from client: ${this.id}, code: ${event.code}`)
+        console.log(`Disconnected from client: ${this.id}, code: ${event.code} reason: ${CloseReason[event.code]}`)
     } else {
         console.log(`${this.id} not exist in server`)
     }
-    clearInterval(this.heartbeatTimer!)
+
+    // 清理客户端监听的房间
     this.rooms.forEach((socket) => {
         socket.destroy()
     })
     this.rooms.clear()
+
+    // 取消心跳
+    clearInterval(this.heartbeatTimer!)
+    this.socket.close()
 }
 
 /**
@@ -97,31 +102,29 @@ function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
     try {
         const userDirective = JSON.parse(event.data) as UserDirective
         if (userDirective.cmd === "exit") {
-            // 退出所有房间并断开连接
-            this.rooms.forEach((socket) => {
-                socket.destroy()
-            })
-            this.rooms.clear()
+            // 退出所有房间
+            exit(this)
         } else if (userDirective.cmd === "inspect") {
-            console.log(clients)
-            this.socket.send(JSON.stringify(clients))
+            // 检查状态
+            inspect(this)
         } else if (userDirective.cmd === 'enter') {
             // 加入房间
-            const socket = enterRoom(userDirective.rid, userDirective.events, this)
-            this.rooms.set(userDirective.rid, socket)
+            enterRoom(userDirective.rid, userDirective.events, this)
         } else if (userDirective.cmd === 'leave') {
             // 离开房间
-            const socket = this.rooms.get(userDirective.rid)
-            if (socket) {
-                socket.destroy()
-                this.rooms.delete(userDirective.rid)
-            }
+            leaveRoom(userDirective.rid, this)
         }
     } catch (e) {
         console.log(e)
     }
 }
 
+/**
+ * 进入房间
+ * @param rid
+ * @param events
+ * @param client
+ */
 function enterRoom(rid: string, events: string[], client: WebSocketClient) {
     if (!events.includes('authorized')) {
         events.push('authorized')
@@ -132,11 +135,13 @@ function enterRoom(rid: string, events: string[], client: WebSocketClient) {
         socket!.destroy()
         client.rooms.delete(rid)
     }
+
+    // 新建房间对应的 B 站 Socket 对象
     const socket = new BliveSocket({
         rid: parseInt(rid),
         events,
     })
-
+    // 根据 events 设置监听器
     events.forEach(event => {
         socket.addEventListener(event, (data: CustomEventInit) => {
             if (data.detail) {
@@ -146,6 +151,39 @@ function enterRoom(rid: string, events: string[], client: WebSocketClient) {
             }
         })
     })
+    client.rooms.set(rid, socket)
+}
 
-    return socket
+/**
+ * 离开房间
+ * @param rid
+ * @param client
+ */
+function leaveRoom(rid: string, client: WebSocketClient) {
+    const socket = client.rooms.get(rid)
+    if (socket) {
+        socket.destroy()
+        client.rooms.delete(rid)
+    }
+}
+
+/**
+ * 退出所有房间
+ * @param client
+ */
+function exit(client: WebSocketClient) {
+    client.rooms.forEach((socket) => {
+        socket.destroy()
+    })
+    client.rooms.clear()
+}
+
+/**
+ * 检查状态
+ * @param client
+ */
+function inspect(client: WebSocketClient) {
+    console.log(clients)
+    console.log(`共 ${clients.length} 个客户端`)
+    client.socket.send(JSON.stringify(clients))
 }
