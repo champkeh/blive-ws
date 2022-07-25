@@ -102,7 +102,6 @@ function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
                 socket.destroy()
             })
             this.rooms.clear()
-            this.socket.close()
         } else if (userDirective.cmd === "inspect") {
             console.log(clients)
             this.socket.send(JSON.stringify(clients))

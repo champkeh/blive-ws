@@ -22,7 +22,76 @@ B站直播间实时弹幕采集
 
 ### 方式一：使用在线服务
 
-请阅读 [websocket重构](apis/refactor.md) 查看具体用法。
+这种方式是通过在服务器部署一个 websocket 代理服务器，使用时只需要连接这个代理服务器，然后发送一些命令即可开启实时弹幕获取。
+
+#### 使用方式
+
+> 下面的示例是浏览器js代码，其他环境类似，都是通过 websocket 客户端连接到这个代理服务器，然后通过发送指令即可。
+> 
+> 目前的公共代理服务器地址为: [wss://blive.deno.dev](https://blive.deno.dev)  
+> 支持私有部署(目前仅支持部署到 Deno Deploy)
+
+```js
+const socket = new WebSocket('wss://blive.deno.dev')
+
+socket.addEventListener('open', () => {
+    // 进入房间
+    socket.send(JSON.stringify({
+        cmd: 'enter',           // 命令
+        rid: 123,               // 房间号
+        events: ['DANMU_MSG'],  // 监听这个房间中的事件列表
+    }))
+
+    // 离开房间
+    socket.send(JSON.stringify({
+        cmd: 'leave',           // 命令
+        rid: 123,               // 房间号
+    }))
+})
+
+socket.addEventListener('message', ({data}) => {
+    // 接收到的消息，格式为 { rid: '房间号', payload: {} }
+    console.log(data)
+})
+```
+
+支持的命令有：
+
+- enter 进入房间，需要 rid 和 events 参数
+- leave 离开房间，需要 rid 参数
+- exit 退出所有房间
+
+支持的 event 有：
+
+|          事件名(大小写敏感)           |     说明      |
+|:-----------------------------:|:-----------:|
+|     COMMON_NOTICE_DANMAKU     |    公共通知     |
+|          NOTICE_MSG           |    任务通知     |
+|      STOP_LIVE_ROOM_LIST      |   停播直播间列表   |
+|       HOT_RANK_CHANGED        |    热榜更新     |
+|      HOT_RANK_CHANGED_V2      |    热榜更新     |
+|    HOT_RANK_SETTLEMENT_V2     |    热榜结算     |
+|           DANMU_MSG           |    普通弹幕     |
+|       DANMU_AGGREGATION       |    聚合弹幕     |
+|      SUPER_CHAT_MESSAGE       |   超级聊天消息    |
+|    SUPER_CHAT_MESSAGE_JPN     |   超级聊天消息    |
+| ROOM_REAL_TIME_MESSAGE_UPDATE |  直播间实时信息更新  |
+|         INTERACT_WORD         |   直播间互动文字   |
+|        WATCHED_CHANGE         |  直播间观看人数更新  |
+|        ONLINE_RANK_V2         |  直播间高能用户排名  |
+|       ONLINE_RANK_COUNT       |  直播间高能用户数   |
+|       ONLINE_RANK_TOP3        | 直播间Top3高能用户 |
+|         ENTRY_EFFECT          |    进入特效     |
+|           GUARD_BUY           |    购买舰长     |
+|           SEND_GIFT           |     送礼物     |
+|          COMBO_SEND           |    连送礼物     |
+|             LIVE              |    开始直播     |
+|           PREPARING           |     准备中     |
+|       PK_BATTLE_PRE_NEW       |     PK      |
+|         WIDGET_BANNER         |     小部件     |
+|     LIVE_INTERACTIVE_GAME     | 现场交互游戏(弹幕？) |
+
+详细说明请阅读 [websocket重构](apis/refactor.md)。
 
 Demo地址: https://blive.deno.dev
 
@@ -31,6 +100,7 @@ Demo地址: https://blive.deno.dev
 ### 方式二：本地浏览器内运行
 
 1. 克隆项目
+
 ```shell
 git clone git@github.com:champkeh/danmaku.bilibili.git
 ```
@@ -67,7 +137,8 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 
 ### 额外说明
 
-由于建立 websocket 连接需要首先调用 http 接口获取`token`值(下面的原理部分有讲解)，而该 http 接口并未开启 CORS，所以这里需要启动一个本地代理服务器来处理跨域问题，如果需要部署到线上，则需要自行解决代理服务器的问题。
+由于建立 websocket 连接需要首先调用 http 接口获取`token`值(下面的原理部分有讲解)，而该 http 接口并未开启
+CORS，所以这里需要启动一个本地代理服务器来处理跨域问题，如果需要部署到线上，则需要自行解决代理服务器的问题。
 
 ## 目录说明
 
@@ -76,9 +147,9 @@ socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
 - raw: 从b站获取的压缩版js文件，保留不动
 - analysis: 对上面的压缩版js进行格式化，也可能会把一些文件拆成多个文件方便分析
 - apis: b站网页调用的一些接口，后续看看能不能利用一下
-- <del>source/ws: 最终还原出的源码，目前只关注 websocket 弹幕服务，后面如果要分析其他部分，可能会单独创建目录</del> 该目录已迁移到单独的 [blive-ws](https://github.com/champkeh/blive) 进行维护，方便二次开发
+- <del>source/ws: 最终还原出的源码，目前只关注 websocket 弹幕服务，后面如果要分析其他部分，可能会单独创建目录</del>
+  该目录已迁移到单独的 [blive-ws](https://github.com/champkeh/blive) 进行维护，方便二次开发
 - apps: 基于分析出来的源码做的一些案例
-
 
 ## 传输协议细节
 
