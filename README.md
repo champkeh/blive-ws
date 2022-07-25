@@ -26,7 +26,7 @@ B站直播间实时弹幕采集
 
 #### 使用方式
 
-> 下面的示例是浏览器js代码，其他环境类似，都是通过 websocket 客户端连接到这个代理服务器，然后通过发送指令即可。
+> 下面的示例是浏览器 js 代码，其他环境类似，都是通过 websocket 客户端连接到这个代理服务器，然后通过发送指令即可。
 > 
 > 目前的公共代理服务器地址为: [wss://blive.deno.dev](https://blive.deno.dev)  
 > 支持私有部署(目前仅支持部署到 Deno Deploy)
@@ -38,14 +38,14 @@ socket.addEventListener('open', () => {
     // 进入房间
     socket.send(JSON.stringify({
         cmd: 'enter',           // 命令
-        rid: '123',               // 房间号
+        rid: '123',             // 房间号
         events: ['DANMU_MSG'],  // 监听这个房间中的事件列表
     }))
 
     // 离开房间
     socket.send(JSON.stringify({
         cmd: 'leave',           // 命令
-        rid: '123',               // 房间号
+        rid: '123',             // 房间号
     }))
 })
 
@@ -150,6 +150,7 @@ CORS，所以这里需要启动一个本地代理服务器来处理跨域问题�
 - <del>source/ws: 最终还原出的源码，目前只关注 websocket 弹幕服务，后面如果要分析其他部分，可能会单独创建目录</del>
   该目录已迁移到单独的 [blive-ws](https://github.com/champkeh/blive) 进行维护，方便二次开发
 - apps: 基于分析出来的源码做的一些案例
+- websocket/deno: 部署到 Deno Deploy 的公共代理服务器
 
 ## 传输协议细节
 
