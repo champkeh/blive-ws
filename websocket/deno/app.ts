@@ -1,11 +1,12 @@
 import {serve} from 'https://deno.land/std@0.149.0/http/server.ts'
 import {initClient} from './client.ts'
 
-function reqHandler(req: Request): Response {
+async function reqHandler(req: Request): Promise<Response> {
     if (req.headers.get('upgrade') !== 'websocket') {
         // 非websocket请求，则返回首页
+        const file = await Deno.readTextFile('./websocket/deno/index.html')
         return new Response(
-            Deno.readTextFileSync('./websocket/deno/index.html'),
+            file,
             {
                 status: 200,
                 headers: {
