@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>B站直播间弹幕采集演示</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <link rel="preconnect" href="https://esm.sh">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        #app {
+            position: relative;
+            max-width: 800px;
+            min-width: 580px;
+            background-color: antiquewhite;
+            margin: 10px auto;
+            border-radius: 8px;
+        }
+
+        #app > header {
+            border-bottom: 1px solid #dcdcdc;
+            padding: 10px 20px;
+        }
+
+        #app > header > h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #app > footer {
+            border-top: 1px solid #dcdcdc;
+            padding: 10px 20px;
+        }
+
+        #app > footer > .notice {
+            font-size: 14px;
+            color: red;
+        }
+
+        #app > main {
+            padding: 10px 20px;
+        }
+
+        #app > main > form {
+            width: 500px;
+            margin: 30px auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        #app > main label,
+        #app > main input {
+            flex: 1;
+            width: 100%;
+            height: 36px;
+            font-size: 16px;
+            padding-left: .3em;
+        }
+
+        #app > main > form button {
+            height: 36px;
+            width: 160px;
+        }
+
+        #rooms li {
+            margin-bottom: 10px;
+        }
+
+        #rooms li > span {
+            margin-right: 20px;
+        }
+
+        #rooms li > a {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<section id="app">
+    <header>
+        <h1>B站直播间弹幕采集演示</h1>
+    </header>
+    <main>
+        <form id="form">
+            <label for="rid">
+                <input id="rid" type="text" placeholder="请输入直播间号码" required autocomplete="off">
+            </label>
+            <button id="connect">连接直播间弹幕系统</button>
+        </form>
+        <article id="rooms">
+            <h3>当前连接的房间列表：</h3>
+            <ul>
+                <!--                <li>-->
+                <!--                    <span>123</span>-->
+                <!--                    <a href="javascript:void(0)">断开</a>-->
+                <!--                </li>-->
+            </ul>
+        </article>
+    </main>
+    <footer>
+        <p class="notice">注意: 请打开控制台查看弹幕数据</p>
+    </footer>
+</section>
+
+<script type="module">
+    class Logger {
+        static debug(rid, type, msg) {
+            console.debug(
+                `%c【${now()}】%c【${rid}】%c【${type}】`,
+                "color: #b5b5b5;",
+                "color: deeppink;",
+                "color: gray; font-weight: bold;",
+                msg,
+            )
+        }
+
+        static info(rid, type, msg) {
+            console.log(
+                `%c【${now()}】%c【${rid}】%c【${type}】`,
+                "color: #b5b5b5;",
+                "color: deeppink;",
+                "color: brown; font-weight: bold;",
+                msg,
+            )
+        }
+
+        static warn(rid, type, msg) {
+            console.log(
+                `%c【${now()}】%c【${rid}】%c【${type}】`,
+                "color: #b5b5b5;",
+                "color: deeppink;",
+                "color: #E95020; font-weight: bold;",
+                msg,
+            )
+        }
+
+        static error(rid, type, msg) {
+            console.log(
+                `%c【${now()}】%c【${rid}】%c【${type}】`,
+                "color: #b5b5b5;",
+                "color: deeppink;",
+                "color: red; font-weight: bold;",
+                msg,
+            )
+        }
+
+        static printDanmaku(rid, danmaku) {
+            console.log(
+                `%c【${now()}】%c【${rid}】%c【弹幕】%c${danmaku.uname}(${danmaku.uid}): %c${danmaku.text}`,
+                "color: #b5b5b5;",
+                "color: deeppink;",
+                "color: green; font-weight: bold",
+                "",
+                "color: green; font-weight: bold",
+            )
+        }
+    }
+
+    function now() {
+        const now = new Date()
+
+        const hours = now.getHours()
+        const minutes = now.getMinutes()
+        const seconds = now.getSeconds()
+        const milliSeconds = now.getMilliseconds()
+
+        return `${('00'+hours).slice(-2)}:${('00'+minutes).slice(-2)}:${('00'+seconds).slice(-2)}.${('000'+milliSeconds).slice(-3)}`
+    }
+
+
+    /**
+     * 监听【普通弹幕】: DANMU_MSG
+     * @param rid
+     * @param data
+     */
+    function onDanmuMsg(rid, data) {
+        // 示例如下：
+        // data.info = [
+        //     [],
+        //     '主播好可爱啊',
+        //     [346319245, "crazywang1", 0, 0, 0, 10000, 1, ""],
+        //     [3, "生态", "籽岷"]
+        // ]
+
+        const info = {
+            uid: data.info[2][0],
+            uname: data.info[2][1],
+            text: data.info[1],
+        }
+        Logger.printDanmaku(rid, info)
+    }
+
+    /**
+     * 监听【直播间互动文字】: INTERACT_WORD
+     * @param rid
+     * @param data
+     */
+    function onInteractWordMsg(rid, data) {
+        // 示例如下：
+        // data.data = {
+        //     contribution: {
+        //         grade: 0,
+        //     },
+        //     dmscore: 10,
+        //     fans_medal: {
+        //         anchor_roomid: 544853,
+        //         guard_level: 0,
+        //         icon_id: 0,
+        //         is_lighted: 0,
+        //         medal_color: 6067854,
+        //         medal_color_border: 12632256,
+        //         medal_color_end: 12632256,
+        //         medal_color_start: 12632256,
+        //         medal_level: 3,
+        //         medal_name: "生态",
+        //         score: 702,
+        //         special: "",
+        //         target_id: 686127,
+        //     },
+        //     is_spread: 0,
+        //     msg_type: 2,
+        //     privilege_type: 0,
+        //     roomid: 23654348,
+        //     score: 1657548725386,
+        //     spread_desc: "",
+        //     spread_info: "",
+        //     tail_icon: 0,
+        //     timestamp: 1657548725,
+        //     trigger_time: 1657548723382260000,
+        //     uid: 346319245,
+        //     uname: "crazywang1",
+        //     uname_color: "",
+        // }
+
+        const user = {
+            uid: data.data.uid,
+            name: data.data.uname,
+        }
+        Logger.info(rid, "互动",`${user.name}(${user.uid})进入直播间`)
+    }
+
+    /**
+     * 监听【送礼物】: SEND_GIFT
+     * @param rid
+     * @param data
+     */
+    function onSendGiftMsg(rid, data) {
+        // 示例如下：
+        // data.data = {
+        //     action: "投喂",
+        //     batch_combo_id: "",
+        //     batch_combo_send: null,
+        //     beatId: "0",
+        //     biz_source: "Live",
+        //     blind_gift: null,
+        //     broadcast_id: 0,
+        //     coin_type: "silver",
+        //     combo_resources_id: 1,
+        //     combo_send: null,
+        //     combo_stay_time: 3,
+        //     combo_total_coin: 0,
+        //     crit_prob: 0,
+        //     demarcation: 1,
+        //     discount_price: 0,
+        //     dmscore: 8,
+        //     draw: 0,
+        //     effect: 0,
+        //     effect_block: 1,
+        //     face: "http://i1.hdslb.com/bfs/face/9a198010d6a1c36ddf3fe1bd6994af3812869b60.jpg",
+        //     face_effect_id: 0,
+        //     face_effect_type: 0,
+        //     float_sc_resource_id: 0,
+        //     giftId: 31531,
+        //     giftName: "PK票",
+        //     giftType: 5,
+        //     gold: 0,
+        //     guard_level: 0,
+        //     is_first: true,
+        //     is_special_batch: 0,
+        //     magnification: 1,
+        //     modal_info: {
+        //         anchor_roomid: 0,
+        //         anchor_uname: "",
+        //         guard_level: 0,
+        //         icon_id: 0,
+        //         is_lighted: 0,
+        //         medal_color: 6067854,
+        //         medal_color_border: 12632256,
+        //         medal_color_end: 12632256,
+        //         medal_color_start: 12632256,
+        //         medal_level: 3,
+        //         medal_name: "生态",
+        //         special: "",
+        //         target_id: 686127,
+        //     },
+        //     name_color: "",
+        //     num: 3,
+        //     original_gift_name: "",
+        //     price: 0,
+        //     rcost: 5712,
+        //     remain: 0,
+        //     rnd: "1657548735110500002",
+        //     send_master: null,
+        //     silver: 0,
+        //     super: 0,
+        //     super_batch_gift_num: 0,
+        //     super_gift_num: 0,
+        //     svga_block: 0,
+        //     switch: true,
+        //     tag_image: "",
+        //     tid: "1657548735110500002",
+        //     timestamp: 1657548735,
+        //     top_list: null,
+        //     total_coin: 0,
+        //     uid: 346319245,
+        //     uname: "crazywang1",
+        // }
+
+        const info = {
+            uid: data.data.uid,
+            name: data.data.uname,
+            giftName: data.data.giftName,
+            num: data.data.num,
+            price: data.data.price,
+            action: data.data.action,
+        }
+        Logger.warn(rid, "送礼物", `${info.name} ${info.action} ${info.giftName}x${info.num}`)
+    }
+
+
+    // 一些dom元素
+    const form = document.getElementById('form')
+    const ridEl = document.getElementById('rid')
+    const roomsEl = document.getElementById('rooms')
+    const connectBtnEl = document.getElementById('connect')
+
+    let bliveWs = null
+    const bliveEndpoint = 'ws://localhost:8000'
+    // const bliveEndpoint = 'wss://blive.deno.dev'
+    let connectingRoomId = ''
+    let resolveFn, rejectFn
+
+    /**
+     * 连接直播间弹幕系统
+     * @param rid 直播间id
+     * @return {Promise<string>}
+     */
+    async function connectToLiveRoom(rid) {
+        return new Promise(async (resolve, reject) => {
+            ridEl.setAttribute('disabled', '')
+            connectBtnEl.setAttribute('disabled', '')
+            connectBtnEl.textContent = '连接中...'
+            connectingRoomId = rid
+            resolveFn = resolve
+            rejectFn = reject
+
+            if (!bliveWs) {
+                bliveWs = new WebSocket(bliveEndpoint)
+                bliveWs.onopen = () => {
+                    bliveWs.send(JSON.stringify({cmd: 'enter', rid: rid, events: ['authorized', 'DANMU_MSG', 'INTERACT_WORD', 'SEND_GIFT']}))
+                }
+                bliveWs.onmessage = (msg) => {
+                    if (!msg.data) {
+                        // ping 帧
+                        return
+                    }
+                    try {
+                        const data = JSON.parse(msg.data)
+                        if (data.rid === connectingRoomId && data.payload.event === 'authorized') {
+                            // 连接成功
+                            ridEl.value = ''
+                            ridEl.removeAttribute('disabled')
+                            connectBtnEl.removeAttribute('disabled')
+                            connectBtnEl.textContent = '连接直播间弹幕系统'
+                            connectingRoomId = ''
+                            resolveFn(data.rid)
+                        } else {
+                            // 处理其他消息
+                            handleMessage(data)
+                        }
+                    } catch (e) {
+                        rejectFn(e)
+                    }
+                }
+            } else if (bliveWs.readyState === WebSocket.OPEN) {
+                bliveWs.send(JSON.stringify({cmd: 'enter', rid: rid, events: ['authorized', 'DANMU_MSG', 'INTERACT_WORD', 'SEND_GIFT']}))
+            } else {
+                console.warn('blive ws 未打开')
+            }
+        })
+    }
+
+    /**
+     * 断开直播间连接
+     * @param rid 直播间id
+     */
+    function disconnectLiveRoom(rid) {
+        const socket = rooms.get(rid)
+        if (socket) {
+            if (bliveWs && bliveWs.readyState === WebSocket.OPEN) {
+                bliveWs.send(JSON.stringify({cmd: 'leave', rid: rid}))
+            }
+            rooms.delete(rid)
+            renderRoomList()
+        }
+    }
+
+    function handleMessage(data) {
+        try {
+            const msg_type = data.payload.cmd
+            switch (msg_type) {
+                case 'DANMU_MSG':
+                    onDanmuMsg(data.rid, data.payload)
+                    break
+                case 'INTERACT_WORD':
+                    onInteractWordMsg(data.rid, data.payload)
+                    break
+                case 'SEND_GIFT':
+                    onSendGiftMsg(data.rid, data.payload)
+                    break
+            }
+        } catch (e) {
+
+        }
+    }
+
+    const rooms = new Map()
+
+    form.addEventListener('submit', async (evt) => {
+        evt.preventDefault()
+
+        const rid = ridEl.value
+
+        if (!rooms.has(rid)) {
+            connectToLiveRoom(rid).then((rid) => {
+                rooms.set(rid, true)
+
+                renderRoomList()
+            }).catch(e => {
+                console.warn(`直播间(${rid})连接失败: ${e.message}`)
+            })
+        } else {
+            console.warn(`直播间(${rid})已连接，不能重复连接`)
+        }
+    })
+
+    roomsEl.addEventListener('click', evt => {
+        evt.preventDefault()
+
+        if (evt.target.tagName === 'A') {
+            const rid = evt.target.dataset.rid
+            disconnectLiveRoom(rid)
+        }
+    }, {capture: false})
+
+    /**
+     * 渲染房间列表
+     */
+    function renderRoomList() {
+        const ul = document.querySelector('#rooms > ul')
+        ul.innerHTML = ''
+        for (const rid of rooms.keys()) {
+            const li = document.createElement('li')
+            const span = document.createElement('span')
+            span.textContent = rid
+            li.appendChild(span)
+            const btn = document.createElement('a')
+            btn.textContent = '断开'
+            btn.href = 'javascript:void(0)'
+            btn.dataset.rid = rid
+            li.appendChild(btn)
+            ul.appendChild(li)
+        }
+    }
+
+</script>
+</body>
+</html>

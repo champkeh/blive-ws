@@ -3,7 +3,16 @@ import {initClient} from './client.ts'
 
 function reqHandler(req: Request): Response {
     if (req.headers.get('upgrade') !== 'websocket') {
-        return new Response(null, {status: 501})
+        // 非websocket请求，则返回首页
+        return new Response(
+            Deno.readTextFileSync('./websocket/deno/index.html'),
+            {
+                status: 200,
+                headers: {
+                    "Content-Type": "text/html; charset=utf-8",
+                }
+            }
+        )
     }
 
     const {response, socket} = Deno.upgradeWebSocket(req)

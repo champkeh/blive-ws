@@ -74,6 +74,10 @@ function clientOnClose(this: WebSocketClient, event: CloseEvent) {
         console.log(`${this.id} not exist in server`)
     }
     clearInterval(this.heartbeatTimer!)
+    this.rooms.forEach((socket) => {
+        socket.destroy()
+    })
+    this.rooms.clear()
 }
 
 /**
