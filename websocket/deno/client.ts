@@ -1,6 +1,6 @@
 import {WebSocketClient} from "./types.d.ts"
 import BliveSocket from "./BliveSocket.ts"
-import {CloseReason} from "./const.ts"
+import {CloseReason, WebSocketReadyState} from "./const.ts"
 
 
 type UserDirective =
@@ -183,7 +183,16 @@ function exit(client: WebSocketClient) {
  * @param client
  */
 function inspect(client: WebSocketClient) {
-    console.log(clients)
-    console.log(`共 ${clients.length} 个客户端`)
+    console.log(clients.map(client => ({
+        id: client.id,
+        socket: {
+            readyState: WebSocketReadyState[client.socket.readyState],
+            bufferedAmount: client.socket.bufferedAmount,
+        },
+        rooms: client.rooms,
+        heartbeatTimer: client.heartbeatTimer,
+    })))
+    const totalRooms = clients.reduce((sum, cur) => sum + cur.rooms.size, 0)
+    console.log(`共 ${clients.length} 个客户端连接，监听 ${totalRooms} 个房间`)
     client.socket.send(JSON.stringify(clients))
 }

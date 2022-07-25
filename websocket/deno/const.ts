@@ -311,3 +311,15 @@ export const CloseReason: {
     1014: 'Bad Gateway',
     1015: 'TLS handshake',
 }
+
+/**
+ * WebSocket 连接状态
+ */
+export const WebSocketReadyState: {
+    [code in number]: string
+} = {
+    [WebSocket.CONNECTING]: 'CONNECTING',
+    [WebSocket.OPEN]: 'OPEN',
+    [WebSocket.CLOSING]: 'CLOSING',
+    [WebSocket.CLOSED]: 'CLOSED',
+}
