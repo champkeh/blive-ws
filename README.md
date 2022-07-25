@@ -38,14 +38,14 @@ socket.addEventListener('open', () => {
     // 进入房间
     socket.send(JSON.stringify({
         cmd: 'enter',           // 命令
-        rid: 123,               // 房间号
+        rid: '123',               // 房间号
         events: ['DANMU_MSG'],  // 监听这个房间中的事件列表
     }))
 
     // 离开房间
     socket.send(JSON.stringify({
         cmd: 'leave',           // 命令
-        rid: 123,               // 房间号
+        rid: '123',               // 房间号
     }))
 })
 

@@ -123,6 +123,9 @@ function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
 }
 
 function enterRoom(rid: string, events: string[], client: WebSocketClient) {
+    if (!events.includes('authorized')) {
+        events.push('authorized')
+    }
     const socket = new BliveSocket({
         rid: parseInt(rid),
         events,
