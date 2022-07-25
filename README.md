@@ -24,6 +24,8 @@ B站直播间实时弹幕采集
 
 请阅读 [websocket重构](apis/refactor.md) 查看具体用法。
 
+Demo地址: https://blive.deno.dev
+
 > 这个在线服务采用免费的 Deno Deploy 部署，**稳定性不能保证，仅用于测试**，后续如果有可靠的免费部署服务的话，会考虑切换。
 
 ### 方式二：本地浏览器内运行
