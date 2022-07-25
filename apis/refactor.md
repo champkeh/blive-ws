@@ -16,7 +16,7 @@
 ### 浏览器
 
 ```js
-const socket = new WebSocket('wss://xxx.com/danmaku')
+const socket = new WebSocket('wss://blive.deno.dev')
 
 socket.addEventListener('open', () => {
     // 进入房间
@@ -36,7 +36,7 @@ socket.addEventListener('message', ({data}) => {
 ```js
 import WebSocket from 'ws'
 
-const socket = new WebSocket('wss://xxx.com/danmaku')
+const socket = new WebSocket('wss://blive.deno.dev')
 
 socket.on('open', () => {
     // 进入房间
@@ -58,4 +58,4 @@ todo
 
 ## 测试地址
 
-`wss://ws-echo.deno.dev/`
+`wss://blive.deno.dev`
