@@ -61,6 +61,8 @@ socket.addEventListener('message', ({data}) => {
 
 支持的 event 有：
 
+> 本人不怎么玩直播，所以下面的事件名字都是根据英文单词猜的，可能跟真正的直播间术语有冲突。
+
 |          事件名(大小写敏感)           |     说明      |
 |:-----------------------------:|:-----------:|
 |     COMMON_NOTICE_DANMAKU     |    公共通知     |
@@ -89,7 +91,7 @@ socket.addEventListener('message', ({data}) => {
 |         WIDGET_BANNER         |     小部件     |
 |     LIVE_INTERACTIVE_GAME     | 现场交互游戏(弹幕？) |
 
-详细说明请阅读 [websocket重构](apis/refactor.md)。
+关于方式一的更多细节可以阅读 [websocket重构](apis/refactor.md)。
 
 Demo地址: https://blive.deno.dev
 
