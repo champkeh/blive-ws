@@ -31,21 +31,12 @@ export function getDanmuInfo(rid: number) {
 }
 
 /**
- * 获取直播间真实id
+ * 获取直播间信息
  * @param rid 直播间id，支持短id
- * @return {Promise<number>}
+ * @return {Promise<any>}
  */
-export function getRoomId(rid: number): Promise<number> {
-    return new Promise((resolve, reject) => {
-        fetch(`${api_endpoint}/xlive/web-room/v2/index/getRoomPlayInfo?room_id=${rid}&no_playurl=0&mask=1&qn=0&platform=web&protocol=0,1&format=0,1,2&codec=0,1&dolby=5&panorama=1`)
-            .then(resp => resp.json())
-            .then(resp => {
-                if (resp.code !== 0 || !resp.data) {
-                    reject(new Error('获取直播间信息失败'))
-                } else {
-                    resolve(resp.data.room_id as number)
-                }
-            }).catch(reject)
-    })
+export function getRoomInfo(rid: number) {
+    return fetch(`${api_endpoint}/xlive/web-room/v2/index/getRoomPlayInfo?room_id=${rid}&no_playurl=0&mask=1&qn=0&platform=web&protocol=0,1&format=0,1,2&codec=0,1&dolby=5&panorama=1`)
+        .then(resp => resp.json())
 }
 

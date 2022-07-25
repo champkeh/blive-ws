@@ -5,28 +5,35 @@
     <title>Deno</title>
 </head>
 <body>
+<button id="connectBtn">连接</button>
 <input type="text" id="rid" value="25376179">
-<button id="enterBtn">进入</button>
-<button id="leaveBtn">离开</button>
+<button id="enterBtn" disabled>进入</button>
+<button id="leaveBtn" disabled>离开</button>
 <script>
     let ws = null
     const inputEl = document.querySelector('#rid')
-    document.querySelector('#enterBtn').addEventListener('click', () => {
-        const rid = inputEl.value
-        if (rid) {
-            if (!ws) {
-                ws = new WebSocket('ws://localhost:8000')
-                ws.onopen = () => {
-                    ws.send(JSON.stringify({cmd: 'enter', rid, events: ['DANMU_MSG']}))
-                }
-            } else {
-                ws.send(JSON.stringify({cmd: 'enter', rid, events: ['DANMU_MSG']}))
+    const connectBtn = document.querySelector('#connectBtn')
+    const enterBtn = document.querySelector('#enterBtn')
+    const leaveBtn = document.querySelector('#leaveBtn')
+
+    connectBtn.addEventListener('click', () => {
+        if (!ws) {
+            ws = new WebSocket('ws://localhost:8000')
+            ws.onopen = () => {
+                enterBtn.disabled = false
+                leaveBtn.disabled = false
             }
         }
     })
-    document.querySelector('#leaveBtn').addEventListener('click', () => {
+    enterBtn.addEventListener('click', () => {
         const rid = inputEl.value
-        if (rid && ws) {
+        if (rid) {
+            ws.send(JSON.stringify({cmd: 'enter', rid2: rid, events: ['DANMU_MSG']}))
+        }
+    })
+    leaveBtn.addEventListener('click', () => {
+        const rid = inputEl.value
+        if (rid) {
             ws.send(JSON.stringify({cmd: 'leave', rid}))
         }
     })

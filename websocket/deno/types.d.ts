@@ -94,5 +94,6 @@ export type EventType = 'open' | 'close' | 'error' | 'authorized' | 'message' | 
 export interface WebSocketClient {
     id: string
     socket: WebSocket
-    room_socket: Map<number, BliveSocket>
+    rooms: Map<string, BliveSocket>
+    heartbeatTimer?: number
 }
