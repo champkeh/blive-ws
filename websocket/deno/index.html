@@ -227,7 +227,6 @@
                 if (!this.text || !this.text.trim()) {
                     console.warn('请输入指令')
                 } else if (!window.bliveWs || window.bliveWs.readyState !== WebSocket.OPEN) {
-                    console.log(window.bliveWs)
                     console.warn('websocket 还没有建立')
                 } else {
                     window.bliveWs.send(this.text)
