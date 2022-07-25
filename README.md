@@ -1,6 +1,6 @@
-# danmaku.bilibili
+# blive-ws
 
-B站直播间实时弹幕采集
+B站直播间 WebSocket 服务，可用于实时获取直播间弹幕
 
 ## 项目背景
 
