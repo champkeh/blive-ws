@@ -514,12 +514,17 @@
                 bliveWs.onopen = () => {
                     bliveWs.send(JSON.stringify({cmd: 'enter', rid: rid, events: ['DANMU_MSG', 'INTERACT_WORD', 'SEND_GIFT']}))
                     notifyEl.classList.add('hide')
+
+                    setInterval(() => {
+                        bliveWs.send(JSON.stringify({}))
+                    }, 10000)
                 }
                 bliveWs.onclose = (evt) => {
                     notifyEl.classList.remove('hide')
                     bliveWs = null
                 }
                 bliveWs.onerror = (err) => {
+                    console.log(err)
                     ridEl.removeAttribute('disabled')
                     connectBtnEl.removeAttribute('disabled')
                     connectBtnEl.textContent = '连接直播间弹幕系统'
