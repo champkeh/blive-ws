@@ -27,8 +27,8 @@ const events = [
     'PREPARING',
 ]
 
-const bliveEndpoint = 'ws://localhost:8000'
-// const bliveEndpoint = 'wss://blive.deno.dev'
+// const bliveEndpoint = 'ws://localhost:8000'
+const bliveEndpoint = 'wss://blive.deno.dev'
 const ridRE = /^(https?:\/\/)?live.bilibili.com\/(?<roomid>\d+)/
 
 const app = createApp({
