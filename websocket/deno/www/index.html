@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>B站直播间弹幕采集演示</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <link rel="preconnect" href="https://esm.sh">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #init__loading__placeholder {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            z-index: 999;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            transition: opacity .5s linear;
+        }
+        .hidden {
+            opacity: 0 !important;
+        }
+
+        #init__loading__placeholder .loading-title {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            margin-top: 40px;
+            margin-left: -70px;
+            color: #0299be;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        #init__loading__placeholder .loading-grid {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            margin: -15px 0 0 -15px;
+        }
+
+        #init__loading__placeholder .loading {
+            width: 10px;
+            height: 10px;
+            background-color: #0299be;
+            float: left;
+            -webkit-animation: loading-grid-scale-delay 1.3s infinite ease-in-out;
+            animation: loading-grid-scale-delay 1.3s infinite ease-in-out;
+        }
+
+        #init__loading__placeholder .loading1 {
+            border-top-left-radius: 4px;
+            -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s;
+        }
+
+        #init__loading__placeholder .loading2 {
+            -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+        }
+
+        #init__loading__placeholder .loading3 {
+            border-top-right-radius: 4px;
+            -webkit-animation-delay: 0.4s;
+            animation-delay: 0.4s;
+        }
+
+        #init__loading__placeholder .loading4 {
+            -webkit-animation-delay: 0.1s;
+            animation-delay: 0.1s;
+        }
+
+        #init__loading__placeholder .loading5 {
+            -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s;
+        }
+
+        #init__loading__placeholder .loading6 {
+            -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+        }
+
+        #init__loading__placeholder .loading7 {
+            border-bottom-left-radius: 4px;
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+        }
+
+        #init__loading__placeholder .loading8 {
+            -webkit-animation-delay: 0.1s;
+            animation-delay: 0.1s;
+        }
+
+        #init__loading__placeholder .loading9 {
+            border-bottom-right-radius: 4px;
+            -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s;
+        }
+
+        @-webkit-keyframes loading-grid-scale-delay {
+            0%,
+            70%,
+            100% {
+                -webkit-transform: scale3D(1, 1, 1);
+                transform: scale3D(1, 1, 1);
+            }
+
+            35% {
+                -webkit-transform: scale3D(0, 0, 1);
+                transform: scale3D(0, 0, 1);
+            }
+        }
+
+        @keyframes loading-grid-scale-delay {
+            0%,
+            70%,
+            100% {
+                -webkit-transform: scale3D(1, 1, 1);
+                transform: scale3D(1, 1, 1);
+            }
+
+            35% {
+                -webkit-transform: scale3D(0, 0, 1);
+                transform: scale3D(0, 0, 1);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="init__loading__placeholder">
+    <div class="loading-grid">
+        <div class="loading loading1"></div>
+        <div class="loading loading2"></div>
+        <div class="loading loading3"></div>
+        <div class="loading loading4"></div>
+        <div class="loading loading5"></div>
+        <div class="loading loading6"></div>
+        <div class="loading loading7"></div>
+        <div class="loading loading8"></div>
+        <div class="loading loading9"></div>
+    </div>
+    <div class="loading-title">加载中, 请耐心等待</div>
+</div>
+<div id="app">
+    <section class="section-app">
+        <header>
+            <h1>B站直播间弹幕采集演示</h1>
+        </header>
+        <main>
+            <form @submit="onSubmit">
+                <label>
+                    <input v-model="app.rid" type="text" :disabled="app.connecting" placeholder="请输入直播间号码" required autocomplete="off">
+                </label>
+                <button :disabled="app.connecting">{{app.connecting ? '连接中...' : '连接直播间弹幕系统'}}</button>
+            </form>
+            <article class="rooms">
+                <h3>当前连接的房间列表：</h3>
+                <ul>
+                    <li v-for="room in app.rooms" :key="room">
+                        <span>{{room}}</span>
+                        <a href="javascript:void(0)" @click="disconnectLiveRoom(room)">断开</a>
+                    </li>
+                </ul>
+            </article>
+        </main>
+        <footer>
+            <p class="notice">注意: 请打开控制台查看弹幕数据</p>
+        </footer>
+    </section>
+    <section class="section-command">
+        <p>
+            <label>
+                <input type="checkbox" v-model="command.show">
+                构造命令
+            </label>
+        </p>
+
+        <!--构造命令面板-->
+        <template v-if="command.show">
+            <label>
+                <select v-model="command.cmd">
+                    <option value="" disabled>请选择命令</option>
+                    <option v-for="command in command.commands" :key="command" :value="command">{{command}}</option>
+                </select>
+            </label>
+            <label>
+                <input type="text" v-model="command.rid" placeholder="房间号">
+            </label>
+            <label>
+                <select multiple v-model="command.evt">
+                    <option v-for="event in command.events" :key="event" :value="event">{{event}}</option>
+                </select>
+            </label>
+            <button @click="generateCommand">生成指令</button>
+            <div class="result">
+                <label>
+                    <textarea rows="10" v-model="command.text"></textarea>
+                </label>
+                <button @click="send">发送</button>
+            </div>
+        </template>
+    </section>
+    <div class="notify" v-show="app.showNotify">WebSocket 中断，可能是因为服务在重新部署，请稍后重试。</div>
+</div>
+<script src="https://unpkg.com/vue@3"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
