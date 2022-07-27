@@ -240,3 +240,13 @@ function onSendGiftMsg(rid, data) {
     }
     Logger.warn(rid, "送礼物", `${info.name} ${info.action} ${info.giftName}x${info.num}`)
 }
+
+export function getWsEndpoint() {
+    if (window.location.protocol === 'http:') {
+        return `ws://${window.location.host}`
+    } else if (window.location.protocol === 'https:') {
+        return `wss://${window.location.host}`
+    } else {
+        console.warn('获取ws地址失败')
+    }
+}

@@ -1,5 +1,5 @@
 const {createApp} = window.Vue
-import {handleMessage} from './utils.js'
+import {getWsEndpoint, handleMessage} from './utils.js'
 
 const commands = ['enter', 'leave', 'exit', 'inspect']
 const events = [
@@ -27,8 +27,8 @@ const events = [
     'PREPARING',
 ]
 
-// const bliveEndpoint = 'ws://localhost:8000'
-const bliveEndpoint = 'wss://blive.deno.dev'
+const bliveEndpoint = getWsEndpoint()
+
 const ridRE = /^(https?:\/\/)?live.bilibili.com\/(?<roomid>\d+)/
 
 const app = createApp({
