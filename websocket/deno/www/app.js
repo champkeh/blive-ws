@@ -84,11 +84,13 @@ const app = createApp({
             reject()
         },
         wsOnMessage(event) {
-            if (!event.data) {
+            let data
+            try {
+                data = JSON.parse(event.data)
+            } catch (e) {
                 return
             }
 
-            const data = JSON.parse(event.data)
             if (data.payload.event === 'authorized') {
                 this.app.connecting = false
                 this.app.rooms.push(data.rid)

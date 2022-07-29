@@ -1,34 +1,57 @@
-import {WebSocketClient} from "./types.d.ts"
 import BliveSocket from "./BliveSocket.ts"
 import {CloseReason, WebSocketReadyState} from "./const.ts"
 
+interface EventListener {
+    event: string
+    callback: (data: CustomEventInit) => void
+}
 
+interface RoomEntity {
+    rid: string
+    blive_socket: BliveSocket,
+    listeners: EventListener[]
+}
+
+interface WebSocketClient {
+    id: string
+    socket: WebSocket
+    rooms: Map<string, RoomEntity>
+    heartbeatTimer?: number
+}
+
+/**
+ * 所有的用户指令
+ */
 type UserDirective =
     | UserEnterDirective
     | UserLeaveDirective
     | UserExitDirective
     | UserInspectDirective
 
+// enter 指令
 interface UserEnterDirective {
     cmd: 'enter'
     rid: string
     events: string[]
 }
 
+// leave 指令
 interface UserLeaveDirective {
     cmd: 'leave'
     rid: string
 }
 
+// exit 指令
 interface UserExitDirective {
     cmd: 'exit'
 }
 
+// inspect 指令
 interface UserInspectDirective {
     cmd: 'inspect'
 }
 
-
+// 所有连接的客户端
 const clients: WebSocketClient[] = []
 
 /**
@@ -39,7 +62,7 @@ export function initClient(socket: WebSocket) {
     const client = {
         id: crypto.randomUUID(),
         socket: socket,
-        rooms: new Map(),
+        rooms: new Map<string, RoomEntity>(),
     }
 
     // 为客户端 socket 绑定事件处理器
@@ -58,7 +81,7 @@ function clientOnOpen(this: WebSocketClient) {
 
     // 用 data frame 模拟 ping frame
     this.heartbeatTimer = setInterval(() => {
-        this.socket.send('')
+        this.socket.send('heartbeat')
     }, 20000)
 }
 
@@ -68,21 +91,13 @@ function clientOnOpen(this: WebSocketClient) {
 function clientOnClose(this: WebSocketClient, event: CloseEvent) {
     const idx = clients.findIndex(client => client.id === this.id)
     if (idx !== -1) {
-        clients.splice(idx, 1)
+        const [client] = clients.splice(idx, 1)
+        destroyClient(client)
+
         console.log(`Disconnected from client: ${this.id}, code: ${event.code} reason: ${CloseReason[event.code]}`)
     } else {
         console.log(`${this.id} not exist in server`)
     }
-
-    // 清理客户端监听的房间
-    this.rooms.forEach((socket) => {
-        socket.destroy()
-    })
-    this.rooms.clear()
-
-    // 取消心跳
-    clearInterval(this.heartbeatTimer!)
-    this.socket.close()
 }
 
 /**
@@ -131,9 +146,7 @@ function enterRoom(rid: string, events: string[], client: WebSocketClient) {
     }
     if (client.rooms.has(rid)) {
         // 销毁之前的room
-        const socket = client.rooms.get(rid)
-        socket!.destroy()
-        client.rooms.delete(rid)
+        leaveRoom(rid, client)
     }
 
     // 新建房间对应的 B 站 Socket 对象
@@ -141,17 +154,29 @@ function enterRoom(rid: string, events: string[], client: WebSocketClient) {
         rid: parseInt(rid),
         events,
     })
+
+    // 实例化一个 room
+    const room: RoomEntity = {
+        rid,
+        blive_socket: socket,
+        listeners: [],
+    }
     // 根据 events 设置监听器
     events.forEach(event => {
-        socket.addEventListener(event, (data: CustomEventInit) => {
+        const cb = (data: CustomEventInit) => {
             if (data.detail) {
                 client.socket.send(JSON.stringify({rid, payload: data.detail}))
             } else {
                 client.socket.send(JSON.stringify({rid, payload: {event}}))
             }
+        }
+        socket.addEventListener(event, cb)
+        room.listeners.push({
+            event,
+            callback: cb,
         })
     })
-    client.rooms.set(rid, socket)
+    client.rooms.set(rid, room)
 }
 
 /**
@@ -160,9 +185,9 @@ function enterRoom(rid: string, events: string[], client: WebSocketClient) {
  * @param client
  */
 function leaveRoom(rid: string, client: WebSocketClient) {
-    const socket = client.rooms.get(rid)
-    if (socket) {
-        socket.destroy()
+    const room = client.rooms.get(rid)
+    if (room) {
+        destroyRoom(room)
         client.rooms.delete(rid)
     }
 }
@@ -172,9 +197,7 @@ function leaveRoom(rid: string, client: WebSocketClient) {
  * @param client
  */
 function exit(client: WebSocketClient) {
-    client.rooms.forEach((socket) => {
-        socket.destroy()
-    })
+    client.rooms.forEach(room => destroyRoom(room))
     client.rooms.clear()
 }
 
@@ -183,7 +206,7 @@ function exit(client: WebSocketClient) {
  * @param client
  */
 function inspect(client: WebSocketClient) {
-    console.log(clients.map(client => ({
+    const info = clients.map(client => ({
         id: client.id,
         socket: {
             readyState: WebSocketReadyState[client.socket.readyState],
@@ -191,8 +214,36 @@ function inspect(client: WebSocketClient) {
         },
         rooms: client.rooms,
         heartbeatTimer: client.heartbeatTimer,
-    })))
+    }))
+    console.log(info)
     const totalRooms = clients.reduce((sum, cur) => sum + cur.rooms.size, 0)
     console.log(`共 ${clients.length} 个客户端连接，监听 ${totalRooms} 个房间`)
     client.socket.send(JSON.stringify(clients))
+}
+
+/**
+ * 销毁房间
+ * @param room
+ */
+function destroyRoom(room: RoomEntity) {
+    // 解除监听器
+    room.listeners.forEach(listener => {
+        room.blive_socket.removeEventListener(listener.event, listener.callback)
+    })
+    // 销毁socket
+    room.blive_socket.destroy()
+}
+
+/**
+ * 销毁客户端
+ * @param client
+ */
+function destroyClient(client: WebSocketClient) {
+    // 清理客户端监听的房间
+    client.rooms.forEach(room => destroyRoom(room))
+    client.rooms.clear()
+
+    // 取消心跳
+    clearInterval(client.heartbeatTimer!)
+    client.socket.close()
 }

@@ -90,10 +90,3 @@ export interface CountMessageData {
 }
 
 export type EventType = 'open' | 'close' | 'error' | 'authorized' | 'message' | 'heart_beat_reply'
-
-export interface WebSocketClient {
-    id: string
-    socket: WebSocket
-    rooms: Map<string, BliveSocket>
-    heartbeatTimer?: number
-}
