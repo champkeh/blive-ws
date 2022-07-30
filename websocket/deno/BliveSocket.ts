@@ -8,22 +8,26 @@ import {
     BliveSocketOptions,
     DataPacket,
     Options,
-    WSHost, EventType, MessageData, MessageBody
+    WSHost,
+    MessageData,
+    MessageBody,
 } from './types.d.ts'
 import {getDanmuInfo} from './api.ts'
 
-
+/**
+ * B站 websocket 连接默认选项
+ */
 const defaultBliveSocketOptions = {
-    debug: false,
+    debug: false, // 调试模式
     rid: 0, // 房间id
     uid: 0, // 用户id
-    retry: true, // 断开重连
+    retry: true, // 断开自动重连
     retryMaxCount: 0,
-    retryInterval: 5,
+    retryInterval: 5e3, // 重试间隔
     retryThreadCount: 10,
-    connectTimeout: 5e3, // ws连接超时时间，5s
+    connectTimeout: 5e3, // 连接超时时间
     retryConnectCount: 3, // 重连次数
-    retryConnectTimeout: 1e4, // 重连超时时间，10s
+    retryConnectTimeout: 1e4, // 重连超时时间
     retryRoundInterval: Math.floor(2 * Math.random()) + 3,
     heartBeatInterval: 30, // 心跳包间隔
     events: []
@@ -77,24 +81,41 @@ export default class BliveSocket extends EventTarget {
         this.encoder = new TextEncoder()
         this.decoder = new TextDecoder()
 
-        this.getHostList(this.options.rid).then(() => {
+        this.fetchHostList(this.options.rid).then(() => {
             this.mixinCallback().initialize(this.state.urlList[0])
         }).catch(e => {
             console.log(e)
         })
     }
 
-    private async getHostList(rid: number) {
+    /**
+     * 获取线路列表及token
+     * @param rid 房间号
+     * @private
+     */
+    private async fetchHostList(rid: number) {
         const danmuInfo = await getDanmuInfo(rid)
         if (danmuInfo.code !== 0) {
-            throw new Error('获取token失败')
+            throw new Error(`获取线路失败: ${danmuInfo.message}`)
         }
         this.state.urlList = danmuInfo.data.host_list.map((h: WSHost) => `wss://${h.host}:${h.wss_port}/sub`)
         this.state.token = danmuInfo.data.token
 
-        if (this.options.retryMaxCount !== 0 && this.state.urlList.length !== 0 && this.options.retryMaxCount < this.state.urlList.length) {
-            this.options.retryMaxCount = this.state.urlList.length - 1
+        if (this.state.urlList.length === 0 || !this.state.token) {
+            throw new Error(`获取连接参数失败: 线路为空或token不存在`)
         }
+
+        // 尝试将所有线路都进行重试
+        this.options.retryMaxCount = this.state.urlList.length - 1
+
+        if (this.options.debug) {
+            console.log(`获取B站弹幕服务线路如下:`)
+            this.state.urlList.forEach(url => {
+                console.log(url)
+            })
+            console.log()
+        }
+
         return this
     }
 
@@ -125,6 +146,7 @@ export default class BliveSocket extends EventTarget {
     }
 
     private onOpen() {
+        console.log('open')
         // 执行 onOpenQueue 钩子
         callFunction(this.callbackQueueList.onOpenQueue)
 
@@ -166,6 +188,7 @@ export default class BliveSocket extends EventTarget {
     }
 
     private onMessage(msg: MessageEvent) {
+        console.log('message')
         try {
             const data = this.convertToObject(msg.data)
 
@@ -175,7 +198,7 @@ export default class BliveSocket extends EventTarget {
                 })
             } else if (data instanceof Object) {
                 if (this.options.debug) {
-                    // console.log('message: ', data)
+                    console.log('message: ', data)
                 }
                 switch (data.op) {
                     // 心跳应答包: 3
@@ -240,6 +263,7 @@ export default class BliveSocket extends EventTarget {
     }
 
     private onClose() {
+        console.log('close')
         const t = this.state.urlList.length
 
         // 执行 onClose 钩子
@@ -248,40 +272,40 @@ export default class BliveSocket extends EventTarget {
 
         this.emit('close')
 
-        if (this.options.retry) {
-            // 重新连接
-            if (this.checkRetryState()) {
-                setTimeout(() => {
-                    console.warn("Danmaku Websocket Retry .", this.state.retryCount)
-                    this.state.index += 1
-                    if (0 === t || this.state.retryCount > this.options.retryThreadCount) {
-                        setTimeout(() => {
-                            this.initialize(this.state.urlList[0])
-                        }, 1e3 * this.options.retryRoundInterval)
-                    } else if (0 !== t && this.state.index > t - 1) {
-                        this.state.index = 0
-                        this.state.listConnectFinishedCount += 1
-                        if (this.state.listConnectFinishedCount === 1) {
-                            callFunction(this.callbackQueueList.onListConnectErrorQueue)
-                        }
-                        setTimeout(() => {
-                            this.initialize(this.state.urlList[this.state.index])
-                        }, 1e3 * this.options.retryRoundInterval)
-                    } else {
-                        this.initialize(this.state.urlList[this.state.index])
+        // 重试其他线路
+        if (this.checkRetryState()) {
+            setTimeout(() => {
+                console.warn("Danmaku Websocket Retry .", this.state.retryCount)
+                this.state.index += 1
+                if (this.state.retryCount > this.options.retryThreadCount) {
+                    setTimeout(() => {
+                        this.initialize(this.state.urlList[0])
+                    }, 1e3 * this.options.retryRoundInterval)
+                } else if (0 !== t && this.state.index > t - 1) {
+                    this.state.index = 0
+                    this.state.listConnectFinishedCount += 1
+                    if (this.state.listConnectFinishedCount === 1) {
+                        callFunction(this.callbackQueueList.onListConnectErrorQueue)
                     }
-                }, 1000 * this.options.retryInterval)
-            } else {
-                console.warn("Danmaku Websocket Retry Failed.")
-                callFunction(this.callbackQueueList.onRetryFallbackQueue)
-            }
+                    setTimeout(() => {
+                        this.initialize(this.state.urlList[this.state.index])
+                    }, 1e3 * this.options.retryRoundInterval)
+                } else {
+                    this.initialize(this.state.urlList[this.state.index])
+                }
+            }, this.options.retryInterval)
+        } else {
+            // 线路已重试完
+            console.warn("Danmaku Websocket Retry Failed.")
+            callFunction(this.callbackQueueList.onRetryFallbackQueue)
         }
 
         return this
     }
 
     private onError(err: Event | ErrorEvent) {
-        console.error("Danmaku Websocket On Error.", err)
+        console.error(`连接B站弹幕服务 ${(err.target as WebSocket).url} 失败`)
+        console.error(`原因: ${(err as ErrorEvent).message}`)
         callFunction(this.callbackQueueList.onErrorQueue, err)
 
         this.emit('error', err)
@@ -370,6 +394,10 @@ export default class BliveSocket extends EventTarget {
         return this
     }
 
+    /**
+     * 绑定回调函数钩子
+     * @private
+     */
     private mixinCallback() {
         const options = this.options
         const cbQueueList = this.callbackQueueList
@@ -388,23 +416,28 @@ export default class BliveSocket extends EventTarget {
         return this
     }
 
-    private getRetryCount() {
-        return this.state.retryCount
-    }
-
+    /**
+     * 检查是否有可用的线路
+     * @private
+     */
     private checkRetryState() {
-        let t = false
-        if (this.options.retryMaxCount === 0 || this.state.retryCount < this.options.retryMaxCount) {
+        let hasAvailableHost = false
+        if (this.state.retryCount < this.options.retryMaxCount) {
             this.state.retryCount += 1
-            t = true
+            hasAvailableHost = true
         }
-        return t
+        return hasAvailableHost
     }
 
-    emit(event: string, payload?: unknown) {
+    /**
+     * 发射事件
+     * @param type 事件名
+     * @param payload 数据
+     */
+    emit(type: string, payload?: unknown) {
         // console.log(event)
-        if (this.options.events.includes(event)) {
-            this.dispatchEvent(new CustomEvent(event, payload as CustomEventInit))
+        if (this.options.events.includes(type)) {
+            this.dispatchEvent(new CustomEvent(type, payload as CustomEventInit))
         }
     }
 }

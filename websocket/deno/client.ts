@@ -1,5 +1,6 @@
 import BliveSocket from "./BliveSocket.ts"
 import {CloseReason, WebSocketReadyState} from "./const.ts"
+import {getRealRoomId} from "./api.ts"
 
 interface EventListener {
     event: string
@@ -7,15 +8,15 @@ interface EventListener {
 }
 
 interface RoomEntity {
-    rid: string
-    blive_socket: BliveSocket,
+    rid: number
+    bliveSocket: BliveSocket,
     listeners: EventListener[]
 }
 
 interface WebSocketClient {
     id: string
     socket: WebSocket
-    rooms: Map<string, RoomEntity>
+    rooms: Map<number, RoomEntity>
     heartbeatTimer?: number
 }
 
@@ -31,14 +32,14 @@ type UserDirective =
 // enter 指令
 interface UserEnterDirective {
     cmd: 'enter'
-    rid: string
+    rid: number
     events: string[]
 }
 
 // leave 指令
 interface UserLeaveDirective {
     cmd: 'leave'
-    rid: string
+    rid: number
 }
 
 // exit 指令
@@ -62,7 +63,7 @@ export function initClient(socket: WebSocket) {
     const client = {
         id: crypto.randomUUID(),
         socket: socket,
-        rooms: new Map<string, RoomEntity>(),
+        rooms: new Map<number, RoomEntity>(),
     }
 
     // 为客户端 socket 绑定事件处理器
@@ -111,7 +112,7 @@ function clientOnError(this: WebSocketClient, error: Event | ErrorEvent) {
  * 客户端发送的命令
  * @param event
  */
-function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
+async function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
     console.log(`CLIENT ${this.id} >> ${event.data}`)
 
     try {
@@ -123,8 +124,8 @@ function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
             // 检查状态
             inspect(this)
         } else if (userDirective.cmd === 'enter') {
-            // 加入房间
-            enterRoom(userDirective.rid, userDirective.events, this)
+            // 加入房间，确保 rid 为数字类型，否则发送认证包会失败
+            await enterRoom(+userDirective.rid, userDirective.events, this)
         } else if (userDirective.cmd === 'leave') {
             // 离开房间
             leaveRoom(userDirective.rid, this)
@@ -140,7 +141,7 @@ function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
  * @param events
  * @param client
  */
-function enterRoom(rid: string, events: string[], client: WebSocketClient) {
+async function enterRoom(rid: number, events: string[], client: WebSocketClient) {
     if (!events.includes('authorized')) {
         events.push('authorized')
     }
@@ -149,16 +150,28 @@ function enterRoom(rid: string, events: string[], client: WebSocketClient) {
         leaveRoom(rid, client)
     }
 
+    // 获取真实房间号
+    try {
+        const realId = await getRealRoomId(rid)
+        if (realId !== rid) {
+            console.log(`房间真实id: ${realId}`)
+        }
+    } catch (e) {
+        client.socket.send(JSON.stringify({rid, error: e.message}))
+        return
+    }
+
     // 新建房间对应的 B 站 Socket 对象
-    const socket = new BliveSocket({
-        rid: parseInt(rid),
+    const bliveSocket = new BliveSocket({
+        rid,
         events,
+        debug: false,
     })
 
     // 实例化一个 room
     const room: RoomEntity = {
         rid,
-        blive_socket: socket,
+        bliveSocket: bliveSocket,
         listeners: [],
     }
     // 根据 events 设置监听器
@@ -170,7 +183,7 @@ function enterRoom(rid: string, events: string[], client: WebSocketClient) {
                 client.socket.send(JSON.stringify({rid, payload: {event}}))
             }
         }
-        socket.addEventListener(event, cb)
+        bliveSocket.addEventListener(event, cb)
         room.listeners.push({
             event,
             callback: cb,
@@ -184,7 +197,7 @@ function enterRoom(rid: string, events: string[], client: WebSocketClient) {
  * @param rid
  * @param client
  */
-function leaveRoom(rid: string, client: WebSocketClient) {
+function leaveRoom(rid: number, client: WebSocketClient) {
     const room = client.rooms.get(rid)
     if (room) {
         destroyRoom(room)
@@ -228,10 +241,10 @@ function inspect(client: WebSocketClient) {
 function destroyRoom(room: RoomEntity) {
     // 解除监听器
     room.listeners.forEach(listener => {
-        room.blive_socket.removeEventListener(listener.event, listener.callback)
+        room.bliveSocket.removeEventListener(listener.event, listener.callback)
     })
     // 销毁socket
-    room.blive_socket.destroy()
+    room.bliveSocket.destroy()
 }
 
 /**

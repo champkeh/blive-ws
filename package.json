@@ -16,7 +16,8 @@
   "license": "MIT",
   "scripts": {
     "deno": "deno run --allow-read --allow-net websocket/deno/app.ts",
-    "start": "node server.js"
+    "start": "node server.js",
+    "demo": "deno run --allow-read --allow-net websocket/deno/demo.ts"
   },
   "dependencies": {
     "blive-ws": "0.1.1-alpha.2",

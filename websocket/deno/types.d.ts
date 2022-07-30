@@ -1,5 +1,3 @@
-import BliveSocket from "./BliveSocket.ts"
-
 export type CallbackFn = (...params: unknown[]) => void
 
 export interface BliveSocketCallbackQueueList {

@@ -27,7 +27,7 @@ export function getUserFace(uid: number) {
  * @return {Promise<any>}
  */
 export function getDanmuInfo(rid: number) {
-    return fetch(`${api_endpoint}/xlive/web-room/v1/index/getDanmuInfo?id=${rid}`).then(resp => resp.json())
+    return fetch(`${api_endpoint}/xlive/web-room/v1/index/getDanmuInfo?id=${rid}&type=0`).then(resp => resp.json())
 }
 
 /**
@@ -40,3 +40,18 @@ export function getRoomInfo(rid: number) {
         .then(resp => resp.json())
 }
 
+/**
+ * 获取真实房间号
+ * @param rid
+ */
+export function getRealRoomId(rid: number): Promise<number> {
+    return new Promise((resolve, reject) => {
+        getRoomInfo(rid).then(resp => {
+            if (resp && resp.code === 0) {
+                resolve(resp.data.room_id)
+            } else {
+                reject(new Error('获取真实rid失败: ' + resp.message))
+            }
+        }).catch(reject)
+    })
+}

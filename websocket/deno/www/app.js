@@ -91,6 +91,11 @@ const app = createApp({
                 return
             }
 
+            if (data.error) {
+                console.error(data.error)
+                this.app.connecting = false
+                return
+            }
             if (data.payload.event === 'authorized') {
                 this.app.connecting = false
                 this.app.rooms.push(data.rid)

@@ -1,4 +1,4 @@
-import {CallbackFn} from "./types.d.ts";
+import {CallbackFn} from "./types.d.ts"
 
 export function mergeArrayBuffer(buf1: ArrayBuffer, buf2: ArrayBuffer) {
     const b1 = new Uint8Array(buf1)
