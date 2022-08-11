@@ -357,6 +357,7 @@ const OPCODE = {
 ## 类似项目
 
 - [Bilibili-Live-API](https://github.com/lovelyyoshino/Bilibili-Live-API)
+- [bilibili-live-ws](https://github.com/simon300000/bilibili-live-ws)
 
 ## LICENSE
 
