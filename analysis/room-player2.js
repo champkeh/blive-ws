@@ -59,11 +59,11 @@ parcelRequire = function (e, r, t, n) {
         }(r = exports.P2PType || (exports.P2PType = {})), function (e) {
             e[e.AreaBlock = 6005] = "AreaBlock"
         }(o = exports.ApiErrorCode || (exports.ApiErrorCode = {})), function (e) {
-            e.Initialized = "initialized", e.PlayerStateChange = "playerStateChange", e.LiveStateChange = "liveStateChange", e.StartPlayRound = "startPlayRound", e.VideoStateChange = "videoStateChange", e.FullscreenChange = "fullscreenChange", e.Playing = "playing", e.Paused = "paused", e.SwitchLine = "switchLine", e.SwitchQuality = "switchQuality", e.WebFullscreen = "webFullscreen", e.FeedBackClick = "feedBackClick", e.BlockSettingClick = "blockSettingClick", e.Set = "set", e.Reload = "reload", e.GuidChange = "guidChange", e.InitDanmaku = "initDanmaku", e.AddDanmaku = "addDanmaku", e.SendDanmaku = "sendDanmaku", e.ReceiveOnlineCount = "receiveOnlineCount", e.ReceiveMessage = "receiveMessage", e.UserLogin = "userLogin", e.SendGift = "sendGift", e.FirstLoadedAPIPlayer = "firstLoadedAPIPlayer", e.FirstLoadedAPIPlayurl = "firstLoadedAPIPlayurl", e.FirstLoadStart = "firstLoadStart", e.FirstLoadedMetaData = "firstLoadedMetaData", e.FirstPlaying = "firstPlaying", e.EnterTheRoom = "enterTheRoom", e.OperableElementsChange = "operableElementsChange", e.AutoPlay = "autoPlay", e.SwitchQualityNotLogin = "switchQualityNotLogin", e.Recommend = "recommend", e.DanmakuMaskChange = "danmakuMaskChange", e.DanmakuMaskStatusChange = "danmakuMaskStatusChange", e.CtrlVisibleChange = "ctrlVisibleChange", e.WebPlayerCreated = "webPlayerCreated", e.FirstFrame = "FirstFrame", e.SEIData = "SEIData", e.VolumeChange = "VolumeChange", e.VideoDirectionChange = "VideoDirectionChange", e.UserClickPlayIcon = "UserClickPlayIcon", e.MergeStream = "MergeStream", e.SEIParseData = "SEIParseData", e.OrientationChange = "OrientationChange", e.UserRedirect = "UserRedirect"
+            e.Initialized = "initialized", e.PlayerStateChange = "playerStateChange", e.LiveStateChange = "liveStateChange", e.StartPlayRound = "startPlayRound", e.VideoStateChange = "videoStateChange", e.FullscreenChange = "fullscreenChange", e.Playing = "playing", e.Paused = "paused", e.SwitchLine = "switchLine", e.SwitchQuality = "switchQuality", e.WebFullscreen = "webFullscreen", e.FeedBackClick = "feedBackClick", e.BlockSettingClick = "blockSettingClick", e.Set = "set", e.Reload = "reload", e.GuidChange = "guidChange", e.InitDanmaku = "initDanmaku", e.AddDanmaku = "addDanmaku", e.SendDanmaku = "sendDanmaku", e.ReceiveOnlineCount = "receiveOnlineCount", e.ReceiveMessage = "receiveMessage", e.UserLogin = "userLogin", e.SendGift = "sendGift", e.FirstLoadedAPIPlayer = "firstLoadedAPIPlayer", e.FirstLoadedAPIPlayurl = "firstLoadedAPIPlayurl", e.FirstLoadStart = "firstLoadStart", e.FirstLoadedMetaData = "firstLoadedMetaData", e.FirstPlaying = "firstPlaying", e.EnterTheRoom = "enterTheRoom", e.OperableElementsChange = "operableElementsChange", e.AutoPlay = "autoPlay", e.SwitchQualityNotLogin = "switchQualityNotLogin", e.Recommend = "recommend", e.DanmakuMaskChange = "danmakuMaskChange", e.DanmakuMaskStatusChange = "danmakuMaskStatusChange", e.CtrlVisibleChange = "ctrlVisibleChange", e.WebPlayerCreated = "webPlayerCreated", e.FirstFrame = "FirstFrame", e.SEIData = "SEIData", e.VolumeChange = "VolumeChange", e.VideoDirectionChange = "VideoDirectionChange", e.UserClickPlayIcon = "UserClickPlayIcon", e.MergeStream = "MergeStream", e.SEIParseData = "SEIParseData", e.OrientationChange = "OrientationChange", e.UserRedirect = "UserRedirect", e.MutePlay = "MutePlay", e.NotAutoPlay = "NotAutoPlay"
         }(n = exports.ExternalEventType || (exports.ExternalEventType = {})), function (e) {
             e.fMp4Player = "fMp4Player", e.Hls7Player = "Hls7Player", e.NativePlayer = "NativePlayer"
         }(i = exports.CorePlayerType || (exports.CorePlayerType = {})), function (e) {
-            e.LIVE_SEI_CHANNEL = "LIVE_SEI_CHANNEL", e.BILIMASK__SVGBIN = "BILIMASK__SVGBIN"
+            e.LIVE_SEI_CHANNEL = "LIVE_SEI_CHANNEL", e.BILIMASK__SVGBIN = "BILIMASK__SVGBIN", e.B_LIVE_VIBRATION = "B_LIVE_VIBRATION", e.LIVE_SEI_PC_LINK = "LIVE_SEI_PC_LINK"
         }(l = exports.SEIType || (exports.SEIType = {}));
     }, {}],
     "MFFc": [function (require, module, exports) {
@@ -563,54 +563,56 @@ parcelRequire = function (e, r, t, n) {
     "hSGw": [function (require, module, exports) {
         "use strict";
         Object.defineProperty(exports, "__esModule", {value: !0}), exports.monitorFPS = void 0;
-        var e = [], n = new Set, r = 0, t = 0, o = [], a = !1, i = 0, u = function u() {
-            r++;
-            var c = performance.now(), f = c - t;
+        var e = [], n = new Set, t = 0, r = 0, i = [], o = !1, a = 0, u = function u() {
+            t++;
+            var c = performance.now(), f = c - r;
             if (f >= 1e3) {
-                var l = Math.round(1e3 * r / f);
-                if (t = c, r = 0, o.push(l), 10 === (o = o.slice(-10)).length) for (var s = Math.max.apply(Math, o), d = 0, h = e; d < h.length; d++) {
-                    var p = h[d], v = p[0], m = p[1];
-                    s < v && m.forEach(function (e) {
+                var l = Math.round(1e3 * t / f);
+                if (r = c, t = 0, i.push(l), 10 === (i = i.slice(-10)).length) for (var s = Math.max.apply(Math, i), d = 0, v = e; d < v.length; d++) {
+                    var h = v[d], m = h[0], p = h[1];
+                    s < m && p.forEach(function (e) {
                         return e()
                     })
                 }
-                var y = o.reduce(function (e, n) {
+                var y = i.reduce(function (e, n) {
                     return e + n
-                }, 0) / o.length;
+                }, 0) / i.length;
                 n.forEach(function (e) {
                     return e(y)
                 })
             }
-            a && (i = requestAnimationFrame(u))
+            o && (a = requestAnimationFrame(u))
         };
 
         function c() {
-            t = performance.now(), o = [], r = 0, cancelAnimationFrame(i), i = requestAnimationFrame(u)
+            r = performance.now(), i = [], t = 0, cancelAnimationFrame(a), a = requestAnimationFrame(u)
         }
 
-        function f(r, t) {
-            if ("alert" === r.type) {
-                var o = e.find(function (e) {
+        function f(t, r) {
+            if ("alert" === t.type) {
+                var i = e.find(function (e) {
                     var n = e[0];
-                    return r.threshold === n
+                    return t.threshold === n
                 });
-                null == o && (o = [r.threshold, new Set], e.push(o), e.sort(function (e, n) {
+                null == i && (i = [t.threshold, new Set], e.push(i), e.sort(function (e, n) {
                     return e[0] - n[0]
-                })), o[1].add(t)
-            } else "avg" === r.type && n.add(t);
-            return a || (a = !0, c()), function () {
-                var o;
-                "alert" === r.type ? null === (o = e.find(function (e) {
-                    return e[0] === r.threshold
-                })) || void 0 === o || o[1].delete(t) : "avg" === r.type && n.delete(t), e.map(function (e) {
+                })), i[1].add(r)
+            } else "avg" === t.type && n.add(r);
+            return o || (o = !0, c()), function () {
+                var i;
+                "alert" === t.type ? null === (i = e.find(function (e) {
+                    return e[0] === t.threshold
+                })) || void 0 === i || i[1].delete(r) : "avg" === t.type && n.delete(r), e.map(function (e) {
                     return e[1]
                 }).every(function (e) {
                     return 0 === e.size
-                }) && 0 === n.size && (a = !1, cancelAnimationFrame(i))
+                }) && 0 === n.size && (o = !1, cancelAnimationFrame(a))
             }
         }
 
-        exports.monitorFPS = f;
+        document.addEventListener("visibilitychange", function () {
+            "visible" === document.visibilityState && c()
+        }), exports.monitorFPS = f;
     }, {}],
     "JKnM": [function (require, module, exports) {
         "use strict";
@@ -3849,12 +3851,12 @@ parcelRequire = function (e, r, t, n) {
     }, {}],
     "ao58": [function (require, module, exports) {
         "use strict";
-        var e, t, r, i, n, o, a, s, d, u, l, c, f, h, p = this && this.__assign || function () {
-            return (p = Object.assign || function (e) {
+        var e, t, r, i, n, o, a, s, d, u, l, c, f, h, v = this && this.__assign || function () {
+            return (v = Object.assign || function (e) {
                 for (var t, r = 1, i = arguments.length; r < i; r++) for (var n in t = arguments[r]) Object.prototype.hasOwnProperty.call(t, n) && (e[n] = t[n]);
                 return e
             }).apply(this, arguments)
-        }, v = this && this.__awaiter || function (e, t, r, i) {
+        }, p = this && this.__awaiter || function (e, t, r, i) {
             return new (r || (r = Promise))(function (n, o) {
                 function a(e) {
                     try {
@@ -3989,11 +3991,11 @@ parcelRequire = function (e, r, t, n) {
             e[e.FirstFrameTimeout = 92001] = "FirstFrameTimeout"
         }(M = exports.VideoError || (exports.VideoError = {}));
         var D = function () {
-            function D(v, m) {
+            function D(p, m) {
                 var b, D = this;
                 void 0 === m && (m = {}), e.set(this, void 0), t.set(this, void 0), r.set(this, null), i.set(this, void 0), n.set(this, void 0), o.set(this, {
-                    mediaInfo: p({}, T),
-                    realtimeInfo: p({}, I)
+                    mediaInfo: v({}, T),
+                    realtimeInfo: v({}, I)
                 }), a.set(this, null), s.set(this, P.Initialize), d.set(this, []), u.set(this, void 0), l.set(this, void 0), c.set(this, new L.EventBus), this.on = w(this, c).on, this.once = w(this, c).once, this.emit = function (e) {
                     for (var t, r = [], i = 1; i < arguments.length; i++) r[i - 1] = arguments[i];
                     [E.VideoInfo, E.SEIData].includes(e) || w(D, n).debug("video emit: " + e + ", handlers count: " + w(D, c).getHandlers(e).size), (t = w(D, c)).emit.apply(t, g([e], r))
@@ -4026,7 +4028,7 @@ parcelRequire = function (e, r, t, n) {
                             e[t]("id " + w(D, i) + ": " + r)
                         } : e[t]
                     }
-                })), y(this, t, v), y(this, u, m), y(this, e, F(null !== (b = m.wasmDecode) && void 0 !== b && b)), y(this, l, window.setTimeout(function () {
+                })), y(this, t, p), y(this, u, m), y(this, e, F(null !== (b = m.wasmDecode) && void 0 !== b && b)), y(this, l, window.setTimeout(function () {
                     D.load()
                 }, 1))
             }
@@ -4045,7 +4047,7 @@ parcelRequire = function (e, r, t, n) {
                     L.logger.error(e)
                 }))
             }, D.prototype.play = function () {
-                return v(this, void 0, Promise, function () {
+                return p(this, void 0, Promise, function () {
                     return m(this, function (t) {
                         switch (t.label) {
                             case 0:
@@ -4105,8 +4107,8 @@ parcelRequire = function (e, r, t, n) {
             }, D.prototype.destroy = function (t) {
                 var i, s;
                 void 0 === t && (t = !1), t || this.removeVideoEl(), this.status !== P.Destroyed && (this.status = P.Destroyed, w(this, n).info("video destroyed, holdLastFrame: " + t.toString()), clearTimeout(w(this, l)), clearInterval(null !== (i = w(this, a)) && void 0 !== i ? i : 0), y(this, o, {
-                    mediaInfo: p({}, T),
-                    realtimeInfo: p({}, I)
+                    mediaInfo: v({}, T),
+                    realtimeInfo: v({}, I)
                 }), w(this, e).pause(), null === (s = w(this, r)) || void 0 === s || s.destroy(), w(this, d).forEach(function (e) {
                     return null == e ? void 0 : e()
                 }), this.emit(E.Destroyed), w(this, c).destroy())
@@ -4116,7 +4118,7 @@ parcelRequire = function (e, r, t, n) {
                     var a, s,
                         l = !0 === w(this, u).wasmDecode ? new window.BwpMediaSource : null != window.MediaSource ? new window.MediaSource : {},
                         c = new URL(w(this, t));
-                    if (c.pathname.endsWith(".flv")) a = new b.fMp4Player(l, e), s = L.CorePlayerType.fMp4Player; else if (c.pathname.endsWith(".m3u8")) null != window.MediaSource ? (a = new b.Hls7Player(l, e), s = L.CorePlayerType.Hls7Player) : (a = new b.NativePlayer(l, e), s = L.CorePlayerType.NativePlayer); else {
+                    if (c.pathname.endsWith(".flv")) a = new b.fMp4Player(l, e), s = L.CorePlayerType.fMp4Player; else if (c.pathname.endsWith(".m3u8")) !0 === w(this, u).forceNativePlayer || null == window.MediaSource ? (a = new b.NativePlayer(l, e), s = L.CorePlayerType.NativePlayer) : (a = new b.Hls7Player(l, e), s = L.CorePlayerType.Hls7Player); else {
                         if (!c.pathname.endsWith(".mp4")) throw new Error("Unsupported stream url: " + c.pathname);
                         a = new b.NativePlayer(l, e), s = L.CorePlayerType.NativePlayer
                     }
@@ -4208,14 +4210,14 @@ parcelRequire = function (e, r, t, n) {
                     }, reportCb: function (e) {
                         r.emit(E.WaitReport, e)
                     }
-                }), p = function () {
+                }), v = function () {
                     r.emit(E.Play)
                 };
-                t.addEventListener("play", p);
-                var v = function () {
+                t.addEventListener("play", v);
+                var p = function () {
                     r.emit(E.Pause)
                 };
-                t.addEventListener("pause", v);
+                t.addEventListener("pause", p);
                 var m = function () {
                 };
                 !0 === w(this, u).wasmDecode && (m = function () {
@@ -4229,7 +4231,7 @@ parcelRequire = function (e, r, t, n) {
                     })
                 });
                 return function () {
-                    t.removeEventListener("loadeddata", d), t.removeEventListener("ended", l), t.removeEventListener("error", c), t.removeEventListener("play", p), t.removeEventListener("pause", v), t.removeEventListener("performance", m), f(), y(), P()
+                    t.removeEventListener("loadeddata", d), t.removeEventListener("ended", l), t.removeEventListener("error", c), t.removeEventListener("play", v), t.removeEventListener("pause", p), t.removeEventListener("performance", m), f(), y(), P()
                 }
             }, D
         }();
@@ -4252,16 +4254,16 @@ parcelRequire = function (e, r, t, n) {
                 e.removeEventListener("progress", u), d && (d = !1, n())
             };
             e.addEventListener("waiting", l), e.addEventListener("playing", c);
-            var f = new b.BufferDetector(e, 1e3), h = 0, p = 0, v = 0, m = 0, y = performance.now(), w = function () {
+            var f = new b.BufferDetector(e, 1e3), h = 0, v = 0, p = 0, m = 0, y = performance.now(), w = function () {
                 var r = performance.now(), i = t.receivedBytes - m;
                 m = t.receivedBytes, o({
                     count: f.waitedCount - h,
-                    duration: Math.round(f.waitedDuration - p),
+                    duration: Math.round(f.waitedDuration - v),
                     windowSize: Math.round(r - y),
-                    playTime: Math.round(e.currentTime - v),
+                    playTime: Math.round(e.currentTime - p),
                     playedTime: Math.round(e.currentTime),
                     receivedBytes: i
-                }), h = f.waitedCount, p = f.waitedDuration, v = e.currentTime, y = r
+                }), h = f.waitedCount, v = f.waitedDuration, p = e.currentTime, y = r
             }, g = window.setInterval(w, 6e4), E = function () {
                 w()
             };
@@ -4316,7 +4318,7 @@ parcelRequire = function (e, r, t, n) {
                     var n = null != t ? t : W.source.playurl.p2p_data.p2p_type;
                     return null != k.wpd.P2PType && (n = k.wpd.P2PType), null == window.MediaSource && (n = k.P2PType.NONE), n !== k.P2PType.HLS_BILI && n !== k.P2PType.HLS_NOT_P2P || W.hasHLSPlayerSupportStream() || (n = k.P2PType.NONE), n in k.P2PType || (n = k.P2PType.NONE), n
                 }), P.set(this, function (t) {
-                    return t === k.ProtocolType.HTTP_STREAM ? [k.FormatType.FLV] : null != window.MediaSource || k.ua.isIOS() ? [k.FormatType.FMP4, k.FormatType.TS] : [k.FormatType.TS]
+                    return navigator.userAgent.includes("PlayStation") ? [k.FormatType.TS] : t === k.ProtocolType.HTTP_STREAM ? [k.FormatType.FLV] : null != window.MediaSource || k.ua.isIOS() ? [k.FormatType.FMP4, k.FormatType.TS] : [k.FormatType.TS]
                 }), _.set(this, function (t) {
                     for (var e, n, o = H(W, P).call(W, t), r = null, i = 0, a = o; i < a.length; i++) {
                         var l = a[i];
@@ -4479,8 +4481,8 @@ parcelRequire = function (e, r, t, n) {
                     }
                 });
                 if (0 === b.length) throw new Error("play url codec.hosts is empty");
-                var N = H(this, u) % b.length;
-                M(this, y, b[N].attr_name), M(this, a, b[N].url), M(this, d, b[N].ttl > 1 ? b[N].ttl : L), 0 !== H(this, p) && M(this, a, H(this, a) + "&tmshift=" + H(this, p)), M(this, s, v.format), M(this, i, P), M(this, c, w), M(this, e, H(this, T).call(this, t.expectP2PType)), M(this, r, H(this, m).call(this, E.accept_qn, null == W ? void 0 : W.accept_qn)), M(this, o, v.current_qn + (P === k.CodecType.HEVC ? "_" + k.CodecType.HEVC : "")), M(this, l, b), H(this, C).call(this, w, H(this, e)) && M(this, e, k.P2PType.NONE)
+                var A = H(this, u) % b.length;
+                M(this, y, b[A].attr_name), M(this, a, b[A].url), M(this, d, b[A].ttl > 1 ? b[A].ttl : L), 0 !== H(this, p) && M(this, a, H(this, a) + "&tmshift=" + H(this, p)), M(this, s, v.format), M(this, i, P), M(this, c, w), M(this, e, H(this, T).call(this, t.expectP2PType)), M(this, r, H(this, m).call(this, E.accept_qn, null == W ? void 0 : W.accept_qn)), M(this, o, v.current_qn + (P === k.CodecType.HEVC ? "_" + k.CodecType.HEVC : "")), M(this, l, b), H(this, C).call(this, w, H(this, e)) && M(this, e, k.P2PType.NONE)
             }, E
         }();
         exports.default = E, t = new WeakMap, e = new WeakMap, n = new WeakMap, o = new WeakMap, r = new WeakMap, i = new WeakMap, a = new WeakMap, l = new WeakMap, c = new WeakMap, s = new WeakMap, u = new WeakMap, p = new WeakMap, h = new WeakMap, d = new WeakMap, f = new WeakMap, y = new WeakMap, v = new WeakMap, T = new WeakMap, P = new WeakMap, _ = new WeakMap, C = new WeakMap, w = new WeakMap, m = new WeakMap, S = new WeakMap;
@@ -7540,7 +7542,7 @@ parcelRequire = function (e, r, t, n) {
         !function (e) {
             e[e.Perf = 1] = "Perf", e[e.Event = 2] = "Event", e[e.Error = 3] = "Error", e[e.Operation = 4] = "Operation", e[e.Custom = 5] = "Custom"
         }(r = exports.Category || (exports.Category = {})), function (e) {
-            e[e.PlayerResLoad = 1] = "PlayerResLoad", e[e.FirstPacket = 2] = "FirstPacket", e[e.VideoMeta = 3] = "VideoMeta", e[e.FirstFrame = 4] = "FirstFrame", e[e.Api = 5] = "Api", e[e.FPS = 6] = "FPS"
+            e[e.PlayerResLoad = 1] = "PlayerResLoad", e[e.FirstPacket = 2] = "FirstPacket", e[e.VideoMeta = 3] = "VideoMeta", e[e.FirstFrame = 4] = "FirstFrame", e[e.Api = 5] = "Api", e[e.DevicePerf = 6] = "DevicePerf"
         }(o = exports.PerfCode || (exports.PerfCode = {})), function (e) {
             e[e.RoomPlayerInit = 1] = "RoomPlayerInit", e[e.CreateVideo = 2] = "CreateVideo", e[e.HomePlayerInit = 100] = "HomePlayerInit", e[e.ActivityPlayerInit = 200] = "ActivityPlayerInit", e[e.MobilePlayerInit = 300] = "MobilePlayerInit"
         }(t = exports.EventCode || (exports.EventCode = {})), function (e) {
@@ -7561,44 +7563,44 @@ parcelRequire = function (e, r, t, n) {
             }
         }(), p = {}, m = c();
 
-        function y(e) {
+        function v(e) {
             d = e.uvid + "|" + e.uid + "|" + e.version + "|" + e.roomId
         }
 
-        function v(r, o) {
+        function y(r, o) {
             if (!0 === o) return m = c(), void (p[m] = e({}, r));
             null == p[m] && (p[m] = {}), p[m] = Object.assign({}, p[m], r)
         }
 
-        function P(e, o, t) {
+        function f(e, o, t) {
             var a = void 0 === t ? {} : t, n = a.extFields, i = a.params, l = a.sampleRate, d = void 0 === l ? 1 : l,
                 u = a.randDelay;
-            f({val: Math.round(o), category: r.Perf, code: e, params: null != i ? i : {}}, {
+            P({val: Math.round(o), category: r.Perf, code: e, params: null != i ? i : {}}, {
                 sample: 100 * d,
                 randDelay: u,
                 extFields: null != n ? n : ["sHost", "sProtocol", "p2pType", "sQuery", "x-service-module"]
             })
         }
 
-        function f(r, o) {
-            var t, a = Date.now(), n = r.category, i = r.val, l = r.params, u = r.code, c = o.sample, y = o.randDelay,
-                v = o.dynamicFieldsVer, P = o.extFields,
-                f = null !== (t = p[null != v ? v : m]) && void 0 !== t ? t : {};
-            "all" === P ? l = e(e({}, l), f) : Array.isArray(P) && (l = P.reduce(function (r, o) {
+        function P(r, o) {
+            var t, a = Date.now(), n = r.category, i = r.val, l = r.params, u = r.code, c = o.sample, v = o.randDelay,
+                y = o.dynamicFieldsVer, f = o.extFields,
+                P = null !== (t = p[null != y ? y : m]) && void 0 !== t ? t : {};
+            "all" === f ? l = e(e({}, l), P) : Array.isArray(f) && (l = f.reduce(function (r, o) {
                 var t;
-                return o in f ? e(e({}, r), ((t = {})[o] = f[o], t)) : r
+                return o in P ? e(e({}, r), ((t = {})[o] = P[o], t)) : r
             }, e({}, l)));
             var F = "string" == typeof i ? i : null == i ? "" : JSON.stringify(i),
                 C = 0 === Object.keys(null != l ? l : {}).length ? "" : JSON.stringify(l);
             s.event("playerEvt", {code: u, val: F, ctime: a, category: n, params: C, staticInfo: d}, {
                 sample: c,
-                randDelay: y
+                randDelay: v
             })
         }
 
         function F(e, o, t) {
             var a, n;
-            f({
+            P({
                 val: o,
                 category: r.Event,
                 code: e
@@ -7611,7 +7613,7 @@ parcelRequire = function (e, r, t, n) {
 
         function C(o, t, a) {
             var n, i, l;
-            void 0 === a && (a = {}), f({
+            void 0 === a && (a = {}), P({
                 val: t,
                 category: r.Error,
                 code: o,
@@ -7625,7 +7627,7 @@ parcelRequire = function (e, r, t, n) {
 
         function R(e, o, t) {
             var a;
-            f({
+            P({
                 val: o,
                 code: e,
                 category: r.Operation
@@ -7638,7 +7640,7 @@ parcelRequire = function (e, r, t, n) {
 
         function x(e, o, t) {
             var a;
-            f({
+            P({
                 val: o,
                 category: r.Custom,
                 code: e
@@ -7659,7 +7661,7 @@ parcelRequire = function (e, r, t, n) {
         }
 
         exports.default = {
-            perf: P,
+            perf: f,
             event: F,
             error: C,
             custom: x,
@@ -7670,8 +7672,8 @@ parcelRequire = function (e, r, t, n) {
             OperationCode: n,
             CustomCode: i,
             fixedDynamicFieldsVerIns: E,
-            initStaticInfo: y,
-            updateDynamicInfo: v,
+            initStaticInfo: v,
+            updateDynamicInfo: y,
             formatter: u
         };
     }, {"@bilibili-live/live-web-track": "BuDO"}],
@@ -7788,7 +7790,9 @@ parcelRequire = function (e, r, t, n) {
                         if (m.logger.info("Controller onrefresh"), 0 !== y(S, r).size) for (var e = 0, t = Array.from(y(S, r)); e < t.length; e++) {
                             (0, t[e])()
                         }
-                    }), d.set(this, function (e, t) {
+                    }), this.getCtrlEl = function () {
+                        return y(S, e)
+                    }, d.set(this, function (e, t) {
                         return f(S, void 0, Promise, function () {
                             return p(this, function (n) {
                                 switch (n.label) {
@@ -7803,7 +7807,7 @@ parcelRequire = function (e, r, t, n) {
                         })
                     }), this.changeCtrlVisible = function (n) {
                         n ? (y(S, t).style.visibility = "visible", y(S, e).style.visibility = "visible") : (y(S, t).style.visibility = "hidden", y(S, e).style.visibility = "hidden")
-                    }, v(this, e, k()), v(this, t, C()), this.container.appendChild(y(this, t)), w.appendChild(y(this, e)), v(this, n, new b.default({
+                    }, v(this, e, C()), v(this, t, k()), g.enableCtrlUI && (this.container.appendChild(y(this, t)), w.appendChild(y(this, e))), v(this, n, new b.default({
                         target: y(this, e),
                         props: {
                             show: !1,
@@ -7866,12 +7870,12 @@ parcelRequire = function (e, r, t, n) {
                 }, w
             }();
 
-        function k() {
+        function C() {
             var e = document.createElement("div");
             return e.style.cssText = "\n    position: absolute;\n    bottom: 0;\n    width: 100%;\n    z-index: 13;\n  ", e.classList.add("web-player-controller-wrap"), e.id = "web-player-controller-wrap-el", e
         }
 
-        function C() {
+        function k() {
             var e = document.createElement("div");
             return e.classList.add("web-player-controller-bg"), e.style.cssText = "\n    display: none;\n    position: absolute;\n    bottom: 0;\n    width: 100%;\n    z-index: 10;\n    height: 56px;\n    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));\n  ", e.classList.add("web-player-controller-wrap"), e
         }
@@ -8045,7 +8049,7 @@ parcelRequire = function (e, r, t, n) {
     "GTYV": [function (require, module, exports) {
         var define;
         var process = require("process");
-        var t, e = require("process"), n = "2022-06-14 11:38:38";
+        var t, e = require("process"), n = "2022-08-09 16:29:40";
         !function (e, n) {
             "object" == typeof exports && "object" == typeof module ? module.exports = n() : "function" == typeof t && t.amd ? t([], n) : "object" == typeof exports ? exports["sisters-player"] = n() : e["sisters-player"] = n()
         }(window, function () {
@@ -8082,20 +8086,22 @@ parcelRequire = function (e, r, t, n) {
                     return n.d(e, "a", e), e
                 }, n.o = function (t, e) {
                     return Object.prototype.hasOwnProperty.call(t, e)
-                }, n.p = "", n(n.s = 81)
+                }, n.p = "", n(n.s = 77)
             }([function (t, e, n) {
                 var r = n(168);
                 t.exports = function (t, e, n) {
                     return e in t ? r(t, e, {value: n, enumerable: !0, configurable: !0, writable: !0}) : t[e] = n, t
                 }
             }, function (t, e, n) {
-                t.exports = n(187)
+                t.exports = n(186)
             }, function (t, e) {
                 t.exports = function (t, e) {
                     if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
                 }
             }, function (t, e, n) {
-                t.exports = n(209)
+                t.exports = n(203)
+            }, function (t, e, n) {
+                t.exports = n(208)
             }, function (t, e, n) {
                 var r = n(168);
 
@@ -8110,9 +8116,7 @@ parcelRequire = function (e, r, t, n) {
                     return e && o(t.prototype, e), n && o(t, n), t
                 }
             }, function (t, e, n) {
-                t.exports = n(204)
-            }, function (t, e, n) {
-                var r = n(188);
+                var r = n(187);
 
                 function o(t, e, n, o, i, a, s) {
                     try {
@@ -8151,13 +8155,13 @@ parcelRequire = function (e, r, t, n) {
                     }), n.d(e, "c", function () {
                         return a
                     }), n.d(e, "d", function () {
-                        return Y
+                        return G
                     });
-                    var r, o, i, a, s = n(56), c = n.n(s), u = n(50), l = n.n(u), h = n(64), f = n.n(h), p = n(65),
-                        d = n.n(p), v = n(66), g = n.n(v), y = n(33), x = n.n(y), C = n(27), w = n.n(C), m = n(36),
-                        k = n.n(m), b = n(12), S = n.n(b), P = n(9), E = n.n(P), R = n(22), A = n.n(R), I = n(3),
-                        D = n.n(I), T = n(2), L = n.n(T), F = n(4), O = n.n(F), U = n(0), M = n.n(U), N = n(19),
-                        B = n(121), _ = n(10), z = n(81);
+                    var r, o, i, a, s = n(78), c = n.n(s), u = n(62), l = n.n(u), h = n(97), f = n.n(h), p = n(98),
+                        d = n.n(p), v = n(99), g = n.n(v), y = n(42), C = n.n(y), x = n(24), w = n.n(x), m = n(35),
+                        k = n.n(m), S = n(12), b = n.n(S), P = n(9), E = n.n(P), A = n(22), R = n.n(A), I = n(4),
+                        D = n.n(I), T = n(2), L = n.n(T), F = n(5), O = n.n(F), M = n(0), U = n.n(M), N = n(19),
+                        B = n(121), _ = n(10), z = n(77);
 
                     function j(t, e) {
                         var n;
@@ -8166,7 +8170,7 @@ parcelRequire = function (e, r, t, n) {
                                 var n;
                                 if (t) {
                                     if ("string" == typeof t) return q(t, e);
-                                    var r = x()(n = Object.prototype.toString.call(t)).call(n, 8, -1);
+                                    var r = C()(n = Object.prototype.toString.call(t)).call(n, 8, -1);
                                     return "Object" === r && t.constructor && (r = t.constructor.name), "Map" === r || "Set" === r ? g()(t) : "Arguments" === r || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r) ? q(t, e) : void 0
                                 }
                             }(t)) || e && t && "number" == typeof t.length) {
@@ -8219,7 +8223,7 @@ parcelRequire = function (e, r, t, n) {
                     }(a || (a = {}));
                     var W = function () {
                         function e(t) {
-                            L()(this, e), M()(this, "data", void 0), M()(this, "status", void 0), M()(this, "future", void 0), M()(this, "dataSourceType", void 0), M()(this, "dataRoleType", void 0), M()(this, "dataSourcePeerId", void 0), M()(this, "sourceData", void 0), this.data = t, this.status = i.NULL, this.future = new N.b
+                            L()(this, e), U()(this, "data", void 0), U()(this, "status", void 0), U()(this, "future", void 0), U()(this, "dataSourceType", void 0), U()(this, "dataRoleType", void 0), U()(this, "dataSourcePeerId", void 0), U()(this, "sourceData", void 0), this.data = t, this.status = i.NULL, this.future = new N.b
                         }
 
                         return O()(e, [{
@@ -8252,16 +8256,16 @@ parcelRequire = function (e, r, t, n) {
                             }
                         }]), e
                     }(), V = function t() {
-                        L()(this, t), M()(this, "startBlockId", void 0), M()(this, "nextFinishedBlockId", void 0), M()(this, "curCount", void 0), M()(this, "maxCount", void 0), M()(this, "sliceSize", void 0), M()(this, "shareSize", void 0), M()(this, "statArray", void 0), M()(this, "roleArray", void 0), this.statArray = new Array;
+                        L()(this, t), U()(this, "startBlockId", void 0), U()(this, "nextFinishedBlockId", void 0), U()(this, "curCount", void 0), U()(this, "maxCount", void 0), U()(this, "sliceSize", void 0), U()(this, "shareSize", void 0), U()(this, "statArray", void 0), U()(this, "roleArray", void 0), this.statArray = new Array;
                         for (var e = 0; e < r.TYPE_COUNT; ++e) this.statArray[e] = 0;
                         for (this.roleArray = new Array, e = 0; e < o.TYPE_COUNT; ++e) this.roleArray[e] = 0
-                    }, G = function () {
+                    }, Y = function () {
                         function t(e, n, i, s) {
-                            L()(this, t), M()(this, "p2pContext", void 0), M()(this, "blockCount", void 0), M()(this, "fragmentName", void 0), M()(this, "fragmentSize", void 0), M()(this, "buffer", void 0), M()(this, "fragStat", void 0), M()(this, "fragEndErrorMsg", void 0), M()(this, "trustedCrc", void 0), M()(this, "blockSize", void 0), M()(this, "blocks", void 0), M()(this, "sliceProgressArray", void 0), M()(this, "blockFinishCount", void 0), M()(this, "future", void 0), M()(this, "statArray", void 0), M()(this, "roleArray", void 0), M()(this, "distances", void 0), M()(this, "shareSize", void 0), M()(this, "shareQuota", void 0), M()(this, "sliceBlockRangeRecord", {}), M()(this, "sliceIdsInCharge", void 0), M()(this, "ghostPeerIds", void 0), M()(this, "queryServerNum", void 0), M()(this, "crcErrorCallback", void 0), M()(this, "isCrcErrorToRefetch", !1), this.p2pContext = e, this.fragmentName = n, this.fragmentSize = i, this.trustedCrc = s, this.fragStat = a.NULL, this.blocks = new Array, this.statArray = new Array;
+                            L()(this, t), U()(this, "p2pContext", void 0), U()(this, "blockCount", void 0), U()(this, "fragmentName", void 0), U()(this, "fragmentSize", void 0), U()(this, "buffer", void 0), U()(this, "fragStat", void 0), U()(this, "fragEndErrorMsg", void 0), U()(this, "trustedCrc", void 0), U()(this, "blockSize", void 0), U()(this, "blocks", void 0), U()(this, "sliceProgressArray", void 0), U()(this, "blockFinishCount", void 0), U()(this, "future", void 0), U()(this, "statArray", void 0), U()(this, "roleArray", void 0), U()(this, "distances", void 0), U()(this, "shareSize", void 0), U()(this, "shareQuota", void 0), U()(this, "sliceBlockRangeRecord", {}), U()(this, "sliceIdsInCharge", void 0), U()(this, "ghostPeerIds", void 0), U()(this, "queryServerNum", void 0), U()(this, "crcErrorCallback", void 0), U()(this, "isCrcErrorToRefetch", !1), this.p2pContext = e, this.fragmentName = n, this.fragmentSize = i, this.trustedCrc = s, this.fragStat = a.NULL, this.blocks = new Array, this.statArray = new Array;
                             for (var c = 0; c < r.TYPE_COUNT; ++c) this.statArray[c] = 0;
                             for (this.roleArray = new Array, c = 0; c < o.TYPE_COUNT; ++c) this.roleArray[c] = 0;
                             for (this.sliceProgressArray = new Array, c = 0; c < this.p2pContext.Config.sliceCount; ++c) this.sliceProgressArray[c] = new V;
-                            this.blockFinishCount = 0, this.future = new N.b, this.shareSize = 0, this.sliceIdsInCharge = new A.a, this.ghostPeerIds = new A.a, this.queryServerNum = 0, this.initFragmentBySize(i)
+                            this.blockFinishCount = 0, this.future = new N.b, this.shareSize = 0, this.sliceIdsInCharge = new R.a, this.ghostPeerIds = new R.a, this.queryServerNum = 0, this.initFragmentBySize(i)
                         }
 
                         return O()(t, [{
@@ -8442,7 +8446,7 @@ parcelRequire = function (e, r, t, n) {
                         }, {
                             key: "setFragmentData", value: function (t, e, n, i) {
                                 var s = function (t) {
-                                    var e, n = new A.a;
+                                    var e, n = new R.a;
                                     if (D()(e = t.blocks).call(e, function (t) {
                                         var e = t.getDataSourceType(), o = t.getSourceData();
                                         e === r.SERVER && void 0 !== o && n.add(o)
@@ -8471,7 +8475,7 @@ parcelRequire = function (e, r, t, n) {
                                                 for (var g = 0; g < this.p2pContext.Config.sliceCount; ++g) if (!this.sliceIdsInCharge.has(g)) {
                                                     var y = this.getSliceBlockRange(g);
                                                     this.statArray[r.P2P] -= this.sliceProgressArray[g].statArray[r.P2P], this.p2pContext.P2PDataCollectionStatus.addWastedDataSize(this.sliceProgressArray[g].statArray[r.P2P], _.e.ERROR_DATA), this.sliceProgressArray[g].statArray[r.P2P] = 0;
-                                                    for (var x = y[1] - 1; x >= y[0]; --x) this.getBlock(x).resetStatus() && (--this.blockFinishCount, --this.sliceProgressArray[g].curCount)
+                                                    for (var C = y[1] - 1; C >= y[0]; --C) this.getBlock(C).resetStatus() && (--this.blockFinishCount, --this.sliceProgressArray[g].curCount)
                                                 }
                                                 return void this.crcErrorCallback()
                                             }
@@ -8481,8 +8485,8 @@ parcelRequire = function (e, r, t, n) {
                                     this.fragStat = a.END_SUCCESS, this.buffer.set(t)
                                 } else if (0 == this.buffer.byteLength) {
                                     for (this.fragmentSize = t.byteLength, this.initFragmentBySize(this.fragmentSize), g = 0; g < this.blockCount; ++g) {
-                                        var C = this.getBlockByteRange(g);
-                                        this.setBlockData(g, t.subarray(C[0], C[1]), r.SERVER, o.SEED, n, i)
+                                        var x = this.getBlockByteRange(g);
+                                        this.setBlockData(g, t.subarray(x[0], x[1]), r.SERVER, o.SEED, n, i)
                                     }
                                     return
                                 }
@@ -8534,9 +8538,9 @@ parcelRequire = function (e, r, t, n) {
                                 this.fragStat == a.NULL && this.setFragmentData(void 0, void 0, void 0, void 0)
                             }
                         }]), t
-                    }(), Y = function () {
+                    }(), G = function () {
                         function t(e) {
-                            L()(this, t), M()(this, "p2pContext", void 0), M()(this, "collection", new S.a), M()(this, "queue", new Array), M()(this, "sliceIdController", void 0), this.p2pContext = e
+                            L()(this, t), U()(this, "p2pContext", void 0), U()(this, "collection", new b.a), U()(this, "queue", new Array), U()(this, "sliceIdController", void 0), this.p2pContext = e
                         }
 
                         return O()(t, [{
@@ -8547,7 +8551,7 @@ parcelRequire = function (e, r, t, n) {
                             key: "addFragment", value: function (t, e, n) {
                                 var r = this.collection.get(t);
                                 if (void 0 !== r) return r.getFragmentSize() === e ? r : void 0;
-                                r = new G(this.p2pContext, t, e, n), this.collection.set(t, r), this.queue.push(t)
+                                r = new Y(this.p2pContext, t, e, n), this.collection.set(t, r), this.queue.push(t)
                             }
                         }, {
                             key: "getFragment", value: function (t) {
@@ -8582,10 +8586,10 @@ parcelRequire = function (e, r, t, n) {
                             }
                         }]), t
                     }()
-                }).call(this, n(295).Buffer)
+                }).call(this, n(294).Buffer)
             }, function (t, e, n) {
                 "use strict";
-                var r = n(15), o = n(87).f, i = n(125), a = n(16), s = n(46), c = n(30), u = n(25), l = function (t) {
+                var r = n(14), o = n(84).f, i = n(125), a = n(15), s = n(46), c = n(30), u = n(26), l = function (t) {
                     var e = function (e, n, r) {
                         if (this instanceof t) {
                             switch (arguments.length) {
@@ -8603,12 +8607,12 @@ parcelRequire = function (e, r, t, n) {
                     return e.prototype = t.prototype, e
                 };
                 t.exports = function (t, e) {
-                    var n, h, f, p, d, v, g, y, x = t.target, C = t.global, w = t.stat, m = t.proto,
-                        k = C ? r : w ? r[x] : (r[x] || {}).prototype, b = C ? a : a[x] || (a[x] = {}), S = b.prototype;
-                    for (f in e) n = !i(C ? f : x + (w ? "." : "#") + f, t.forced) && k && u(k, f), d = b[f], n && (v = t.noTargetGet ? (y = o(k, f)) && y.value : k[f]), p = n && v ? v : e[f], n && typeof d == typeof p || (g = t.bind && n ? s(p, r) : t.wrap && n ? l(p) : m && "function" == typeof p ? s(Function.call, p) : p, (t.sham || p && p.sham || d && d.sham) && c(g, "sham", !0), b[f] = g, m && (u(a, h = x + "Prototype") || c(a, h, {}), a[h][f] = p, t.real && S && !S[f] && c(S, f, p)))
+                    var n, h, f, p, d, v, g, y, C = t.target, x = t.global, w = t.stat, m = t.proto,
+                        k = x ? r : w ? r[C] : (r[C] || {}).prototype, S = x ? a : a[C] || (a[C] = {}), b = S.prototype;
+                    for (f in e) n = !i(x ? f : C + (w ? "." : "#") + f, t.forced) && k && u(k, f), d = S[f], n && (v = t.noTargetGet ? (y = o(k, f)) && y.value : k[f]), p = n && v ? v : e[f], n && typeof d == typeof p || (g = t.bind && n ? s(p, r) : t.wrap && n ? l(p) : m && "function" == typeof p ? s(Function.call, p) : p, (t.sham || p && p.sham || d && d.sham) && c(g, "sham", !0), S[f] = g, m && (u(a, h = C + "Prototype") || c(a, h, {}), a[h][f] = p, t.real && b && !b[f] && c(b, f, p)))
                 }
             }, function (t, e, n) {
-                t.exports = n(307)
+                t.exports = n(306)
             }, function (t, e, n) {
                 "use strict";
                 n.d(e, "e", function () {
@@ -8620,8 +8624,8 @@ parcelRequire = function (e, r, t, n) {
                 }), n.d(e, "c", function () {
                     return m
                 });
-                var r, o, i, a = n(59), s = n.n(a), c = n(14), u = n.n(c), l = n(3), h = n.n(l), f = n(22), p = n.n(f),
-                    d = n(2), v = n.n(d), g = n(4), y = n.n(g), x = n(0), C = n.n(x), w = n(7);
+                var r, o, i, a = n(57), s = n.n(a), c = n(16), u = n.n(c), l = n(4), h = n.n(l), f = n(22), p = n.n(f),
+                    d = n(2), v = n.n(d), g = n(5), y = n.n(g), C = n(0), x = n.n(C), w = n(7);
                 n.d(e, "a", function () {
                     return w.a
                 }), function (t) {
@@ -8633,21 +8637,21 @@ parcelRequire = function (e, r, t, n) {
                 }(i || (i = {}));
                 var m = function () {
                     function t() {
-                        v()(this, t), C()(this, "statArray", new Array), C()(this, "roleArray", new Array), C()(this, "shareSize", 0), C()(this, "lastestDeleteFragName", "--"), C()(this, "statRealtimeArray", new Array), C()(this, "p2pSendSizeRealtime", 0), C()(this, "lastestFragName", "--"), C()(this, "lastestSaveRatio", "0.000"), C()(this, "lastestShareRatio", "0.000"), C()(this, "wastedDataArray", new Array), C()(this, "fetchRepeatFragmentNameList", new p.a), C()(this, "fetchErrorArray", new Array), C()(this, "queryServerInfo", {
+                        v()(this, t), x()(this, "statArray", new Array), x()(this, "roleArray", new Array), x()(this, "shareSize", 0), x()(this, "lastestDeleteFragName", "--"), x()(this, "statRealtimeArray", new Array), x()(this, "p2pSendSizeRealtime", 0), x()(this, "lastestFragName", "--"), x()(this, "lastestSaveRatio", "0.000"), x()(this, "lastestShareRatio", "0.000"), x()(this, "wastedDataArray", new Array), x()(this, "fetchRepeatFragmentNameList", new p.a), x()(this, "fetchErrorArray", new Array), x()(this, "queryServerInfo", {
                             fragNum: 0,
                             queryNum: 0,
                             largestQPF: 0
-                        }), C()(this, "trackerInfo", {
+                        }), x()(this, "trackerInfo", {
                             reqSuccCount: 0,
                             reqFailCount: 0,
                             reqCostTimeMs: 0,
                             conSuccCount: 0,
                             conFailCount: 0
-                        }), C()(this, "peerConnectionInfo", {
+                        }), x()(this, "peerConnectionInfo", {
                             conSuccCount: 0,
                             conFailCount: 0,
                             conAbortCount: 0
-                        }), C()(this, "peerMessageInfo", {
+                        }), x()(this, "peerMessageInfo", {
                             pmTxP: 0,
                             pmRxP: 0,
                             pmLagP: 0,
@@ -8836,17 +8840,15 @@ parcelRequire = function (e, r, t, n) {
                     }]), t
                 }()
             }, function (t, e, n) {
-                t.exports = n(208)
+                t.exports = n(207)
             }, function (t, e, n) {
-                t.exports = n(253)
+                t.exports = n(252)
             }, function (t, e, n) {
-                var r = n(15), o = n(108), i = n(25), a = n(92), s = n(111), c = n(134), u = o("wks"), l = r.Symbol,
+                var r = n(14), o = n(108), i = n(26), a = n(89), s = n(111), c = n(134), u = o("wks"), l = r.Symbol,
                     h = c ? l : l && l.withoutSetter || a;
                 t.exports = function (t) {
                     return i(u, t) || (s && i(l, t) ? u[t] = l[t] : u[t] = h("Symbol." + t)), u[t]
                 }
-            }, function (t, e, n) {
-                t.exports = n(250)
             }, function (t, e, n) {
                 (function (e) {
                     var n = function (t) {
@@ -8855,9 +8857,11 @@ parcelRequire = function (e, r, t, n) {
                     t.exports = n("object" == typeof globalThis && globalThis) || n("object" == typeof window && window) || n("object" == typeof self && self) || n("object" == typeof e && e) || function () {
                         return this
                     }() || Function("return this")()
-                }).call(this, n(86))
+                }).call(this, n(83))
             }, function (t, e) {
                 t.exports = {}
+            }, function (t, e, n) {
+                t.exports = n(249)
             }, function (t, e) {
                 t.exports = function (t) {
                     try {
@@ -8867,7 +8871,7 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }
             }, function (t, e, n) {
-                var r = n(16), o = n(25), i = n(118), a = n(31).f;
+                var r = n(15), o = n(26), i = n(118), a = n(31).f;
                 t.exports = function (t) {
                     var e = r.Symbol || (r.Symbol = {});
                     o(e, t) || a(e, t, {value: i.f(t)})
@@ -8879,15 +8883,15 @@ parcelRequire = function (e, r, t, n) {
                 }), n.d(e, "b", function () {
                     return E
                 }), n.d(e, "c", function () {
-                    return R
-                }), n.d(e, "a", function () {
                     return A
+                }), n.d(e, "a", function () {
+                    return R
                 });
-                var r = n(9), o = n.n(r), i = n(59), a = n.n(i), s = n(27), c = n.n(s), u = n(1), l = n.n(u), h = n(5),
-                    f = n.n(h), p = n(6), d = n.n(p), v = n(3), g = n.n(v), y = n(12), x = n.n(y), C = n(2), w = n.n(C),
-                    m = n(4), k = n.n(m), b = n(0), S = n.n(b), P = function () {
+                var r = n(9), o = n.n(r), i = n(57), a = n.n(i), s = n(24), c = n.n(s), u = n(1), l = n.n(u), h = n(3),
+                    f = n.n(h), p = n(6), d = n.n(p), v = n(4), g = n.n(v), y = n(12), C = n.n(y), x = n(2), w = n.n(x),
+                    m = n(5), k = n.n(m), S = n(0), b = n.n(S), P = function () {
                         function t() {
-                            w()(this, t), S()(this, "notifyList", void 0), S()(this, "notifyId", 0), this.notifyList = new x.a
+                            w()(this, t), b()(this, "notifyList", void 0), b()(this, "notifyId", 0), this.notifyList = new C.a
                         }
 
                         return k()(t, [{
@@ -8909,7 +8913,7 @@ parcelRequire = function (e, r, t, n) {
                         }]), t
                     }(), E = function () {
                         function t() {
-                            w()(this, t), S()(this, "result", void 0), S()(this, "callbacks_res", new Array)
+                            w()(this, t), b()(this, "result", void 0), b()(this, "callbacks_res", new Array)
                         }
 
                         return k()(t, [{
@@ -8928,9 +8932,9 @@ parcelRequire = function (e, r, t, n) {
                                 return void 0 === this.callbacks_res
                             }
                         }]), t
-                    }(), R = function () {
+                    }(), A = function () {
                         function t() {
-                            w()(this, t), S()(this, "waitingList_", void 0), S()(this, "isLocked_", void 0), S()(this, "mutexId_", void 0), this.waitingList_ = new Array, this.isLocked_ = !1, this.mutexId_ = ++t.maxMutexId_
+                            w()(this, t), b()(this, "waitingList_", void 0), b()(this, "isLocked_", void 0), b()(this, "mutexId_", void 0), this.waitingList_ = new Array, this.isLocked_ = !1, this.mutexId_ = ++t.maxMutexId_
                         }
 
                         return k()(t, [{
@@ -8955,10 +8959,10 @@ parcelRequire = function (e, r, t, n) {
                             }
                         }]), t
                     }();
-                S()(R, "maxMutexId_", 0);
-                var A = function () {
+                b()(A, "maxMutexId_", 0);
+                var R = function () {
                     function t() {
-                        w()(this, t), S()(this, "notifyList", void 0), S()(this, "notifyingList", void 0), this.notifyList = new Array, this.notifyingList = new Array
+                        w()(this, t), b()(this, "notifyList", void 0), b()(this, "notifyingList", void 0), this.notifyList = new Array, this.notifyingList = new Array
                     }
 
                     var e;
@@ -9017,26 +9021,24 @@ parcelRequire = function (e, r, t, n) {
             }, function (t, n, r) {
                 "use strict";
                 r.r(n), r.d(n, "PeerRole", function () {
-                    return rt
+                    return Q
                 }), r.d(n, "PeerExtensionData", function () {
-                    return wt
+                    return ct
                 }), r.d(n, "PeerRequest", function () {
-                    return kt
+                    return lt
                 }), r.d(n, "PeerResponse", function () {
-                    return bt
+                    return ht
                 }), r.d(n, "PeerMessage", function () {
-                    return St
+                    return ft
                 }), r.d(n, "NyaPeer", function () {
-                    return Et
+                    return dt
                 });
-                var o = r(56), i = r.n(o), a = r(50), s = r.n(a), c = r(64), u = r.n(c), l = r(65), h = r.n(l),
-                    f = r(66), p = r.n(f), d = r(33), v = r.n(d), g = r(176), y = r.n(g), x = r(69), C = r.n(x),
-                    w = r(1), m = r.n(w), k = r(6), b = r.n(k), S = r(3), P = r.n(S), E = r(22), R = r.n(E), A = r(12),
-                    I = r.n(A), D = r(11), T = r.n(D), L = r(4), F = r.n(L), O = r(5), U = r.n(O), M = r(2), N = r.n(M),
-                    B = r(0), _ = r.n(B),
-                    z = void 0 !== e && "undefined" != typeof TextEncoder && "undefined" != typeof TextDecoder;
+                var o = r(175), i = r.n(o), a = r(65), s = r.n(a), c = r(24), u = r.n(c), l = r(1), h = r.n(l),
+                    f = r(6), p = r.n(f), d = r(4), v = r.n(d), g = r(22), y = r.n(g), C = r(12), x = r.n(C), w = r(11),
+                    m = r.n(w), k = r(5), S = r.n(k), b = r(3), P = r.n(b), E = r(2), A = r.n(E), R = r(0), I = r.n(R),
+                    D = void 0 !== e && "undefined" != typeof TextEncoder && "undefined" != typeof TextDecoder;
 
-                function j(t) {
+                function T(t) {
                     for (var e = t.length, n = 0, r = 0; r < e;) {
                         var o = t.charCodeAt(r++);
                         if (0 != (4294967168 & o)) if (0 == (4294965248 & o)) n += 2; else {
@@ -9050,14 +9052,14 @@ parcelRequire = function (e, r, t, n) {
                     return n
                 }
 
-                var q = z ? new TextEncoder : void 0, W = z ? void 0 !== e ? 200 : 0 : 4294967295,
-                    V = (null == q ? void 0 : q.encodeInto) ? function (t, e, n) {
-                        q.encodeInto(t, e.subarray(n))
+                var L = D ? new TextEncoder : void 0, F = D ? void 0 !== e ? 200 : 0 : 4294967295,
+                    O = (null == L ? void 0 : L.encodeInto) ? function (t, e, n) {
+                        L.encodeInto(t, e.subarray(n))
                     } : function (t, e, n) {
-                        e.set(q.encode(t), n)
+                        e.set(L.encode(t), n)
                     };
 
-                function G(t, e, n) {
+                function M(t, e, n) {
                     for (var r = e, o = r + n, i = [], a = ""; r < o;) {
                         var s = t[r++];
                         if (0 == (128 & s)) i.push(s); else if (192 == (224 & s)) {
@@ -9076,20 +9078,20 @@ parcelRequire = function (e, r, t, n) {
                     return i.length > 0 && (a += String.fromCharCode.apply(String, i)), a
                 }
 
-                var Y = z ? new TextDecoder : null, Q = z ? void 0 !== e ? 200 : 0 : 4294967295, H = function (t, e) {
+                var U = D ? new TextDecoder : null, N = D ? void 0 !== e ? 200 : 0 : 4294967295, B = function (t, e) {
                     this.type = t, this.data = e
                 };
 
-                function X(t, e, n) {
+                function _(t, e, n) {
                     var r = Math.floor(n / 4294967296), o = n;
                     t.setUint32(e, r), t.setUint32(e + 4, o)
                 }
 
-                function K(t, e) {
+                function z(t, e) {
                     return 4294967296 * t.getInt32(e) + t.getUint32(e + 4)
                 }
 
-                var J = {
+                var j = {
                     type: -1, encode: function (t) {
                         var e, n, r, o;
                         return t instanceof Date ? function (t) {
@@ -9102,7 +9104,7 @@ parcelRequire = function (e, r, t, n) {
                                 var i = n / 4294967296, a = 4294967295 & n;
                                 return o = new Uint8Array(8), (e = new DataView(o.buffer)).setUint32(0, r << 2 | 3 & i), e.setUint32(4, a), o
                             }
-                            return o = new Uint8Array(12), (e = new DataView(o.buffer)).setUint32(0, r), X(e, 4, n), o
+                            return o = new Uint8Array(12), (e = new DataView(o.buffer)).setUint32(0, r), _(e, 4, n), o
                         }((r = 1e6 * ((e = t.getTime()) - 1e3 * (n = Math.floor(e / 1e3))), {
                             sec: n + (o = Math.floor(r / 1e9)),
                             nsec: r - 1e9 * o
@@ -9117,16 +9119,16 @@ parcelRequire = function (e, r, t, n) {
                                     var n = e.getUint32(0);
                                     return {sec: 4294967296 * (3 & n) + e.getUint32(4), nsec: n >>> 2};
                                 case 12:
-                                    return {sec: K(e, 4), nsec: e.getUint32(0)};
+                                    return {sec: z(e, 4), nsec: e.getUint32(0)};
                                 default:
                                     throw new Error("Unrecognized data size for timestamp: " + t.length)
                             }
                         }(t);
                         return new Date(1e3 * e.sec + e.nsec / 1e6)
                     }
-                }, $ = function () {
+                }, q = function () {
                     function t() {
-                        this.builtInEncoders = [], this.builtInDecoders = [], this.encoders = [], this.decoders = [], this.register(J)
+                        this.builtInEncoders = [], this.builtInDecoders = [], this.encoders = [], this.decoders = [], this.register(j)
                     }
 
                     return t.prototype.register = function (t) {
@@ -9136,25 +9138,25 @@ parcelRequire = function (e, r, t, n) {
                             this.builtInEncoders[o] = n, this.builtInDecoders[o] = r
                         }
                     }, t.prototype.tryToEncode = function (t, e) {
-                        for (var n = 0; n < this.builtInEncoders.length; n++) if (null != (r = this.builtInEncoders[n]) && null != (o = r(t, e))) return new H(-1 - n, o);
+                        for (var n = 0; n < this.builtInEncoders.length; n++) if (null != (r = this.builtInEncoders[n]) && null != (o = r(t, e))) return new B(-1 - n, o);
                         for (n = 0; n < this.encoders.length; n++) {
                             var r, o;
-                            if (null != (r = this.encoders[n]) && null != (o = r(t, e))) return new H(n, o)
+                            if (null != (r = this.encoders[n]) && null != (o = r(t, e))) return new B(n, o)
                         }
-                        return t instanceof H ? t : null
+                        return t instanceof B ? t : null
                     }, t.prototype.decode = function (t, e, n) {
                         var r = e < 0 ? this.builtInDecoders[-1 - e] : this.decoders[e];
-                        return r ? r(t, e, n) : new H(e, t)
+                        return r ? r(t, e, n) : new B(e, t)
                     }, t.defaultCodec = new t, t
                 }();
 
-                function Z(t) {
+                function W(t) {
                     return t instanceof Uint8Array ? t : ArrayBuffer.isView(t) ? new Uint8Array(t.buffer, t.byteOffset, t.byteLength) : t instanceof ArrayBuffer ? new Uint8Array(t) : Uint8Array.from(t)
                 }
 
-                var tt = function () {
+                var V = function () {
                     function t(t, e, n, r, o, i, a, s) {
-                        void 0 === t && (t = $.defaultCodec), void 0 === e && (e = void 0), void 0 === n && (n = 100), void 0 === r && (r = 2048), void 0 === o && (o = !1), void 0 === i && (i = !1), void 0 === a && (a = !1), void 0 === s && (s = !1), this.extensionCodec = t, this.context = e, this.maxDepth = n, this.initialBufferSize = r, this.sortKeys = o, this.forceFloat32 = i, this.ignoreUndefined = a, this.forceIntegerToFloat = s, this.pos = 0, this.view = new DataView(new ArrayBuffer(this.initialBufferSize)), this.bytes = new Uint8Array(this.view.buffer)
+                        void 0 === t && (t = q.defaultCodec), void 0 === e && (e = void 0), void 0 === n && (n = 100), void 0 === r && (r = 2048), void 0 === o && (o = !1), void 0 === i && (i = !1), void 0 === a && (a = !1), void 0 === s && (s = !1), this.extensionCodec = t, this.context = e, this.maxDepth = n, this.initialBufferSize = r, this.sortKeys = o, this.forceFloat32 = i, this.ignoreUndefined = a, this.forceIntegerToFloat = s, this.pos = 0, this.view = new DataView(new ArrayBuffer(this.initialBufferSize)), this.bytes = new Uint8Array(this.view.buffer)
                     }
 
                     return t.prototype.getUint8Array = function () {
@@ -9184,10 +9186,10 @@ parcelRequire = function (e, r, t, n) {
                             this.writeU8(219), this.writeU32(t)
                         }
                     }, t.prototype.encodeString = function (t) {
-                        if (t.length > W) {
-                            var e = j(t);
-                            this.ensureBufferSizeToWrite(5 + e), this.writeStringHeader(e), V(t, this.bytes, this.pos), this.pos += e
-                        } else e = j(t), this.ensureBufferSizeToWrite(5 + e), this.writeStringHeader(e), function (t, e, n) {
+                        if (t.length > F) {
+                            var e = T(t);
+                            this.ensureBufferSizeToWrite(5 + e), this.writeStringHeader(e), O(t, this.bytes, this.pos), this.pos += e
+                        } else e = T(t), this.ensureBufferSizeToWrite(5 + e), this.writeStringHeader(e), function (t, e, n) {
                             for (var r = t.length, o = n, i = 0; i < r;) {
                                 var a = t.charCodeAt(i++);
                                 if (0 != (4294967168 & a)) {
@@ -9214,7 +9216,7 @@ parcelRequire = function (e, r, t, n) {
                             if (!(e < 4294967296)) throw new Error("Too large binary: " + e);
                             this.writeU8(198), this.writeU32(e)
                         }
-                        var n = Z(t);
+                        var n = W(t);
                         this.writeU8a(n)
                     }, t.prototype.encodeArray = function (t, e) {
                         var n = t.length;
@@ -9273,15 +9275,15 @@ parcelRequire = function (e, r, t, n) {
                             t.setUint32(e, r), t.setUint32(e + 4, o)
                         }(this.view, this.pos, t), this.pos += 8
                     }, t.prototype.writeI64 = function (t) {
-                        this.ensureBufferSizeToWrite(8), X(this.view, this.pos, t), this.pos += 8
+                        this.ensureBufferSizeToWrite(8), _(this.view, this.pos, t), this.pos += 8
                     }, t
-                }(), et = {};
+                }(), Y = {};
 
-                function nt(t) {
+                function G(t) {
                     return (t < 0 ? "-" : "") + "0x" + Math.abs(t).toString(16).padStart(2, "0")
                 }
 
-                var rt, ot = function () {
+                var Q, H = function () {
                     function t(t, e) {
                         void 0 === t && (t = 16), void 0 === e && (e = 16), this.maxKeyLength = t, this.maxLengthPerKey = e, this.hit = 0, this.miss = 0, this.caches = [];
                         for (var n = 0; n < this.maxKeyLength; n++) this.caches.push([])
@@ -9303,10 +9305,10 @@ parcelRequire = function (e, r, t, n) {
                         var r = this.get(t, e, n);
                         if (null != r) return this.hit++, r;
                         this.miss++;
-                        var o = G(t, e, n), i = Uint8Array.prototype.slice.call(t, e, e + n);
+                        var o = M(t, e, n), i = Uint8Array.prototype.slice.call(t, e, e + n);
                         return this.store(i, o), o
                     }, t
-                }(), it = function (t, e) {
+                }(), X = function (t, e) {
                     var n, r, o, i, a = {
                         label: 0, sent: function () {
                             if (1 & o[0]) throw o[1];
@@ -9371,7 +9373,7 @@ parcelRequire = function (e, r, t, n) {
                             }([i, s])
                         }
                     }
-                }, at = function (t) {
+                }, K = function (t) {
                     if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
                     var e, n = t[Symbol.asyncIterator];
                     return n ? n.call(t) : (t = "function" == typeof __values ? __values(t) : t[Symbol.iterator](), e = {}, r("next"), r("throw"), r("return"), e[Symbol.asyncIterator] = function () {
@@ -9389,31 +9391,31 @@ parcelRequire = function (e, r, t, n) {
                             })
                         }
                     }
-                }, st = function (t) {
-                    return this instanceof st ? (this.v = t, this) : new st(t)
-                }, ct = new DataView(new ArrayBuffer(0)), ut = new Uint8Array(ct.buffer), lt = function () {
+                }, J = function (t) {
+                    return this instanceof J ? (this.v = t, this) : new J(t)
+                }, $ = new DataView(new ArrayBuffer(0)), Z = new Uint8Array($.buffer), tt = function () {
                     try {
-                        ct.getInt8(0)
+                        $.getInt8(0)
                     } catch (t) {
                         return t.constructor
                     }
                     throw new Error("never reached")
-                }(), ht = new lt("Insufficient data"), ft = new ot, pt = function () {
+                }(), et = new tt("Insufficient data"), nt = new H, rt = function () {
                     function t(t, e, n, r, o, i, a, s) {
-                        void 0 === t && (t = $.defaultCodec), void 0 === e && (e = void 0), void 0 === n && (n = 4294967295), void 0 === r && (r = 4294967295), void 0 === o && (o = 4294967295), void 0 === i && (i = 4294967295), void 0 === a && (a = 4294967295), void 0 === s && (s = ft), this.extensionCodec = t, this.context = e, this.maxStrLength = n, this.maxBinLength = r, this.maxArrayLength = o, this.maxMapLength = i, this.maxExtLength = a, this.keyDecoder = s, this.totalPos = 0, this.pos = 0, this.view = ct, this.bytes = ut, this.headByte = -1, this.stack = []
+                        void 0 === t && (t = q.defaultCodec), void 0 === e && (e = void 0), void 0 === n && (n = 4294967295), void 0 === r && (r = 4294967295), void 0 === o && (o = 4294967295), void 0 === i && (i = 4294967295), void 0 === a && (a = 4294967295), void 0 === s && (s = nt), this.extensionCodec = t, this.context = e, this.maxStrLength = n, this.maxBinLength = r, this.maxArrayLength = o, this.maxMapLength = i, this.maxExtLength = a, this.keyDecoder = s, this.totalPos = 0, this.pos = 0, this.view = $, this.bytes = Z, this.headByte = -1, this.stack = []
                     }
 
                     return t.prototype.reinitializeState = function () {
                         this.totalPos = 0, this.headByte = -1
                     }, t.prototype.setBuffer = function (t) {
-                        this.bytes = Z(t), this.view = function (t) {
+                        this.bytes = W(t), this.view = function (t) {
                             if (t instanceof ArrayBuffer) return new DataView(t);
-                            var e = Z(t);
+                            var e = W(t);
                             return new DataView(e.buffer, e.byteOffset, e.byteLength)
                         }(this.bytes), this.pos = 0
                     }, t.prototype.appendBuffer = function (t) {
                         if (-1 !== this.headByte || this.hasRemaining()) {
-                            var e = this.bytes.subarray(this.pos), n = Z(t), r = new Uint8Array(e.length + n.length);
+                            var e = this.bytes.subarray(this.pos), n = W(t), r = new Uint8Array(e.length + n.length);
                             r.set(e), r.set(n, e.length), this.setBuffer(r)
                         } else this.setBuffer(t)
                     }, t.prototype.hasRemaining = function (t) {
@@ -9457,12 +9459,12 @@ parcelRequire = function (e, r, t, n) {
                             })
                         }(this, void 0, void 0, function () {
                             var i, a, s, c, u, l, h, f;
-                            return it(this, function (p) {
+                            return X(this, function (p) {
                                 switch (p.label) {
                                     case 0:
                                         i = !1, p.label = 1;
                                     case 1:
-                                        p.trys.push([1, 6, 7, 12]), e = at(t), p.label = 2;
+                                        p.trys.push([1, 6, 7, 12]), e = K(t), p.label = 2;
                                     case 2:
                                         return [4, e.next()];
                                     case 3:
@@ -9472,7 +9474,7 @@ parcelRequire = function (e, r, t, n) {
                                         try {
                                             a = this.doDecodeSync(), i = !0
                                         } catch (t) {
-                                            if (!(t instanceof lt)) throw t
+                                            if (!(t instanceof tt)) throw t
                                         }
                                         this.totalPos += this.pos, p.label = 4;
                                     case 4:
@@ -9497,7 +9499,7 @@ parcelRequire = function (e, r, t, n) {
                                             if (this.hasRemaining()) throw this.createExtraByteError(this.totalPos);
                                             return [2, a]
                                         }
-                                        throw l = (u = this).headByte, h = u.pos, f = u.totalPos, new RangeError("Insufficient data in parsing " + nt(l) + " at " + f + " (" + h + " in the current buffer)")
+                                        throw l = (u = this).headByte, h = u.pos, f = u.totalPos, new RangeError("Insufficient data in parsing " + G(l) + " at " + f + " (" + h + " in the current buffer)")
                                 }
                             })
                         })
@@ -9523,7 +9525,7 @@ parcelRequire = function (e, r, t, n) {
 
                             function s(t, e) {
                                 try {
-                                    (n = o[t](e)).value instanceof st ? Promise.resolve(n.value.v).then(c, u) : l(i[0][2], n)
+                                    (n = o[t](e)).value instanceof J ? Promise.resolve(n.value.v).then(c, u) : l(i[0][2], n)
                                 } catch (t) {
                                     l(i[0][3], t)
                                 }
@@ -9543,14 +9545,14 @@ parcelRequire = function (e, r, t, n) {
                             }
                         }(this, arguments, function () {
                             var n, r, o, i, a, s, c, u, l;
-                            return it(this, function (h) {
+                            return X(this, function (h) {
                                 switch (h.label) {
                                     case 0:
                                         n = e, r = -1, h.label = 1;
                                     case 1:
-                                        h.trys.push([1, 13, 14, 19]), o = at(t), h.label = 2;
+                                        h.trys.push([1, 13, 14, 19]), o = K(t), h.label = 2;
                                     case 2:
-                                        return [4, st(o.next())];
+                                        return [4, J(o.next())];
                                     case 3:
                                         if ((i = h.sent()).done) return [3, 12];
                                         if (a = i.value, e && 0 === r) throw this.createExtraByteError(this.totalPos);
@@ -9558,7 +9560,7 @@ parcelRequire = function (e, r, t, n) {
                                     case 4:
                                         h.trys.push([4, 9, , 10]), h.label = 5;
                                     case 5:
-                                        return [4, st(this.doDecodeSync())];
+                                        return [4, J(this.doDecodeSync())];
                                     case 6:
                                         return [4, h.sent()];
                                     case 7:
@@ -9566,7 +9568,7 @@ parcelRequire = function (e, r, t, n) {
                                     case 8:
                                         return [3, 10];
                                     case 9:
-                                        if (!((s = h.sent()) instanceof lt)) throw s;
+                                        if (!((s = h.sent()) instanceof tt)) throw s;
                                         return [3, 10];
                                     case 10:
                                         this.totalPos += this.pos, h.label = 11;
@@ -9577,7 +9579,7 @@ parcelRequire = function (e, r, t, n) {
                                     case 13:
                                         return c = h.sent(), u = {error: c}, [3, 19];
                                     case 14:
-                                        return h.trys.push([14, , 17, 18]), i && !i.done && (l = o.return) ? [4, st(l.call(o))] : [3, 16];
+                                        return h.trys.push([14, , 17, 18]), i && !i.done && (l = o.return) ? [4, J(l.call(o))] : [3, 16];
                                     case 15:
                                         h.sent(), h.label = 16;
                                     case 16:
@@ -9638,7 +9640,7 @@ parcelRequire = function (e, r, t, n) {
                                 var r = this.lookU8();
                                 e = this.decodeBinary(r, 1)
                             } else if (197 === t) r = this.lookU16(), e = this.decodeBinary(r, 2); else if (198 === t) r = this.lookU32(), e = this.decodeBinary(r, 4); else if (212 === t) e = this.decodeExtension(1, 0); else if (213 === t) e = this.decodeExtension(2, 0); else if (214 === t) e = this.decodeExtension(4, 0); else if (215 === t) e = this.decodeExtension(8, 0); else if (216 === t) e = this.decodeExtension(16, 0); else if (199 === t) r = this.lookU8(), e = this.decodeExtension(r, 1); else if (200 === t) r = this.lookU16(), e = this.decodeExtension(r, 2); else {
-                                if (201 !== t) throw new Error("Unrecognized type byte: " + nt(t));
+                                if (201 !== t) throw new Error("Unrecognized type byte: " + G(t));
                                 r = this.lookU32(), e = this.decodeExtension(r, 4)
                             }
                             this.complete();
@@ -9676,7 +9678,7 @@ parcelRequire = function (e, r, t, n) {
                                 return this.readU32();
                             default:
                                 if (t < 160) return t - 144;
-                                throw new Error("Unrecognized array type byte: " + nt(t))
+                                throw new Error("Unrecognized array type byte: " + G(t))
                         }
                     }, t.prototype.pushMapState = function (t) {
                         if (t > this.maxMapLength) throw new Error("Max length exceeded: map length (" + t + ") > maxMapLengthLength (" + this.maxMapLength + ")");
@@ -9687,17 +9689,17 @@ parcelRequire = function (e, r, t, n) {
                     }, t.prototype.decodeUtf8String = function (t, e) {
                         var n;
                         if (t > this.maxStrLength) throw new Error("Max length exceeded: UTF-8 byte length (" + t + ") > maxStrLength (" + this.maxStrLength + ")");
-                        if (this.bytes.byteLength < this.pos + e + t) throw ht;
+                        if (this.bytes.byteLength < this.pos + e + t) throw et;
                         var r, o = this.pos + e;
-                        return r = this.stateIsMapKey() && (null === (n = this.keyDecoder) || void 0 === n ? void 0 : n.canBeCached(t)) ? this.keyDecoder.decode(this.bytes, o, t) : t > Q ? function (t, e, n) {
+                        return r = this.stateIsMapKey() && (null === (n = this.keyDecoder) || void 0 === n ? void 0 : n.canBeCached(t)) ? this.keyDecoder.decode(this.bytes, o, t) : t > N ? function (t, e, n) {
                             var r = t.subarray(e, e + n);
-                            return Y.decode(r)
-                        }(this.bytes, o, t) : G(this.bytes, o, t), this.pos += e + t, r
+                            return U.decode(r)
+                        }(this.bytes, o, t) : M(this.bytes, o, t), this.pos += e + t, r
                     }, t.prototype.stateIsMapKey = function () {
                         return this.stack.length > 0 && 1 === this.stack[this.stack.length - 1].type
                     }, t.prototype.decodeBinary = function (t, e) {
                         if (t > this.maxBinLength) throw new Error("Max length exceeded: bin length (" + t + ") > maxBinLength (" + this.maxBinLength + ")");
-                        if (!this.hasRemaining(t + e)) throw ht;
+                        if (!this.hasRemaining(t + e)) throw et;
                         var n = this.pos + e, r = this.bytes.subarray(n, n + t);
                         return this.pos += e + t, r
                     }, t.prototype.decodeExtension = function (t, e) {
@@ -9732,7 +9734,7 @@ parcelRequire = function (e, r, t, n) {
                         var t, e, n = (t = this.view, e = this.pos, 4294967296 * t.getUint32(e) + t.getUint32(e + 4));
                         return this.pos += 8, n
                     }, t.prototype.readI64 = function () {
-                        var t = K(this.view, this.pos);
+                        var t = z(this.view, this.pos);
                         return this.pos += 8, t
                     }, t.prototype.readF32 = function () {
                         var t = this.view.getFloat32(this.pos);
@@ -9741,82 +9743,32 @@ parcelRequire = function (e, r, t, n) {
                         var t = this.view.getFloat64(this.pos);
                         return this.pos += 8, t
                     }, t
-                }(), dt = {}, vt = r(19), gt = r(10), yt = r(101);
-
-                function xt(t, e) {
-                    var n;
-                    if (void 0 === h.a || null == u()(t)) {
-                        if (s()(t) || (n = function (t, e) {
-                            var n;
-                            if (t) {
-                                if ("string" == typeof t) return Ct(t, e);
-                                var r = v()(n = Object.prototype.toString.call(t)).call(n, 8, -1);
-                                return "Object" === r && t.constructor && (r = t.constructor.name), "Map" === r || "Set" === r ? p()(t) : "Arguments" === r || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r) ? Ct(t, e) : void 0
-                            }
-                        }(t)) || e && t && "number" == typeof t.length) {
-                            n && (t = n);
-                            var r = 0, o = function () {
-                            };
-                            return {
-                                s: o, n: function () {
-                                    return r >= t.length ? {done: !0} : {done: !1, value: t[r++]}
-                                }, e: function (t) {
-                                    throw t
-                                }, f: o
-                            }
-                        }
-                        throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")
-                    }
-                    var a, c = !0, l = !1;
-                    return {
-                        s: function () {
-                            n = i()(t)
-                        }, n: function () {
-                            var t = n.next();
-                            return c = t.done, t
-                        }, e: function (t) {
-                            l = !0, a = t
-                        }, f: function () {
-                            try {
-                                c || null == n.return || n.return()
-                            } finally {
-                                if (l) throw a
-                            }
-                        }
-                    }
-                }
-
-                function Ct(t, e) {
-                    (null == e || e > t.length) && (e = t.length);
-                    for (var n = 0, r = new Array(e); n < e; n++) r[n] = t[n];
-                    return r
-                }
-
+                }(), ot = {}, it = r(19), at = r(10), st = r(101);
                 !function (t) {
                     t[t.Peer = 0] = "Peer", t[t.Leech = 1] = "Leech", t[t.Seedbox = 2] = "Seedbox"
-                }(rt || (rt = {}));
-                var wt = function t() {
-                    N()(this, t), _()(this, "peerId", ""), _()(this, "guid", "00000000-0000-4000-8000-000000000000"), _()(this, "isDownloadBlockReport", !1), _()(this, "isAnswerAccepted", !1), _()(this, "isSupport2ndProtocol", !1)
-                }, mt = function t(e) {
+                }(Q || (Q = {}));
+                var ct = function t() {
+                    A()(this, t), I()(this, "peerId", ""), I()(this, "isDownloadBlockReport", !1), I()(this, "isAnswerAccepted", !1), I()(this, "candidate_resolver", void 0)
+                }, ut = function t(e) {
                     var n = this;
-                    N()(this, t), _()(this, "buf", void 0), _()(this, "promise", void 0), _()(this, "resolver", void 0), this.buf = e, this.promise = new U.a(function (t) {
+                    A()(this, t), I()(this, "buf", void 0), I()(this, "promise", void 0), I()(this, "resolver", void 0), this.buf = e, this.promise = new P.a(function (t) {
                         n.resolver = t
                     })
-                }, kt = function t() {
-                    N()(this, t), _()(this, "action", ""), _()(this, "data", void 0)
-                }, bt = function t() {
-                    N()(this, t), _()(this, "requestId", -1), _()(this, "status", "not_implemented"), _()(this, "data", void 0)
-                }, St = function t() {
-                    N()(this, t), _()(this, "type", ""), _()(this, "requestId", -1), _()(this, "action_type", ""), _()(this, "action", ""), _()(this, "data", void 0)
-                }, Pt = function () {
+                }, lt = function t() {
+                    A()(this, t), I()(this, "action", ""), I()(this, "data", void 0)
+                }, ht = function t() {
+                    A()(this, t), I()(this, "requestId", -1), I()(this, "status", "not_implemented"), I()(this, "data", void 0)
+                }, ft = function t() {
+                    A()(this, t), I()(this, "type", ""), I()(this, "requestId", -1), I()(this, "action_type", ""), I()(this, "action", ""), I()(this, "data", void 0)
+                }, pt = function () {
                     function t(e, n) {
                         var r = this;
-                        N()(this, t), _()(this, "p2pContext", void 0), _()(this, "dc", void 0), _()(this, "sendQueue", new Array), _()(this, "isSending", !1), this.p2pContext = e, this.dc = n, this.dc.binaryType = "arraybuffer", this.dc.bufferedAmountLowThreshold = 262144, this.dc.onbufferedamountlow = function () {
+                        A()(this, t), I()(this, "p2pContext", void 0), I()(this, "dc", void 0), I()(this, "sendQueue", new Array), I()(this, "isSending", !1), this.p2pContext = e, this.dc = n, this.dc.binaryType = "arraybuffer", this.dc.bufferedAmountLowThreshold = 262144, this.dc.onbufferedamountlow = function () {
                             return r.onDCWritable()
                         }
                     }
 
-                    return F()(t, [{
+                    return S()(t, [{
                         key: "onDCWritable", value: function () {
                             var t = this;
                             this.isSending = !0;
@@ -9829,7 +9781,7 @@ parcelRequire = function (e, r, t, n) {
                                 void 0 !== i.buf.data && null !== i.buf.data && void 0 !== i.buf.data.length && i.buf.data.length > 1024 || (this.p2pContext.printExtLog(6, "send: " + i.buf), this.p2pContext.Config.allowPrintLog(6) && console.log("send: " + i.buf));
                                 try {
                                     if ("open" === this.dc.readyState) {
-                                        var a = (e = i.buf, void 0 === (n = void 0) && (n = et), new tt(n.extensionCodec, n.context, n.maxDepth, n.initialBufferSize, n.sortKeys, n.forceFloat32, n.ignoreUndefined, n.forceIntegerToFloat).encode(e));
+                                        var a = (e = i.buf, void 0 === (n = void 0) && (n = Y), new V(n.extensionCodec, n.context, n.maxDepth, n.initialBufferSize, n.sortKeys, n.forceFloat32, n.ignoreUndefined, n.forceIntegerToFloat).encode(e));
                                         this.dc.send(a), r += a.length
                                     }
                                 } catch (t) {
@@ -9837,26 +9789,26 @@ parcelRequire = function (e, r, t, n) {
                                 }
                                 null === (o = i.resolver) || void 0 === o || o.call(i)
                             }
-                            this.sendQueue.length > 0 && r > 1048576 && this.dc.bufferedAmount < this.dc.bufferedAmountLowThreshold && T()(function () {
+                            this.sendQueue.length > 0 && r > 1048576 && this.dc.bufferedAmount < this.dc.bufferedAmountLowThreshold && m()(function () {
                                 return t.onDCWritable()
                             }, 0)
                         }
-                    }]), F()(t, [{
+                    }]), S()(t, [{
                         key: "dataChannel", value: function () {
                             return this.dc
                         }
                     }, {
                         key: "send", value: function (t) {
-                            var e = new mt(t);
+                            var e = new ut(t);
                             return this.sendQueue.push(e), !1 === this.isSending && this.onDCWritable(), e.promise
                         }
                     }]), t
-                }(), Et = function () {
+                }(), dt = function () {
                     function t(e, n, r) {
                         var o, i = this;
-                        N()(this, t), _()(this, "p2pContext", void 0), _()(this, "peerSched", void 0), _()(this, "incoming", void 0), _()(this, "pc", void 0), _()(this, "dc", void 0), _()(this, "requestId", 0), _()(this, "pendingRequests", new I.a), _()(this, "dc_resolver", void 0), _()(this, "dc_future", void 0), _()(this, "extData", new wt), _()(this, "onCandidate", void 0), _()(this, "candidates", new Array), _()(this, "role_", rt.Peer), _()(this, "seedSliceIds_", new R.a), _()(this, "seedScore", 100), this.p2pContext = e, this.incoming = r, this.peerSched = n;
+                        A()(this, t), I()(this, "p2pContext", void 0), I()(this, "peerSched", void 0), I()(this, "incoming", void 0), I()(this, "pc", void 0), I()(this, "dc", void 0), I()(this, "requestId", 0), I()(this, "pendingRequests", new x.a), I()(this, "dc_resolver", void 0), I()(this, "dc_future", void 0), I()(this, "extData", new ct), I()(this, "onCandidate", void 0), I()(this, "candidates", new Array), I()(this, "role_", Q.Peer), I()(this, "seedSliceIds_", new y.a), I()(this, "seedScore", 100), this.p2pContext = e, this.incoming = r, this.peerSched = n;
                         var a = [];
-                        if (P()(o = this.p2pContext.Config.stunServers).call(o, function (t) {
+                        if (v()(o = this.p2pContext.Config.stunServers).call(o, function (t) {
                             var e = {urls: t};
                             a.push(e)
                         }), this.pc = new RTCPeerConnection({
@@ -9865,9 +9817,17 @@ parcelRequire = function (e, r, t, n) {
                             iceTransportPolicy: "all"
                         }), !this.pc) throw"Emtpy RTCPeerConnection object after creating.";
                         this.pc.addEventListener("datachannel", function (t) {
-                            "misaka-denpa" === t.channel.label && (i.dc = new Pt(i.p2pContext, t.channel), i.dc.dataChannel().onmessage = function (t) {
+                            "misaka-denpa" === t.channel.label && (i.dc = new pt(i.p2pContext, t.channel), i.dc.dataChannel().onmessage = function (t) {
                                 return i.onMessageReceived(t.data)
                             }, void 0 !== i.dc_resolver && i.dc_resolver())
+                        }), this.pc.addEventListener("icegatheringstatechange", function (t) {
+                            switch (i.p2pContext.printExtLog(4, "peer " + i.extData.peerId + " icegatheringstatechange state: " + i.pc.iceGatheringState), i.p2pContext.Config.allowPrintLog(4) && console.log("peer " + i.extData.peerId + " icegatheringstatechange state: " + i.pc.iceGatheringState), i.pc.iceGatheringState) {
+                                case"new":
+                                case"gathering":
+                                    break;
+                                case"complete":
+                                    i.extData.candidate_resolver && i.extData.candidate_resolver(!0)
+                            }
                         }), this.pc.addEventListener("iceconnectionstatechange", function (t) {
                             switch (i.p2pContext.printExtLog(4, "peer " + i.extData.peerId + " iceconnection state: " + i.pc.iceConnectionState), i.p2pContext.Config.allowPrintLog(4) && console.log("peer " + i.extData.peerId + " iceconnection state: " + i.pc.iceConnectionState), i.pc.iceConnectionState) {
                                 case"new":
@@ -9893,8 +9853,8 @@ parcelRequire = function (e, r, t, n) {
                         }
                     }
 
-                    var e, n, r, o, i, a;
-                    return F()(t, [{
+                    var e, n, r, o, a, c, l;
+                    return S()(t, [{
                         key: "peerRole", get: function () {
                             return this.role_
                         }
@@ -9902,7 +9862,7 @@ parcelRequire = function (e, r, t, n) {
                         key: "seedSliceIds", get: function () {
                             return this.seedSliceIds_
                         }
-                    }]), F()(t, [{
+                    }]), S()(t, [{
                         key: "close", value: function () {
                             var t, e, n;
                             0 == this.extData.isDownloadBlockReport && (1 == this.extData.isAnswerAccepted ? null === (e = this.p2pContext.PeerSched) || void 0 === e || e.reportDownloadBlockAwaysFail(this) : null === (n = this.p2pContext.PeerSched) || void 0 === n || n.reportConnectionAbort(this)), null === (t = this.dc) || void 0 === t || t.dataChannel().close(), "closed" != this.pc.signalingState && this.pc.close()
@@ -9914,70 +9874,99 @@ parcelRequire = function (e, r, t, n) {
                     }, {
                         key: "setCandidateCallback", value: function (t) {
                             var e = this;
-                            new U.a(function (t) {
+                            new P.a(function (t) {
                                 return t(e.candidates)
                             }).then(function (e) {
-                                P()(e).call(e, function (e) {
+                                v()(e).call(e, function (e) {
                                     return t(e)
                                 })
                             }), this.onCandidate = t, this.candidates = new Array
                         }
                     }, {
-                        key: "createNyaOffer", value: (a = b()(m.a.mark(function t(e) {
+                        key: "createNyaOffer", value: (l = p()(h.a.mark(function t(e) {
                             var n, r = this;
-                            return m.a.wrap(function (t) {
+                            return h.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
-                                        return this.dc = new Pt(this.p2pContext, this.pc.createDataChannel("misaka-denpa", {
+                                        return this.dc = new pt(this.p2pContext, this.pc.createDataChannel("misaka-denpa", {
                                             ordered: !1,
                                             negotiated: !1,
                                             maxPacketLifeTime: this.p2pContext.Config.peerPacketLifeTime
-                                        })), this.dc_future = U.a.resolve(), this.dc.dataChannel().onmessage = function (t) {
+                                        })), this.dc_future = P.a.resolve(), this.dc.dataChannel().onmessage = function (t) {
                                             return r.onMessageReceived(t.data)
-                                        }, this.setCandidateCallback(e), t.next = 6, this.pc.createOffer({
+                                        }, t.next = 5, this.pc.createOffer({
                                             iceRestart: !0,
                                             offerToReceiveAudio: !1,
                                             offerToReceiveVideo: !1
                                         });
-                                    case 6:
-                                        return n = t.sent, this.pc.setLocalDescription(n), t.abrupt("return", n);
-                                    case 9:
+                                    case 5:
+                                        return n = t.sent, this.pc.setLocalDescription(n), t.abrupt("return", this.waitForCandidate(e, n));
+                                    case 8:
                                     case"end":
                                         return t.stop()
                                 }
                             }, t, this)
                         })), function (t) {
-                            return a.apply(this, arguments)
+                            return l.apply(this, arguments)
                         })
                     }, {
-                        key: "answerNyaOffer", value: (i = b()(m.a.mark(function t(e, n) {
+                        key: "answerNyaOffer", value: (c = p()(h.a.mark(function t(e, n) {
                             var r, o = this;
-                            return m.a.wrap(function (t) {
+                            return h.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
-                                        return this.dc_future = new U.a(function (t) {
+                                        return this.dc_future = new P.a(function (t) {
                                             return o.dc_resolver = t
-                                        }), this.setCandidateCallback(n), t.next = 4, this.pc.setRemoteDescription(e);
-                                    case 4:
-                                        return t.next = 6, this.pc.createAnswer({
+                                        }), t.next = 3, this.pc.setRemoteDescription(e);
+                                    case 3:
+                                        return t.next = 5, this.pc.createAnswer({
                                             iceRestart: !0,
                                             offerToReceiveAudio: !1,
                                             offerToReceiveVideo: !1
                                         });
-                                    case 6:
-                                        return r = t.sent, this.pc.setLocalDescription(r), t.abrupt("return", r);
+                                    case 5:
+                                        return r = t.sent, this.pc.setLocalDescription(r), t.abrupt("return", this.waitForCandidate(n, r));
+                                    case 8:
+                                    case"end":
+                                        return t.stop()
+                                }
+                            }, t, this)
+                        })), function (t, e) {
+                            return c.apply(this, arguments)
+                        })
+                    }, {
+                        key: "waitForCandidate", value: (a = p()(h.a.mark(function t(e, n) {
+                            var r, o, i, a, s = this;
+                            return h.a.wrap(function (t) {
+                                for (; ;) switch (t.prev = t.next) {
+                                    case 0:
+                                        return r = new P.a(function (t) {
+                                            return s.extData.candidate_resolver = t
+                                        }), t.next = 3, P.a.race(new Array(new P.a(function (t) {
+                                            return o = m()(function () {
+                                                return t(!0)
+                                            }, s.p2pContext.Config.candidateWaitMaxTimeMs)
+                                        }), r));
+                                    case 3:
+                                        clearTimeout(o), i = void 0;
+                                        try {
+                                            i = this.pc.localDescription
+                                        } catch (t) {
+                                            this.p2pContext.Config.allowPrintLog(3) && console.log("localDescription get erreo: ", t)
+                                        }
+                                        return null == i ? i = new RTCSessionDescription(n) : u()(a = this.candidates).call(a, 0, this.candidates.length), this.setCandidateCallback(e), t.abrupt("return", i);
                                     case 9:
                                     case"end":
                                         return t.stop()
                                 }
                             }, t, this)
                         })), function (t, e) {
-                            return i.apply(this, arguments)
+                            return a.apply(this, arguments)
                         })
                     }, {
-                        key: "acceptNyaAnswer", value: (o = b()(m.a.mark(function t(e) {
+                        key: "acceptNyaAnswer", value: (o = p()(h.a.mark(function t(e) {
                             var n = this;
-                            return m.a.wrap(function (t) {
+                            return h.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
                                         return this.pc.setRemoteDescription(e).catch(function (t) {
@@ -9994,8 +9983,8 @@ parcelRequire = function (e, r, t, n) {
                             return o.apply(this, arguments)
                         })
                     }, {
-                        key: "addRemoteCandidate", value: (r = b()(m.a.mark(function t(e) {
-                            return m.a.wrap(function (t) {
+                        key: "addRemoteCandidate", value: (r = p()(h.a.mark(function t(e) {
+                            return h.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
                                         return t.prev = 0, t.next = 3, this.pc.addIceCandidate(e);
@@ -10012,17 +10001,17 @@ parcelRequire = function (e, r, t, n) {
                             return r.apply(this, arguments)
                         })
                     }, {
-                        key: "waitForConnected", value: (n = b()(m.a.mark(function t() {
+                        key: "waitForConnected", value: (n = p()(h.a.mark(function t() {
                             var e, n, r, o, i, a = this;
-                            return m.a.wrap(function (t) {
+                            return h.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
-                                        if (e = new vt.b, void 0 === this.dc_future) {
+                                        if (e = new it.b, void 0 === this.dc_future) {
                                             t.next = 6;
                                             break
                                         }
-                                        return n = void 0, t.next = 5, U.a.race([this.dc_future, new U.a(function (t) {
-                                            n = T()(t, a.p2pContext.Config.peerConnectionTimeoutMs)
+                                        return n = void 0, t.next = 5, P.a.race([this.dc_future, new P.a(function (t) {
+                                            n = m()(t, a.p2pContext.Config.peerConnectionTimeoutMs)
                                         })]);
                                     case 5:
                                         void 0 !== n && clearTimeout(n);
@@ -10033,7 +10022,7 @@ parcelRequire = function (e, r, t, n) {
                                         }
                                         return t.abrupt("return", !1);
                                     case 8:
-                                        if (r = void 0, "open" !== this.dc.dataChannel().readyState && (r = new U.a(function (t) {
+                                        if (r = void 0, "open" !== this.dc.dataChannel().readyState && (r = new P.a(function (t) {
                                             if (void 0 !== a.dc) {
                                                 a.dc.dataChannel().onopen = function (e) {
                                                     return t(!0)
@@ -10055,8 +10044,8 @@ parcelRequire = function (e, r, t, n) {
                                             t.next = 19;
                                             break
                                         }
-                                        return t.next = 15, U.a.race(new Array(r, new U.a(function (t) {
-                                            i = T()(function () {
+                                        return t.next = 15, P.a.race(new Array(r, new P.a(function (t) {
+                                            i = m()(function () {
                                                 return t(!1)
                                             }, a.p2pContext.Config.peerConnectionTimeoutMs)
                                         })));
@@ -10111,9 +10100,9 @@ parcelRequire = function (e, r, t, n) {
                             })
                         }
                     }, {
-                        key: "sendMessage", value: (e = b()(m.a.mark(function t(e) {
+                        key: "sendMessage", value: (e = p()(h.a.mark(function t(e) {
                             var n, r, o, i, a, s, c, u = this;
-                            return m.a.wrap(function (t) {
+                            return h.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
                                         if ("open" != (null === (n = this.dc) || void 0 === n ? void 0 : n.dataChannel().readyState)) {
@@ -10130,11 +10119,11 @@ parcelRequire = function (e, r, t, n) {
                                             type: r.type,
                                             requestId: r.requestId,
                                             data: r.data
-                                        })[r.action_type] = r.action, a = this.pendingRequests, s = this.dc, t.next = 12, new U.a(function (t) {
+                                        })[r.action_type] = r.action, a = this.pendingRequests, s = this.dc, t.next = 12, new P.a(function (t) {
                                             if (o) {
                                                 a.has(i.requestId) && console.log("duplicated request id!");
                                                 var e = void 0;
-                                                u.p2pContext.Config.peerTimeoutMs > 0 && (e = T()(function () {
+                                                u.p2pContext.Config.peerTimeoutMs > 0 && (e = m()(function () {
                                                     a.delete(i.requestId), t(!1)
                                                 }, u.p2pContext.Config.peerTimeoutMs)), void 0 !== e ? a.set(i.requestId, function (n) {
                                                     clearTimeout(e), t(n)
@@ -10157,56 +10146,43 @@ parcelRequire = function (e, r, t, n) {
                     }, {
                         key: "terminateAllPendingRequests", value: function () {
                             var t;
-                            P()(t = this.pendingRequests).call(t, function (t, e) {
+                            v()(t = this.pendingRequests).call(t, function (t, e) {
                                 t(void 0)
                             }), this.pendingRequests.clear()
                         }
                     }, {
                         key: "onMessageReceived", value: function (t) {
                             try {
-                                var e = (n = t, void 0 === r && (r = dt), new pt(r.extensionCodec, r.context, r.maxStrLength, r.maxBinLength, r.maxArrayLength, r.maxMapLength, r.maxExtLength).decode(n));
-                                null !== e.data && void 0 !== e.data && void 0 !== e.data.length && e.data.length > 1024 || (this.p2pContext.printExtLog(6, this.extData.peerId + " recv: " + e), this.p2pContext.Config.allowPrintLog(6) && console.log(this.extData.peerId + " recv: ", e)), "response" == e.type && C()(e.requestId) && e.requestId > 0 ? this.dispatchResponse(e) : "request" == e.type && C()(e.requestId) && this.peerSched.onPeerRequestMessage(this, e)
+                                var e = (n = t, void 0 === r && (r = ot), new rt(r.extensionCodec, r.context, r.maxStrLength, r.maxBinLength, r.maxArrayLength, r.maxMapLength, r.maxExtLength).decode(n));
+                                null !== e.data && void 0 !== e.data && void 0 !== e.data.length && e.data.length > 1024 || (this.p2pContext.printExtLog(6, this.extData.peerId + " recv: " + e), this.p2pContext.Config.allowPrintLog(6) && console.log(this.extData.peerId + " recv: ", e)), "response" == e.type && s()(e.requestId) && e.requestId > 0 ? this.dispatchResponse(e) : "request" == e.type && s()(e.requestId) && this.peerSched.onPeerRequestMessage(this, e)
                             } catch (t) {
-                                void 0 !== e && this.p2pContext.P2PDataCollectionStatus.addWastedDataSize(e.byteLength, gt.e.ERROR_DATA), this.p2pContext.GhostPeerIds.add(this.extData.peerId), this.close(), console.log(t)
+                                void 0 !== e && this.p2pContext.P2PDataCollectionStatus.addWastedDataSize(e.byteLength, at.e.ERROR_DATA), this.p2pContext.GhostPeerIds.add(this.extData.peerId), this.close(), console.log(t)
                             }
                             var n, r
                         }
                     }, {
                         key: "dispatchResponse", value: function (t) {
                             var e, n = this.pendingRequests.get(t.requestId);
-                            void 0 !== n ? (this.pendingRequests.delete(t.requestId), n(t)) : "ok" === t.status && void 0 !== (null === (e = t.data) || void 0 === e ? void 0 : e.length) && (this.p2pContext.printExtLog(4, "no request for received response " + t.data.byteLength), this.p2pContext.Config.allowPrintLog(4) && console.log("no request for received response " + t.data.byteLength), this.peerSched.getP2PContext().P2PDataCollectionStatus.addWastedDataSize(t.data.byteLength, gt.e.P2P_LATE))
+                            void 0 !== n ? (this.pendingRequests.delete(t.requestId), n(t)) : "ok" === t.status && void 0 !== (null === (e = t.data) || void 0 === e ? void 0 : e.length) && (this.p2pContext.printExtLog(4, "no request for received response " + t.data.byteLength), this.p2pContext.Config.allowPrintLog(4) && console.log("no request for received response " + t.data.byteLength), this.peerSched.getP2PContext().P2PDataCollectionStatus.addWastedDataSize(t.data.byteLength, at.e.P2P_LATE))
                         }
                     }, {
                         key: "parsePeerRole", value: function (t) {
                             var e;
-                            null != t && ("leech" !== t.type ? "seed" === t.type && t.sliceProvider instanceof Array && y()(e = t.sliceProvider).call(e, function (t, e) {
+                            null != t && ("leech" !== t.type ? "seed" === t.type && t.sliceProvider instanceof Array && i()(e = t.sliceProvider).call(e, function (t, e) {
                                 return t && "number" == typeof e
-                            }, !0) && (this.role_ = rt.Seedbox, this.seedSliceIds_ = new R.a(t.sliceProvider)) : this.role_ = rt.Leech)
-                        }
-                    }, {
-                        key: "parseFlags", value: function (t) {
-                            if (null != t) {
-                                var e, n = xt(t);
-                                try {
-                                    for (n.s(); !(e = n.n()).done;) "2nd-protocol" == e.value && (this.extData.isSupport2ndProtocol = !0)
-                                } catch (t) {
-                                    n.e(t)
-                                } finally {
-                                    n.f()
-                                }
-                            }
+                            }, !0) && (this.role_ = Q.Seedbox, this.seedSliceIds_ = new y.a(t.sliceProvider)) : this.role_ = Q.Leech)
                         }
                     }, {
                         key: "onDownloadBlockFailed", value: function () {
-                            this.peerRole == rt.Seedbox && (this.seedScore -= this.p2pContext.Config.seedScoreDown, this.seedScore <= 0 && this.close())
+                            this.peerRole == Q.Seedbox && (this.seedScore -= this.p2pContext.Config.seedScoreDown, this.seedScore <= 0 && this.close())
                         }
                     }, {
                         key: "onDownloadBlockSucceed", value: function () {
-                            this.peerRole == rt.Seedbox && this.seedScore < this.p2pContext.Config.seedBoxScoreMax && (this.seedScore += this.p2pContext.Config.seedScoreUp)
+                            this.peerRole == Q.Seedbox && this.seedScore < this.p2pContext.Config.seedBoxScoreMax && (this.seedScore += this.p2pContext.Config.seedScoreUp)
                         }
                     }, {
                         key: "shouldUsedAsSeed", value: function () {
-                            return Object(yt.b)(100) < this.seedScore
+                            return Object(st.b)(100) < this.seedScore
                         }
                     }]), t
                 }()
@@ -10215,12 +10191,14 @@ parcelRequire = function (e, r, t, n) {
                     return "object" == typeof t ? null !== t : "function" == typeof t
                 }
             }, function (t, e, n) {
-                t.exports = n(272)
+                t.exports = n(271)
             }, function (t, e, n) {
-                var r = n(16);
+                var r = n(15);
                 t.exports = function (t) {
                     return r[t + "Prototype"]
                 }
+            }, function (t, e, n) {
+                t.exports = n(302)
             }, function (t, e, n) {
                 var r = n(17);
                 t.exports = !r(function () {
@@ -10242,9 +10220,7 @@ parcelRequire = function (e, r, t, n) {
                     return t
                 }
             }, function (t, e, n) {
-                t.exports = n(303)
-            }, function (t, e, n) {
-                var r = n(83), o = Math.min;
+                var r = n(80), o = Math.min;
                 t.exports = function (t) {
                     return t > 0 ? o(r(t), 9007199254740991) : 0
                 }
@@ -10253,9 +10229,9 @@ parcelRequire = function (e, r, t, n) {
                 n.r(e), n.d(e, "Configuration", function () {
                     return u
                 });
-                var r = n(2), o = n.n(r), i = n(4), a = n.n(i), s = n(0), c = n.n(s), u = function () {
+                var r = n(2), o = n.n(r), i = n(5), a = n.n(i), s = n(0), c = n.n(s), u = function () {
                     function t() {
-                        o()(this, t), c()(this, "trackerServer", "wss://tracker.chat.bilibili.com/"), c()(this, "stunServers", ["stun:stun6.chat.bilibili.com:3478", "stun:stun.chat.bilibili.com:3478"]), c()(this, "natCheckStunServers", ["stun:stun-1.chat.bilibili.com:3478", "stun:stun-2.chat.bilibili.com:3478"]), c()(this, "allowedChangeBooleanValues", ["p2pTransferSecondhandDataEnable", "multiTabsShareLimitEnable", "useSeedBox", "enableReverseOrder", "enableHideOwner"]), c()(this, "nonP2PFragmentCountAllowedRange", [0, 8]), c()(this, "nonP2PFragmentCount", 4), c()(this, "p2pBufferLengthSecAllowedRange", [0, 8]), c()(this, "p2pBufferLengthSec", 2.5), c()(this, "iceCandidatePoolSizeAllowedRange", [0, 10]), c()(this, "iceCandidatePoolSize", 10), c()(this, "serverTimeoutMsAllowedRange", [1e3, 1e4]), c()(this, "serverTimeoutMs", 3e3), c()(this, "peerConnectionTimeoutMsAllowedRange", [1e3, 1e4]), c()(this, "peerConnectionTimeoutMs", 5e3), c()(this, "peerTimeoutMsAllowedRange", [1e3, 1e4]), c()(this, "peerTimeoutMs", 3e3), c()(this, "uploadMaxWaitTimeoutMsAllowedRange", [1e3, 1e4]), c()(this, "uploadMaxWaitTimeoutMs", 2700), c()(this, "peerPacketLifetimeAllowedRange", [1e3, 1e4]), c()(this, "peerPacketLifeTime", 2500), c()(this, "refreshPeerProgressIntervalMsAllowedRange", [100, 1e3]), c()(this, "refreshPeerProgressIntervalMs", 200), c()(this, "sliceCount", 4), c()(this, "blockSize", 61440), c()(this, "inConnectingLimitAllowedRange", [1, 64]), c()(this, "inConnectingLimit", 8), c()(this, "outConnectingLimitAllowedRange", [1, 64]), c()(this, "outConnectingLimit", 8), c()(this, "connectedLimitAllowedRange", [0, 64]), c()(this, "connectedLimit", 12), c()(this, "leechConnectNumAllowedRange", [0, 64]), c()(this, "leechConnectNum", 4), c()(this, "seedboxConnectNumBySliceIdAllowedRange", [0, 64]), c()(this, "seedboxConnectNumBySliceId", 1), c()(this, "revisibleMarkAllowedRange", [1, 64]), c()(this, "revisibleMark", 8), c()(this, "reconnectWaitTimeSecAllowedRange", [1, 120]), c()(this, "reconnectWaitTimeSec", 10), c()(this, "fragmentCountOutdatedAllowedRange", [2, 120]), c()(this, "fragmentCountOutdated", 8), c()(this, "fragmentShareOverrideAllowedRange", [0, 100]), c()(this, "fragmentShareOverride", 1), c()(this, "fragmentShareOverrideMaxBytesAllowedRange", [0, 1e7]), c()(this, "fragmentShareOverrideMaxBytes", 125e4), c()(this, "fragmentExtraShareRatioAllowedRange", [0, 50]), c()(this, "fragmentExtraShareRatio", this.fragmentShareOverride / 2), c()(this, "totalDownloadInstancesAllowedRange", [2, 48]), c()(this, "totalDownloadInstances", 1.5 * this.connectedLimit), c()(this, "minDownloadInstancesPerPeer", 1), c()(this, "maxDownloadInstancesPerPeerAllowedRange", [1, 32]), c()(this, "maxDownloadInstancesPerPeer", 4), c()(this, "cdnFetchInstancesAllowedRange", [1, 32]), c()(this, "cdnFetchInstances", 2), c()(this, "fallbackCDNFetchInstancesAllowedRange", [1, 64]), c()(this, "fallbackCDNFetchInstances", 4), c()(this, "fetchCDNTimeoutMsAllowedRange", [500, 6e4]), c()(this, "fetchCDNTimeoutMs", 7e3), c()(this, "crcVerifyEnable", !0), c()(this, "crc32Interval", 1), c()(this, "developmentLogLevel", 2), c()(this, "productionLogLevel", 0), c()(this, "developmentExtLogLevel", 2), c()(this, "productionExtLogLevel", 1), c()(this, "p2pSafeBufferDurationForDelayStopMsAllowedRange", [0, 15e3]), c()(this, "p2pSafeBufferDurationForDelayStopMs", 2e3), c()(this, "p2pDelayStopMaxMsAllowedRange", [0, 15e3]), c()(this, "p2pDelayStopMaxMs", 1e3), c()(this, "p2pFetchDataObCycleCountAllowedRange", [1, 32]), c()(this, "p2pFetchDataObCycleCount", 4), c()(this, "p2pShareDataObCycleCountAllowedRange", [1, 32]), c()(this, "p2pShareDataObCycleCount", 3), c()(this, "p2pSliceIdControlFetchCheckIntervalMsAllowedRange", [2e3, 3e4]), c()(this, "p2pSliceIdControlFetchCheckIntervalMs", 4e3), c()(this, "p2pSliceIdControlShareCheckIntervalMsAllowedRange", [2e3, 3e4]), c()(this, "p2pSliceIdControlShareCheckIntervalMs", 3e3), c()(this, "p2pFetchLowestRatioAllowedRange", [.2, 1]), c()(this, "p2pFetchLowestRatio", .6), c()(this, "p2pShareLargestAllowedFetchRatioAllowedRange", [.2, 1]), c()(this, "p2pShareLargestAllowedFetchRatio", .8), c()(this, "p2pShareLowestRatioAllowedRange", [.2, 1]), c()(this, "p2pShareLowestRatio", .6), c()(this, "p2pAddSliceProbabilityAllowedRange", [0, 1]), c()(this, "p2pAddSliceProbability", .25), c()(this, "p2pDeleteSliceProbabilityAllowedRange", [0, 1]), c()(this, "p2pDeleteSliceProbability", .33), c()(this, "reportPeerSuccessProbabilityAllowedRange", [0, 1]), c()(this, "reportPeerSuccessProbability", 1), c()(this, "reportPeerFailedProbabilityAllowedRange", [0, 1]), c()(this, "reportPeerFailedProbability", .05), c()(this, "trackerClosedReportProbabilityAllowedRange", [0, 1]), c()(this, "trackerClosedReportProbability", .01), c()(this, "badCRCReportProbabilityAllowedRange", [0, 1]), c()(this, "badCRCReportProbability", 1), c()(this, "p2pTransferSecondhandDataEnable", !0), c()(this, "multiTabsShareLimitEnable", !0), c()(this, "useSeedBox", !0), c()(this, "seedScoreUpAllowedRange", [1, 20]), c()(this, "seedScoreUp", 1), c()(this, "seedScoreDownAllowedRange", [1, 50]), c()(this, "seedScoreDown", 12),c()(this, "seedBoxScoreMaxAllowedRange", [100, 1e3]),c()(this, "seedBoxScoreMax", 200),c()(this, "coneVisibleMaxTimeMsAllowedRange", [0, 864e5]),c()(this, "coneVisibleMaxTimeMs", 36e5),c()(this, "symmetricVisibleMaxTimeMsAllowedRange", [0, 864e5]),c()(this, "symmetricVisibleMaxTimeMs", 48e4),c()(this, "nonnatVisibleMaxTimeMsAllowedRange", [0, 864e5]),c()(this, "nonnatVisibleMaxTimeMs", 36e5),c()(this, "multiCheckBasicNatMinCountAllowedRange", [1, 16]),c()(this, "multiCheckBasicNatMinCount", 3),c()(this, "getPeersIntervalMsAllowedRange", [0, 36e5]),c()(this, "getPeersIntervalMs", 1e4),c()(this, "maxDistanceAllowedRange", [0, 16]),c()(this, "maxDistance", 1),c()(this, "enableReverseOrder", !1),c()(this, "enableHideOwner", !0)
+                        o()(this, t), c()(this, "trackerServers", ["wss://tracker.chat.bilibili.com/"]), c()(this, "stunServers", ["stun:stun6.chat.bilibili.com:3478", "stun:stun.chat.bilibili.com:3478"]), c()(this, "natCheckStunServers", ["stun:stun-1.chat.bilibili.com:3478", "stun:stun-2.chat.bilibili.com:3478"]), c()(this, "allowedChangeBooleanValues", ["p2pTransferSecondhandDataEnable", "multiTabsShareLimitEnable", "useSeedBox", "enableReverseOrder", "enableHideOwner"]), c()(this, "nonP2PFragmentCountAllowedRange", [0, 8]), c()(this, "nonP2PFragmentCount", 4), c()(this, "p2pBufferLengthSecAllowedRange", [0, 8]), c()(this, "p2pBufferLengthSec", 2.5), c()(this, "iceCandidatePoolSizeAllowedRange", [0, 10]), c()(this, "iceCandidatePoolSize", 10), c()(this, "serverTimeoutMsAllowedRange", [1e3, 1e4]), c()(this, "serverTimeoutMs", 3e3), c()(this, "peerConnectionTimeoutMsAllowedRange", [1e3, 1e4]), c()(this, "peerConnectionTimeoutMs", 5e3), c()(this, "peerTimeoutMsAllowedRange", [1e3, 1e4]), c()(this, "peerTimeoutMs", 3e3), c()(this, "uploadMaxWaitTimeoutMsAllowedRange", [1e3, 1e4]), c()(this, "uploadMaxWaitTimeoutMs", 2700), c()(this, "peerPacketLifetimeAllowedRange", [1e3, 1e4]), c()(this, "peerPacketLifeTime", 2500), c()(this, "refreshPeerProgressIntervalMsAllowedRange", [100, 1e3]), c()(this, "refreshPeerProgressIntervalMs", 200), c()(this, "sliceCount", 4), c()(this, "blockSize", 61440), c()(this, "inConnectingLimitAllowedRange", [1, 64]), c()(this, "inConnectingLimit", 8), c()(this, "outConnectingLimitAllowedRange", [1, 64]), c()(this, "outConnectingLimit", 8), c()(this, "connectedLimitAllowedRange", [0, 64]), c()(this, "connectedLimit", 12), c()(this, "leechConnectNumAllowedRange", [0, 64]), c()(this, "leechConnectNum", 4), c()(this, "seedboxConnectNumBySliceIdAllowedRange", [0, 64]), c()(this, "seedboxConnectNumBySliceId", 1), c()(this, "revisibleMarkAllowedRange", [1, 64]), c()(this, "revisibleMark", 8), c()(this, "reconnectWaitTimeSecAllowedRange", [1, 120]), c()(this, "reconnectWaitTimeSec", 10), c()(this, "fragmentCountOutdatedAllowedRange", [2, 120]), c()(this, "fragmentCountOutdated", 8), c()(this, "fragmentShareOverrideAllowedRange", [0, 100]), c()(this, "fragmentShareOverride", 1), c()(this, "fragmentShareOverrideMaxBytesAllowedRange", [0, 1e7]), c()(this, "fragmentShareOverrideMaxBytes", 125e4), c()(this, "fragmentExtraShareRatioAllowedRange", [0, 50]), c()(this, "fragmentExtraShareRatio", this.fragmentShareOverride / 2), c()(this, "totalDownloadInstancesAllowedRange", [2, 48]), c()(this, "totalDownloadInstances", 1.5 * this.connectedLimit), c()(this, "minDownloadInstancesPerPeer", 1), c()(this, "maxDownloadInstancesPerPeerAllowedRange", [1, 32]), c()(this, "maxDownloadInstancesPerPeer", 4), c()(this, "cdnFetchInstancesAllowedRange", [1, 32]), c()(this, "cdnFetchInstances", 2), c()(this, "fallbackCDNFetchInstancesAllowedRange", [1, 64]), c()(this, "fallbackCDNFetchInstances", 4), c()(this, "fetchCDNTimeoutMsAllowedRange", [500, 6e4]), c()(this, "fetchCDNTimeoutMs", 7e3), c()(this, "crcVerifyEnable", !0), c()(this, "crc32Interval", 1), c()(this, "developmentLogLevel", 2), c()(this, "productionLogLevel", 0), c()(this, "developmentExtLogLevel", 2), c()(this, "productionExtLogLevel", 1), c()(this, "p2pSafeBufferDurationForDelayStopMsAllowedRange", [0, 15e3]), c()(this, "p2pSafeBufferDurationForDelayStopMs", 2e3), c()(this, "p2pDelayStopMaxMsAllowedRange", [0, 15e3]), c()(this, "p2pDelayStopMaxMs", 1e3), c()(this, "p2pFetchDataObCycleCountAllowedRange", [1, 32]), c()(this, "p2pFetchDataObCycleCount", 4), c()(this, "p2pShareDataObCycleCountAllowedRange", [1, 32]), c()(this, "p2pShareDataObCycleCount", 3), c()(this, "p2pSliceIdControlFetchCheckIntervalMsAllowedRange", [2e3, 3e4]), c()(this, "p2pSliceIdControlFetchCheckIntervalMs", 4e3), c()(this, "p2pSliceIdControlShareCheckIntervalMsAllowedRange", [2e3, 3e4]), c()(this, "p2pSliceIdControlShareCheckIntervalMs", 3e3), c()(this, "p2pFetchLowestRatioAllowedRange", [.2, 1]), c()(this, "p2pFetchLowestRatio", .6), c()(this, "p2pShareLargestAllowedFetchRatioAllowedRange", [.2, 1]), c()(this, "p2pShareLargestAllowedFetchRatio", .8), c()(this, "p2pShareLowestRatioAllowedRange", [.2, 1]), c()(this, "p2pShareLowestRatio", .6), c()(this, "p2pAddSliceProbabilityAllowedRange", [0, 1]), c()(this, "p2pAddSliceProbability", .25), c()(this, "p2pDeleteSliceProbabilityAllowedRange", [0, 1]), c()(this, "p2pDeleteSliceProbability", .33), c()(this, "reportPeerSuccessProbabilityAllowedRange", [0, 1]), c()(this, "reportPeerSuccessProbability", 1), c()(this, "reportPeerFailedProbabilityAllowedRange", [0, 1]), c()(this, "reportPeerFailedProbability", .05), c()(this, "trackerClosedReportProbabilityAllowedRange", [0, 1]), c()(this, "trackerClosedReportProbability", .01), c()(this, "badCRCReportProbabilityAllowedRange", [0, 1]), c()(this, "badCRCReportProbability", 1), c()(this, "p2pTransferSecondhandDataEnable", !0), c()(this, "multiTabsShareLimitEnable", !0), c()(this, "useSeedBox", !0), c()(this, "seedScoreUpAllowedRange", [1, 20]), c()(this, "seedScoreUp", 1), c()(this, "seedScoreDownAllowedRange", [1, 50]), c()(this, "seedScoreDown", 12),c()(this, "seedBoxScoreMaxAllowedRange", [100, 1e3]),c()(this, "seedBoxScoreMax", 200),c()(this, "coneVisibleMaxTimeMsAllowedRange", [0, 864e5]),c()(this, "coneVisibleMaxTimeMs", 36e5),c()(this, "symmetricVisibleMaxTimeMsAllowedRange", [0, 864e5]),c()(this, "symmetricVisibleMaxTimeMs", 48e4),c()(this, "nonnatVisibleMaxTimeMsAllowedRange", [0, 864e5]),c()(this, "nonnatVisibleMaxTimeMs", 36e5),c()(this, "multiCheckBasicNatMinCountAllowedRange", [1, 16]),c()(this, "multiCheckBasicNatMinCount", 3),c()(this, "getPeersIntervalMsAllowedRange", [0, 36e5]),c()(this, "getPeersIntervalMs", 1e4),c()(this, "candidateWaitMaxTimeMsAllowedRange", [0, 3e4]),c()(this, "candidateWaitMaxTimeMs", 150),c()(this, "maxDistanceAllowedRange", [0, 16]),c()(this, "maxDistance", 1),c()(this, "enableReverseOrder", !1),c()(this, "enableHideOwner", !0)
                     }
 
                     return a()(t, [{
@@ -10268,16 +10244,16 @@ parcelRequire = function (e, r, t, n) {
                         }
                     }]), t
                 }();
-                c()(u, "curNodeEnv", "production"), c()(u, "ProtocolVersion", 282251212), c()(u, "failbackFetchCDNTimeoutMs", 7e3)
+                c()(u, "curNodeEnv", "production"), c()(u, "ProtocolVersion", 10), c()(u, "failbackFetchCDNTimeoutMs", 7e3)
             }, function (t, e, n) {
-                var r = n(24), o = n(31), i = n(51);
+                var r = n(25), o = n(31), i = n(50);
                 t.exports = r ? function (t, e, n) {
                     return o.f(t, e, i(1, n))
                 } : function (t, e, n) {
                     return t[e] = n, t
                 }
             }, function (t, e, n) {
-                var r = n(24), o = n(124), i = n(26), a = n(90), s = Object.defineProperty;
+                var r = n(25), o = n(124), i = n(27), a = n(87), s = Object.defineProperty;
                 e.f = r ? s : function (t, e, n) {
                     if (i(t), e = a(e, !0), i(n), o) try {
                         return s(t, e, n)
@@ -10287,29 +10263,27 @@ parcelRequire = function (e, r, t, n) {
                     return "value" in n && (t[e] = n.value), t
                 }
             }, function (t, e, n) {
-                var r = n(62);
+                var r = n(60);
                 t.exports = function (t) {
                     return Object(r(t))
                 }
-            }, function (t, e, n) {
-                t.exports = n(205)
             }, function (t, e, n) {
                 "use strict";
                 n.d(e, "a", function () {
                     return gt
                 }), n.d(e, "c", function () {
-                    return Mt
-                }), n.d(e, "b", function () {
                     return Ut
+                }), n.d(e, "b", function () {
+                    return Mt
                 });
-                var r = n(1), o = n.n(r), i = n(68), a = n.n(i), s = n(5), c = n.n(s), u = n(6), l = n.n(u), h = n(99),
-                    f = n.n(h), p = n(22), d = n.n(p), v = n(67), g = n.n(v), y = n(102), x = n.n(y), C = n(36),
-                    w = n.n(C), m = n(3), k = n.n(m), b = n(82), S = n.n(b), P = n(35), E = n.n(P), R = n(57),
-                    A = n.n(R), I = n(58), D = n.n(I), T = n(14), L = n.n(T), F = n(120), O = n.n(F), U = n(2),
-                    M = n.n(U), N = n(4), B = n.n(N), _ = n(0), z = n.n(_), j = n(7), q = n(43), W = n(11), V = n.n(W),
-                    G = n(100), Y = n.n(G), Q = n(12), H = n.n(Q), X = n(56), K = n.n(X), J = n(50), $ = n.n(J),
-                    Z = n(64), tt = n.n(Z), et = n(65), nt = n.n(et), rt = n(66), ot = n.n(rt), it = n(33),
-                    at = n.n(it), st = n(60), ct = n.n(st), ut = n(38), lt = n.n(ut), ht = n(19), ft = n(20),
+                var r = n(1), o = n.n(r), i = n(64), a = n.n(i), s = n(3), c = n.n(s), u = n(6), l = n.n(u), h = n(96),
+                    f = n.n(h), p = n(22), d = n.n(p), v = n(63), g = n.n(v), y = n(102), C = n.n(y), x = n(35),
+                    w = n.n(x), m = n(79), k = n.n(m), S = n(4), b = n.n(S), P = n(34), E = n.n(P), A = n(55),
+                    R = n.n(A), I = n(56), D = n.n(I), T = n(16), L = n.n(T), F = n(120), O = n.n(F), M = n(2),
+                    U = n.n(M), N = n(5), B = n.n(N), _ = n(0), z = n.n(_), j = n(7), q = n(43), W = n(11), V = n.n(W),
+                    Y = n(100), G = n.n(Y), Q = n(12), H = n.n(Q), X = n(78), K = n.n(X), J = n(62), $ = n.n(J),
+                    Z = n(97), tt = n.n(Z), et = n(98), nt = n.n(et), rt = n(99), ot = n.n(rt), it = n(42),
+                    at = n.n(it), st = n(58), ct = n.n(st), ut = n(37), lt = n.n(ut), ht = n(19), ft = n(20),
                     pt = n(10);
 
                 function dt(t, e) {
@@ -10363,7 +10337,7 @@ parcelRequire = function (e, r, t, n) {
 
                 var gt, yt = function () {
                     function t(e, n) {
-                        M()(this, t), z()(this, "localDistanceChanged", Array()), z()(this, "p2pCtx", void 0), z()(this, "frag", void 0), z()(this, "blockMinDistances", void 0), this.frag = n, this.p2pCtx = e;
+                        U()(this, t), z()(this, "localDistanceChanged", Array()), z()(this, "p2pCtx", void 0), z()(this, "frag", void 0), z()(this, "blockMinDistances", void 0), this.frag = n, this.p2pCtx = e;
                         var r = n.getBlockCount();
                         this.blockMinDistances = new Uint8Array(r);
                         for (var o = 0; o < r; ++o) this.blockMinDistances[o] = e.Config.maxDistance
@@ -10382,10 +10356,10 @@ parcelRequire = function (e, r, t, n) {
                             }
                         }
                     }]), t
-                }(), xt = function () {
+                }(), Ct = function () {
                     function t(e, n) {
                         var r = this;
-                        M()(this, t), z()(this, "ctx", void 0), z()(this, "peer", void 0), z()(this, "updateDistancesTS", null), z()(this, "distancesUpdateLock", new ht.c), z()(this, "distances", null), z()(this, "isDistanceFinal", !1), z()(this, "taskAvailableMutex", new ht.c), z()(this, "taskAvailableCV", new ht.a), z()(this, "blockIds", void 0), z()(this, "abandoned", !1), this.ctx = e, this.peer = n, e.frag.onFinished(function () {
+                        U()(this, t), z()(this, "ctx", void 0), z()(this, "peer", void 0), z()(this, "updateDistancesTS", null), z()(this, "distancesUpdateLock", new ht.c), z()(this, "distances", null), z()(this, "isDistanceFinal", !1), z()(this, "taskAvailableMutex", new ht.c), z()(this, "taskAvailableCV", new ht.a), z()(this, "blockIds", void 0), z()(this, "abandoned", !1), this.ctx = e, this.peer = n, e.frag.onFinished(function () {
                             r.stopAllInstance()
                         }), e.localDistanceChanged.push(function () {
                             r.wakeUpWorkers()
@@ -10542,98 +10516,41 @@ parcelRequire = function (e, r, t, n) {
                         }
                     }, {
                         key: "sendGetProgress", value: (a = l()(o.a.mark(function t() {
-                            var e, n, r, i, a, s, c, u, l, h, f, p = this;
+                            var e = this;
                             return o.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
-                                        if (!this.peer.extData.isSupport2ndProtocol) {
-                                            t.next = 6;
-                                            break
-                                        }
-                                        return t.next = 3, this.sendRequest(function () {
+                                        return t.next = 2, this.sendRequest(function () {
                                             return {
                                                 action: "downloadAndStat",
-                                                data: {frag: p.ctx.frag.getFragmentName(), blockId: -1, nonblocking: !0}
+                                                data: {frag: e.ctx.frag.getFragmentName(), blockId: -1, nonblocking: !0}
                                             }
                                         });
-                                    case 3:
+                                    case 2:
                                         return t.abrupt("return", t.sent);
-                                    case 6:
-                                        return t.next = 8, this.sendRequest(function () {
-                                            return {action: "getFragSlices", data: {frag: p.ctx.frag.getFragmentName()}}
-                                        });
-                                    case 8:
-                                        if ("ok" != (null == (e = t.sent) ? void 0 : e.status)) {
-                                            t.next = 35;
-                                            break
-                                        }
-                                        for (n = this.ctx.frag.getBlockCount(), r = new Uint8Array(n), i = 0; i < n; ++i) r[i] = 127;
-                                        a = dt(e.data.sliceInfos), t.prev = 14, a.s();
-                                    case 16:
-                                        if ((s = a.n()).done) {
-                                            t.next = 25;
-                                            break
-                                        }
-                                        if (c = s.value, null != (u = c)) {
-                                            t.next = 21;
-                                            break
-                                        }
-                                        return t.abrupt("continue", 23);
-                                    case 21:
-                                        if (2 == (l = this.ctx.frag.getSliceBlockRange(u.sliceId)).length && u.progress > l[0]) for (h = l[0]; h < u.progress; ++h) u.isOwner ? r[h] = 129 : r[h] = 0;
-                                    case 23:
-                                        t.next = 16;
-                                        break;
-                                    case 25:
-                                        t.next = 30;
-                                        break;
-                                    case 27:
-                                        t.prev = 27, t.t0 = t.catch(14), a.e(t.t0);
-                                    case 30:
-                                        return t.prev = 30, a.f(), t.finish(30);
-                                    case 33:
-                                        f = {block: null, distances: r}, e.data = f;
-                                    case 35:
-                                        return t.abrupt("return", e);
-                                    case 36:
+                                    case 3:
                                     case"end":
                                         return t.stop()
                                 }
-                            }, t, this, [[14, 27, 30, 33]])
+                            }, t, this)
                         })), function () {
                             return a.apply(this, arguments)
                         })
                     }, {
                         key: "sendDownloadBlock", value: (i = l()(o.a.mark(function t(e) {
-                            var n, r, i = this;
+                            var n = this;
                             return o.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
-                                        if (!this.peer.extData.isSupport2ndProtocol) {
-                                            t.next = 6;
-                                            break
-                                        }
-                                        return t.next = 3, this.sendRequest(function () {
+                                        return t.next = 2, this.sendRequest(function () {
                                             return {
                                                 action: "downloadAndStat",
-                                                data: {frag: i.ctx.frag.getFragmentName(), blockId: e, nonblocking: !1}
+                                                data: {frag: n.ctx.frag.getFragmentName(), blockId: e, nonblocking: !1}
                                             }
                                         });
-                                    case 3:
+                                    case 2:
                                         return t.abrupt("return", t.sent);
-                                    case 6:
-                                        return t.next = 8, this.sendRequest(function () {
-                                            return {
-                                                action: "downloadBlock",
-                                                data: {frag: i.ctx.frag.getFragmentName(), blockId: e}
-                                            }
-                                        });
-                                    case 8:
-                                        return "ok" == (null == (n = t.sent) ? void 0 : n.status) && (r = {
-                                            block: n.data,
-                                            distances: null
-                                        }, n.data = r), t.abrupt("return", n);
-                                    case 11:
+                                    case 3:
                                     case"end":
                                         return t.stop()
                                 }
@@ -10675,51 +10592,57 @@ parcelRequire = function (e, r, t, n) {
                                             return V()(t, n)
                                         });
                                     case 16:
-                                        if (!this.isDistanceFinal) {
+                                        if (!this.abandoned) {
                                             t.next = 18;
                                             break
                                         }
-                                        return t.abrupt("return", 0);
+                                        return t.abrupt("return", -1);
                                     case 18:
-                                        return t.next = 20, this.sendGetProgress();
+                                        if (!this.isDistanceFinal) {
+                                            t.next = 20;
+                                            break
+                                        }
+                                        return t.abrupt("return", 0);
                                     case 20:
+                                        return t.next = 22, this.sendGetProgress();
+                                    case 22:
                                         if (null != (r = t.sent) && "overload" != r.status) {
-                                            t.next = 25;
+                                            t.next = 27;
                                             break
                                         }
                                         return t.abrupt("return", -1);
-                                    case 25:
+                                    case 27:
                                         if ("not_found" != r.status) {
-                                            t.next = 29;
+                                            t.next = 31;
                                             break
                                         }
-                                        this.updateDistancesTS = performance.now(), t.next = 34;
+                                        this.updateDistancesTS = performance.now(), t.next = 36;
                                         break;
-                                    case 29:
+                                    case 31:
                                         if ("ok" != r.status) {
-                                            t.next = 34;
+                                            t.next = 36;
                                             break
                                         }
                                         if (a = null === (i = r.data) || void 0 === i ? void 0 : i.distances, this.setRemoteDistance(a)) {
-                                            t.next = 34;
+                                            t.next = 36;
                                             break
                                         }
                                         return this.ban(), t.abrupt("return", -1);
-                                    case 34:
+                                    case 36:
                                         return t.abrupt("return", 1);
-                                    case 35:
-                                        return t.prev = 35, this.distancesUpdateLock.unlock(), t.finish(35);
-                                    case 38:
+                                    case 37:
+                                        return t.prev = 37, this.distancesUpdateLock.unlock(), t.finish(37);
+                                    case 40:
                                     case"end":
                                         return t.stop()
                                 }
-                            }, t, this, [[4, , 35, 38]])
+                            }, t, this, [[4, , 37, 40]])
                         })), function (t) {
                             return r.apply(this, arguments)
                         })
                     }, {
                         key: "doDownload", value: (n = l()(o.a.mark(function t(e, n) {
-                            var r, i, a, s, c, u, l, h, f, p, d, v, g, y, x, C, w, m;
+                            var r, i, a, s, c, u, l, h, f, p, d, v, g, y, C, x, w, m;
                             return o.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
@@ -10735,25 +10658,25 @@ parcelRequire = function (e, r, t, n) {
                                             t.next = 38;
                                             break
                                         }
-                                        if (y = null !== (f = null === (p = h.data) || void 0 === p || null === (d = p.block) || void 0 === d ? void 0 : d.byteLength) && void 0 !== f ? f : 0, null == (x = null === (v = h.data) || void 0 === v ? void 0 : v.distances) || this.setRemoteDistance(x)) {
+                                        if (y = null !== (f = null === (p = h.data) || void 0 === p || null === (d = p.block) || void 0 === d ? void 0 : d.byteLength) && void 0 !== f ? f : 0, null == (C = null === (v = h.data) || void 0 === v ? void 0 : v.distances) || this.setRemoteDistance(C)) {
                                             t.next = 24;
                                             break
                                         }
                                         return this.ctx.p2pCtx.P2PDataCollectionStatus.addWastedDataSize(y, pt.e.ERROR_DATA), this.ban(), t.abrupt("return", !1);
                                     case 24:
-                                        if (null != (C = null === (g = h.data) || void 0 === g ? void 0 : g.block) && null != C) {
+                                        if (null != (x = null === (g = h.data) || void 0 === g ? void 0 : g.block) && null != x) {
                                             t.next = 27;
                                             break
                                         }
                                         return t.abrupt("return", !1);
                                     case 27:
-                                        if ((w = this.ctx.frag.getBlockByteRange(e))[1] - w[0] == C.length) {
+                                        if ((w = this.ctx.frag.getBlockByteRange(e))[1] - w[0] == x.length) {
                                             t.next = 32;
                                             break
                                         }
                                         return this.ctx.p2pCtx.P2PDataCollectionStatus.addWastedDataSize(y, pt.e.ERROR_DATA), this.ban(), t.abrupt("return", !1);
                                     case 32:
-                                        return this.ctx.frag.setBlockData(e, C, j.b.P2P, s, this.peer.extData.peerId, void 0) || this.ctx.p2pCtx.P2PDataCollectionStatus.addWastedDataSize(y, pt.e.P2P_LATE), u = !0, t.abrupt("return", !0);
+                                        return this.ctx.frag.setBlockData(e, x, j.b.P2P, s, this.peer.extData.peerId, void 0) || this.ctx.p2pCtx.P2PDataCollectionStatus.addWastedDataSize(y, pt.e.P2P_LATE), u = !0, t.abrupt("return", !0);
                                     case 38:
                                         return t.abrupt("return", !1);
                                     case 39:
@@ -10877,15 +10800,15 @@ parcelRequire = function (e, r, t, n) {
                             return e.apply(this, arguments)
                         })
                     }]), t
-                }(), Ct = function () {
+                }(), xt = function () {
                     function t(e) {
-                        M()(this, t), z()(this, "peerFragWorkers", new Array), z()(this, "frag", void 0), this.frag = e
+                        U()(this, t), z()(this, "peerFragWorkers", new Array), z()(this, "frag", void 0), this.frag = e
                     }
 
                     var e;
                     return B()(t, [{
                         key: "startDownload", value: (e = l()(o.a.mark(function t(e, n) {
-                            var r, i, a, s, u, l, h, f, p, d, v, g, y, x, C, w, m, k, b, S, P, E = this;
+                            var r, i, a, s, u, l, h, f, p, d, v, g, y, C, x, w, m, k, S, b, P, E = this;
                             return o.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
@@ -10897,13 +10820,13 @@ parcelRequire = function (e, r, t, n) {
                                         } finally {
                                             f.f()
                                         }
-                                        for (y = new yt(e.getP2PContext(), this.frag), x = lt()(r = lt()(i = e.getConnectedPeers()).call(i, function (t) {
+                                        for (y = new yt(e.getP2PContext(), this.frag), C = lt()(r = lt()(i = e.getConnectedPeers()).call(i, function (t) {
                                             return t.peerRole == ft.PeerRole.Seedbox
                                         })).call(r, function (t) {
                                             return t.shouldUsedAsSeed()
                                         }), h = ct()(a = lt()(s = ct()(h).call(h, function (t) {
                                             return {
-                                                sliceid: t, seedboxes: lt()(x).call(x, function (e) {
+                                                sliceid: t, seedboxes: lt()(C).call(C, function (e) {
                                                     return e.seedSliceIds.has(t)
                                                 })
                                             }
@@ -10912,18 +10835,18 @@ parcelRequire = function (e, r, t, n) {
                                                 var e = E.frag.getSliceBlockRange(t.sliceid);
                                                 if (2 == e.length && e[1] - e[0] > 0) for (var n = new Array(t.seedboxes.length), r = e[0]; r < e[1]; ++r) {
                                                     var o, i = r % n.length;
-                                                    null == n[i] && (n[i] = new xt(y, t.seedboxes[i])), null === (o = n[i]) || void 0 === o || o.doDownload(r, 1)
+                                                    null == n[i] && (n[i] = new Ct(y, t.seedboxes[i])), null === (o = n[i]) || void 0 === o || o.doDownload(r, 1)
                                                 }
                                                 return !1
                                             }
                                             return !0
                                         })).call(a, function (t) {
                                             return t.sliceid
-                                        }), n(h), C = lt()(u = e.getConnectedPeers()).call(u, function (t) {
+                                        }), n(h), x = lt()(u = e.getConnectedPeers()).call(u, function (t) {
                                             return t.peerRole == ft.PeerRole.Peer
-                                        }), w = e.getP2PContext().Config, m = Math.min(w.totalDownloadInstances, C.length), k = Math.min(w.totalDownloadInstances, C.length * w.maxDownloadInstancesPerPeer), b = 0; b < m; ++b) this.peerFragWorkers.push(new xt(y, C[b]));
-                                        for (S = [], P = 0; P < k; ++P) S.push(this.peerFragWorkers[P % m].launchInstance());
-                                        return t.next = 17, c.a.all(S);
+                                        }), w = e.getP2PContext().Config, m = Math.min(w.totalDownloadInstances, x.length), k = Math.min(w.totalDownloadInstances, x.length * w.maxDownloadInstancesPerPeer), S = 0; S < m; ++S) this.peerFragWorkers.push(new Ct(y, x[S]));
+                                        for (b = [], P = 0; P < k; ++P) b.push(this.peerFragWorkers[P % m].launchInstance());
+                                        return t.next = 17, c.a.all(b);
                                     case 17:
                                         return t.abrupt("return");
                                     case 18:
@@ -10948,7 +10871,7 @@ parcelRequire = function (e, r, t, n) {
                     }]), t
                 }(), wt = function () {
                     function t(e) {
-                        M()(this, t), z()(this, "url", void 0), this.url = e
+                        U()(this, t), z()(this, "url", void 0), this.url = e
                     }
 
                     return B()(t, [{
@@ -11091,7 +11014,7 @@ parcelRequire = function (e, r, t, n) {
                     }]), t
                 }(), mt = function () {
                     function t(e) {
-                        M()(this, t), z()(this, "p2pContext", void 0), z()(this, "fragMan", void 0), z()(this, "downloadForceStopArray", new H.a), this.p2pContext = e, this.fragMan = new j.d(this.p2pContext)
+                        U()(this, t), z()(this, "p2pContext", void 0), z()(this, "fragMan", void 0), z()(this, "downloadForceStopArray", new H.a), this.p2pContext = e, this.fragMan = new j.d(this.p2pContext)
                     }
 
                     return B()(t, [{
@@ -11119,18 +11042,18 @@ parcelRequire = function (e, r, t, n) {
                                 }); else {
                                     var h = function (t) {
                                         if (t.length > 1) {
-                                            var e = Y()(t).call(t), n = new Array;
-                                            k()(e).call(e, function (t) {
+                                            var e = G()(t).call(t), n = new Array;
+                                            b()(e).call(e, function (t) {
                                                 var e = s.getSliceBlockRange(t);
                                                 n.push(e[0]), n.push(e[1])
                                             });
                                             for (var r = -1, o = -1, a = 0; a < n.length; a += 2) -1 == r ? (r = n[a], o = n[a + 1]) : (o == n[a] || (null != o && r != o && o - 1 >= 0 && i.pullFragmentData(s, u, r, o - 1, j.a.SEED), r = n[a]), o = n[a + 1]);
                                             null != r && null != o && r != o && o - 1 >= 0 && i.pullFragmentData(s, u, r, o - 1, j.a.SEED)
-                                        } else k()(t).call(t, function (t) {
+                                        } else b()(t).call(t, function (t) {
                                             var e = s.getSliceBlockRange(t);
                                             e[0] >= 0 && e[1] > 0 && e[0] != e[1] && e[1] - 1 >= 0 && i.pullFragmentData(s, u, e[0], e[1] - 1, j.a.SEED)
                                         })
-                                    }, f = new Ct(s), p = Array();
+                                    }, f = new xt(s), p = Array();
                                     if (null != r) {
                                         var d = new c.a(function (t) {
                                             V()(function () {
@@ -11206,16 +11129,16 @@ parcelRequire = function (e, r, t, n) {
                     }, {
                         key: "destroy", value: function () {
                             var t;
-                            k()(t = this.downloadForceStopArray).call(t, function (t) {
+                            b()(t = this.downloadForceStopArray).call(t, function (t) {
                                 t(!1)
                             }), this.downloadForceStopArray.clear()
                         }
                     }]), t
-                }(), kt = n(119), bt = n.n(kt), St = n(27), Pt = n.n(St), Et = n(9), Rt = n.n(Et), At = function () {
+                }(), kt = n(119), St = n.n(kt), bt = n(24), Pt = n.n(bt), Et = n(9), At = n.n(Et), Rt = function () {
                     function t() {
                         var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 255,
                             n = arguments.length > 1 && void 0 !== arguments[1] && arguments[1];
-                        M()(this, t), z()(this, "maxLine", 255), z()(this, "logBuffer", []), z()(this, "isStart", !1), this.maxLine = e, this.isStart = n
+                        U()(this, t), z()(this, "maxLine", 255), z()(this, "logBuffer", []), z()(this, "isStart", !1), this.maxLine = e, this.isStart = n
                     }
 
                     return B()(t, [{
@@ -11224,7 +11147,7 @@ parcelRequire = function (e, r, t, n) {
                                 for (var n = t.toString(); n.length < e;) n = "0" + n;
                                 return n
                             };
-                            return Rt()(e = Rt()(n = Rt()(r = Rt()(o = Rt()(i = "".concat(a(t.getMonth() + 1, 2), "-")).call(i, a(t.getDate(), 2), " ")).call(o, a(t.getHours(), 2), ":")).call(r, a(t.getMinutes(), 2), ":")).call(n, a(t.getSeconds(), 2), ".")).call(e, a(t.getMilliseconds(), 3))
+                            return At()(e = At()(n = At()(r = At()(o = At()(i = "".concat(a(t.getMonth() + 1, 2), "-")).call(i, a(t.getDate(), 2), " ")).call(o, a(t.getHours(), 2), ":")).call(r, a(t.getMinutes(), 2), ":")).call(n, a(t.getSeconds(), 2), ".")).call(e, a(t.getMilliseconds(), 3))
                         }
                     }, {
                         key: "log", value: function () {
@@ -11247,20 +11170,20 @@ parcelRequire = function (e, r, t, n) {
                     }, {
                         key: "get", value: function () {
                             var t, e = "";
-                            return k()(t = this.logBuffer).call(t, function (t) {
+                            return b()(t = this.logBuffer).call(t, function (t) {
                                 e += t + "\n"
                             }), e
                         }
                     }, {
                         key: "download", value: function () {
                             var t = document.createElement("a");
-                            t.href = bt.a.createObjectURL(new Blob([this.get()])), t.download = "logfile.log", t.click(), window.URL.revokeObjectURL(t.href)
+                            t.href = St.a.createObjectURL(new Blob([this.get()])), t.download = "logfile.log", t.click(), window.URL.revokeObjectURL(t.href)
                         }
                     }]), t
-                }(), It = n(177), Dt = function () {
+                }(), It = n(176), Dt = function () {
                     function t() {
                         var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 0;
-                        M()(this, t), z()(this, "latestWorkerId", -1), z()(this, "minAllowRunningWorkerId", 0), z()(this, "tasks", []), z()(this, "mutex", new ht.c), z()(this, "cv", new ht.a), e < 0 && (e = 0), this.addWorker(e)
+                        U()(this, t), z()(this, "latestWorkerId", -1), z()(this, "minAllowRunningWorkerId", 0), z()(this, "tasks", []), z()(this, "mutex", new ht.c), z()(this, "cv", new ht.a), e < 0 && (e = 0), this.addWorker(e)
                     }
 
                     var e, n, r;
@@ -11387,9 +11310,9 @@ parcelRequire = function (e, r, t, n) {
                             t > 0 && this.addWorker(t), t < 0 && this.removeWorker(0 - t)
                         }
                     }]), t
-                }(), Tt = n(70), Lt = n(101), Ft = function () {
+                }(), Tt = n(66), Lt = n(101), Ft = function () {
                     function t() {
-                        M()(this, t), z()(this, "remainingShareQuotaQueue", new Tt.a(10))
+                        U()(this, t), z()(this, "remainingShareQuotaQueue", new Tt.a(10))
                     }
 
                     return B()(t, [{
@@ -11408,14 +11331,14 @@ parcelRequire = function (e, r, t, n) {
                             return e
                         }
                     }]), t
-                }(), Ot = n(37);
+                }(), Ot = n(36);
                 !function (t) {
                     t[t.DONE = 0] = "DONE", t[t.ERROR = 1] = "ERROR", t[t.NOTFOUND = 2] = "NOTFOUND"
                 }(gt || (gt = {}));
-                var Ut, Mt = function () {
+                var Mt, Ut = function () {
                     function t(e, n, r) {
                         var o = this;
-                        M()(this, t), z()(this, "Config", void 0), z()(this, "CDNFetchTaskWorker", new Dt), z()(this, "FallbackFetchTaskWorker", new Dt), z()(this, "P2PDataCollectionStatus", new pt.c), z()(this, "LogFile", new At(Number.MAX_VALUE)), z()(this, "guid", void 0), z()(this, "P2P", void 0), z()(this, "CurPeerId", ""), z()(this, "DataFetch", void 0), z()(this, "FragMan", void 0), z()(this, "PeerSched", void 0), z()(this, "GhostPeerIds", new d.a), z()(this, "printExtLog", void 0), z()(this, "eventReportCallback", void 0), z()(this, "sliceIdAutoChangeIntervalSignal", new ht.d), z()(this, "totalSistersCount", 1), z()(this, "tabsCheckInterval", 3e3), z()(this, "tabsCheckTimer", null), this.Config = e, this.printExtLog = n, this.eventReportCallback = r, this.compatibleRTC(), this.guid = this.genGuid4(), this.P2P = new Nt(this), this.DataFetch = new mt(this), this.FragMan = this.DataFetch.fragMan, this.tabsCheckTimer = f()(function () {
+                        U()(this, t), z()(this, "Config", void 0), z()(this, "CDNFetchTaskWorker", new Dt), z()(this, "FallbackFetchTaskWorker", new Dt), z()(this, "P2PDataCollectionStatus", new pt.c), z()(this, "LogFile", new Rt(Number.MAX_VALUE)), z()(this, "P2P", void 0), z()(this, "CurPeerId", ""), z()(this, "DataFetch", void 0), z()(this, "FragMan", void 0), z()(this, "PeerSched", void 0), z()(this, "GhostPeerIds", new d.a), z()(this, "printExtLog", void 0), z()(this, "eventReportCallback", void 0), z()(this, "sliceIdAutoChangeIntervalSignal", new ht.d), z()(this, "totalSistersCount", 1), z()(this, "trackerPositionInServers", 0), z()(this, "tabsCheckInterval", 3e3), z()(this, "tabsCheckTimer", null), this.Config = e, this.printExtLog = n, this.eventReportCallback = r, this.compatibleRTC(), this.P2P = new Nt(this), this.DataFetch = new mt(this), this.FragMan = this.DataFetch.fragMan, this.tabsCheckTimer = f()(function () {
                             return o.checkMultipleTabs()
                         }, this.tabsCheckInterval + 100 * Math.random())
                     }
@@ -11437,27 +11360,30 @@ parcelRequire = function (e, r, t, n) {
                             };
                             try {
                                 for (var r = JSON.parse(t), o = function () {
-                                    var t, r = A()(a[i], 2), o = r[0], s = r[1];
+                                    var t, r = R()(a[i], 2), o = r[0], s = r[1];
                                     if (E()(o) == E()("")) switch (o) {
-                                        case"trackerServer":
-                                            E()(s) == E()("") && (S()(s).call(s, "wss://") || S()(s).call(s, "ws://")) && 0 == (S()(s).call(s, "wss:///") || S()(s).call(s, "ws:///")) ? (e.Config[o] = s, n(o, s, !0)) : n(o, s, !1);
+                                        case"trackerServers":
+                                            var c = [];
+                                            s instanceof Array ? (b()(s).call(s, function (t) {
+                                                E()(t) == E()("") && (k()(t).call(t, "wss://") || k()(t).call(t, "ws://")) && 0 == (k()(t).call(t, "wss:///") || k()(t).call(t, "ws:///")) ? c.push(t) : (e.printExtLog(1, "Value: " + s + " not tracker server address."), e.Config.allowPrintLog(1) && console.log("Value: " + s + " not tracker server address."))
+                                            }), c.length > 0 && (e.Config[o] = c, e.trackerPositionInServers = 0, n(o, s, !0))) : n(o, s, !1);
                                             break;
                                         case"stunServers":
                                         case"natCheckStunServers":
-                                            var c = [];
-                                            s instanceof Array ? (k()(s).call(s, function (t) {
-                                                E()(t) == E()("") && new RegExp("^(stun|turn):.+?:[0-9]{1,5}$").exec(t) ? c.push(t) : (e.printExtLog(1, "Value: " + s + " not stun/turn server address."), e.Config.allowPrintLog(1) && console.log("Value: " + s + " not stun/turn server address."))
-                                            }), c.length > 0 && (e.Config[o] = c, n(o, s, !0), "natCheckStunServers" == o && e.P2P.tryToCheckNatType())) : n(o, s, !1);
+                                            var u = [];
+                                            s instanceof Array ? (b()(s).call(s, function (t) {
+                                                E()(t) == E()("") && new RegExp("^(stun|turn):.+?:[0-9]{1,5}$").exec(t) ? u.push(t) : (e.printExtLog(1, "Value: " + s + " not stun/turn server address."), e.Config.allowPrintLog(1) && console.log("Value: " + s + " not stun/turn server address."))
+                                            }), u.length > 0 && (e.Config[o] = u, n(o, s, !0), "natCheckStunServers" == o && e.P2P.tryToCheckNatType())) : n(o, s, !1);
                                             break;
                                         default:
                                             if (e.Config.hasOwnProperty(o + "AllowedRange") && e.Config.hasOwnProperty(o)) {
-                                                var u = e.Config[o + "AllowedRange"][0],
-                                                    l = e.Config[o + "AllowedRange"][1];
-                                                e.printExtLog(2, "Key: " + o + " found range."), e.Config.allowPrintLog(2) && console.log("Key: " + o + " found range."), E()(s) == E()(0) && s >= u && s <= l ? (e.Config[o] = s, n(o, s, !0)) : n(o, s, !1)
+                                                var l = e.Config[o + "AllowedRange"][0],
+                                                    h = e.Config[o + "AllowedRange"][1];
+                                                e.printExtLog(2, "Key: " + o + " found range."), e.Config.allowPrintLog(2) && console.log("Key: " + o + " found range."), E()(s) == E()(0) && s >= l && s <= h ? (e.Config[o] = s, n(o, s, !0)) : n(o, s, !1)
                                             } else e.Config.hasOwnProperty(o) && E()(s) == E()(!0) && w()(t = e.Config.allowedChangeBooleanValues).call(t, o) > -1 ? (e.Config[o] = s, n(o, s, !0)) : n(o, s, !1)
                                     }
                                 }, i = 0, a = D()(r); i < a.length; i++) o();
-                                this.onConfigurationUpdate(x()(r)), this.eventReportCallback(new Ot.ConfigUpdateEvent(r))
+                                this.onConfigurationUpdate(C()(r)), this.eventReportCallback(new Ot.ConfigUpdateEvent(r))
                             } catch (t) {
                                 this.printExtLog(1, "Parse / Set Configuration Fail: " + t), this.Config.allowPrintLog(1) && console.warn("Parse / Set Configuration Fail: " + t)
                             }
@@ -11474,13 +11400,6 @@ parcelRequire = function (e, r, t, n) {
                             e && (window.RTCPeerConnection || (window.RTCPeerConnection = e), window.mozRTCPeerConnection || (window.mozRTCPeerConnection = e), window.webkitRTCPeerConnection || (window.webkitRTCPeerConnection = e))
                         }
                     }, {
-                        key: "genGuid4", value: function () {
-                            return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (t) {
-                                var e = 16 * Math.random() | 0;
-                                return ("x" == t ? e : 3 & e | 8).toString(16)
-                            })
-                        }
-                    }, {
                         key: "checkMultipleTabs", value: function () {
                             var t = window.localStorage;
                             if (void 0 !== t) {
@@ -11491,7 +11410,7 @@ parcelRequire = function (e, r, t, n) {
                                 }
                                 void 0 === e && (e = new Object);
                                 var r = g()();
-                                e[this.guid] = r;
+                                e[this.CurPeerId] = r;
                                 var o = [], i = 0;
                                 for (var a in e) if (Object.prototype.hasOwnProperty.call(e, a)) {
                                     var s = e[a];
@@ -11505,17 +11424,17 @@ parcelRequire = function (e, r, t, n) {
                 }();
                 !function (t) {
                     t[t.NON_NAT = -1] = "NON_NAT", t[t.CONE = 0] = "CONE", t[t.SYMMETRIC = 1] = "SYMMETRIC"
-                }(Ut || (Ut = {}));
+                }(Mt || (Mt = {}));
                 var Nt = function () {
                     function t(e) {
-                        M()(this, t), z()(this, "p2pContext", void 0), z()(this, "cancelToken", {hasCancel: !1}), z()(this, "sliceIdController", void 0), z()(this, "P2PDataShareQuotaController", new Ft), this.p2pContext = e, this.tryToCheckNatType()
+                        U()(this, t), z()(this, "p2pContext", void 0), z()(this, "cancelToken", {hasCancel: !1}), z()(this, "sliceIdController", void 0), z()(this, "P2PDataShareQuotaController", new Ft), this.p2pContext = e, this.tryToCheckNatType()
                     }
 
                     var e, n;
                     return B()(t, [{
                         key: "tryToCheckNatType", value: function () {
                             var t, e, n = this;
-                            this.p2pContext.Config.natCheckStunServers.length <= 1 && (null === (t = this.p2pContext.PeerSched) || void 0 === t || null === (e = t.getTracker()) || void 0 === e || e.onNatTypeUpdated(Ut.CONE)), this.checkNatType(this.p2pContext.Config.natCheckStunServers[0], this.p2pContext.Config.natCheckStunServers[1]).then(function (t) {
+                            this.p2pContext.Config.natCheckStunServers.length <= 1 && (null === (t = this.p2pContext.PeerSched) || void 0 === t || null === (e = t.getTracker()) || void 0 === e || e.onNatTypeUpdated(Mt.CONE)), this.checkNatType(this.p2pContext.Config.natCheckStunServers[0], this.p2pContext.Config.natCheckStunServers[1]).then(function (t) {
                                 var e, r;
                                 null === (e = n.p2pContext.PeerSched) || void 0 === e || null === (r = e.getTracker()) || void 0 === r || r.onNatTypeUpdated(t)
                             })
@@ -11558,15 +11477,15 @@ parcelRequire = function (e, r, t, n) {
                                                             return n
                                                         }(e.candidate.candidate);
                                                         o[r.relatedPort] || (o[r.relatedPort] = []), o[r.relatedPort].push(r.port)
-                                                    } else if (!e.candidate) if (i.close(), 1 === x()(o).length) {
-                                                        var s = o[x()(o)[0]];
-                                                        t(1 === s.length ? Ut.CONE : Ut.SYMMETRIC)
-                                                    } else t(Ut.NON_NAT)
+                                                    } else if (!e.candidate) if (i.close(), 1 === C()(o).length) {
+                                                        var s = o[C()(o)[0]];
+                                                        t(1 === s.length ? Mt.CONE : Mt.SYMMETRIC)
+                                                    } else t(Mt.NON_NAT)
                                                 }, i.createOffer().then(function (t) {
                                                     return i.setLocalDescription(t)
                                                 })
                                             } catch (e) {
-                                                r.p2pContext.printExtLog(0, "Failed to check NAT type."), r.p2pContext.Config.allowPrintLog(0) && console.warn("[SistersPlayer] Failed to check NAT type."), t(Ut.SYMMETRIC)
+                                                r.p2pContext.printExtLog(0, "Failed to check NAT type."), r.p2pContext.Config.allowPrintLog(0) && console.warn("[SistersPlayer] Failed to check NAT type."), t(Mt.SYMMETRIC)
                                             }
                                         }));
                                     case 1:
@@ -11628,7 +11547,7 @@ parcelRequire = function (e, r, t, n) {
                     }]), t
                 }()
             }, function (t, e, n) {
-                var r = n(286), o = n(117);
+                var r = n(285), o = n(117);
 
                 function i(e) {
                     return t.exports = i = "function" == typeof o && "symbol" == typeof r ? function (t) {
@@ -11640,7 +11559,7 @@ parcelRequire = function (e, r, t, n) {
 
                 t.exports = i
             }, function (t, e, n) {
-                t.exports = n(183)
+                t.exports = n(182)
             }, function (t, e, n) {
                 "use strict";
                 n.r(e), n.d(e, "EventReportType", function () {
@@ -11662,10 +11581,10 @@ parcelRequire = function (e, r, t, n) {
                 }(o || (o = {}));
                 var u = function t(e) {
                     a()(this, t), c()(this, "type", r.ConfigUpdate), c()(this, "body", void 0), this.body = e
-                }, l = function t(e) {
+                }, l = function t(e, n) {
                     a()(this, t), c()(this, "type", r.DataReport), c()(this, "body", void 0), this.body = {
                         code: o.TrackerClosedReport,
-                        data: e
+                        data: {statusCode: e, hostname: n}
                     }
                 }, h = function t(e) {
                     a()(this, t), c()(this, "type", r.DataReport), c()(this, "body", void 0), this.body = {
@@ -11674,14 +11593,14 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }
             }, function (t, e, n) {
-                t.exports = n(335)
+                t.exports = n(329)
             }, function (t, e) {
                 t.exports = function (t) {
                     if ("function" != typeof t) throw TypeError(String(t) + " is not a function");
                     return t
                 }
             }, function (t, e, n) {
-                var r = n(16), o = n(15), i = function (t) {
+                var r = n(15), o = n(14), i = function (t) {
                     return "function" == typeof t ? t : void 0
                 };
                 t.exports = function (t, e) {
@@ -11700,37 +11619,36 @@ parcelRequire = function (e, r, t, n) {
                     })
                 })
             }, function (t, e, n) {
-                n(97);
-                var r = n(199), o = n(15), i = n(54), a = n(30), s = n(53), c = n(13)("toStringTag");
+                n(94);
+                var r = n(198), o = n(14), i = n(53), a = n(30), s = n(52), c = n(13)("toStringTag");
                 for (var u in r) {
                     var l = o[u], h = l && l.prototype;
                     h && i(h) !== c && a(h, c, u), s[u] = s.Array
                 }
             }, function (t, e, n) {
+                t.exports = n(204)
+            }, function (t, e, n) {
                 "use strict";
                 n.d(e, "b", function () {
                     return r
                 }), n.d(e, "a", function () {
-                    return X
+                    return G
                 });
-                var r, o = n(173), i = n.n(o), a = n(103), s = n.n(a), c = n(174), u = n.n(c), l = n(11), h = n.n(l),
-                    f = n(9), p = n.n(f), d = n(33), v = n.n(d), g = n(100), y = n.n(g), x = n(60), C = n.n(x),
-                    w = n(175), m = n.n(w), k = n(14), b = n.n(k), S = n(3), P = n.n(S), E = n(1), R = n.n(E), A = n(5),
-                    I = n.n(A), D = n(6), T = n.n(D), L = n(38), F = n.n(L), O = n(22), U = n.n(O), M = n(12),
-                    N = n.n(M), B = n(2), _ = n.n(B), z = n(4), j = n.n(z), q = n(0), W = n.n(q), V = n(20), G = n(122),
-                    Y = n(19), Q = n(29), H = function t(e, n, r) {
-                        _()(this, t), W()(this, "sliceId", void 0), W()(this, "isOwner", void 0), W()(this, "progress", void 0), this.sliceId = e, this.isOwner = n, this.progress = r
-                    };
+                var r, o = n(103), i = n.n(o), a = n(173), s = n.n(a), c = n(11), u = n.n(c), l = n(9), h = n.n(l),
+                    f = n(42), p = n.n(f), d = n(100), v = n.n(d), g = n(58), y = n.n(g), C = n(174), x = n.n(C),
+                    w = n(16), m = n.n(w), k = n(4), S = n.n(k), b = n(1), P = n.n(b), E = n(3), A = n.n(E), R = n(6),
+                    I = n.n(R), D = n(37), T = n.n(D), L = n(22), F = n.n(L), O = n(12), M = n.n(O), U = n(2),
+                    N = n.n(U), B = n(5), _ = n.n(B), z = n(0), j = n.n(z), q = n(20), W = n(122), V = n(19), Y = n(29);
                 !function (t) {
                     t[t.GONE = 0] = "GONE", t[t.HIDDEN = 1] = "HIDDEN", t[t.BROADCAST = 2] = "BROADCAST"
                 }(r || (r = {}));
-                var X = function () {
+                var G = function () {
                     function t(e, n, r, o) {
-                        _()(this, t), W()(this, "p2pContext", void 0), W()(this, "pendingIncomingPeers", new N.a), W()(this, "pendingOutcomingPeers", new N.a), W()(this, "connectedPeers", new N.a), W()(this, "curSliceIds", void 0), W()(this, "cancelToken", void 0), W()(this, "trackerSourceParam", void 0), W()(this, "sliceId", void 0), W()(this, "allSeedboxConnectNumBySlice", new N.a), W()(this, "tracker", void 0), W()(this, "trackerConnecting", !1), W()(this, "connectMutex", new Y.c), W()(this, "connectCV", new Y.a), this.trackerSourceParam = r, this.sliceId = o, this.p2pContext = e, this.cancelToken = n, this.curSliceIds = new U.a, this.updateAllSeedboxConnectNumBySlice()
+                        N()(this, t), j()(this, "p2pContext", void 0), j()(this, "pendingIncomingPeers", new M.a), j()(this, "pendingOutcomingPeers", new M.a), j()(this, "connectedPeers", new M.a), j()(this, "curSliceIds", void 0), j()(this, "cancelToken", void 0), j()(this, "trackerSourceParam", void 0), j()(this, "sliceId", void 0), j()(this, "allSeedboxConnectNumBySlice", new M.a), j()(this, "tracker", void 0), j()(this, "trackerConnecting", !1), j()(this, "connectMutex", new V.c), j()(this, "connectCV", new V.a), this.trackerSourceParam = r, this.sliceId = o, this.p2pContext = e, this.cancelToken = n, this.curSliceIds = new F.a, this.updateAllSeedboxConnectNumBySlice()
                     }
 
                     var e, n, o, a, c;
-                    return j()(t, [{
+                    return _()(t, [{
                         key: "allowedInConnectNewPeer", value: function () {
                             var t = this.pendingIncomingPeers.size < this.p2pContext.Config.inConnectingLimit,
                                 e = this.connectedPeers.size < this.p2pContext.Config.connectedLimit;
@@ -11747,8 +11665,8 @@ parcelRequire = function (e, r, t, n) {
                     }, {
                         key: "getLeechNeedConnectNum", value: function () {
                             var t;
-                            return this.p2pContext.Config.leechConnectNum - F()(t = this.getConnectedPeers()).call(t, function (t) {
-                                return t.peerRole == V.PeerRole.Leech
+                            return this.p2pContext.Config.leechConnectNum - T()(t = this.getConnectedPeers()).call(t, function (t) {
+                                return t.peerRole == q.PeerRole.Leech
                             }).length
                         }
                     }, {
@@ -11757,13 +11675,13 @@ parcelRequire = function (e, r, t, n) {
                             return e || (e = 0), this.p2pContext.Config.seedboxConnectNumBySliceId - e
                         }
                     }, {
-                        key: "recreateTracker", value: (c = T()(R.a.mark(function t() {
+                        key: "recreateTracker", value: (c = I()(P.a.mark(function t() {
                             var e = this;
-                            return R.a.wrap(function (t) {
+                            return P.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
-                                        return t.abrupt("return", new I.a(function (t) {
-                                            null != e.tracker ? (e.p2pContext.printExtLog(2, "Misaka will reconnect to the Last Order. (Service Redirect)"), e.p2pContext.Config.allowPrintLog(2) && console.warn("Misaka will reconnect to the Last Order. (Service Redirect)"), e.tracker.destroy(), e.tracker = void 0, e.trackerConnecting = !0, G.a.connect(e.p2pContext, e.trackerSourceParam, e, e.sliceId).then(function (n) {
+                                        return t.abrupt("return", new A.a(function (t) {
+                                            null != e.tracker ? (e.p2pContext.printExtLog(2, "Misaka will reconnect to the Last Order. (Service Redirect)"), e.p2pContext.Config.allowPrintLog(2) && console.warn("Misaka will reconnect to the Last Order. (Service Redirect)"), e.tracker.destroy(), e.tracker = void 0, e.trackerConnecting = !0, W.a.connect(e.p2pContext, e.trackerSourceParam, e, e.sliceId).then(function (n) {
                                                 e.tracker = n, e.trackerConnecting = !0, t(!0)
                                             }).catch(function (e) {
                                                 t(!1)
@@ -11786,36 +11704,27 @@ parcelRequire = function (e, r, t, n) {
                             return this.p2pContext
                         }
                     }, {
-                        key: "checkGuidExist", value: function (t) {
-                            var e, n = !1;
-                            return P()(e = this.connectedPeers).call(e, function (e) {
-                                P()(e).call(e, function (e) {
-                                    e.extData.guid == t && (n = !0)
-                                })
-                            }), n
-                        }
-                    }, {
                         key: "updateAllSeedboxConnectNumBySlice", value: function () {
-                            for (var t, e = new N.a, n = 0; n < this.p2pContext.Config.sliceCount; n++) e.set(n, 0);
-                            P()(t = this.connectedPeers).call(t, function (t) {
-                                P()(t).call(t, function (t) {
+                            for (var t, e = new M.a, n = 0; n < this.p2pContext.Config.sliceCount; n++) e.set(n, 0);
+                            S()(t = this.connectedPeers).call(t, function (t) {
+                                S()(t).call(t, function (t) {
                                     var n;
-                                    t.peerRole == V.PeerRole.Seedbox && P()(n = t.seedSliceIds).call(n, function (t) {
+                                    t.peerRole == q.PeerRole.Seedbox && S()(n = t.seedSliceIds).call(n, function (t) {
                                         var n = e.get(t);
                                         e.set(t, (n || 0) + 1)
                                     })
                                 })
                             }), this.allSeedboxConnectNumBySlice = e;
-                            var r = "Update Seedbox Connect Number By Slice: \n" + b()(m()(e));
+                            var r = "Update Seedbox Connect Number By Slice: \n" + m()(x()(e));
                             this.p2pContext.printExtLog(3, r), this.p2pContext.Config.allowPrintLog(3) && console.log(r)
                         }
                     }, {
-                        key: "checkVisibilityStateNeedChange", value: (a = T()(R.a.mark(function t() {
+                        key: "checkVisibilityStateNeedChange", value: (a = I()(P.a.mark(function t() {
                             var e = this;
-                            return R.a.wrap(function (t) {
+                            return P.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
-                                        return t.abrupt("return", new I.a(function (t) {
+                                        return t.abrupt("return", new A.a(function (t) {
                                             var n = e.connectedPeers.size < e.p2pContext.Config.connectedLimit,
                                                 o = e.connectedPeers.size <= e.p2pContext.Config.revisibleMark;
                                             null != e.tracker && 0 == e.trackerConnecting ? 1 == n && 1 == o && e.tracker.getVisibilityState() == r.GONE ? (e.p2pContext.printExtLog(0, "Misaka will broadcast."), e.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Misaka will broadcast."), e.tracker.setSelfVisible(r.BROADCAST), t()) : (0 != n || 0 != o || e.tracker.getVisibilityState() != r.BROADCAST && e.tracker.getVisibilityState() != r.HIDDEN || (e.p2pContext.printExtLog(0, "Misaka will gone."), e.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Misaka will gone."), e.tracker.setSelfVisible(r.GONE)), t()) : t()
@@ -11836,19 +11745,19 @@ parcelRequire = function (e, r, t, n) {
                                 if (this.pendingOutcomingPeers.has(t) || this.pendingIncomingPeers.has(t)) return;
                                 if (this.connectedPeers.has(t) && this.connectedPeers.get(t).length > 0) return;
                                 if (this.p2pContext.CurPeerId === t) return;
-                                return new I.a(function (n) {
+                                return new A.a(function (n) {
                                     e.tracker ? e.tracker.connectPeer(t, function (r) {
                                         e.pendingOutcomingPeers.set(t, r), n()
                                     }) : n()
                                 })
                             }
-                            return I.a.resolve()
+                            return A.a.resolve()
                         }
                     }, {
                         key: "createConnectPeerTask", value: function (t) {
                             var e = this;
-                            return T()(R.a.mark(function n() {
-                                return R.a.wrap(function (n) {
+                            return I()(P.a.mark(function n() {
+                                return P.a.wrap(function (n) {
                                     for (; ;) switch (n.prev = n.next) {
                                         case 0:
                                             return n.next = 2, e.connectMutex.lock();
@@ -11872,14 +11781,14 @@ parcelRequire = function (e, r, t, n) {
                             }))
                         }
                     }, {
-                        key: "beginConnectPeers", value: (o = T()(R.a.mark(function t() {
+                        key: "beginConnectPeers", value: (o = I()(P.a.mark(function t() {
                             var e, n = this;
-                            return R.a.wrap(function (t) {
+                            return P.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
-                                        e = R.a.mark(function t() {
-                                            var e, o, i, a, s, c, u, l, f, d, g, x, w, m, k, S, E, A, D;
-                                            return R.a.wrap(function (t) {
+                                        e = P.a.mark(function t() {
+                                            var e, o, i, a, s, c, l, f, d, g, C, x, w, k, b, E, R, I, D;
+                                            return P.a.wrap(function (t) {
                                                 for (; ;) switch (t.prev = t.next) {
                                                     case 0:
                                                         return e = performance.now(), t.next = 3, n.connectMutex.lock();
@@ -11894,7 +11803,7 @@ parcelRequire = function (e, r, t, n) {
                                                         }
                                                         return o = function (t) {
                                                             var e, n;
-                                                            return C()(e = y()(n = C()(t).call(t, function (t) {
+                                                            return y()(e = v()(n = y()(t).call(t, function (t) {
                                                                 return [Math.random(), t]
                                                             })).call(n, function (t, e) {
                                                                 return t[0] - e[0]
@@ -11903,32 +11812,32 @@ parcelRequire = function (e, r, t, n) {
                                                             })
                                                         }, t.next = 10, n.tracker.getPeers();
                                                     case 10:
-                                                        if (i = t.sent, a = (a = i.peers) ? o(a) : new Array, s = i.leeches, c = n.getLeechNeedConnectNum(), s = s ? v()(u = o(s)).call(u, 0, c) : new Array, n.p2pContext.printExtLog(2, "ready to connect leeches: " + b()(s)), n.p2pContext.Config.allowPrintLog(2) && console.warn("ready to connect leeches: " + b()(s)), l = new Array, n.p2pContext.Config.useSeedBox) {
-                                                            for (f = 0; f < n.p2pContext.Config.sliceCount; f++) (d = i.seedboxes.get(f.toString())) && (g = n.getSeedboxNeedConnectNum(f)) > 0 && (l = p()(l).call(l, v()(x = o(d)).call(x, 0, g)));
-                                                            n.p2pContext.printExtLog(2, "ready to connect seedboxes: " + b()(l)), n.p2pContext.Config.allowPrintLog(2) && console.warn("ready to connect seedboxes: " + b()(l))
+                                                        if (i = t.sent, a = (a = i.peers) ? o(a) : new Array, s = i.leeches, c = n.getLeechNeedConnectNum(), s = s ? p()(l = o(s)).call(l, 0, c) : new Array, n.p2pContext.printExtLog(2, "ready to connect leeches: " + m()(s)), n.p2pContext.Config.allowPrintLog(2) && console.warn("ready to connect leeches: " + m()(s)), f = new Array, n.p2pContext.Config.useSeedBox) {
+                                                            for (d = 0; d < n.p2pContext.Config.sliceCount; d++) (g = i.seedboxes.get(d.toString())) && (C = n.getSeedboxNeedConnectNum(d)) > 0 && (f = h()(f).call(f, p()(x = o(g)).call(x, 0, C)));
+                                                            n.p2pContext.printExtLog(2, "ready to connect seedboxes: " + m()(f)), n.p2pContext.Config.allowPrintLog(2) && console.warn("ready to connect seedboxes: " + m()(f))
                                                         }
-                                                        w = new Array, P()(l).call(l, function (t) {
+                                                        w = new Array, S()(f).call(f, function (t) {
                                                             var e = n.createConnectPeerTask(t);
                                                             null != e && w.push(e)
-                                                        }), P()(s).call(s, function (t) {
+                                                        }), S()(s).call(s, function (t) {
                                                             var e = n.createConnectPeerTask(t);
                                                             null != e && w.push(e)
-                                                        }), P()(a).call(a, function (t) {
+                                                        }), S()(a).call(a, function (t) {
                                                             var e = n.createConnectPeerTask(t);
                                                             null != e && w.push(e)
-                                                        }), m = 0, k = w;
+                                                        }), k = 0, b = w;
                                                     case 25:
-                                                        if (!(m < k.length)) {
+                                                        if (!(k < b.length)) {
                                                             t.next = 32;
                                                             break
                                                         }
-                                                        return S = k[m], t.next = 29, S();
+                                                        return E = b[k], t.next = 29, E();
                                                     case 29:
-                                                        m++, t.next = 25;
+                                                        k++, t.next = 25;
                                                         break;
                                                     case 32:
-                                                        return E = performance.now(), A = E - e, (D = n.p2pContext.Config.getPeersIntervalMs - A) < 0 && (D = 0), t.next = 38, new I.a(function (t) {
-                                                            return h()(function () {
+                                                        return R = performance.now(), I = R - e, (D = n.p2pContext.Config.getPeersIntervalMs - I) < 0 && (D = 0), t.next = 38, new A.a(function (t) {
+                                                            return u()(function () {
                                                                 return t()
                                                             }, D)
                                                         });
@@ -11967,14 +11876,14 @@ parcelRequire = function (e, r, t, n) {
                     }, {
                         key: "getConnectedPeers", value: function () {
                             var t, e;
-                            return u()(t = this.IteratorToArray(s()(e = this.connectedPeers).call(e))).call(t, function (t) {
+                            return s()(t = this.IteratorToArray(i()(e = this.connectedPeers).call(e))).call(t, function (t) {
                                 return t
                             })
                         }
                     }, {
                         key: "getConnectingPeers", value: function () {
                             var t, e, n;
-                            return p()(t = this.IteratorToArray(s()(e = this.pendingIncomingPeers).call(e))).call(t, this.IteratorToArray(s()(n = this.pendingOutcomingPeers).call(n)))
+                            return h()(t = this.IteratorToArray(i()(e = this.pendingIncomingPeers).call(e))).call(t, this.IteratorToArray(i()(n = this.pendingOutcomingPeers).call(n)))
                         }
                     }, {
                         key: "onConnectionStatusChanged", value: function () {
@@ -12000,7 +11909,7 @@ parcelRequire = function (e, r, t, n) {
                                 t.close(), t.terminateAllPendingRequests();
                                 var e = this.connectedPeers.get(t.extData.peerId);
                                 if (void 0 !== e) {
-                                    var n = F()(e).call(e, function (e) {
+                                    var n = T()(e).call(e, function (e) {
                                         return e != t
                                     });
                                     n.length > 0 ? (this.p2pContext.printExtLog(2, "remove peerId ".concat(t.extData.peerId, " connect.")), this.p2pContext.Config.allowPrintLog(2) && console.log("remove peerId ".concat(t.extData.peerId, " connect.")), this.connectedPeers.set(t.extData.peerId, n)) : (this.p2pContext.printExtLog(2, "clear empty peerId ".concat(t.extData.peerId, " connect from connectedPeers.")), this.p2pContext.Config.allowPrintLog(2) && console.log("clear empty peerId ".concat(t.extData.peerId, " connect from connectedPeers.")), this.connectedPeers.delete(t.extData.peerId))
@@ -12012,7 +11921,7 @@ parcelRequire = function (e, r, t, n) {
                     }, {
                         key: "closePeer", value: function (t) {
                             var e = this, n = this.connectedPeers.get(t);
-                            void 0 !== n && P()(n).call(n, function (t) {
+                            void 0 !== n && S()(n).call(n, function (t) {
                                 e.onPeerDisConnected(t)
                             })
                         }
@@ -12033,78 +11942,77 @@ parcelRequire = function (e, r, t, n) {
                             return this.curSliceIds
                         }
                     }, {
-                        key: "onPeerRelayMessage", value: (n = T()(R.a.mark(function t(e, n, r) {
-                            var o, a, s, c, u, l, h, f, p, d, v = this;
-                            return R.a.wrap(function (t) {
+                        key: "onPeerRelayMessage", value: (n = I()(P.a.mark(function t(e, n, r) {
+                            var o, i, a, s, c, u, l, h, f, p = this;
+                            return P.a.wrap(function (t) {
                                 for (; ;) switch (t.prev = t.next) {
                                     case 0:
                                         if (null == this.tracker) {
-                                            t.next = 31;
+                                            t.next = 29;
                                             break
                                         }
                                         if ("connect" != (null == n ? void 0 : n.action)) {
-                                            t.next = 30;
-                                            break
-                                        }
-                                        if (!(void 0 !== this.connectedPeers.get(e) && this.connectedPeers.get(e).length > 0 || 1 == this.cancelToken.hasCancel || 0 == this.allowedInConnectNewPeer() || this.p2pContext.GhostPeerIds.has(e) || null == (null == n || null === (o = n.data) || void 0 === o ? void 0 : o.guid) || this.checkGuidExist(n.data.guid))) {
-                                            t.next = 8;
-                                            break
-                                        }
-                                        this.checkGuidExist(n.data.guid) && (this.p2pContext.printExtLog(2, "refused connection, because GUID exist."), this.p2pContext.Config.allowPrintLog(2) && console.warn("refused connection, because GUID exist.")), 1 == this.cancelToken.hasCancel && (this.p2pContext.printExtLog(2, "refused connection, because exiting from the Misaka Network."), this.p2pContext.Config.allowPrintLog(2) && console.warn("refused connection, because exiting from the Misaka Network.")), this.tracker.sendPeerResponse(e, r, "refused"), t.next = 28;
-                                        break;
-                                    case 8:
-                                        if ((null == n || null === (a = n.data) || void 0 === a ? void 0 : a.protocol) === Q.Configuration.ProtocolVersion) {
-                                            t.next = 12;
-                                            break
-                                        }
-                                        this.tracker.sendPeerResponse(e, r, "protocol_incompatible"), t.next = 28;
-                                        break;
-                                    case 12:
-                                        try {
-                                            s = new V.NyaPeer(this.p2pContext, this, !0)
-                                        } catch (t) {
-                                            this.p2pContext.printExtLog(0, "create peer failed: " + t), this.p2pContext.Config.allowPrintLog(0) && console.warn("create peer failed: " + t)
-                                        }
-                                        if (void 0 === s) {
                                             t.next = 28;
                                             break
                                         }
-                                        return s.extData.peerId = e, s.extData.guid = n.data.guid, this.pendingIncomingPeers.set(e, s), u = null == n || null === (c = n.data) || void 0 === c ? void 0 : c.offer, s.answerNyaOffer(u, function (t) {
-                                            null != v.tracker && v.tracker.sendPeerCandidate(e, "answer", t)
+                                        if (!(void 0 !== this.connectedPeers.get(e) && this.connectedPeers.get(e).length > 0 || 1 == this.cancelToken.hasCancel || 0 == this.allowedInConnectNewPeer() || this.p2pContext.GhostPeerIds.has(e))) {
+                                            t.next = 7;
+                                            break
+                                        }
+                                        1 == this.cancelToken.hasCancel && (this.p2pContext.printExtLog(2, "refused connection, because exiting from the Misaka Network."), this.p2pContext.Config.allowPrintLog(2) && console.warn("refused connection, because exiting from the Misaka Network.")), this.tracker.sendPeerResponse(e, r, "refused"), t.next = 26;
+                                        break;
+                                    case 7:
+                                        if ((null == n || null === (o = n.data) || void 0 === o ? void 0 : o.protocol) === Y.Configuration.ProtocolVersion) {
+                                            t.next = 11;
+                                            break
+                                        }
+                                        this.tracker.sendPeerResponse(e, r, "protocol_incompatible"), t.next = 26;
+                                        break;
+                                    case 11:
+                                        try {
+                                            i = new q.NyaPeer(this.p2pContext, this, !0)
+                                        } catch (t) {
+                                            this.p2pContext.printExtLog(0, "create peer failed: " + t), this.p2pContext.Config.allowPrintLog(0) && console.warn("create peer failed: " + t)
+                                        }
+                                        if (void 0 === i) {
+                                            t.next = 26;
+                                            break
+                                        }
+                                        return i.extData.peerId = e, this.pendingIncomingPeers.set(e, i), s = null == n || null === (a = n.data) || void 0 === a ? void 0 : a.offer, i.answerNyaOffer(s, function (t) {
+                                            null != p.tracker && p.tracker.sendPeerCandidate(e, "answer", t)
                                         }).then(function (t) {
-                                            if (void 0 !== v.tracker && void 0 !== s) {
+                                            if (void 0 !== p.tracker && void 0 !== i) {
                                                 var o = function () {
-                                                    v.tracker && v.tracker.sendPeerResponse(e, r, "ok", {
+                                                    p.tracker && p.tracker.sendPeerResponse(e, r, "ok", {
                                                         answer: t,
-                                                        flags: ["2nd-protocol"],
                                                         role: {type: "peer"}
                                                     })
                                                 };
-                                                if (s.parsePeerRole(n.data.role), s.parseFlags(i()(n.data)), s.peerRole == V.PeerRole.Seedbox) {
-                                                    var a, c = !1;
-                                                    P()(a = s.seedSliceIds).call(a, function (t) {
-                                                        v.getSeedboxNeedConnectNum(t) > 0 && (c = !0)
-                                                    }), 1 == c ? o() : (v.p2pContext.printExtLog(2, "not need this seedbox: " + e), v.p2pContext.Config.allowPrintLog(2) && console.log("not need this seedbox: " + e))
+                                                if (i.parsePeerRole(n.data.role), i.peerRole == q.PeerRole.Seedbox) {
+                                                    var a, s = !1;
+                                                    S()(a = i.seedSliceIds).call(a, function (t) {
+                                                        p.getSeedboxNeedConnectNum(t) > 0 && (s = !0)
+                                                    }), 1 == s ? o() : (p.p2pContext.printExtLog(2, "not need this seedbox: " + e), p.p2pContext.Config.allowPrintLog(2) && console.log("not need this seedbox: " + e))
                                                 } else o()
                                             }
                                         }).catch(function (t) {
-                                            v.p2pContext.printExtLog(0, "answerNyaOffer failed: " + t), v.p2pContext.Config.allowPrintLog(0) && console.warn("answerNyaOffer failed: " + t)
-                                        }), t.next = 21, s.waitForConnected();
-                                    case 21:
+                                            p.p2pContext.printExtLog(0, "answerNyaOffer failed: " + t), p.p2pContext.Config.allowPrintLog(0) && console.warn("answerNyaOffer failed: " + t)
+                                        }), t.next = 19, i.waitForConnected();
+                                    case 19:
                                         if (!t.sent) {
-                                            t.next = 25;
+                                            t.next = 23;
                                             break
                                         }
-                                        this.onPeerConnectComplete(s, !0), t.next = 28;
+                                        this.onPeerConnectComplete(i, !0), t.next = 26;
                                         break;
-                                    case 25:
-                                        this.onPeerConnectComplete(s, !1), this.p2pContext.printExtLog(2, "peer connect timeout " + e), this.p2pContext.Config.allowPrintLog(2) && console.log("peer connect timeout " + e);
+                                    case 23:
+                                        this.onPeerConnectComplete(i, !1), this.p2pContext.printExtLog(2, "peer connect timeout " + e), this.p2pContext.Config.allowPrintLog(2) && console.log("peer connect timeout " + e);
+                                    case 26:
+                                        t.next = 29;
+                                        break;
                                     case 28:
-                                        t.next = 31;
-                                        break;
-                                    case 30:
-                                        "candidate" == (null == n ? void 0 : n.action) ? (f = null === (l = n.data) || void 0 === l ? void 0 : l.cand, p = null === (h = n.data) || void 0 === h ? void 0 : h.direction, d = void 0, "offer" == p ? d = this.pendingIncomingPeers.get(e) : "answer" == p && (d = this.pendingOutcomingPeers.get(e)), void 0 !== d && d.addRemoteCandidate(f)) : this.tracker.sendPeerResponse(e, r, "not_implemented");
-                                    case 31:
+                                        "candidate" == (null == n ? void 0 : n.action) ? (l = null === (c = n.data) || void 0 === c ? void 0 : c.cand, h = null === (u = n.data) || void 0 === u ? void 0 : u.direction, f = void 0, "offer" == h ? f = this.pendingIncomingPeers.get(e) : "answer" == h && (f = this.pendingOutcomingPeers.get(e)), void 0 !== f && f.addRemoteCandidate(l)) : this.tracker.sendPeerResponse(e, r, "not_implemented");
+                                    case 29:
                                     case"end":
                                         return t.stop()
                                 }
@@ -12116,86 +12024,38 @@ parcelRequire = function (e, r, t, n) {
                         key: "onPeerRequestMessage", value: function (t, e) {
                             var n = this, r = e.requestId;
                             switch (e.action) {
-                                case"getFragSlices":
-                                    var o = e.data.frag, i = this.p2pContext.FragMan.getFragment(o);
-                                    if (void 0 !== i && i.canShare()) {
-                                        for (var a = new Array, s = i.getSliceIds(), c = i.getDistances(), u = !0, l = 0; l < this.p2pContext.Config.sliceCount; ++l) {
-                                            var h = i.getSliceBlockRange(l);
-                                            if (2 == h.length && h[0] < h[1]) {
-                                                for (var f = h[0]; f < h[1]; ++f) if (!((127 & c[f]) < 2)) {
-                                                    u = !1;
-                                                    break
-                                                }
-                                                var p = !this.p2pContext.Config.enableHideOwner && s.has(l);
-                                                a.push(new H(l, p, f))
-                                            }
-                                        }
-                                        this.p2pContext.printExtLog(5, o + " 可提供的sliceinfo: " + b()(a)), this.p2pContext.Config.allowPrintLog(5) && console.log(o + " 可提供的sliceinfo: " + b()(a)), t.sendResponseMessage(function () {
-                                            return {requestId: r, status: "ok", data: {final: u, sliceInfos: a}}
-                                        })
-                                    } else void 0 === i || i.canShare() ? t.sendResponseMessage(function () {
-                                        return {requestId: r, status: "not_found"}
-                                    }) : t.sendResponseMessage(function () {
-                                        return {requestId: r, status: "overload"}
-                                    });
-                                    break;
                                 case"downloadAndStat":
-                                    var d = e.data.frag, v = this.p2pContext.FragMan.getFragment(d), g = e.data.blockId,
-                                        y = null == v ? void 0 : v.getBlock(g);
-                                    if (null == v) t.sendResponseMessage(function () {
+                                    var o = e.data.frag, i = this.p2pContext.FragMan.getFragment(o), a = e.data.blockId,
+                                        s = null == i ? void 0 : i.getBlock(a);
+                                    if (null == i) t.sendResponseMessage(function () {
                                         return {requestId: r, status: "not_found"}
-                                    }); else if (g >= 0 && void 0 === y) t.sendResponseMessage(function () {
+                                    }); else if (a >= 0 && void 0 === s) t.sendResponseMessage(function () {
                                         return {requestId: r, status: "not_found"}
-                                    }); else if (v.canShare()) {
-                                        var x = performance.now(), w = e.data.nonblocking, m = function () {
-                                            if (null == v) return null;
-                                            var t = v.getDistances();
-                                            return n.p2pContext.Config.enableHideOwner && (t = C()(t).call(t, function (t) {
+                                    }); else if (i.canShare()) {
+                                        var c = performance.now(), u = e.data.nonblocking, l = function () {
+                                            if (null == i) return null;
+                                            var t = i.getDistances();
+                                            return n.p2pContext.Config.enableHideOwner && (t = y()(t).call(t, function (t) {
                                                 return 127 & t
                                             })), t
                                         };
-                                        if (void 0 === y || !y.isSucceed() && w) t.sendResponseMessage(function () {
-                                            return {requestId: r, status: "ok", data: {block: null, distances: m()}}
+                                        if (void 0 === s || !s.isSucceed() && u) t.sendResponseMessage(function () {
+                                            return {requestId: r, status: "ok", data: {block: null, distances: l()}}
                                         }); else {
-                                            var k = v.getBlockByteRange(g);
-                                            v.addShareData(g, k[1] - k[0]), y.onDataResolved(function (e) {
-                                                null != v && null != e && t.sendResponseMessage(function () {
+                                            var h = i.getBlockByteRange(a);
+                                            i.addShareData(a, h[1] - h[0]), s.onDataResolved(function (e) {
+                                                null != i && null != e && t.sendResponseMessage(function () {
                                                     var t;
-                                                    if (null != v) return performance.now() - x > n.p2pContext.Config.uploadMaxWaitTimeoutMs ? (n.p2pContext.printExtLog(2, "drop datablock response due to timeout"), void (n.p2pContext.Config.allowPrintLog(2) && console.log("drop datablock response due to timeout"))) : (null === (t = n.p2pContext.P2PDataCollectionStatus) || void 0 === t || t.addP2PSendSizeRealtime(e.byteLength), {
+                                                    if (null != i) return performance.now() - c > n.p2pContext.Config.uploadMaxWaitTimeoutMs ? (n.p2pContext.printExtLog(2, "drop datablock response due to timeout"), void (n.p2pContext.Config.allowPrintLog(2) && console.log("drop datablock response due to timeout"))) : (null === (t = n.p2pContext.P2PDataCollectionStatus) || void 0 === t || t.addP2PSendSizeRealtime(e.byteLength), {
                                                         requestId: r,
                                                         status: "ok",
-                                                        data: {block: e, distances: m()}
+                                                        data: {block: e, distances: l()}
                                                     })
                                                 })
                                             })
                                         }
-                                    } else this.p2pContext.printExtLog(2, (null == v ? void 0 : v.getFragmentName()) + " is overload"), this.p2pContext.Config.allowPrintLog(2) && console.warn((null == v ? void 0 : v.getFragmentName()) + " is overload"), t.sendResponseMessage(function () {
+                                    } else this.p2pContext.printExtLog(2, (null == i ? void 0 : i.getFragmentName()) + " is overload"), this.p2pContext.Config.allowPrintLog(2) && console.warn((null == i ? void 0 : i.getFragmentName()) + " is overload"), t.sendResponseMessage(function () {
                                         return {requestId: r, status: "overload"}
-                                    });
-                                    break;
-                                case"downloadBlock":
-                                    var S = e.data.frag, P = e.data.blockId, E = this.p2pContext.FragMan.getFragment(S),
-                                        R = null == E ? void 0 : E.getBlock(P);
-                                    if (null == E || null == R) return void t.sendResponseMessage(function () {
-                                        return {requestId: r, status: "not_found"}
-                                    });
-                                    if (!E.canShare()) return this.p2pContext.printExtLog(2, (null == E ? void 0 : E.getFragmentName()) + " is overload"), this.p2pContext.Config.allowPrintLog(2) && console.warn((null == E ? void 0 : E.getFragmentName()) + " is overload"), void t.sendResponseMessage(function () {
-                                        return {requestId: r, status: "overload"}
-                                    });
-                                    var A = E.getBlockByteRange(P), I = A[1] - A[0];
-                                    E.addShareData(P, I);
-                                    var D = performance.now();
-                                    R.onDataResolved(function (e) {
-                                        void 0 !== e ? t.sendResponseMessage(function () {
-                                            return performance.now() - D > n.p2pContext.Config.uploadMaxWaitTimeoutMs ? (n.p2pContext.printExtLog(2, "drop datablock response due to timeout"), void (n.p2pContext.Config.allowPrintLog(2) && console.log("drop datablock response due to timeout"))) : (null === (t = n.p2pContext.P2PDataCollectionStatus) || void 0 === t || t.addP2PSendSizeRealtime(e.byteLength), {
-                                                requestId: r,
-                                                status: "ok",
-                                                data: e
-                                            });
-                                            var t
-                                        }) : t.sendResponseMessage(function () {
-                                            return {requestId: r, status: "not_found"}
-                                        })
                                     })
                             }
                         }
@@ -12216,21 +12076,21 @@ parcelRequire = function (e, r, t, n) {
                     }, {
                         key: "destroy", value: function () {
                             var t, e, n, r = this;
-                            null != this.tracker && (this.tracker.destroy(), this.tracker = void 0), P()(t = this.pendingIncomingPeers).call(t, function (t) {
+                            null != this.tracker && (this.tracker.destroy(), this.tracker = void 0), S()(t = this.pendingIncomingPeers).call(t, function (t) {
                                 t.close()
-                            }), P()(e = this.pendingOutcomingPeers).call(e, function (t) {
+                            }), S()(e = this.pendingOutcomingPeers).call(e, function (t) {
                                 t.close()
-                            }), P()(n = this.getConnectedPeers()).call(n, function (t) {
+                            }), S()(n = this.getConnectedPeers()).call(n, function (t) {
                                 r.onPeerDisConnected(t)
                             })
                         }
                     }], [{
-                        key: "create", value: (e = T()(R.a.mark(function e(n, r, o, i) {
+                        key: "create", value: (e = I()(P.a.mark(function e(n, r, o, i) {
                             var a, s;
-                            return R.a.wrap(function (e) {
+                            return P.a.wrap(function (e) {
                                 for (; ;) switch (e.prev = e.next) {
                                     case 0:
-                                        return (a = new t(n, r, o, i)).trackerConnecting = !0, e.next = 4, G.a.connect(n, o, a, i);
+                                        return (a = new t(n, r, o, i)).trackerConnecting = !0, e.next = 4, W.a.connect(n, o, a, i);
                                     case 4:
                                         return s = e.sent, a.tracker = s, a.trackerConnecting = !1, e.abrupt("return", a);
                                     case 8:
@@ -12244,12 +12104,12 @@ parcelRequire = function (e, r, t, n) {
                     }]), t
                 }()
             }, function (t, e, n) {
-                var r = n(89), o = n(62);
+                var r = n(86), o = n(60);
                 t.exports = function (t) {
                     return r(o(t))
                 }
             }, function (t, e, n) {
-                var r = n(24), o = n(17), i = n(25), a = Object.defineProperty, s = {}, c = function (t) {
+                var r = n(25), o = n(17), i = n(26), a = Object.defineProperty, s = {}, c = function (t) {
                     throw t
                 };
                 t.exports = function (t, e) {
@@ -12264,7 +12124,7 @@ parcelRequire = function (e, r, t, n) {
                     })
                 }
             }, function (t, e, n) {
-                var r = n(39);
+                var r = n(38);
                 t.exports = function (t, e, n) {
                     if (r(t), void 0 === e) return t;
                     switch (n) {
@@ -12292,7 +12152,7 @@ parcelRequire = function (e, r, t, n) {
             }, function (t, e) {
                 t.exports = !0
             }, function (t, e, n) {
-                var r = n(112), o = n(31).f, i = n(30), a = n(25), s = n(194), c = n(13)("toStringTag");
+                var r = n(112), o = n(31).f, i = n(30), a = n(26), s = n(193), c = n(13)("toStringTag");
                 t.exports = function (t, e, n, u) {
                     if (t) {
                         var l = n ? t : t.prototype;
@@ -12300,25 +12160,25 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }
             }, function (t, e, n) {
-                var r, o, i, a = n(197), s = n(15), c = n(21), u = n(30), l = n(25), h = n(109), f = n(91), p = n(74),
+                var r, o, i, a = n(196), s = n(14), c = n(21), u = n(30), l = n(26), h = n(109), f = n(88), p = n(70),
                     d = s.WeakMap;
                 if (a) {
-                    var v = h.state || (h.state = new d), g = v.get, y = v.has, x = v.set;
+                    var v = h.state || (h.state = new d), g = v.get, y = v.has, C = v.set;
                     r = function (t, e) {
-                        return e.facade = t, x.call(v, t, e), e
+                        return e.facade = t, C.call(v, t, e), e
                     }, o = function (t) {
                         return g.call(v, t) || {}
                     }, i = function (t) {
                         return y.call(v, t)
                     }
                 } else {
-                    var C = f("state");
-                    p[C] = !0, r = function (t, e) {
-                        return e.facade = t, u(t, C, e), e
+                    var x = f("state");
+                    p[x] = !0, r = function (t, e) {
+                        return e.facade = t, u(t, x, e), e
                     }, o = function (t) {
-                        return l(t, C) ? t[C] : {}
+                        return l(t, x) ? t[x] : {}
                     }, i = function (t) {
-                        return l(t, C)
+                        return l(t, x)
                     }
                 }
                 t.exports = {
@@ -12332,34 +12192,32 @@ parcelRequire = function (e, r, t, n) {
                         }
                     }
                 }
-            }, function (t, e, n) {
-                t.exports = n(299)
             }, function (t, e) {
                 t.exports = function (t, e) {
                     return {enumerable: !(1 & t), configurable: !(2 & t), writable: !(4 & t), value: e}
                 }
             }, function (t, e, n) {
-                var r = n(26), o = n(133), i = n(28), a = n(46), s = n(75), c = n(135), u = function (t, e) {
+                var r = n(27), o = n(133), i = n(28), a = n(46), s = n(71), c = n(135), u = function (t, e) {
                     this.stopped = t, this.result = e
                 };
                 t.exports = function (t, e, n) {
-                    var l, h, f, p, d, v, g, y = n && n.that, x = !(!n || !n.AS_ENTRIES), C = !(!n || !n.IS_ITERATOR),
-                        w = !(!n || !n.INTERRUPTED), m = a(e, y, 1 + x + w), k = function (t) {
+                    var l, h, f, p, d, v, g, y = n && n.that, C = !(!n || !n.AS_ENTRIES), x = !(!n || !n.IS_ITERATOR),
+                        w = !(!n || !n.INTERRUPTED), m = a(e, y, 1 + C + w), k = function (t) {
                             return l && c(l), new u(!0, t)
-                        }, b = function (t) {
-                            return x ? (r(t), w ? m(t[0], t[1], k) : m(t[0], t[1])) : w ? m(t, k) : m(t)
+                        }, S = function (t) {
+                            return C ? (r(t), w ? m(t[0], t[1], k) : m(t[0], t[1])) : w ? m(t, k) : m(t)
                         };
-                    if (C) l = t; else {
+                    if (x) l = t; else {
                         if ("function" != typeof (h = s(t))) throw TypeError("Target is not iterable");
                         if (o(h)) {
-                            for (f = 0, p = i(t.length); p > f; f++) if ((d = b(t[f])) && d instanceof u) return d;
+                            for (f = 0, p = i(t.length); p > f; f++) if ((d = S(t[f])) && d instanceof u) return d;
                             return new u(!1)
                         }
                         l = h.call(t)
                     }
                     for (v = l.next; !(g = v.call(l)).done;) {
                         try {
-                            d = b(g.value)
+                            d = S(g.value)
                         } catch (t) {
                             throw c(l), t
                         }
@@ -12370,7 +12228,7 @@ parcelRequire = function (e, r, t, n) {
             }, function (t, e) {
                 t.exports = {}
             }, function (t, e, n) {
-                var r = n(112), o = n(71), i = n(13)("toStringTag"), a = "Arguments" == o(function () {
+                var r = n(112), o = n(67), i = n(13)("toStringTag"), a = "Arguments" == o(function () {
                     return arguments
                 }());
                 t.exports = r ? o : function (t) {
@@ -12388,51 +12246,45 @@ parcelRequire = function (e, r, t, n) {
                     o && o.enumerable ? t[e] = n : r(t, e, n)
                 }
             }, function (t, e, n) {
-                t.exports = n(259)
-            }, function (t, e, n) {
-                var r = n(257), o = n(258), i = n(163), a = n(260);
+                var r = n(256), o = n(257), i = n(163), a = n(259);
                 t.exports = function (t, e) {
                     return r(t) || o(t, e) || i(t, e) || a()
                 }
             }, function (t, e, n) {
-                t.exports = n(261)
+                t.exports = n(260)
             }, function (t, e, n) {
-                var r = n(214), o = n(217), i = n(163), a = n(249);
+                var r = n(213), o = n(216), i = n(163), a = n(248);
                 t.exports = function (t) {
                     return r(t) || o(t) || i(t) || a()
                 }
             }, function (t, e, n) {
-                t.exports = n(328)
+                t.exports = n(322)
             }, function (t, e, n) {
-                t.exports = n(180)
+                t.exports = n(179)
             }, function (t, e) {
                 t.exports = function (t) {
                     if (null == t) throw TypeError("Can't call method on " + t);
                     return t
                 }
             }, function (t, e, n) {
-                var r = n(71);
+                var r = n(67);
                 t.exports = Array.isArray || function (t) {
                     return "Array" == r(t)
                 }
             }, function (t, e, n) {
-                t.exports = n(300)
+                t.exports = n(298)
             }, function (t, e, n) {
-                t.exports = n(301)
+                t.exports = n(274)
             }, function (t, e, n) {
-                t.exports = n(302)
+                t.exports = n(267)
             }, function (t, e, n) {
-                t.exports = n(275)
-            }, function (t, e, n) {
-                t.exports = n(268)
-            }, function (t, e, n) {
-                t.exports = n(344)
+                t.exports = n(338)
             }, function (t, e, n) {
                 "use strict";
                 n.d(e, "a", function () {
                     return h
                 });
-                var r = n(3), o = n.n(r), i = n(2), a = n.n(i), s = n(4), c = n.n(s), u = n(0), l = n.n(u),
+                var r = n(4), o = n.n(r), i = n(2), a = n.n(i), s = n(5), c = n.n(s), u = n(0), l = n.n(u),
                     h = function () {
                         function t(e) {
                             a()(this, t), l()(this, "elements", void 0), l()(this, "_size", void 0), this.elements = new Array, this._size = e
@@ -12475,7 +12327,7 @@ parcelRequire = function (e, r, t, n) {
                     return n.call(t).slice(8, -1)
                 }
             }, function (t, e, n) {
-                var r, o = n(26), i = n(130), a = n(110), s = n(74), c = n(132), u = n(104), l = n(91)("IE_PROTO"),
+                var r, o = n(27), i = n(130), a = n(110), s = n(70), c = n(132), u = n(104), l = n(88)("IE_PROTO"),
                     h = function () {
                     }, f = function (t) {
                         return "<script>" + t + "<\/script>"
@@ -12505,7 +12357,7 @@ parcelRequire = function (e, r, t, n) {
             }, function (t, e) {
                 t.exports = {}
             }, function (t, e, n) {
-                var r = n(54), o = n(53), i = n(13)("iterator");
+                var r = n(53), o = n(52), i = n(13)("iterator");
                 t.exports = function (t) {
                     if (null != t) return t[i] || t["@@iterator"] || o[r(t)]
                 }
@@ -12516,7 +12368,7 @@ parcelRequire = function (e, r, t, n) {
                 }
             }, function (t, e, n) {
                 "use strict";
-                var r = n(39), o = function (t) {
+                var r = n(38), o = function (t) {
                     var e, n;
                     this.promise = new t(function (t, r) {
                         if (void 0 !== e || void 0 !== n) throw TypeError("Bad Promise constructor");
@@ -12528,13 +12380,13 @@ parcelRequire = function (e, r, t, n) {
                 }
             }, function (t, e, n) {
                 "use strict";
-                var r = n(90), o = n(31), i = n(51);
+                var r = n(87), o = n(31), i = n(50);
                 t.exports = function (t, e, n) {
                     var a = r(e);
                     a in t ? o.f(t, a, i(0, n)) : t[a] = n
                 }
             }, function (t, e, n) {
-                var r = n(17), o = n(13), i = n(96), a = o("species");
+                var r = n(17), o = n(13), i = n(93), a = o("species");
                 t.exports = function (t) {
                     return i >= 51 || !r(function () {
                         var e = [];
@@ -12544,23 +12396,23 @@ parcelRequire = function (e, r, t, n) {
                     })
                 }
             }, function (t, e, n) {
-                var r = n(46), o = n(89), i = n(32), a = n(28), s = n(98), c = [].push, u = function (t) {
+                var r = n(46), o = n(86), i = n(32), a = n(28), s = n(95), c = [].push, u = function (t) {
                     var e = 1 == t, n = 2 == t, u = 3 == t, l = 4 == t, h = 6 == t, f = 7 == t, p = 5 == t || h;
                     return function (d, v, g, y) {
-                        for (var x, C, w = i(d), m = o(w), k = r(v, g, 3), b = a(m.length), S = 0, P = y || s, E = e ? P(d, b) : n || f ? P(d, 0) : void 0; b > S; S++) if ((p || S in m) && (C = k(x = m[S], S, w), t)) if (e) E[S] = C; else if (C) switch (t) {
+                        for (var C, x, w = i(d), m = o(w), k = r(v, g, 3), S = a(m.length), b = 0, P = y || s, E = e ? P(d, S) : n || f ? P(d, 0) : void 0; S > b; b++) if ((p || b in m) && (x = k(C = m[b], b, w), t)) if (e) E[b] = x; else if (x) switch (t) {
                             case 3:
                                 return !0;
                             case 5:
-                                return x;
+                                return C;
                             case 6:
-                                return S;
+                                return b;
                             case 2:
-                                c.call(E, x)
+                                c.call(E, C)
                         } else switch (t) {
                             case 4:
                                 return !1;
                             case 7:
-                                c.call(E, x)
+                                c.call(E, C)
                         }
                         return h ? -1 : u || l ? l : E
                     }
@@ -12580,11 +12432,11 @@ parcelRequire = function (e, r, t, n) {
                 n.r(e), n.d(e, "SistersPlayerContext", function () {
                     return q
                 });
-                var r, o = n(61), i = n.n(o), a = n(36), s = n.n(a), c = n(1), u = n.n(c), l = n(6), h = n.n(l),
-                    f = n(5), p = n.n(f), d = n(33), v = n.n(d), g = n(11), y = n.n(g), x = n(3), C = n.n(x), w = n(59),
-                    m = n.n(w), k = n(14), b = n.n(k), S = n(12), P = n.n(S), E = n(57), R = n.n(E), A = n(58),
-                    I = n.n(A), D = n(2), T = n.n(D), L = n(4), F = n.n(L), O = n(0), U = n.n(O), M = n(34), N = n(29),
-                    B = n(85), _ = n(7), z = n(37), j = n(10);
+                var r, o = n(59), i = n.n(o), a = n(35), s = n.n(a), c = n(1), u = n.n(c), l = n(6), h = n.n(l),
+                    f = n(3), p = n.n(f), d = n(42), v = n.n(d), g = n(11), y = n.n(g), C = n(4), x = n.n(C), w = n(57),
+                    m = n.n(w), k = n(16), S = n.n(k), b = n(12), P = n.n(b), E = n(55), A = n.n(E), R = n(56),
+                    I = n.n(R), D = n(2), T = n.n(D), L = n(5), F = n.n(L), O = n(0), M = n.n(O), U = n(33), N = n(29),
+                    B = n(82), _ = n(7), z = n(36), j = n(10);
                 n.d(e, "WastedDataType", function () {
                     return j.e
                 }), n.d(e, "FetchErrorType", function () {
@@ -12599,53 +12451,53 @@ parcelRequire = function (e, r, t, n) {
                 var q = function () {
                     function t(e, n) {
                         var r = this;
-                        T()(this, t), U()(this, "extLogCallback", function () {
-                        }), U()(this, "p2pContext", void 0), U()(this, "trackerSourceParam", void 0), U()(this, "preloadPlaylistItems", new P.a), U()(this, "p2pEnable", !1), U()(this, "realtimeData", {
+                        T()(this, t), M()(this, "extLogCallback", function () {
+                        }), M()(this, "p2pContext", void 0), M()(this, "trackerSourceParam", void 0), M()(this, "preloadPlaylistItems", new P.a), M()(this, "p2pEnable", !1), M()(this, "realtimeData", {
                             lastFetchItem: "--",
                             lastPlaylistItem: "--"
-                        }), U()(this, "canStartP2PTask", !1), U()(this, "onRealtimeDataUpdate", function () {
-                        }), U()(this, "onEventReport", function (t) {
+                        }), M()(this, "canStartP2PTask", !1), M()(this, "onRealtimeDataUpdate", function () {
+                        }), M()(this, "onEventReport", function (t) {
                         }), null != e && (this.extLogCallback = e);
                         var o, i, a, s = new N.Configuration;
-                        if (this.trackerSourceParam = t.getTrackerParamsString(n.trackerParams), this.p2pContext = new M.c(s, function (t, e) {
+                        if (this.trackerSourceParam = t.getTrackerParamsString(n.trackerParams), this.p2pContext = new U.c(s, function (t, e) {
                             return r.printExtLog(t, e)
                         }, function (t) {
                             return r.eventReportCallback(t)
                         }), null != n.sdkParams) {
-                            var c = b()(n.sdkParams);
+                            var c = S()(n.sdkParams);
                             c.length > 2 && (this.printExtLog(1, "-> Init Configuration Start <-"), this.p2pContext.Config.allowPrintLog(2) && console.log("[SistersPlayer] -> Init Configuration Start <-"), this.p2pContext.setConfiguration(c), this.printExtLog(1, "-> Init Configuration Done. <-"), this.p2pContext.Config.allowPrintLog(2) && console.log("[SistersPlayer] -> Init Configuration Done. <-"))
                         }
                         this.p2pContext.P2P.initPeers(this.trackerSourceParam), this.p2pContext.CDNFetchTaskWorker.setWorkerNum(this.p2pContext.Config.cdnFetchInstances), this.p2pContext.FallbackFetchTaskWorker.setWorkerNum(this.p2pContext.Config.fallbackCDNFetchInstances), this.p2pEnable = !0, this.preloadPlaylistItems.clear(), null != (null === (o = Object({
                             env: "production",
-                            buildtime: "2022-06-14 11:38:38",
-                            version: "1.4.20-eb2d0f96-master",
-                            packageVersion: "1.4.20-eb2d0f96",
+                            buildtime: "2022-08-09 16:29:40",
+                            version: "1.4.24-6d00a813-master",
+                            packageVersion: "1.4.24-6d00a813",
                             git: Object({
-                                version: "sistersplayer-next-152-geb2d0f9",
-                                commithash: "eb2d0f9601964510717b843eb180aa6ce4c381d5",
+                                version: "sistersplayer-next-168-g6d00a81",
+                                commithash: "6d00a813e4ee1f2f4a3eab6959d3fd162622e7ca",
                                 branch: "master"
                             })
                         })) || void 0 === o ? void 0 : o.env) && (this.printExtLog(0, "Environment: production"), this.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Environment: production")), null != (null === (i = Object({
                             env: "production",
-                            buildtime: "2022-06-14 11:38:38",
-                            version: "1.4.20-eb2d0f96-master",
-                            packageVersion: "1.4.20-eb2d0f96",
+                            buildtime: "2022-08-09 16:29:40",
+                            version: "1.4.24-6d00a813-master",
+                            packageVersion: "1.4.24-6d00a813",
                             git: Object({
-                                version: "sistersplayer-next-152-geb2d0f9",
-                                commithash: "eb2d0f9601964510717b843eb180aa6ce4c381d5",
+                                version: "sistersplayer-next-168-g6d00a81",
+                                commithash: "6d00a813e4ee1f2f4a3eab6959d3fd162622e7ca",
                                 branch: "master"
                             })
-                        })) || void 0 === i ? void 0 : i.buildtime) && (this.printExtLog(0, "Build Time: 2022-06-14 11:38:38"), this.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Build Time: 2022-06-14 11:38:38")), null != (null === (a = Object({
+                        })) || void 0 === i ? void 0 : i.buildtime) && (this.printExtLog(0, "Build Time: 2022-08-09 16:29:40"), this.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Build Time: 2022-08-09 16:29:40")), null != (null === (a = Object({
                             env: "production",
-                            buildtime: "2022-06-14 11:38:38",
-                            version: "1.4.20-eb2d0f96-master",
-                            packageVersion: "1.4.20-eb2d0f96",
+                            buildtime: "2022-08-09 16:29:40",
+                            version: "1.4.24-6d00a813-master",
+                            packageVersion: "1.4.24-6d00a813",
                             git: Object({
-                                version: "sistersplayer-next-152-geb2d0f9",
-                                commithash: "eb2d0f9601964510717b843eb180aa6ce4c381d5",
+                                version: "sistersplayer-next-168-g6d00a81",
+                                commithash: "6d00a813e4ee1f2f4a3eab6959d3fd162622e7ca",
                                 branch: "master"
                             })
-                        })) || void 0 === a ? void 0 : a.version) && (this.printExtLog(0, "Version: 1.4.20-eb2d0f96-master"), this.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Version: 1.4.20-eb2d0f96-master")), this.printExtLog(1, "Create Sister GUID: " + this.p2pContext.guid), this.p2pContext.Config.allowPrintLog(1) && console.warn("[SistersPlayer] Create Sister GUID: " + this.p2pContext.guid), this.printExtLog(0, "Misaka has been created. >w<"), this.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Misaka has been created. >w<")
+                        })) || void 0 === a ? void 0 : a.version) && (this.printExtLog(0, "Version: 1.4.24-6d00a813-master"), this.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Version: 1.4.24-6d00a813-master")), this.printExtLog(0, "Misaka has been created. >w<"), this.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Misaka has been created. >w<")
                     }
 
                     return F()(t, null, [{
@@ -12679,7 +12531,7 @@ parcelRequire = function (e, r, t, n) {
                         key: "getTrackerParamsString", value: function (t) {
                             var e = "?protocol=" + N.Configuration.ProtocolVersion.toString();
                             if (null != t) for (var n = 0, r = I()(t); n < r.length; n++) {
-                                var o = R()(r[n], 2), i = o[0], a = o[1];
+                                var o = A()(r[n], 2), i = o[0], a = o[1];
                                 null != a && (e = e + "&" + encodeURIComponent(i) + "=" + encodeURIComponent(a.toString()))
                             }
                             return e
@@ -12709,7 +12561,7 @@ parcelRequire = function (e, r, t, n) {
                         }
                     }, {
                         key: "destroy", value: function () {
-                            1 == this.p2pEnable && (this.p2pEnable = !1, this.printExtLog(1, "Destroy Sister GUID: " + this.p2pContext.guid), this.p2pContext.Config.allowPrintLog(1) && console.warn("[SistersPlayer] Destroy Sister GUID: " + this.p2pContext.guid), this.p2pContext.destroy(), this.printExtLog(0, "Misaka has been destroyed. OxO"), this.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Misaka has been destroyed. OxO"))
+                            1 == this.p2pEnable && (this.p2pEnable = !1, this.p2pContext.destroy(), this.printExtLog(0, "Misaka has been destroyed. OxO"), this.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Misaka has been destroyed. OxO"))
                         }
                     }, {
                         key: "getDestroyState", value: function () {
@@ -12727,7 +12579,7 @@ parcelRequire = function (e, r, t, n) {
                         key: "getCurPeerIdInfo", value: function () {
                             if (null != this.p2pContext.PeerSched) {
                                 var t = this.p2pContext.CurPeerId,
-                                    e = b()(m()(this.p2pContext.PeerSched.getSliceIds()));
+                                    e = S()(m()(this.p2pContext.PeerSched.getSliceIds()));
                                 return null != this.p2pContext.PeerSched.getTracker() ? "当前 PeerId: " + t + " , SliceIds: " + e : "当前 PeerId (已主动断开): " + t + " , SliceIds: " + e
                             }
                             return "正在连接..."
@@ -12735,14 +12587,14 @@ parcelRequire = function (e, r, t, n) {
                     }, {
                         key: "getPeerIdList", value: function () {
                             var t, e, n = Array();
-                            return null != this.p2pContext.PeerSched && (C()(t = this.p2pContext.PeerSched.getConnectedPeers()).call(t, function (t) {
+                            return null != this.p2pContext.PeerSched && (x()(t = this.p2pContext.PeerSched.getConnectedPeers()).call(t, function (t) {
                                 n.push({
                                     incoming: t.isIncoming(),
                                     connected: !0,
                                     peerId: t.extData.peerId,
                                     peerRole: t.peerRole
                                 })
-                            }), C()(e = this.p2pContext.PeerSched.getConnectingPeers()).call(e, function (t) {
+                            }), x()(e = this.p2pContext.PeerSched.getConnectingPeers()).call(e, function (t) {
                                 n.push({
                                     incoming: t.isIncoming(),
                                     connected: !1,
@@ -12760,7 +12612,7 @@ parcelRequire = function (e, r, t, n) {
                                     var o = this.p2pContext.FragMan.getFragment(n);
                                     if (null != o) {
                                         var i = r.fileSize, a = new Uint8Array(i), s = 0;
-                                        C()(e).call(e, function (t) {
+                                        x()(e).call(e, function (t) {
                                             a.set(t, s), s += t.length
                                         });
                                         var c = {data: new Uint8Array, url: t, range: ""};
@@ -12828,13 +12680,13 @@ parcelRequire = function (e, r, t, n) {
                                     }, u)) : a.P2P.stopDownloadFragment(c);
                                     a.P2P.onFragmentFinished(c, function (n, a, s) {
                                         switch (n) {
-                                            case M.a.DONE:
+                                            case U.a.DONE:
                                                 null != a ? e(r, a.buffer, !0) : (1 == o.p2pEnable && (o.printExtLog(0, "Fetch Error: p2p download data lost. URL: " + r), o.p2pContext.Config.allowPrintLog(0) && console.warn("[SistersPlayer] Fetch Error: p2p download data lost. URL: " + r)), o.cdnFetchAsBuffer(t, e, r, _.a.LACKED, i, !1));
                                                 break;
-                                            case M.a.ERROR:
+                                            case U.a.ERROR:
                                                 1 == o.p2pEnable && (null != s ? (o.printExtLog(0, "Fetch Error: " + s + ". on " + r), o.p2pContext.Config.allowPrintLog(0) && console.warn("[SistersPlayer] Fetch Error: " + s + ". URL: " + r)) : (o.printExtLog(0, "Fetch Error: p2p download error, no message. URL: " + r), o.p2pContext.Config.allowPrintLog(0) && console.warn("[SistersPlayer] Fetch Error: p2p download error, no message. URL: " + r))), o.cdnFetchAsBuffer(t, e, r, _.a.LACKED, i, !1);
                                                 break;
-                                            case M.a.NOTFOUND:
+                                            case U.a.NOTFOUND:
                                                 o.cdnFetchAsBuffer(t, e, r, _.a.LACKED, i, !0)
                                         }
                                     })
@@ -12850,7 +12702,7 @@ parcelRequire = function (e, r, t, n) {
                                         case 0:
                                             return a.P2P.startDownloadFragment(t, e, n, r), a.P2P.onFragmentFinished(t, function (e, n, r) {
                                                 var o = !1;
-                                                if (e == M.a.DONE && null != n) {
+                                                if (e == U.a.DONE && null != n) {
                                                     var i = a.FragMan.getFragment(t);
                                                     if (null != i) {
                                                         var c = i.getRoleArray();
@@ -12899,7 +12751,9 @@ parcelRequire = function (e, r, t, n) {
                     }]), t
                 }()
             }, function (t, e, n) {
-                t.exports = n(281)
+                t.exports = n(258)
+            }, function (t, e, n) {
+                t.exports = n(280)
             }, function (t, e) {
                 var n = Math.ceil, r = Math.floor;
                 t.exports = function (t) {
@@ -12921,7 +12775,7 @@ parcelRequire = function (e, r, t, n) {
                 n.r(e), n.d(e, "UrlHelper", function () {
                     return s
                 });
-                var r = n(2), o = n.n(r), i = n(4), a = n.n(i), s = function () {
+                var r = n(2), o = n.n(r), i = n(5), a = n.n(i), s = function () {
                     function t() {
                         o()(this, t)
                     }
@@ -12957,7 +12811,7 @@ parcelRequire = function (e, r, t, n) {
                 }
                 t.exports = n
             }, function (t, e, n) {
-                var r = n(24), o = n(88), i = n(51), a = n(44), s = n(90), c = n(25), u = n(124),
+                var r = n(25), o = n(85), i = n(50), a = n(44), s = n(87), c = n(26), u = n(124),
                     l = Object.getOwnPropertyDescriptor;
                 e.f = r ? l : function (t, e) {
                     if (t = a(t), e = s(e, !0), u) try {
@@ -12974,7 +12828,7 @@ parcelRequire = function (e, r, t, n) {
                     return !!e && e.enumerable
                 } : r
             }, function (t, e, n) {
-                var r = n(17), o = n(71), i = "".split;
+                var r = n(17), o = n(67), i = "".split;
                 t.exports = r(function () {
                     return !Object("z").propertyIsEnumerable(0)
                 }) ? function (t) {
@@ -12991,7 +12845,7 @@ parcelRequire = function (e, r, t, n) {
                     throw TypeError("Can't convert object to primitive value")
                 }
             }, function (t, e, n) {
-                var r = n(108), o = n(92), i = r("keys");
+                var r = n(108), o = n(89), i = r("keys");
                 t.exports = function (t) {
                     return i[t] || (i[t] = o(t))
                 }
@@ -13002,7 +12856,7 @@ parcelRequire = function (e, r, t, n) {
                 }
             }, function (t, e) {
             }, function (t, e, n) {
-                var r = n(71), o = n(15);
+                var r = n(67), o = n(14);
                 t.exports = "process" == r(o.process)
             }, function (t, e) {
                 t.exports = function (t) {
@@ -13013,11 +12867,11 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }
             }, function (t, e, n) {
-                var r, o, i = n(15), a = n(114), s = i.process, c = s && s.versions, u = c && c.v8;
+                var r, o, i = n(14), a = n(114), s = i.process, c = s && s.versions, u = c && c.v8;
                 u ? o = (r = u.split("."))[0] + r[1] : a && (!(r = a.match(/Edge\/(\d+)/)) || r[1] >= 74) && (r = a.match(/Chrome\/(\d+)/)) && (o = r[1]), t.exports = o && +o
             }, function (t, e, n) {
                 "use strict";
-                var r = n(44), o = n(116), i = n(53), a = n(49), s = n(115), c = a.set,
+                var r = n(44), o = n(116), i = n(52), a = n(49), s = n(115), c = a.set,
                     u = a.getterFor("Array Iterator");
                 t.exports = s(Array, "Array", function (t, e) {
                     c(this, {type: "Array Iterator", target: r(t), index: 0, kind: e})
@@ -13032,23 +12886,29 @@ parcelRequire = function (e, r, t, n) {
                     } : {value: [r, e[r]], done: !1}
                 }, "values"), i.Arguments = i.Array, o("keys"), o("values"), o("entries")
             }, function (t, e, n) {
-                var r = n(21), o = n(63), i = n(13)("species");
+                var r = n(21), o = n(61), i = n(13)("species");
                 t.exports = function (t, e) {
                     var n;
                     return o(t) && ("function" != typeof (n = t.constructor) || n !== Array && !o(n.prototype) ? r(n) && null === (n = n[i]) && (n = void 0) : n = void 0), new (void 0 === n ? Array : n)(0 === e ? 0 : e)
                 }
             }, function (t, e, n) {
-                t.exports = n(271)
+                t.exports = n(270)
             }, function (t, e, n) {
-                t.exports = n(324)
+                t.exports = n(299)
+            }, function (t, e, n) {
+                t.exports = n(300)
+            }, function (t, e, n) {
+                t.exports = n(301)
+            }, function (t, e, n) {
+                t.exports = n(318)
             }, function (t, e, n) {
                 "use strict";
                 n.d(e, "b", function () {
                     return s
                 }), n.d(e, "a", function () {
                     return c
-                }), n(99), n(67);
-                var r = n(2), o = n.n(r), i = (n(4), n(0)), a = n.n(i);
+                }), n(96), n(63);
+                var r = n(2), o = n.n(r), i = (n(5), n(0)), a = n.n(i);
 
                 function s(t) {
                     return Math.floor(Math.random() * Math.floor(t))
@@ -13058,11 +12918,11 @@ parcelRequire = function (e, r, t, n) {
                     o()(this, t), a()(this, "data", void 0), this.data = e
                 }
             }, function (t, e, n) {
-                t.exports = n(278)
+                t.exports = n(277)
             }, function (t, e, n) {
-                t.exports = n(315)
+                t.exports = n(309)
             }, function (t, e, n) {
-                var r = n(15), o = n(21), i = r.document, a = o(i) && o(i.createElement);
+                var r = n(14), o = n(21), i = r.document, a = o(i) && o(i.createElement);
                 t.exports = function (t) {
                     return a ? i.createElement(t) : {}
                 }
@@ -13078,13 +12938,13 @@ parcelRequire = function (e, r, t, n) {
                 };
                 t.exports = {includes: a(!0), indexOf: a(!1)}
             }, function (t, e, n) {
-                var r = n(83), o = Math.max, i = Math.min;
+                var r = n(80), o = Math.max, i = Math.min;
                 t.exports = function (t, e) {
                     var n = r(t);
                     return n < 0 ? o(n + e, 0) : i(n, e)
                 }
             }, function (t, e, n) {
-                var r = n(25), o = n(32), i = n(91), a = n(191), s = i("IE_PROTO"), c = Object.prototype;
+                var r = n(26), o = n(32), i = n(88), a = n(190), s = i("IE_PROTO"), c = Object.prototype;
                 t.exports = a ? Object.getPrototypeOf : function (t) {
                     return t = o(t), r(t, s) ? t[s] : "function" == typeof t.constructor && t instanceof t.constructor ? t.constructor.prototype : t instanceof Object ? c : null
                 }
@@ -13098,7 +12958,7 @@ parcelRequire = function (e, r, t, n) {
                     copyright: "© 2020 Denis Pushkarev (zloirock.ru)"
                 })
             }, function (t, e, n) {
-                var r = n(15), o = n(190), i = r["__core-js_shared__"] || o("__core-js_shared__", {});
+                var r = n(14), o = n(189), i = r["__core-js_shared__"] || o("__core-js_shared__", {});
                 t.exports = i
             }, function (t, e) {
                 t.exports = ["constructor", "hasOwnProperty", "isPrototypeOf", "propertyIsEnumerable", "toLocaleString", "toString", "valueOf"]
@@ -13111,25 +12971,25 @@ parcelRequire = function (e, r, t, n) {
                 var r = {};
                 r[n(13)("toStringTag")] = "z", t.exports = "[object z]" === String(r)
             }, function (t, e, n) {
-                var r = n(55);
+                var r = n(54);
                 t.exports = function (t, e, n) {
                     for (var o in e) n && n.unsafe && t[o] ? t[o] = e[o] : r(t, o, e[o], n);
                     return t
                 }
             }, function (t, e, n) {
-                var r = n(40);
+                var r = n(39);
                 t.exports = r("navigator", "userAgent") || ""
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(147), i = n(107), a = n(129), s = n(48), c = n(30), u = n(55), l = n(13), h = n(47),
-                    f = n(53), p = n(148), d = p.IteratorPrototype, v = p.BUGGY_SAFARI_ITERATORS, g = l("iterator"),
+                var r = n(8), o = n(147), i = n(107), a = n(129), s = n(48), c = n(30), u = n(54), l = n(13), h = n(47),
+                    f = n(52), p = n(148), d = p.IteratorPrototype, v = p.BUGGY_SAFARI_ITERATORS, g = l("iterator"),
                     y = function () {
                         return this
                     };
-                t.exports = function (t, e, n, l, p, x, C) {
+                t.exports = function (t, e, n, l, p, C, x) {
                     o(n, e, l);
-                    var w, m, k, b = function (t) {
-                            if (t === p && A) return A;
+                    var w, m, k, S = function (t) {
+                            if (t === p && R) return R;
                             if (!v && t in E) return E[t];
                             switch (t) {
                                 case"keys":
@@ -13142,15 +13002,15 @@ parcelRequire = function (e, r, t, n) {
                             return function () {
                                 return new n(this)
                             }
-                        }, S = e + " Iterator", P = !1, E = t.prototype, R = E[g] || E["@@iterator"] || p && E[p],
-                        A = !v && R || b(p), I = "Array" == e && E.entries || R;
-                    if (I && (w = i(I.call(new t)), d !== Object.prototype && w.next && (h || i(w) === d || (a ? a(w, d) : "function" != typeof w[g] && c(w, g, y)), s(w, S, !0, !0), h && (f[S] = y))), "values" == p && R && "values" !== R.name && (P = !0, A = function () {
-                        return R.call(this)
-                    }), h && !C || E[g] === A || c(E, g, A), f[e] = A, p) if (m = {
-                        values: b("values"),
-                        keys: x ? A : b("keys"),
-                        entries: b("entries")
-                    }, C) for (k in m) (v || P || !(k in E)) && u(E, k, m[k]); else r({
+                        }, b = e + " Iterator", P = !1, E = t.prototype, A = E[g] || E["@@iterator"] || p && E[p],
+                        R = !v && A || S(p), I = "Array" == e && E.entries || A;
+                    if (I && (w = i(I.call(new t)), d !== Object.prototype && w.next && (h || i(w) === d || (a ? a(w, d) : "function" != typeof w[g] && c(w, g, y)), s(w, b, !0, !0), h && (f[b] = y))), "values" == p && A && "values" !== A.name && (P = !0, R = function () {
+                        return A.call(this)
+                    }), h && !x || E[g] === R || c(E, g, R), f[e] = R, p) if (m = {
+                        values: S("values"),
+                        keys: C ? R : S("keys"),
+                        entries: S("entries")
+                    }, x) for (k in m) (v || P || !(k in E)) && u(E, k, m[k]); else r({
                         target: e,
                         proto: !0,
                         forced: v || P
@@ -13161,20 +13021,20 @@ parcelRequire = function (e, r, t, n) {
                 t.exports = function () {
                 }
             }, function (t, e, n) {
-                t.exports = n(223)
+                t.exports = n(222)
             }, function (t, e, n) {
                 var r = n(13);
                 e.f = r
             }, function (t, e, n) {
-                t.exports = n(348)
+                t.exports = n(342)
             }, function (t, e, n) {
-                t.exports = n(289)
+                t.exports = n(288)
             }, function (t, e, n) {
                 "use strict";
                 n.d(e, "a", function () {
                     return u
                 });
-                var r = n(2), o = n.n(r), i = n(4), a = n.n(i), s = n(0), c = n.n(s), u = function () {
+                var r = n(2), o = n.n(r), i = n(5), a = n.n(i), s = n(0), c = n.n(s), u = function () {
                     function t() {
                         o()(this, t)
                     }
@@ -13197,19 +13057,19 @@ parcelRequire = function (e, r, t, n) {
                     n.d(e, "a", function () {
                         return z
                     });
-                    var r = n(9), o = n.n(r), i = n(50), a = n.n(i), s = n(57), c = n.n(s), u = n(58), l = n.n(u),
-                        h = n(69), f = n.n(h), p = n(14), d = n.n(p), v = n(11), g = n.n(v), y = n(3), x = n.n(y),
-                        C = n(5), w = n.n(C), m = n(1), k = n.n(m), b = n(6), S = n.n(b), P = n(12), E = n.n(P),
-                        R = n(2), A = n.n(R), I = n(4), D = n.n(I), T = n(0), L = n.n(T), F = n(20), O = n(43),
-                        U = n(34), M = n(19), N = n(37), B = n(29), _ = function () {
+                    var r = n(9), o = n.n(r), i = n(62), a = n.n(i), s = n(55), c = n.n(s), u = n(56), l = n.n(u),
+                        h = n(65), f = n.n(h), p = n(16), d = n.n(p), v = n(11), g = n.n(v), y = n(4), C = n.n(y),
+                        x = n(3), w = n.n(x), m = n(1), k = n.n(m), S = n(6), b = n.n(S), P = n(12), E = n.n(P),
+                        A = n(2), R = n.n(A), I = n(5), D = n.n(I), T = n(0), L = n.n(T), F = n(20), O = n(43),
+                        M = n(33), U = n(19), N = n(36), B = n(29), _ = function () {
                             function t(e, n, r) {
-                                A()(this, t), L()(this, "p2pContext", void 0), L()(this, "needDestroy", !1), L()(this, "ws", void 0), L()(this, "requestId", 0), L()(this, "pendingRequests", new E.a), L()(this, "messageSink", void 0), L()(this, "trackerSourceParam", void 0), L()(this, "onReconnected", function () {
+                                R()(this, t), L()(this, "p2pContext", void 0), L()(this, "needDestroy", !1), L()(this, "ws", void 0), L()(this, "requestId", 0), L()(this, "pendingRequests", new E.a), L()(this, "messageSink", void 0), L()(this, "trackerSourceParam", void 0), L()(this, "onReconnected", function () {
                                 }), this.p2pContext = e, this.trackerSourceParam = n, this.messageSink = r
                             }
 
                             var e, n, r, o, i;
                             return D()(t, [{
-                                key: "trackerConnect", value: (i = S()(k.a.mark(function t() {
+                                key: "trackerConnect", value: (i = b()(k.a.mark(function t() {
                                     var e, n = this;
                                     return k.a.wrap(function (t) {
                                         for (; ;) switch (t.prev = t.next) {
@@ -13243,22 +13103,23 @@ parcelRequire = function (e, r, t, n) {
                                     return i.apply(this, arguments)
                                 })
                             }, {
-                                key: "newTrackerConnect", value: (o = S()(k.a.mark(function t() {
+                                key: "newTrackerConnect", value: (o = b()(k.a.mark(function t() {
                                     var e = this;
                                     return k.a.wrap(function (t) {
                                         for (; ;) switch (t.prev = t.next) {
                                             case 0:
                                                 return t.abrupt("return", new w.a(function (t) {
-                                                    var n = new WebSocket(e.p2pContext.Config.trackerServer + e.trackerSourceParam);
-                                                    n.onopen = function (r) {
-                                                        e.needDestroy ? (n.close(), t(void 0)) : t(n)
-                                                    }, n.onclose = function (n) {
-                                                        var r;
-                                                        e.p2pContext.eventReportCallback(new N.TrackerClosedDataReportEvent(n.code)), e.p2pContext.printExtLog(0, "Last Order connection is closed. (code: " + n.code + ")"), e.p2pContext.Config.allowPrintLog(0) && console.warn("[SistersPlayer] Last Order connection is closed. (code: " + n.code + ")"), x()(r = e.pendingRequests).call(r, function (t, e) {
+                                                    var n = e.p2pContext.Config.trackerServers[e.p2pContext.trackerPositionInServers],
+                                                        r = new WebSocket(n + e.trackerSourceParam);
+                                                    e.p2pContext.trackerPositionInServers = ++e.p2pContext.trackerPositionInServers % e.p2pContext.Config.trackerServers.length, r.onopen = function (n) {
+                                                        e.needDestroy ? (r.close(), t(void 0)) : t(r)
+                                                    }, r.onclose = function (r) {
+                                                        var o;
+                                                        e.p2pContext.eventReportCallback(new N.TrackerClosedDataReportEvent(r.code, n)), e.p2pContext.printExtLog(0, "Last Order connection is closed. (code: " + r.code + "), url: " + n), e.p2pContext.Config.allowPrintLog(0) && console.warn("[SistersPlayer] Last Order connection is closed. (code: " + r.code + "), url: " + n), C()(o = e.pendingRequests).call(o, function (t, e) {
                                                             return t(void 0)
-                                                        }), e.pendingRequests.clear(), 0 == e.needDestroy ? (e.p2pContext.printExtLog(0, "Misaka will reconnect to the Last Order in " + e.p2pContext.Config.reconnectWaitTimeSec + " seconds."), e.p2pContext.Config.allowPrintLog(0) && console.warn("[SistersPlayer] Misaka will reconnect to the Last Order in " + e.p2pContext.Config.reconnectWaitTimeSec + " seconds."), g()(function () {
+                                                        }), e.pendingRequests.clear(), 0 == e.needDestroy ? 0 == e.p2pContext.trackerPositionInServers ? (e.p2pContext.printExtLog(0, "Misaka will reconnect to the Last Order in " + e.p2pContext.Config.reconnectWaitTimeSec + " seconds."), e.p2pContext.Config.allowPrintLog(0) && console.warn("[SistersPlayer] Misaka will reconnect to the Last Order in " + e.p2pContext.Config.reconnectWaitTimeSec + " seconds."), g()(function () {
                                                             e.trackerConnect()
-                                                        }, 1e3 * e.p2pContext.Config.reconnectWaitTimeSec)) : (e.p2pContext.printExtLog(0, "Last Order reconnect cancel."), e.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Last Order reconnect cancel.")), t(void 0)
+                                                        }, 1e3 * e.p2pContext.Config.reconnectWaitTimeSec)) : (e.p2pContext.printExtLog(0, "Misaka will reconnect to the Last Order immediately."), e.p2pContext.Config.allowPrintLog(0) && console.warn("[SistersPlayer] Misaka will reconnect to the Last Order immediately."), e.trackerConnect()) : (e.p2pContext.printExtLog(0, "Last Order reconnect cancel."), e.p2pContext.Config.allowPrintLog(0) && console.log("[SistersPlayer] Last Order reconnect cancel.")), t(void 0)
                                                     }
                                                 }));
                                             case 1:
@@ -13280,7 +13141,7 @@ parcelRequire = function (e, r, t, n) {
                                     if (null != s && s.readyState == s.OPEN) {
                                         0 == n && (++this.requestId, n = this.requestId);
                                         var c = {type: e, requestId: n};
-                                        c[r] = o, null !== t && (c.peerId = t), void 0 !== i && (c.data = i);
+                                        c[r] = o, null !== t && (c.from = this.p2pContext.CurPeerId, c.to = t), void 0 !== i && (c.data = i);
                                         var u = this.pendingRequests;
                                         return new w.a(function (t) {
                                             null != s && s.readyState == s.OPEN ? (a.p2pContext.Config.allowPrintLog(7) && console.log("send: ", c), u.set(n, t), s.send(d()(c))) : t(void 0)
@@ -13291,28 +13152,34 @@ parcelRequire = function (e, r, t, n) {
                                     })
                                 }
                             }, {
-                                key: "sendServerRequest", value: (r = S()(k.a.mark(function t(e, n) {
-                                    var r, o, i, a, s, c = this;
+                                key: "sendServerRequest", value: (r = b()(k.a.mark(function t(e, n, r) {
+                                    var o, i, a, s, c, u = this;
                                     return k.a.wrap(function (t) {
                                         for (; ;) switch (t.prev = t.next) {
                                             case 0:
-                                                return r = performance.now(), o = this.sendMessage(null, "request", 0, "action", e, n), t.next = 4, w.a.race(new Array(new w.a(function (t) {
-                                                    return i = g()(function () {
+                                                return o = performance.now(), i = this.sendMessage(null, "request", n, "action", e, r), t.next = 4, w.a.race(new Array(new w.a(function (t) {
+                                                    return a = g()(function () {
                                                         return t(void 0)
-                                                    }, c.p2pContext.Config.serverTimeoutMs)
-                                                }), o));
+                                                    }, u.p2pContext.Config.serverTimeoutMs)
+                                                }), i));
                                             case 4:
-                                                return a = t.sent, clearTimeout(i), s = performance.now(), void 0 === a ? this.p2pContext.P2PDataCollectionStatus.addTrackerResponse(!1, s - r) : this.p2pContext.P2PDataCollectionStatus.addTrackerResponse(!0, s - r), t.abrupt("return", a);
-                                            case 9:
+                                                if (s = t.sent, clearTimeout(a), !(n < 0)) {
+                                                    t.next = 8;
+                                                    break
+                                                }
+                                                return t.abrupt("return", s);
+                                            case 8:
+                                                return c = performance.now(), void 0 === s ? this.p2pContext.P2PDataCollectionStatus.addTrackerResponse(!1, c - o) : this.p2pContext.P2PDataCollectionStatus.addTrackerResponse(!0, c - o), t.abrupt("return", s);
+                                            case 11:
                                             case"end":
                                                 return t.stop()
                                         }
                                     }, t, this)
-                                })), function (t, e) {
+                                })), function (t, e, n) {
                                     return r.apply(this, arguments)
                                 })
                             }, {
-                                key: "sendPeerRequest", value: (n = S()(k.a.mark(function t(e, n, r, o) {
+                                key: "sendPeerRequest", value: (n = b()(k.a.mark(function t(e, n, r, o) {
                                     var i, a, s, c = this;
                                     return k.a.wrap(function (t) {
                                         for (; ;) switch (t.prev = t.next) {
@@ -13338,7 +13205,7 @@ parcelRequire = function (e, r, t, n) {
                                 }
                             }, {
                                 key: "onPeerRequest", value: function (t) {
-                                    this.messageSink.onPeerMessage(this, t.peerId, t, t.requestId)
+                                    this.messageSink.onPeerMessage(this, t.from, t, t.requestId)
                                 }
                             }, {
                                 key: "onServerRequest", value: function (t) {
@@ -13348,7 +13215,7 @@ parcelRequire = function (e, r, t, n) {
                                 key: "onMessageReceived", value: function (t) {
                                     if (0 == this.needDestroy) try {
                                         var e = JSON.parse(t);
-                                        this.p2pContext.Config.allowPrintLog(7) && console.log("recv: ", e), "response" == e.type && f()(e.requestId) && e.requestId > 0 ? this.dispatchResponse(e) : "request" == e.type && f()(e.requestId) && (null == e.peerId ? this.onServerRequest(e) : this.onPeerRequest(e))
+                                        this.p2pContext.Config.allowPrintLog(7) && console.log("recv: ", e), "response" == e.type && f()(e.requestId) && e.requestId > 0 ? this.dispatchResponse(e) : "request" == e.type && f()(e.requestId) && (null == e.from ? this.onServerRequest(e) : this.onPeerRequest(e))
                                     } catch (t) {
                                         console.log(t)
                                     }
@@ -13356,12 +13223,12 @@ parcelRequire = function (e, r, t, n) {
                             }, {
                                 key: "destroy", value: function () {
                                     var t;
-                                    this.needDestroy = !0, null != this.ws && (this.ws.close(), this.ws = void 0), x()(t = this.pendingRequests).call(t, function (t, e) {
+                                    this.needDestroy = !0, null != this.ws && (this.ws.close(), this.ws = void 0), C()(t = this.pendingRequests).call(t, function (t, e) {
                                         return t(void 0)
                                     }), this.pendingRequests.clear()
                                 }
                             }], [{
-                                key: "connect", value: (e = S()(k.a.mark(function e(n, r, o, i) {
+                                key: "connect", value: (e = b()(k.a.mark(function e(n, r, o, i) {
                                     var a;
                                     return k.a.wrap(function (e) {
                                         for (; ;) switch (e.prev = e.next) {
@@ -13384,7 +13251,7 @@ parcelRequire = function (e, r, t, n) {
                             }]), t
                         }(), z = function () {
                             function e(t, n) {
-                                A()(this, e), L()(this, "curVisibilityState", O.b.BROADCAST), L()(this, "needDestroy", !1), L()(this, "p2pContext", void 0), L()(this, "tracker", void 0), L()(this, "peerSched", void 0), L()(this, "natType", U.b.CONE), L()(this, "autoSelfInvisibleTimeoutId", void 0), this.p2pContext = t, this.peerSched = n
+                                R()(this, e), L()(this, "curVisibilityState", O.b.BROADCAST), L()(this, "needDestroy", !1), L()(this, "p2pContext", void 0), L()(this, "tracker", void 0), L()(this, "peerSched", void 0), L()(this, "natType", M.b.CONE), L()(this, "autoSelfInvisibleTimeoutId", void 0), this.p2pContext = t, this.peerSched = n
                             }
 
                             var n, r, i, s, u;
@@ -13400,7 +13267,7 @@ parcelRequire = function (e, r, t, n) {
                                     })
                                 }
                             }, {
-                                key: "getPeers", value: (u = S()(k.a.mark(function t() {
+                                key: "getPeers", value: (u = b()(k.a.mark(function t() {
                                     var e;
                                     return k.a.wrap(function (t) {
                                         for (; ;) switch (t.prev = t.next) {
@@ -13413,7 +13280,7 @@ parcelRequire = function (e, r, t, n) {
                                                     t.next = 7;
                                                     break
                                                 }
-                                                return t.next = 4, this.tracker.sendServerRequest("getPeers", {roles: ["peer", "leech", "seedbox"]}).then(function (t) {
+                                                return t.next = 4, this.tracker.sendServerRequest("getPeers", 0, {roles: ["peer", "leech", "seedbox"]}).then(function (t) {
                                                     if (null != t && t.data && (t.data.peers && (e.peers = t.data.peers), t.data.leeches && (e.leeches = t.data.leeches), t.data.seedboxes)) for (var n = 0, r = l()(t.data.seedboxes); n < r.length; n++) {
                                                         var o = c()(r[n], 2), i = o[0], s = o[1];
                                                         a()(s) && e.seedboxes.set(i, s)
@@ -13435,7 +13302,7 @@ parcelRequire = function (e, r, t, n) {
                                     return u.apply(this, arguments)
                                 })
                             }, {
-                                key: "sendPeerCandidate", value: (s = S()(k.a.mark(function t(e, n, r) {
+                                key: "sendPeerCandidate", value: (s = b()(k.a.mark(function t(e, n, r) {
                                     var o;
                                     return k.a.wrap(function (t) {
                                         for (; ;) switch (t.prev = t.next) {
@@ -13470,12 +13337,12 @@ parcelRequire = function (e, r, t, n) {
                                     return s.apply(this, arguments)
                                 })
                             }, {
-                                key: "connectPeer", value: (i = S()(k.a.mark(function t(e, n) {
+                                key: "connectPeer", value: (i = b()(k.a.mark(function t(e, n) {
                                     var r, o, i, a, s, c, u, l, h = this;
                                     return k.a.wrap(function (t) {
                                         for (; ;) switch (t.prev = t.next) {
                                             case 0:
-                                                return r = new F.NyaPeer(this.p2pContext, this.peerSched, !1), null == n || n(r), r.extData.peerId = e, o = new M.c, t.next = 6, o.lock();
+                                                return r = new F.NyaPeer(this.p2pContext, this.peerSched, !1), null == n || n(r), r.extData.peerId = e, o = new U.c, t.next = 6, o.lock();
                                             case 6:
                                                 return t.next = 8, r.createNyaOffer(function (t) {
                                                     o.lock().then(function () {
@@ -13489,9 +13356,7 @@ parcelRequire = function (e, r, t, n) {
                                                 }
                                                 return t.next = 13, this.tracker.sendPeerRequest(e, "connect", 0, {
                                                     protocol: B.Configuration.ProtocolVersion,
-                                                    guid: this.p2pContext.guid,
                                                     offer: i,
-                                                    flags: ["2nd-protocol"],
                                                     role: {type: "peer"}
                                                 });
                                             case 13:
@@ -13514,7 +13379,7 @@ parcelRequire = function (e, r, t, n) {
                                                     t.next = 45;
                                                     break
                                                 }
-                                                if (l = !1, x()(u = r.seedSliceIds).call(u, function (t) {
+                                                if (l = !1, C()(u = r.seedSliceIds).call(u, function (t) {
                                                     h.peerSched.getSeedboxNeedConnectNum(t) > 0 && (l = !0)
                                                 }), 1 != l) {
                                                     t.next = 40;
@@ -13551,7 +13416,7 @@ parcelRequire = function (e, r, t, n) {
                                     return this.curVisibilityState
                                 }
                             }, {
-                                key: "setSelfVisible", value: (r = S()(k.a.mark(function t(e) {
+                                key: "setSelfVisible", value: (r = b()(k.a.mark(function t(e) {
                                     var n, r, o, i, a, s;
                                     return k.a.wrap(function (t) {
                                         for (; ;) switch (t.prev = t.next) {
@@ -13562,7 +13427,7 @@ parcelRequire = function (e, r, t, n) {
                                                 }
                                                 return t.abrupt("return", !1);
                                             case 4:
-                                                return t.next = 6, null === (n = this.tracker) || void 0 === n ? void 0 : n.sendServerRequest("setVisible", {value: r});
+                                                return t.next = 6, null === (n = this.tracker) || void 0 === n ? void 0 : n.sendServerRequest("setVisible", 0, {value: r});
                                             case 6:
                                                 if ("ok" !== (null == (o = t.sent) ? void 0 : o.status)) {
                                                     t.next = 17;
@@ -13586,7 +13451,7 @@ parcelRequire = function (e, r, t, n) {
                                     var e = this;
                                     void 0 !== this.autoSelfInvisibleTimeoutId && (clearTimeout(this.autoSelfInvisibleTimeoutId), this.autoSelfInvisibleTimeoutId = void 0);
                                     var n = this.p2pContext.Config, r = n.coneVisibleMaxTimeMs;
-                                    this.natType == U.b.CONE ? r = n.coneVisibleMaxTimeMs : this.natType == U.b.NON_NAT ? r = n.nonnatVisibleMaxTimeMs : this.natType == U.b.SYMMETRIC && (r = n.symmetricVisibleMaxTimeMs), this.autoSelfInvisibleTimeoutId = t.setTimeout(function () {
+                                    this.natType == M.b.CONE ? r = n.coneVisibleMaxTimeMs : this.natType == M.b.NON_NAT ? r = n.nonnatVisibleMaxTimeMs : this.natType == M.b.SYMMETRIC && (r = n.symmetricVisibleMaxTimeMs), this.autoSelfInvisibleTimeoutId = t.setTimeout(function () {
                                         e.setSelfVisible(O.b.HIDDEN)
                                     }, r)
                                 }
@@ -13601,7 +13466,7 @@ parcelRequire = function (e, r, t, n) {
                             }, {
                                 key: "reportDownloadBlockSuccessOrAwaysFail", value: function (t, e) {
                                     var n, r, i, a;
-                                    return this.p2pContext.printExtLog(3, o()(n = "peerId ".concat(t, " report ")).call(n, e ? "peerConnected" : "peerConnectFailed", " to tracker.")), this.p2pContext.Config.allowPrintLog(3) && console.log(o()(a = "peerId ".concat(t, " report ")).call(a, e ? "peerConnected" : "peerConnectFailed", " to tracker.")), null !== (r = null === (i = this.tracker) || void 0 === i ? void 0 : i.sendServerRequest("report", {
+                                    return this.p2pContext.printExtLog(3, o()(n = "peerId ".concat(t, " report ")).call(n, e ? "peerConnected" : "peerConnectFailed", " to tracker.")), this.p2pContext.Config.allowPrintLog(3) && console.log(o()(a = "peerId ".concat(t, " report ")).call(a, e ? "peerConnected" : "peerConnectFailed", " to tracker.")), null !== (r = null === (i = this.tracker) || void 0 === i ? void 0 : i.sendServerRequest("report", -1, {
                                         id: e ? "peerConnected" : "peerConnectFailed",
                                         remote: t
                                     }).then(function (t) {
@@ -13622,7 +13487,7 @@ parcelRequire = function (e, r, t, n) {
                                             this.p2pContext.setConfiguration(e.data.jsonstr);
                                             break;
                                         case"move":
-                                            this.p2pContext.setConfiguration(d()({trackerServer: e.data.target})), this.peerSched.recreateTracker()
+                                            this.p2pContext.setConfiguration(d()({trackerServers: [e.data.target]})), this.peerSched.recreateTracker()
                                     }
                                 }
                             }, {
@@ -13637,7 +13502,7 @@ parcelRequire = function (e, r, t, n) {
                                     this.needDestroy = !0, this.cancelDelaySetInvisible(), null === (t = this.tracker) || void 0 === t || t.destroy()
                                 }
                             }], [{
-                                key: "connect", value: (n = S()(k.a.mark(function t(n, r, o, i) {
+                                key: "connect", value: (n = b()(k.a.mark(function t(n, r, o, i) {
                                     var a, s;
                                     return k.a.wrap(function (t) {
                                         for (; ;) switch (t.prev = t.next) {
@@ -13657,11 +13522,11 @@ parcelRequire = function (e, r, t, n) {
                                 })
                             }]), e
                         }()
-                }).call(this, n(86))
+                }).call(this, n(83))
             }, function (t, e) {
                 t.exports = "\t\n\v\f\r                　\u2028\u2029\ufeff"
             }, function (t, e, n) {
-                var r = n(24), o = n(17), i = n(104);
+                var r = n(25), o = n(17), i = n(104);
                 t.exports = !r && !o(function () {
                     return 7 != Object.defineProperty(i("div"), "a", {
                         get: function () {
@@ -13678,19 +13543,19 @@ parcelRequire = function (e, r, t, n) {
                 }, s = i.data = {}, c = i.NATIVE = "N", u = i.POLYFILL = "P";
                 t.exports = i
             }, function (t, e, n) {
-                var r = n(15), o = n(178).trim, i = n(123), a = r.parseInt, s = /^[+-]?0[Xx]/,
+                var r = n(14), o = n(177).trim, i = n(123), a = r.parseInt, s = /^[+-]?0[Xx]/,
                     c = 8 !== a(i + "08") || 22 !== a(i + "0x16");
                 t.exports = c ? function (t, e) {
                     var n = o(String(t));
                     return a(n, e >>> 0 || (s.test(n) ? 16 : 10))
                 } : a
             }, function (t, e, n) {
-                n(128), n(93), n(193), n(144), n(145), n(198), n(41), n(42);
-                var r = n(16);
+                n(128), n(90), n(192), n(144), n(145), n(197), n(40), n(41);
+                var r = n(15);
                 t.exports = r.Promise
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(107), i = n(129), a = n(72), s = n(30), c = n(51), u = n(52), l = function (t, e) {
+                var r = n(8), o = n(107), i = n(129), a = n(68), s = n(30), c = n(50), u = n(51), l = function (t, e) {
                     var n = this;
                     if (!(n instanceof l)) return new l(t, e);
                     i && (n = i(new Error(void 0), o(n))), void 0 !== e && s(n, "message", String(e));
@@ -13703,7 +13568,7 @@ parcelRequire = function (e, r, t, n) {
                     name: c(5, "AggregateError")
                 }), r({global: !0}, {AggregateError: l})
             }, function (t, e, n) {
-                var r = n(26), o = n(192);
+                var r = n(27), o = n(191);
                 t.exports = Object.setPrototypeOf || ("__proto__" in {} ? function () {
                     var t, e = !1, n = {};
                     try {
@@ -13715,14 +13580,14 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }() : void 0)
             }, function (t, e, n) {
-                var r = n(24), o = n(31), i = n(26), a = n(73);
+                var r = n(25), o = n(31), i = n(27), a = n(69);
                 t.exports = r ? Object.defineProperties : function (t, e) {
                     i(t);
                     for (var n, r = a(e), s = r.length, c = 0; s > c;) o.f(t, n = r[c++], e[n]);
                     return t
                 }
             }, function (t, e, n) {
-                var r = n(25), o = n(44), i = n(105).indexOf, a = n(74);
+                var r = n(26), o = n(44), i = n(105).indexOf, a = n(70);
                 t.exports = function (t, e) {
                     var n, s = o(t), c = 0, u = [];
                     for (n in s) !r(a, n) && r(s, n) && u.push(n);
@@ -13730,10 +13595,10 @@ parcelRequire = function (e, r, t, n) {
                     return u
                 }
             }, function (t, e, n) {
-                var r = n(40);
+                var r = n(39);
                 t.exports = r("document", "documentElement")
             }, function (t, e, n) {
-                var r = n(13), o = n(53), i = r("iterator"), a = Array.prototype;
+                var r = n(13), o = n(52), i = r("iterator"), a = Array.prototype;
                 t.exports = function (t) {
                     return void 0 !== t && (o.Array === t || a[i] === t)
                 }
@@ -13741,17 +13606,17 @@ parcelRequire = function (e, r, t, n) {
                 var r = n(111);
                 t.exports = r && !Symbol.sham && "symbol" == typeof Symbol.iterator
             }, function (t, e, n) {
-                var r = n(26);
+                var r = n(27);
                 t.exports = function (t) {
                     var e = t.return;
                     if (void 0 !== e) return r(e.call(t)).value
                 }
             }, function (t, e, n) {
-                var r = n(15);
+                var r = n(14);
                 t.exports = r.Promise
             }, function (t, e, n) {
                 "use strict";
-                var r = n(40), o = n(31), i = n(13), a = n(24), s = i("species");
+                var r = n(39), o = n(31), i = n(13), a = n(25), s = i("species");
                 t.exports = function (t) {
                     var e = r(t), n = o.f;
                     a && e && !e[s] && n(e, s, {
@@ -13799,15 +13664,15 @@ parcelRequire = function (e, r, t, n) {
                     return n
                 }
             }, function (t, e, n) {
-                var r = n(26), o = n(39), i = n(13)("species");
+                var r = n(27), o = n(38), i = n(13)("species");
                 t.exports = function (t, e) {
                     var n, a = r(t).constructor;
                     return void 0 === a || null == (n = r(a)[i]) ? e : o(n)
                 }
             }, function (t, e, n) {
-                var r, o, i, a = n(15), s = n(17), c = n(46), u = n(132), l = n(104), h = n(142), f = n(94),
+                var r, o, i, a = n(14), s = n(17), c = n(46), u = n(132), l = n(104), h = n(142), f = n(91),
                     p = a.location, d = a.setImmediate, v = a.clearImmediate, g = a.process, y = a.MessageChannel,
-                    x = a.Dispatch, C = 0, w = {}, m = function (t) {
+                    C = a.Dispatch, x = 0, w = {}, m = function (t) {
                         if (w.hasOwnProperty(t)) {
                             var e = w[t];
                             delete w[t], e()
@@ -13816,23 +13681,23 @@ parcelRequire = function (e, r, t, n) {
                         return function () {
                             m(t)
                         }
-                    }, b = function (t) {
-                        m(t.data)
                     }, S = function (t) {
+                        m(t.data)
+                    }, b = function (t) {
                         a.postMessage(t + "", p.protocol + "//" + p.host)
                     };
                 d && v || (d = function (t) {
                     for (var e = [], n = 1; arguments.length > n;) e.push(arguments[n++]);
-                    return w[++C] = function () {
+                    return w[++x] = function () {
                         ("function" == typeof t ? t : Function(t)).apply(void 0, e)
-                    }, r(C), C
+                    }, r(x), x
                 }, v = function (t) {
                     delete w[t]
                 }, f ? r = function (t) {
                     g.nextTick(k(t))
-                } : x && x.now ? r = function (t) {
-                    x.now(k(t))
-                } : y && !h ? (i = (o = new y).port2, o.port1.onmessage = b, r = c(i.postMessage, i, 1)) : a.addEventListener && "function" == typeof postMessage && !a.importScripts && p && "file:" !== p.protocol && !s(S) ? (r = S, a.addEventListener("message", b, !1)) : r = "onreadystatechange" in l("script") ? function (t) {
+                } : C && C.now ? r = function (t) {
+                    C.now(k(t))
+                } : y && !h ? (i = (o = new y).port2, o.port1.onmessage = S, r = c(i.postMessage, i, 1)) : a.addEventListener && "function" == typeof postMessage && !a.importScripts && p && "file:" !== p.protocol && !s(b) ? (r = b, a.addEventListener("message", S, !1)) : r = "onreadystatechange" in l("script") ? function (t) {
                     u.appendChild(l("script")).onreadystatechange = function () {
                         u.removeChild(this), m(t)
                     }
@@ -13843,7 +13708,7 @@ parcelRequire = function (e, r, t, n) {
                 var r = n(114);
                 t.exports = /(iphone|ipod|ipad).*applewebkit/i.test(r)
             }, function (t, e, n) {
-                var r = n(26), o = n(21), i = n(77);
+                var r = n(27), o = n(21), i = n(73);
                 t.exports = function (t, e) {
                     if (r(t), o(e) && e.constructor === t) return e;
                     var n = i.f(t);
@@ -13851,7 +13716,7 @@ parcelRequire = function (e, r, t, n) {
                 }
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(39), i = n(77), a = n(95), s = n(52);
+                var r = n(8), o = n(38), i = n(73), a = n(92), s = n(51);
                 r({target: "Promise", stat: !0}, {
                     allSettled: function (t) {
                         var e = this, n = i.f(e), r = n.resolve, c = n.reject, u = a(function () {
@@ -13870,7 +13735,7 @@ parcelRequire = function (e, r, t, n) {
                 })
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(39), i = n(40), a = n(77), s = n(95), c = n(52);
+                var r = n(8), o = n(38), i = n(39), a = n(73), s = n(92), c = n(51);
                 r({target: "Promise", stat: !0}, {
                     any: function (t) {
                         var e = this, n = a.f(e), r = n.resolve, u = n.reject, l = s(function () {
@@ -13888,7 +13753,7 @@ parcelRequire = function (e, r, t, n) {
                     }
                 })
             }, function (t, e, n) {
-                var r = n(83), o = n(62), i = function (t) {
+                var r = n(80), o = n(60), i = function (t) {
                     return function (e, n) {
                         var i, a, s = String(o(e)), c = r(n), u = s.length;
                         return c < 0 || c >= u ? t ? "" : void 0 : (i = s.charCodeAt(c)) < 55296 || i > 56319 || c + 1 === u || (a = s.charCodeAt(c + 1)) < 56320 || a > 57343 ? t ? s.charAt(c) : i : t ? s.slice(c, c + 2) : a - 56320 + (i - 55296 << 10) + 65536
@@ -13897,7 +13762,7 @@ parcelRequire = function (e, r, t, n) {
                 t.exports = {codeAt: i(!1), charAt: i(!0)}
             }, function (t, e, n) {
                 "use strict";
-                var r = n(148).IteratorPrototype, o = n(72), i = n(51), a = n(48), s = n(53), c = function () {
+                var r = n(148).IteratorPrototype, o = n(68), i = n(50), a = n(48), s = n(52), c = function () {
                     return this
                 };
                 t.exports = function (t, e, n) {
@@ -13906,18 +13771,18 @@ parcelRequire = function (e, r, t, n) {
                 }
             }, function (t, e, n) {
                 "use strict";
-                var r, o, i, a = n(107), s = n(30), c = n(25), u = n(13), l = n(47), h = u("iterator"), f = !1;
+                var r, o, i, a = n(107), s = n(30), c = n(26), u = n(13), l = n(47), h = u("iterator"), f = !1;
                 [].keys && ("next" in (i = [].keys()) ? (o = a(a(i))) !== Object.prototype && (r = o) : f = !0), null == r && (r = {}), l || c(r, h) || s(r, h, function () {
                     return this
                 }), t.exports = {IteratorPrototype: r, BUGGY_SAFARI_ITERATORS: f}
             }, function (t, e, n) {
-                var r = n(206), o = Array.prototype;
+                var r = n(205), o = Array.prototype;
                 t.exports = function (t) {
                     var e = t.slice;
                     return t === o || t instanceof Array && e === o.slice ? r : e
                 }
             }, function (t, e, n) {
-                var r = n(8), o = n(15), i = n(114), a = [].slice, s = function (t) {
+                var r = n(8), o = n(14), i = n(114), a = [].slice, s = function (t) {
                     return function (e, n) {
                         var r = arguments.length > 2, o = r ? a.call(arguments, 2) : void 0;
                         return t(r ? function () {
@@ -13930,10 +13795,10 @@ parcelRequire = function (e, r, t, n) {
                     setInterval: s(o.setInterval)
                 })
             }, function (t, e, n) {
-                t.exports = n(215)
+                t.exports = n(214)
             }, function (t, e, n) {
-                n(216);
-                var r = n(16);
+                n(215);
+                var r = n(15);
                 t.exports = r.Array.isArray
             }, function (t, e) {
                 t.exports = function (t, e) {
@@ -13942,30 +13807,30 @@ parcelRequire = function (e, r, t, n) {
                     return r
                 }
             }, function (t, e, n) {
-                t.exports = n(218)
+                t.exports = n(217)
             }, function (t, e, n) {
-                n(41), n(219);
-                var r = n(16);
+                n(40), n(218);
+                var r = n(15);
                 t.exports = r.Array.from
             }, function (t, e, n) {
                 "use strict";
-                var r = n(46), o = n(32), i = n(220), a = n(133), s = n(28), c = n(78), u = n(75);
+                var r = n(46), o = n(32), i = n(219), a = n(133), s = n(28), c = n(74), u = n(71);
                 t.exports = function (t) {
                     var e, n, l, h, f, p, d = o(t), v = "function" == typeof this ? this : Array, g = arguments.length,
-                        y = g > 1 ? arguments[1] : void 0, x = void 0 !== y, C = u(d), w = 0;
-                    if (x && (y = r(y, g > 2 ? arguments[2] : void 0, 2)), null == C || v == Array && a(C)) for (n = new v(e = s(d.length)); e > w; w++) p = x ? y(d[w], w) : d[w], c(n, w, p); else for (f = (h = C.call(d)).next, n = new v; !(l = f.call(h)).done; w++) p = x ? i(h, y, [l.value, w], !0) : l.value, c(n, w, p);
+                        y = g > 1 ? arguments[1] : void 0, C = void 0 !== y, x = u(d), w = 0;
+                    if (C && (y = r(y, g > 2 ? arguments[2] : void 0, 2)), null == x || v == Array && a(x)) for (n = new v(e = s(d.length)); e > w; w++) p = C ? y(d[w], w) : d[w], c(n, w, p); else for (f = (h = x.call(d)).next, n = new v; !(l = f.call(h)).done; w++) p = C ? i(h, y, [l.value, w], !0) : l.value, c(n, w, p);
                     return n.length = w, n
                 }
             }, function (t, e, n) {
-                t.exports = n(221)
+                t.exports = n(220)
             }, function (t, e, n) {
-                n(159), n(93), n(224), n(226), n(227), n(228), n(229), n(162), n(230), n(231), n(232), n(233), n(234), n(235), n(236), n(237), n(238), n(239), n(240), n(241);
-                var r = n(16);
+                n(159), n(90), n(223), n(225), n(226), n(227), n(228), n(162), n(229), n(230), n(231), n(232), n(233), n(234), n(235), n(236), n(237), n(238), n(239), n(240);
+                var r = n(15);
                 t.exports = r.Symbol
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(17), i = n(63), a = n(21), s = n(32), c = n(28), u = n(78), l = n(98), h = n(79),
-                    f = n(13), p = n(96), d = f("isConcatSpreadable"), v = p >= 51 || !o(function () {
+                var r = n(8), o = n(17), i = n(61), a = n(21), s = n(32), c = n(28), u = n(74), l = n(95), h = n(75),
+                    f = n(13), p = n(93), d = f("isConcatSpreadable"), v = p >= 51 || !o(function () {
                         var t = [];
                         return t[d] = !1, t.concat()[0] !== t
                     }), g = h("concat"), y = function (t) {
@@ -13996,7 +13861,7 @@ parcelRequire = function (e, r, t, n) {
             }, function (t, e, n) {
                 n(18)("iterator")
             }, function (t, e, n) {
-                var r = n(154), o = n(247), i = n(153);
+                var r = n(154), o = n(246), i = n(153);
                 t.exports = function (t, e) {
                     var n;
                     if (t) {
@@ -14007,39 +13872,39 @@ parcelRequire = function (e, r, t, n) {
                 }
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(15), i = n(165), a = n(17), s = n(30), c = n(52), u = n(76), l = n(21), h = n(48),
-                    f = n(31).f, p = n(80).forEach, d = n(24), v = n(49), g = v.set, y = v.getterFor;
+                var r = n(8), o = n(14), i = n(165), a = n(17), s = n(30), c = n(51), u = n(72), l = n(21), h = n(48),
+                    f = n(31).f, p = n(76).forEach, d = n(25), v = n(49), g = v.set, y = v.getterFor;
                 t.exports = function (t, e, n) {
-                    var v, x = -1 !== t.indexOf("Map"), C = -1 !== t.indexOf("Weak"), w = x ? "set" : "add", m = o[t],
-                        k = m && m.prototype, b = {};
-                    if (d && "function" == typeof m && (C || k.forEach && !a(function () {
+                    var v, C = -1 !== t.indexOf("Map"), x = -1 !== t.indexOf("Weak"), w = C ? "set" : "add", m = o[t],
+                        k = m && m.prototype, S = {};
+                    if (d && "function" == typeof m && (x || k.forEach && !a(function () {
                         (new m).entries().next()
                     }))) {
                         v = e(function (e, n) {
                             g(u(e, v, t), {type: t, collection: new m}), null != n && c(n, e[w], {
                                 that: e,
-                                AS_ENTRIES: x
+                                AS_ENTRIES: C
                             })
                         });
-                        var S = y(t);
+                        var b = y(t);
                         p(["add", "clear", "delete", "forEach", "get", "has", "set", "keys", "values", "entries"], function (t) {
                             var e = "add" == t || "set" == t;
-                            !(t in k) || C && "clear" == t || s(v.prototype, t, function (n, r) {
-                                var o = S(this).collection;
-                                if (!e && C && !l(n)) return "get" == t && void 0;
+                            !(t in k) || x && "clear" == t || s(v.prototype, t, function (n, r) {
+                                var o = b(this).collection;
+                                if (!e && x && !l(n)) return "get" == t && void 0;
                                 var i = o[t](0 === n ? 0 : n, r);
                                 return e ? this : i
                             })
-                        }), C || f(v.prototype, "size", {
+                        }), x || f(v.prototype, "size", {
                             configurable: !0, get: function () {
-                                return S(this).collection.size
+                                return b(this).collection.size
                             }
                         })
-                    } else v = n.getConstructor(e, t, x, w), i.REQUIRED = !0;
-                    return h(v, t, !1, !0), b[t] = v, r({global: !0, forced: !0}, b), C || n.setStrong(v, t, x), v
+                    } else v = n.getConstructor(e, t, C, w), i.REQUIRED = !0;
+                    return h(v, t, !1, !0), S[t] = v, r({global: !0, forced: !0}, S), x || n.setStrong(v, t, C), v
                 }
             }, function (t, e, n) {
-                var r = n(74), o = n(21), i = n(25), a = n(31).f, s = n(92), c = n(256), u = s("meta"), l = 0,
+                var r = n(70), o = n(21), i = n(26), a = n(31).f, s = n(89), c = n(255), u = s("meta"), l = 0,
                     h = Object.isExtensible || function () {
                         return !0
                     }, f = function (t) {
@@ -14067,8 +13932,8 @@ parcelRequire = function (e, r, t, n) {
                 r[u] = !0
             }, function (t, e, n) {
                 "use strict";
-                var r = n(31).f, o = n(72), i = n(113), a = n(46), s = n(76), c = n(52), u = n(115), l = n(137),
-                    h = n(24), f = n(165).fastKey, p = n(49), d = p.set, v = p.getterFor;
+                var r = n(31).f, o = n(68), i = n(113), a = n(46), s = n(72), c = n(51), u = n(115), l = n(137),
+                    h = n(25), f = n(165).fastKey, p = n(49), d = p.set, v = p.getterFor;
                 t.exports = {
                     getConstructor: function (t, e, n, u) {
                         var l = t(function (t, r) {
@@ -14143,16 +14008,16 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }
             }, function (t, e, n) {
-                var r = n(26), o = n(75);
+                var r = n(27), o = n(71);
                 t.exports = function (t) {
                     var e = o(t);
                     if ("function" != typeof e) throw TypeError(String(t) + " is not iterable");
                     return r(e.call(t))
                 }
             }, function (t, e, n) {
-                t.exports = n(265)
+                t.exports = n(264)
             }, function (t, e, n) {
-                var r = n(285);
+                var r = n(284);
                 t.exports = function (t) {
                     if (r(t)) throw TypeError("The method doesn't accept regular expressions");
                     return t
@@ -14181,11 +14046,11 @@ parcelRequire = function (e, r, t, n) {
                 })
             }, function (t, e, n) {
                 "use strict";
-                n(97);
-                var r = n(8), o = n(40), i = n(171), a = n(55), s = n(113), c = n(48), u = n(147), l = n(49), h = n(76),
-                    f = n(25), p = n(46), d = n(54), v = n(26), g = n(21), y = n(72), x = n(51), C = n(167), w = n(75),
-                    m = n(13), k = o("fetch"), b = o("Headers"), S = m("iterator"), P = l.set,
-                    E = l.getterFor("URLSearchParams"), R = l.getterFor("URLSearchParamsIterator"), A = /\+/g,
+                n(94);
+                var r = n(8), o = n(39), i = n(171), a = n(54), s = n(113), c = n(48), u = n(147), l = n(49), h = n(72),
+                    f = n(26), p = n(46), d = n(53), v = n(27), g = n(21), y = n(68), C = n(50), x = n(167), w = n(71),
+                    m = n(13), k = o("fetch"), S = o("Headers"), b = m("iterator"), P = l.set,
+                    E = l.getterFor("URLSearchParams"), A = l.getterFor("URLSearchParamsIterator"), R = /\+/g,
                     I = Array(4), D = function (t) {
                         return I[t - 1] || (I[t - 1] = RegExp("((?:%[\\da-f]{2}){" + t + "})", "gi"))
                     }, T = function (t) {
@@ -14195,7 +14060,7 @@ parcelRequire = function (e, r, t, n) {
                             return t
                         }
                     }, L = function (t) {
-                        var e = t.replace(A, " "), n = 4;
+                        var e = t.replace(R, " "), n = 4;
                         try {
                             return decodeURIComponent(e)
                         } catch (t) {
@@ -14203,10 +14068,10 @@ parcelRequire = function (e, r, t, n) {
                             return e
                         }
                     }, F = /[!'()~]|%20/g, O = {"!": "%21", "'": "%27", "(": "%28", ")": "%29", "~": "%7E", "%20": "+"},
-                    U = function (t) {
+                    M = function (t) {
                         return O[t]
-                    }, M = function (t) {
-                        return encodeURIComponent(t).replace(F, U)
+                    }, U = function (t) {
+                        return encodeURIComponent(t).replace(F, M)
                     }, N = function (t, e) {
                         if (e) for (var n, r, o = e.split("&"), i = 0; i < o.length;) (n = o[i++]).length && (r = n.split("="), t.push({
                             key: L(r.shift()),
@@ -14217,9 +14082,9 @@ parcelRequire = function (e, r, t, n) {
                     }, _ = function (t, e) {
                         if (t < e) throw TypeError("Not enough arguments")
                     }, z = u(function (t, e) {
-                        P(this, {type: "URLSearchParamsIterator", iterator: C(E(t).entries), kind: e})
+                        P(this, {type: "URLSearchParamsIterator", iterator: x(E(t).entries), kind: e})
                     }, "Iterator", function () {
-                        var t = R(this), e = t.kind, n = t.iterator.next(), r = n.value;
+                        var t = A(this), e = t.kind, n = t.iterator.next(), r = n.value;
                         return n.done || (n.value = "keys" === e ? r.key : "values" === e ? r.value : [r.key, r.value]), n
                     }), j = function () {
                         h(this, j, "URLSearchParams");
@@ -14228,7 +14093,7 @@ parcelRequire = function (e, r, t, n) {
                             type: "URLSearchParams", entries: l, updateURL: function () {
                             }, updateSearchParams: B
                         }), void 0 !== u) if (g(u)) if ("function" == typeof (t = w(u))) for (n = (e = t.call(u)).next; !(r = n.call(e)).done;) {
-                            if ((a = (i = (o = C(v(r.value))).next).call(o)).done || (s = i.call(o)).done || !i.call(o).done) throw TypeError("Expected sequence with length 2");
+                            if ((a = (i = (o = x(v(r.value))).next).call(o)).done || (s = i.call(o)).done || !i.call(o).done) throw TypeError("Expected sequence with length 2");
                             l.push({key: a.value + "", value: s.value + ""})
                         } else for (c in u) f(u, c) && l.push({
                             key: c,
@@ -14279,41 +14144,39 @@ parcelRequire = function (e, r, t, n) {
                     }, entries: function () {
                         return new z(this, "entries")
                     }
-                }, {enumerable: !0}), a(q, S, q.entries), a(q, "toString", function () {
-                    for (var t, e = E(this).entries, n = [], r = 0; r < e.length;) t = e[r++], n.push(M(t.key) + "=" + M(t.value));
+                }, {enumerable: !0}), a(q, b, q.entries), a(q, "toString", function () {
+                    for (var t, e = E(this).entries, n = [], r = 0; r < e.length;) t = e[r++], n.push(U(t.key) + "=" + U(t.value));
                     return n.join("&")
                 }, {enumerable: !0}), c(j, "URLSearchParams"), r({
                     global: !0,
                     forced: !i
-                }, {URLSearchParams: j}), i || "function" != typeof k || "function" != typeof b || r({
+                }, {URLSearchParams: j}), i || "function" != typeof k || "function" != typeof S || r({
                     global: !0,
                     enumerable: !0,
                     forced: !0
                 }, {
                     fetch: function (t) {
                         var e, n, r, o = [t];
-                        return arguments.length > 1 && (g(e = arguments[1]) && (n = e.body, "URLSearchParams" === d(n) && ((r = e.headers ? new b(e.headers) : new b).has("content-type") || r.set("content-type", "application/x-www-form-urlencoded;charset=UTF-8"), e = y(e, {
-                            body: x(0, String(n)),
-                            headers: x(0, r)
+                        return arguments.length > 1 && (g(e = arguments[1]) && (n = e.body, "URLSearchParams" === d(n) && ((r = e.headers ? new S(e.headers) : new S).has("content-type") || r.set("content-type", "application/x-www-form-urlencoded;charset=UTF-8"), e = y(e, {
+                            body: C(0, String(n)),
+                            headers: C(0, r)
                         }))), o.push(e)), k.apply(this, o)
                     }
                 }), t.exports = {URLSearchParams: j, getState: E}
             }, function (t, e, n) {
-                t.exports = n(310)
+                t.exports = n(312)
             }, function (t, e, n) {
-                t.exports = n(318)
+                t.exports = n(326)
             }, function (t, e, n) {
-                t.exports = n(332)
-            }, function (t, e, n) {
-                t.exports = n(339)
+                t.exports = n(333)
             }, function (t, e, n) {
                 "use strict";
                 (function (t) {
                     n.d(e, "a", function () {
                         return v
                     });
-                    var r = n(3), o = n.n(r), i = n(22), a = n.n(i), s = n(2), c = n.n(s), u = n(4), l = n.n(u),
-                        h = n(0), f = n.n(h), p = n(70), d = n(10), v = function () {
+                    var r = n(4), o = n.n(r), i = n(22), a = n.n(i), s = n(2), c = n.n(s), u = n(5), l = n.n(u),
+                        h = n(0), f = n.n(h), p = n(66), d = n(10), v = function () {
                             function e(t, n) {
                                 var r = this;
                                 c()(this, e), f()(this, "p2pContext", void 0), f()(this, "lackedDataArray", void 0), f()(this, "currentShareDataLMQueue", void 0), f()(this, "lastestShareDataArray", void 0), f()(this, "sched", void 0), f()(this, "fetchControlIntervalId", void 0), f()(this, "shareControlIntervalId", void 0), f()(this, "lastestShareSliceIds", new a.a), f()(this, "intervalMSChangeId", void 0), this.p2pContext = t, this.sched = n, this.lackedDataArray = new Array(this.p2pContext.Config.sliceCount), this.currentShareDataLMQueue = new p.a(this.p2pContext.Config.p2pFetchDataObCycleCount), this.lastestShareDataArray = new Array(this.p2pContext.Config.sliceCount);
@@ -14402,9 +14265,9 @@ parcelRequire = function (e, r, t, n) {
                                 }
                             }]), e
                         }()
-                }).call(this, n(86))
+                }).call(this, n(83))
             }, function (t, e, n) {
-                var r = n(62), o = "[" + n(123) + "]", i = RegExp("^" + o + o + "*"), a = RegExp(o + o + "*$"),
+                var r = n(60), o = "[" + n(123) + "]", i = RegExp("^" + o + o + "*"), a = RegExp(o + o + "*$"),
                     s = function (t) {
                         return function (e) {
                             var n = String(r(e));
@@ -14413,31 +14276,31 @@ parcelRequire = function (e, r, t, n) {
                     };
                 t.exports = {start: s(1), end: s(2), trim: s(3)}
             }, , function (t, e, n) {
-                var r = n(181);
+                var r = n(180);
                 t.exports = r
             }, function (t, e, n) {
-                n(182);
-                var r = n(16);
+                n(181);
+                var r = n(15);
                 t.exports = r.Number.parseInt
             }, function (t, e, n) {
                 var r = n(8), o = n(126);
                 r({target: "Number", stat: !0, forced: Number.parseInt != o}, {parseInt: o})
             }, function (t, e, n) {
-                var r = n(184);
+                var r = n(183);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(185), o = Array.prototype;
+                var r = n(184), o = Array.prototype;
                 t.exports = function (t) {
                     var e = t.indexOf;
                     return t === o || t instanceof Array && e === o.indexOf ? r : e
                 }
             }, function (t, e, n) {
-                n(186);
+                n(185);
                 var r = n(23);
                 t.exports = r("Array").indexOf
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(105).indexOf, i = n(84), a = n(45), s = [].indexOf,
+                var r = n(8), o = n(105).indexOf, i = n(81), a = n(45), s = [].indexOf,
                     c = !!s && 1 / [1].indexOf(1, -0) < 0, u = i("indexOf"), l = a("indexOf", {ACCESSORS: !0, 1: 0});
                 r({target: "Array", proto: !0, forced: c || !u || !l}, {
                     indexOf: function (t) {
@@ -14470,7 +14333,7 @@ parcelRequire = function (e, r, t, n) {
 
                     function c(t, e, n, r) {
                         var o = e && e.prototype instanceof h ? e : h, i = Object.create(o.prototype),
-                            a = new b(r || []);
+                            a = new S(r || []);
                         return i._invoke = function (t, e, n) {
                             var r = "suspendedStart";
                             return function (o, i) {
@@ -14528,11 +14391,11 @@ parcelRequire = function (e, r, t, n) {
                     d[o] = function () {
                         return this
                     };
-                    var v = Object.getPrototypeOf, g = v && v(v(S([])));
+                    var v = Object.getPrototypeOf, g = v && v(v(b([])));
                     g && g !== e && n.call(g, o) && (d = g);
                     var y = p.prototype = h.prototype = Object.create(d);
 
-                    function x(t) {
+                    function C(t) {
                         ["next", "throw", "return"].forEach(function (e) {
                             s(t, e, function (t) {
                                 return this._invoke(e, t)
@@ -14540,7 +14403,7 @@ parcelRequire = function (e, r, t, n) {
                         })
                     }
 
-                    function C(t, e) {
+                    function x(t, e) {
                         var r;
                         this._invoke = function (o, i) {
                             function a() {
@@ -14593,11 +14456,11 @@ parcelRequire = function (e, r, t, n) {
                         e.type = "normal", delete e.arg, t.completion = e
                     }
 
-                    function b(t) {
+                    function S(t) {
                         this.tryEntries = [{tryLoc: "root"}], t.forEach(m, this), this.reset(!0)
                     }
 
-                    function S(t) {
+                    function b(t) {
                         if (t) {
                             var e = t[o];
                             if (e) return e.call(t);
@@ -14624,15 +14487,15 @@ parcelRequire = function (e, r, t, n) {
                         return Object.setPrototypeOf ? Object.setPrototypeOf(t, p) : (t.__proto__ = p, s(t, a, "GeneratorFunction")), t.prototype = Object.create(y), t
                     }, t.awrap = function (t) {
                         return {__await: t}
-                    }, x(C.prototype), C.prototype[i] = function () {
+                    }, C(x.prototype), x.prototype[i] = function () {
                         return this
-                    }, t.AsyncIterator = C, t.async = function (e, n, r, o, i) {
+                    }, t.AsyncIterator = x, t.async = function (e, n, r, o, i) {
                         void 0 === i && (i = Promise);
-                        var a = new C(c(e, n, r, o), i);
+                        var a = new x(c(e, n, r, o), i);
                         return t.isGeneratorFunction(n) ? a : a.next().then(function (t) {
                             return t.done ? t.value : a.next()
                         })
-                    }, x(y), s(y, a, "Generator"), y[o] = function () {
+                    }, C(y), s(y, a, "Generator"), y[o] = function () {
                         return this
                     }, y.toString = function () {
                         return "[object Generator]"
@@ -14646,8 +14509,8 @@ parcelRequire = function (e, r, t, n) {
                             }
                             return n.done = !0, n
                         }
-                    }, t.values = S, b.prototype = {
-                        constructor: b, reset: function (t) {
+                    }, t.values = b, S.prototype = {
+                        constructor: S, reset: function (t) {
                             if (this.prev = 0, this.next = 0, this.sent = this._sent = void 0, this.done = !1, this.delegate = null, this.method = "next", this.arg = void 0, this.tryEntries.forEach(k), !t) for (var e in this) "t" === e.charAt(0) && n.call(this, e) && !isNaN(+e.slice(1)) && (this[e] = void 0)
                         }, stop: function () {
                             this.done = !0;
@@ -14712,7 +14575,7 @@ parcelRequire = function (e, r, t, n) {
                             throw new Error("illegal catch attempt")
                         }, delegateYield: function (t, e, n) {
                             return this.delegate = {
-                                iterator: S(t),
+                                iterator: b(t),
                                 resultName: e,
                                 nextLoc: n
                             }, "next" === this.method && (this.arg = void 0), l
@@ -14725,12 +14588,12 @@ parcelRequire = function (e, r, t, n) {
                     Function("r", "regeneratorRuntime = r")(r)
                 }
             }, function (t, e, n) {
-                t.exports = n(189)
+                t.exports = n(188)
             }, function (t, e, n) {
                 var r = n(127);
-                n(200), n(201), n(202), n(203), t.exports = r
+                n(199), n(200), n(201), n(202), t.exports = r
             }, function (t, e, n) {
-                var r = n(15), o = n(30);
+                var r = n(14), o = n(30);
                 t.exports = function (t, e) {
                     try {
                         o(r, t, e)
@@ -14755,14 +14618,14 @@ parcelRequire = function (e, r, t, n) {
                 }
             }, function (t, e, n) {
                 "use strict";
-                var r, o, i, a, s = n(8), c = n(47), u = n(15), l = n(40), h = n(136), f = n(55), p = n(113), d = n(48),
-                    v = n(137), g = n(21), y = n(39), x = n(76), C = n(138), w = n(52), m = n(139), k = n(140),
-                    b = n(141).set, S = n(195), P = n(143), E = n(196), R = n(77), A = n(95), I = n(49), D = n(125),
-                    T = n(13), L = n(94), F = n(96), O = T("species"), U = "Promise", M = I.get, N = I.set,
-                    B = I.getterFor(U), _ = h, z = u.TypeError, j = u.document, q = u.process, W = l("fetch"), V = R.f,
-                    G = V, Y = !!(j && j.createEvent && u.dispatchEvent),
-                    Q = "function" == typeof PromiseRejectionEvent, H = D(U, function () {
-                        if (C(_) === String(_)) {
+                var r, o, i, a, s = n(8), c = n(47), u = n(14), l = n(39), h = n(136), f = n(54), p = n(113), d = n(48),
+                    v = n(137), g = n(21), y = n(38), C = n(72), x = n(138), w = n(51), m = n(139), k = n(140),
+                    S = n(141).set, b = n(194), P = n(143), E = n(195), A = n(73), R = n(92), I = n(49), D = n(125),
+                    T = n(13), L = n(91), F = n(93), O = T("species"), M = "Promise", U = I.get, N = I.set,
+                    B = I.getterFor(M), _ = h, z = u.TypeError, j = u.document, q = u.process, W = l("fetch"), V = A.f,
+                    Y = V, G = !!(j && j.createEvent && u.dispatchEvent),
+                    Q = "function" == typeof PromiseRejectionEvent, H = D(M, function () {
+                        if (x(_) === String(_)) {
                             if (66 === F) return !0;
                             if (!L && !Q) return !0
                         }
@@ -14785,7 +14648,7 @@ parcelRequire = function (e, r, t, n) {
                         if (!t.notified) {
                             t.notified = !0;
                             var n = t.reactions;
-                            S(function () {
+                            b(function () {
                                 for (var r = t.value, o = 1 == t.state, i = 0; n.length > i;) {
                                     var a, s, c, u = n[i++], l = o ? u.ok : u.fail, h = u.resolve, f = u.reject,
                                         p = u.domain;
@@ -14800,21 +14663,21 @@ parcelRequire = function (e, r, t, n) {
                         }
                     }, $ = function (t, e, n) {
                         var r, o;
-                        Y ? ((r = j.createEvent("Event")).promise = e, r.reason = n, r.initEvent(t, !1, !0), u.dispatchEvent(r)) : r = {
+                        G ? ((r = j.createEvent("Event")).promise = e, r.reason = n, r.initEvent(t, !1, !0), u.dispatchEvent(r)) : r = {
                             promise: e,
                             reason: n
                         }, !Q && (o = u["on" + t]) ? o(r) : "unhandledrejection" === t && E("Unhandled promise rejection", n)
                     }, Z = function (t) {
-                        b.call(u, function () {
+                        S.call(u, function () {
                             var e, n = t.facade, r = t.value;
-                            if (tt(t) && (e = A(function () {
+                            if (tt(t) && (e = R(function () {
                                 L ? q.emit("unhandledRejection", r, n) : $("unhandledrejection", n, r)
                             }), t.rejection = L || tt(t) ? 2 : 1, e.error)) throw e.value
                         })
                     }, tt = function (t) {
                         return 1 !== t.rejection && !t.parent
                     }, et = function (t) {
-                        b.call(u, function () {
+                        S.call(u, function () {
                             var e = t.facade;
                             L ? q.emit("rejectionHandled", e) : $("rejectionhandled", e, t.value)
                         })
@@ -14830,7 +14693,7 @@ parcelRequire = function (e, r, t, n) {
                             try {
                                 if (t.facade === e) throw z("Promise can't be resolved itself");
                                 var r = K(e);
-                                r ? S(function () {
+                                r ? b(function () {
                                     var n = {done: !1};
                                     try {
                                         r.call(e, nt(ot, n, t), nt(rt, n, t))
@@ -14844,8 +14707,8 @@ parcelRequire = function (e, r, t, n) {
                         }
                     };
                 H && (_ = function (t) {
-                    x(this, _, U), y(t), r.call(this);
-                    var e = M(this);
+                    C(this, _, M), y(t), r.call(this);
+                    var e = U(this);
                     try {
                         t(nt(ot, e), nt(rt, e))
                     } catch (t) {
@@ -14853,7 +14716,7 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }, (r = function (t) {
                     N(this, {
-                        type: U,
+                        type: M,
                         done: !1,
                         notified: !1,
                         parent: !1,
@@ -14870,10 +14733,10 @@ parcelRequire = function (e, r, t, n) {
                         return this.then(void 0, t)
                     }
                 }), o = function () {
-                    var t = new r, e = M(t);
+                    var t = new r, e = U(t);
                     this.promise = t, this.resolve = nt(ot, e), this.reject = nt(rt, e)
-                }, R.f = V = function (t) {
-                    return t === _ || t === i ? new o(t) : G(t)
+                }, A.f = V = function (t) {
+                    return t === _ || t === i ? new o(t) : Y(t)
                 }, c || "function" != typeof h || (a = h.prototype.then, f(h.prototype, "then", function (t, e) {
                     var n = this;
                     return new _(function (t, e) {
@@ -14887,8 +14750,8 @@ parcelRequire = function (e, r, t, n) {
                     fetch: function (t) {
                         return P(_, W.apply(u, arguments))
                     }
-                }))), s({global: !0, wrap: !0, forced: H}, {Promise: _}), d(_, U, !1, !0), v(U), i = l(U), s({
-                    target: U,
+                }))), s({global: !0, wrap: !0, forced: H}, {Promise: _}), d(_, M, !1, !0), v(M), i = l(M), s({
+                    target: M,
                     stat: !0,
                     forced: H
                 }, {
@@ -14896,13 +14759,13 @@ parcelRequire = function (e, r, t, n) {
                         var e = V(this);
                         return e.reject.call(void 0, t), e.promise
                     }
-                }), s({target: U, stat: !0, forced: c || H}, {
+                }), s({target: M, stat: !0, forced: c || H}, {
                     resolve: function (t) {
                         return P(c && this === i ? _ : this, t)
                     }
-                }), s({target: U, stat: !0, forced: X}, {
+                }), s({target: M, stat: !0, forced: X}, {
                     all: function (t) {
-                        var e = this, n = V(e), r = n.resolve, o = n.reject, i = A(function () {
+                        var e = this, n = V(e), r = n.resolve, o = n.reject, i = R(function () {
                             var n = y(e.resolve), i = [], a = 0, s = 1;
                             w(t, function (t) {
                                 var c = a++, u = !1;
@@ -14913,7 +14776,7 @@ parcelRequire = function (e, r, t, n) {
                         });
                         return i.error && o(i.value), n.promise
                     }, race: function (t) {
-                        var e = this, n = V(e), r = n.reject, o = A(function () {
+                        var e = this, n = V(e), r = n.reject, o = R(function () {
                             var o = y(e.resolve);
                             w(t, function (t) {
                                 o.call(e, t).then(n.resolve, r)
@@ -14924,17 +14787,17 @@ parcelRequire = function (e, r, t, n) {
                 })
             }, function (t, e, n) {
                 "use strict";
-                var r = n(112), o = n(54);
+                var r = n(112), o = n(53);
                 t.exports = r ? {}.toString : function () {
                     return "[object " + o(this) + "]"
                 }
             }, function (t, e, n) {
-                var r, o, i, a, s, c, u, l, h = n(15), f = n(87).f, p = n(141).set, d = n(142), v = n(94),
-                    g = h.MutationObserver || h.WebKitMutationObserver, y = h.document, x = h.process, C = h.Promise,
+                var r, o, i, a, s, c, u, l, h = n(14), f = n(84).f, p = n(141).set, d = n(142), v = n(91),
+                    g = h.MutationObserver || h.WebKitMutationObserver, y = h.document, C = h.process, x = h.Promise,
                     w = f(h, "queueMicrotask"), m = w && w.value;
                 m || (r = function () {
                     var t, e;
-                    for (v && (t = x.domain) && t.exit(); o;) {
+                    for (v && (t = C.domain) && t.exit(); o;) {
                         e = o.fn, o = o.next;
                         try {
                             e()
@@ -14945,10 +14808,10 @@ parcelRequire = function (e, r, t, n) {
                     i = void 0, t && t.enter()
                 }, !d && !v && g && y ? (s = !0, c = y.createTextNode(""), new g(r).observe(c, {characterData: !0}), a = function () {
                     c.data = s = !s
-                }) : C && C.resolve ? (u = C.resolve(void 0), l = u.then, a = function () {
+                }) : x && x.resolve ? (u = x.resolve(void 0), l = u.then, a = function () {
                     l.call(u, r)
                 }) : a = v ? function () {
-                    x.nextTick(r)
+                    C.nextTick(r)
                 } : function () {
                     p.call(h, r)
                 }), t.exports = m || function (t) {
@@ -14956,17 +14819,17 @@ parcelRequire = function (e, r, t, n) {
                     i && (i.next = e), o || (o = e, a()), i = e
                 }
             }, function (t, e, n) {
-                var r = n(15);
+                var r = n(14);
                 t.exports = function (t, e) {
                     var n = r.console;
                     n && n.error && (1 === arguments.length ? n.error(t) : n.error(t, e))
                 }
             }, function (t, e, n) {
-                var r = n(15), o = n(138), i = r.WeakMap;
+                var r = n(14), o = n(138), i = r.WeakMap;
                 t.exports = "function" == typeof i && /native code/.test(o(i))
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(47), i = n(136), a = n(17), s = n(40), c = n(140), u = n(143), l = n(55);
+                var r = n(8), o = n(47), i = n(136), a = n(17), s = n(39), c = n(140), u = n(143), l = n(54);
                 r({
                     target: "Promise", proto: !0, real: !0, forced: !!i && a(function () {
                         i.prototype.finally.call({
@@ -15029,7 +14892,7 @@ parcelRequire = function (e, r, t, n) {
                 n(144)
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(77), i = n(95);
+                var r = n(8), o = n(73), i = n(92);
                 r({target: "Promise", stat: !0}, {
                     try: function (t) {
                         var e = o.f(this), n = i(t);
@@ -15045,12 +14908,12 @@ parcelRequire = function (e, r, t, n) {
                 var r = n(149);
                 t.exports = r
             }, function (t, e, n) {
-                n(207);
+                n(206);
                 var r = n(23);
                 t.exports = r("Array").slice
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(21), i = n(63), a = n(106), s = n(28), c = n(44), u = n(78), l = n(13), h = n(79),
+                var r = n(8), o = n(21), i = n(61), a = n(106), s = n(28), c = n(44), u = n(74), l = n(13), h = n(75),
                     f = n(45), p = h("slice"), d = f("slice", {ACCESSORS: !0, 0: 0, 1: 2}), v = l("species"),
                     g = [].slice, y = Math.max;
                 r({target: "Array", proto: !0, forced: !p || !d}, {
@@ -15063,29 +14926,29 @@ parcelRequire = function (e, r, t, n) {
                 })
             }, function (t, e, n) {
                 n(150);
-                var r = n(16);
+                var r = n(15);
                 t.exports = r.setTimeout
             }, function (t, e, n) {
-                n(42);
-                var r = n(210), o = n(54), i = Array.prototype, a = {DOMTokenList: !0, NodeList: !0};
+                n(41);
+                var r = n(209), o = n(53), i = Array.prototype, a = {DOMTokenList: !0, NodeList: !0};
                 t.exports = function (t) {
                     var e = t.forEach;
                     return t === i || t instanceof Array && e === i.forEach || a.hasOwnProperty(o(t)) ? r : e
                 }
             }, function (t, e, n) {
-                var r = n(211);
+                var r = n(210);
                 t.exports = r
             }, function (t, e, n) {
-                n(212);
+                n(211);
                 var r = n(23);
                 t.exports = r("Array").forEach
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(213);
+                var r = n(8), o = n(212);
                 r({target: "Array", proto: !0, forced: [].forEach != o}, {forEach: o})
             }, function (t, e, n) {
                 "use strict";
-                var r = n(80).forEach, o = n(84), i = n(45), a = o("forEach"), s = i("forEach");
+                var r = n(76).forEach, o = n(81), i = n(45), a = o("forEach"), s = i("forEach");
                 t.exports = a && s ? [].forEach : function (t) {
                     return r(this, t, arguments.length > 1 ? arguments[1] : void 0)
                 }
@@ -15098,7 +14961,7 @@ parcelRequire = function (e, r, t, n) {
                 var r = n(152);
                 t.exports = r
             }, function (t, e, n) {
-                n(8)({target: "Array", stat: !0}, {isArray: n(63)})
+                n(8)({target: "Array", stat: !0}, {isArray: n(61)})
             }, function (t, e, n) {
                 var r = n(154), o = n(157), i = n(117);
                 t.exports = function (t) {
@@ -15115,7 +14978,7 @@ parcelRequire = function (e, r, t, n) {
                     })
                 }, {from: o})
             }, function (t, e, n) {
-                var r = n(26), o = n(135);
+                var r = n(27), o = n(135);
                 t.exports = function (t, e, n, i) {
                     try {
                         return i ? e(r(n)[0], n[1]) : e(n)
@@ -15124,39 +14987,39 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }
             }, function (t, e, n) {
-                n(42), n(41);
-                var r = n(222);
+                n(41), n(40);
+                var r = n(221);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(54), o = n(13), i = n(53), a = o("iterator");
+                var r = n(53), o = n(13), i = n(52), a = o("iterator");
                 t.exports = function (t) {
                     var e = Object(t);
                     return void 0 !== e[a] || "@@iterator" in e || i.hasOwnProperty(r(e))
                 }
             }, function (t, e, n) {
                 var r = n(158);
-                n(242), n(243), n(244), n(245), n(246), t.exports = r
+                n(241), n(242), n(243), n(244), n(245), t.exports = r
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(15), i = n(40), a = n(47), s = n(24), c = n(111), u = n(134), l = n(17), h = n(25),
-                    f = n(63), p = n(21), d = n(26), v = n(32), g = n(44), y = n(90), x = n(51), C = n(72), w = n(73),
-                    m = n(160), k = n(225), b = n(161), S = n(87), P = n(31), E = n(88), R = n(30), A = n(55),
-                    I = n(108), D = n(91), T = n(74), L = n(92), F = n(13), O = n(118), U = n(18), M = n(48), N = n(49),
-                    B = n(80).forEach, _ = D("hidden"), z = F("toPrimitive"), j = N.set, q = N.getterFor("Symbol"),
-                    W = Object.prototype, V = o.Symbol, G = i("JSON", "stringify"), Y = S.f, Q = P.f, H = k.f, X = E.f,
+                var r = n(8), o = n(14), i = n(39), a = n(47), s = n(25), c = n(111), u = n(134), l = n(17), h = n(26),
+                    f = n(61), p = n(21), d = n(27), v = n(32), g = n(44), y = n(87), C = n(50), x = n(68), w = n(69),
+                    m = n(160), k = n(224), S = n(161), b = n(84), P = n(31), E = n(85), A = n(30), R = n(54),
+                    I = n(108), D = n(88), T = n(70), L = n(89), F = n(13), O = n(118), M = n(18), U = n(48), N = n(49),
+                    B = n(76).forEach, _ = D("hidden"), z = F("toPrimitive"), j = N.set, q = N.getterFor("Symbol"),
+                    W = Object.prototype, V = o.Symbol, Y = i("JSON", "stringify"), G = b.f, Q = P.f, H = k.f, X = E.f,
                     K = I("symbols"), J = I("op-symbols"), $ = I("string-to-symbol-registry"),
                     Z = I("symbol-to-string-registry"), tt = I("wks"), et = o.QObject,
                     nt = !et || !et.prototype || !et.prototype.findChild, rt = s && l(function () {
-                        return 7 != C(Q({}, "a", {
+                        return 7 != x(Q({}, "a", {
                             get: function () {
                                 return Q(this, "a", {value: 7}).a
                             }
                         })).a
                     }) ? function (t, e, n) {
-                        var r = Y(W, e);
+                        var r = G(W, e);
                         r && delete W[e], Q(t, e, n), r && t !== W && Q(W, e, r)
                     } : Q, ot = function (t, e) {
-                        var n = K[t] = C(V.prototype);
+                        var n = K[t] = x(V.prototype);
                         return j(n, {type: "Symbol", tag: t, description: e}), s || (n.description = e), n
                     }, it = u ? function (t) {
                         return "symbol" == typeof t
@@ -15165,7 +15028,7 @@ parcelRequire = function (e, r, t, n) {
                     }, at = function (t, e, n) {
                         t === W && at(J, e, n), d(t);
                         var r = y(e, !0);
-                        return d(n), h(K, r) ? (n.enumerable ? (h(t, _) && t[_][r] && (t[_][r] = !1), n = C(n, {enumerable: x(0, !1)})) : (h(t, _) || Q(t, _, x(1, {})), t[_][r] = !0), rt(t, r, n)) : Q(t, r, n)
+                        return d(n), h(K, r) ? (n.enumerable ? (h(t, _) && t[_][r] && (t[_][r] = !1), n = x(n, {enumerable: C(0, !1)})) : (h(t, _) || Q(t, _, C(1, {})), t[_][r] = !0), rt(t, r, n)) : Q(t, r, n)
                     }, st = function (t, e) {
                         d(t);
                         var n = g(e), r = w(n).concat(ht(n));
@@ -15178,7 +15041,7 @@ parcelRequire = function (e, r, t, n) {
                     }, ut = function (t, e) {
                         var n = g(t), r = y(e, !0);
                         if (n !== W || !h(K, r) || h(J, r)) {
-                            var o = Y(n, r);
+                            var o = G(n, r);
                             return !o || !h(K, r) || h(n, _) && n[_][r] || (o.enumerable = !0), o
                         }
                     }, lt = function (t) {
@@ -15192,30 +15055,30 @@ parcelRequire = function (e, r, t, n) {
                             !h(K, t) || e && !h(W, t) || r.push(K[t])
                         }), r
                     };
-                c || (A((V = function () {
+                c || (R((V = function () {
                     if (this instanceof V) throw TypeError("Symbol is not a constructor");
                     var t = arguments.length && void 0 !== arguments[0] ? String(arguments[0]) : void 0, e = L(t),
                         n = function (t) {
-                            this === W && n.call(J, t), h(this, _) && h(this[_], e) && (this[_][e] = !1), rt(this, e, x(1, t))
+                            this === W && n.call(J, t), h(this, _) && h(this[_], e) && (this[_][e] = !1), rt(this, e, C(1, t))
                         };
                     return s && nt && rt(W, e, {configurable: !0, set: n}), ot(e, t)
                 }).prototype, "toString", function () {
                     return q(this).tag
-                }), A(V, "withoutSetter", function (t) {
+                }), R(V, "withoutSetter", function (t) {
                     return ot(L(t), t)
-                }), E.f = ct, P.f = at, S.f = ut, m.f = k.f = lt, b.f = ht, O.f = function (t) {
+                }), E.f = ct, P.f = at, b.f = ut, m.f = k.f = lt, S.f = ht, O.f = function (t) {
                     return ot(F(t), t)
                 }, s && (Q(V.prototype, "description", {
                     configurable: !0, get: function () {
                         return q(this).description
                     }
-                }), a || A(W, "propertyIsEnumerable", ct, {unsafe: !0}))), r({
+                }), a || R(W, "propertyIsEnumerable", ct, {unsafe: !0}))), r({
                     global: !0,
                     wrap: !0,
                     forced: !c,
                     sham: !c
                 }, {Symbol: V}), B(w(tt), function (t) {
-                    U(t)
+                    M(t)
                 }), r({target: "Symbol", stat: !0, forced: !c}, {
                     for: function (t) {
                         var e = String(t);
@@ -15232,32 +15095,32 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }), r({target: "Object", stat: !0, forced: !c, sham: !s}, {
                     create: function (t, e) {
-                        return void 0 === e ? C(t) : st(C(t), e)
+                        return void 0 === e ? x(t) : st(x(t), e)
                     }, defineProperty: at, defineProperties: st, getOwnPropertyDescriptor: ut
                 }), r({target: "Object", stat: !0, forced: !c}, {
                     getOwnPropertyNames: lt,
                     getOwnPropertySymbols: ht
                 }), r({
                     target: "Object", stat: !0, forced: l(function () {
-                        b.f(1)
+                        S.f(1)
                     })
                 }, {
                     getOwnPropertySymbols: function (t) {
-                        return b.f(v(t))
+                        return S.f(v(t))
                     }
-                }), G && r({
+                }), Y && r({
                     target: "JSON", stat: !0, forced: !c || l(function () {
                         var t = V();
-                        return "[null]" != G([t]) || "{}" != G({a: t}) || "{}" != G(Object(t))
+                        return "[null]" != Y([t]) || "{}" != Y({a: t}) || "{}" != Y(Object(t))
                     })
                 }, {
                     stringify: function (t, e, n) {
                         for (var r, o = [t], i = 1; arguments.length > i;) o.push(arguments[i++]);
                         if (r = e, (p(e) || void 0 !== t) && !it(t)) return f(e) || (e = function (t, e) {
                             if ("function" == typeof r && (e = r.call(this, t, e)), !it(e)) return e
-                        }), o[1] = e, G.apply(null, o)
+                        }), o[1] = e, Y.apply(null, o)
                     }
-                }), V.prototype[z] || R(V.prototype, z, V.prototype.valueOf), M(V, "Symbol"), T[_] = !0
+                }), V.prototype[z] || A(V.prototype, z, V.prototype.valueOf), U(V, "Symbol"), T[_] = !0
             }, function (t, e, n) {
                 var r = n(44), o = n(160).f, i = {}.toString,
                     a = "object" == typeof window && window && Object.getOwnPropertyNames ? Object.getOwnPropertyNames(window) : [];
@@ -15296,7 +15159,7 @@ parcelRequire = function (e, r, t, n) {
             }, function (t, e, n) {
                 n(18)("unscopables")
             }, function (t, e, n) {
-                var r = n(15);
+                var r = n(14);
                 n(48)(r.JSON, "JSON", !0)
             }, function (t, e) {
             }, function (t, e) {
@@ -15311,7 +15174,7 @@ parcelRequire = function (e, r, t, n) {
             }, function (t, e, n) {
                 n(18)("replaceAll")
             }, function (t, e, n) {
-                t.exports = n(248)
+                t.exports = n(247)
             }, function (t, e, n) {
                 var r = n(149);
                 t.exports = r
@@ -15320,16 +15183,16 @@ parcelRequire = function (e, r, t, n) {
                     throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")
                 }
             }, function (t, e, n) {
-                var r = n(251);
+                var r = n(250);
                 t.exports = r
             }, function (t, e, n) {
-                n(252);
-                var r = n(16);
+                n(251);
+                var r = n(15);
                 r.JSON || (r.JSON = {stringify: JSON.stringify}), t.exports = function (t, e, n) {
                     return r.JSON.stringify.apply(null, arguments)
                 }
             }, function (t, e, n) {
-                var r = n(8), o = n(40), i = n(17), a = o("JSON", "stringify"), s = /[\uD800-\uDFFF]/g,
+                var r = n(8), o = n(39), i = n(17), a = o("JSON", "stringify"), s = /[\uD800-\uDFFF]/g,
                     c = /^[\uD800-\uDBFF]$/, u = /^[\uDC00-\uDFFF]$/, l = function (t, e, n) {
                         var r = n.charAt(e - 1), o = n.charAt(e + 1);
                         return c.test(t) && !u.test(o) || u.test(t) && !c.test(r) ? "\\u" + t.charCodeAt(0).toString(16) : t
@@ -15343,11 +15206,11 @@ parcelRequire = function (e, r, t, n) {
                     }
                 })
             }, function (t, e, n) {
-                var r = n(254);
+                var r = n(253);
                 t.exports = r
             }, function (t, e, n) {
-                n(255), n(93), n(41), n(42);
-                var r = n(16);
+                n(254), n(90), n(40), n(41);
+                var r = n(15);
                 t.exports = r.Map
             }, function (t, e, n) {
                 "use strict";
@@ -15368,7 +15231,7 @@ parcelRequire = function (e, r, t, n) {
                     if (r(t)) return t
                 }
             }, function (t, e, n) {
-                var r = n(56), o = n(157), i = n(117);
+                var r = n(78), o = n(157), i = n(117);
                 t.exports = function (t, e) {
                     if (void 0 !== i && o(Object(t))) {
                         var n = [], a = !0, s = !1, c = void 0;
@@ -15387,7 +15250,7 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }
             }, function (t, e, n) {
-                n(42), n(41);
+                n(41), n(40);
                 var r = n(167);
                 t.exports = r
             }, function (t, e) {
@@ -15395,21 +15258,21 @@ parcelRequire = function (e, r, t, n) {
                     throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")
                 }
             }, function (t, e, n) {
-                var r = n(262);
+                var r = n(261);
                 t.exports = r
             }, function (t, e, n) {
-                n(263);
-                var r = n(16);
+                n(262);
+                var r = n(15);
                 t.exports = r.Object.entries
             }, function (t, e, n) {
-                var r = n(8), o = n(264).entries;
+                var r = n(8), o = n(263).entries;
                 r({target: "Object", stat: !0}, {
                     entries: function (t) {
                         return o(t)
                     }
                 })
             }, function (t, e, n) {
-                var r = n(24), o = n(73), i = n(44), a = n(88).f, s = function (t) {
+                var r = n(25), o = n(69), i = n(44), a = n(85).f, s = function (t) {
                     return function (e) {
                         for (var n, s = i(e), c = o(s), u = c.length, l = 0, h = []; u > l;) n = c[l++], r && !a.call(s, n) || h.push(t ? [n, s[n]] : s[n]);
                         return h
@@ -15417,37 +15280,37 @@ parcelRequire = function (e, r, t, n) {
                 };
                 t.exports = {entries: s(!0), values: s(!1)}
             }, function (t, e, n) {
-                var r = n(266);
+                var r = n(265);
                 t.exports = r
             }, function (t, e, n) {
-                n(267);
-                var r = n(16).Object, o = t.exports = function (t, e, n) {
+                n(266);
+                var r = n(15).Object, o = t.exports = function (t, e, n) {
                     return r.defineProperty(t, e, n)
                 };
                 r.defineProperty.sham && (o.sham = !0)
             }, function (t, e, n) {
-                var r = n(8), o = n(24);
+                var r = n(8), o = n(25);
                 r({target: "Object", stat: !0, forced: !o, sham: !o}, {defineProperty: n(31).f})
             }, function (t, e, n) {
-                var r = n(269);
+                var r = n(268);
                 t.exports = r
             }, function (t, e, n) {
-                n(270);
-                var r = n(16);
+                n(269);
+                var r = n(15);
                 t.exports = r.parseInt
             }, function (t, e, n) {
                 var r = n(8), o = n(126);
                 r({global: !0, forced: parseInt != o}, {parseInt: o})
             }, function (t, e, n) {
                 n(150);
-                var r = n(16);
+                var r = n(15);
                 t.exports = r.setInterval
             }, function (t, e, n) {
-                var r = n(273);
+                var r = n(272);
                 t.exports = r
             }, function (t, e, n) {
-                n(274), n(93), n(41), n(42);
-                var r = n(16);
+                n(273), n(90), n(40), n(41);
+                var r = n(15);
                 t.exports = r.Set
             }, function (t, e, n) {
                 "use strict";
@@ -15458,11 +15321,11 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }, o)
             }, function (t, e, n) {
-                var r = n(276);
+                var r = n(275);
                 t.exports = r
             }, function (t, e, n) {
-                n(277);
-                var r = n(16);
+                n(276);
+                var r = n(15);
                 t.exports = r.Date.now
             }, function (t, e, n) {
                 n(8)({target: "Date", stat: !0}, {
@@ -15471,14 +15334,14 @@ parcelRequire = function (e, r, t, n) {
                     }
                 })
             }, function (t, e, n) {
-                var r = n(279);
+                var r = n(278);
                 t.exports = r
             }, function (t, e, n) {
-                n(280);
-                var r = n(16);
+                n(279);
+                var r = n(15);
                 t.exports = r.Object.keys
             }, function (t, e, n) {
-                var r = n(8), o = n(32), i = n(73);
+                var r = n(8), o = n(32), i = n(69);
                 r({
                     target: "Object", stat: !0, forced: n(17)(function () {
                         i(1)
@@ -15489,21 +15352,21 @@ parcelRequire = function (e, r, t, n) {
                     }
                 })
             }, function (t, e, n) {
-                var r = n(282);
+                var r = n(281);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(283), o = String.prototype;
+                var r = n(282), o = String.prototype;
                 t.exports = function (t) {
                     var e = t.startsWith;
                     return "string" == typeof t || t === o || t instanceof String && e === o.startsWith ? r : e
                 }
             }, function (t, e, n) {
-                n(284);
+                n(283);
                 var r = n(23);
                 t.exports = r("String").startsWith
             }, function (t, e, n) {
                 "use strict";
-                var r, o = n(8), i = n(87).f, a = n(28), s = n(169), c = n(62), u = n(170), l = n(47),
+                var r, o = n(8), i = n(84).f, a = n(28), s = n(169), c = n(60), u = n(170), l = n(47),
                     h = "".startsWith, f = Math.min, p = u("startsWith");
                 o({
                     target: "String",
@@ -15518,31 +15381,31 @@ parcelRequire = function (e, r, t, n) {
                     }
                 })
             }, function (t, e, n) {
-                var r = n(21), o = n(71), i = n(13)("match");
+                var r = n(21), o = n(67), i = n(13)("match");
                 t.exports = function (t) {
                     var e;
                     return r(t) && (void 0 !== (e = t[i]) ? !!e : "RegExp" == o(t))
                 }
             }, function (t, e, n) {
-                t.exports = n(287)
+                t.exports = n(286)
             }, function (t, e, n) {
-                var r = n(288);
+                var r = n(287);
                 t.exports = r
             }, function (t, e, n) {
-                n(162), n(41), n(42);
+                n(162), n(40), n(41);
                 var r = n(118);
                 t.exports = r.f("iterator")
             }, function (t, e, n) {
-                var r = n(290);
+                var r = n(289);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(291), o = n(293), i = Array.prototype, a = String.prototype;
+                var r = n(290), o = n(292), i = Array.prototype, a = String.prototype;
                 t.exports = function (t) {
                     var e = t.includes;
                     return t === i || t instanceof Array && e === i.includes ? r : "string" == typeof t || t === a || t instanceof String && e === a.includes ? o : e
                 }
             }, function (t, e, n) {
-                n(292);
+                n(291);
                 var r = n(23);
                 t.exports = r("Array").includes
             }, function (t, e, n) {
@@ -15558,12 +15421,12 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }), i("includes")
             }, function (t, e, n) {
-                n(294);
+                n(293);
                 var r = n(23);
                 t.exports = r("String").includes
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(169), i = n(62);
+                var r = n(8), o = n(169), i = n(60);
                 r({target: "String", proto: !0, forced: !n(170)("includes")}, {
                     includes: function (t) {
                         return !!~String(i(this)).indexOf(o(t), arguments.length > 1 ? arguments[1] : void 0)
@@ -15572,7 +15435,7 @@ parcelRequire = function (e, r, t, n) {
             }, function (t, e, n) {
                 "use strict";
                 (function (t) {
-                    var r = n(296), o = n(297), i = n(298);
+                    var r = n(295), o = n(296), i = n(297);
 
                     function a() {
                         return c.TYPED_ARRAY_SUPPORT ? 2147483647 : 1073741823
@@ -15713,7 +15576,7 @@ parcelRequire = function (e, r, t, n) {
                         return -1
                     }
 
-                    function x(t, e, n, r) {
+                    function C(t, e, n, r) {
                         n = Number(n) || 0;
                         var o = t.length - n;
                         r ? (r = Number(r)) > o && (r = o) : r = o;
@@ -15728,7 +15591,7 @@ parcelRequire = function (e, r, t, n) {
                         return a
                     }
 
-                    function C(t, e, n, r) {
+                    function x(t, e, n, r) {
                         return j(_(e, t.length - n), t, n, r)
                     }
 
@@ -15747,14 +15610,14 @@ parcelRequire = function (e, r, t, n) {
                         return j(z(e), t, n, r)
                     }
 
-                    function b(t, e, n, r) {
+                    function S(t, e, n, r) {
                         return j(function (t, e) {
                             for (var n, r, o, i = [], a = 0; a < t.length && !((e -= 2) < 0); ++a) r = (n = t.charCodeAt(a)) >> 8, o = n % 256, i.push(o), i.push(r);
                             return i
                         }(e, t.length - n), t, n, r)
                     }
 
-                    function S(t, e, n) {
+                    function b(t, e, n) {
                         return 0 === e && n === t.length ? r.fromByteArray(t) : r.fromByteArray(t.slice(e, n))
                     }
 
@@ -15792,14 +15655,14 @@ parcelRequire = function (e, r, t, n) {
                         return r
                     }
 
-                    function R(t, e, n) {
+                    function A(t, e, n) {
                         var r = "";
                         n = Math.min(t.length, n);
                         for (var o = e; o < n; ++o) r += String.fromCharCode(t[o]);
                         return r
                     }
 
-                    function A(t, e, n) {
+                    function R(t, e, n) {
                         var r = t.length;
                         (!e || e < 0) && (e = 0), (!n || n < 0 || n > r) && (n = r);
                         for (var o = "", i = e; i < n; ++i) o += B(t[i]);
@@ -15837,11 +15700,11 @@ parcelRequire = function (e, r, t, n) {
                         if (n < 0) throw new RangeError("Index out of range")
                     }
 
-                    function U(t, e, n, r, i) {
+                    function M(t, e, n, r, i) {
                         return i || O(t, 0, n, 4), o.write(t, e, n, r, 23, 4), n + 4
                     }
 
-                    function M(t, e, n, r, i) {
+                    function U(t, e, n, r, i) {
                         return i || O(t, 0, n, 8), o.write(t, e, n, r, 52, 8), n + 8
                     }
 
@@ -15936,7 +15799,7 @@ parcelRequire = function (e, r, t, n) {
                             if ((n >>>= 0) <= (e >>>= 0)) return "";
                             for (t || (t = "utf8"); ;) switch (t) {
                                 case"hex":
-                                    return A(this, e, n);
+                                    return R(this, e, n);
                                 case"utf8":
                                 case"utf-8":
                                     return P(this, e, n);
@@ -15944,9 +15807,9 @@ parcelRequire = function (e, r, t, n) {
                                     return E(this, e, n);
                                 case"latin1":
                                 case"binary":
-                                    return R(this, e, n);
+                                    return A(this, e, n);
                                 case"base64":
-                                    return S(this, e, n);
+                                    return b(this, e, n);
                                 case"ucs2":
                                 case"ucs-2":
                                 case"utf16le":
@@ -15991,10 +15854,10 @@ parcelRequire = function (e, r, t, n) {
                         r || (r = "utf8");
                         for (var i = !1; ;) switch (r) {
                             case"hex":
-                                return x(this, t, e, n);
+                                return C(this, t, e, n);
                             case"utf8":
                             case"utf-8":
-                                return C(this, t, e, n);
+                                return x(this, t, e, n);
                             case"ascii":
                                 return w(this, t, e, n);
                             case"latin1":
@@ -16006,7 +15869,7 @@ parcelRequire = function (e, r, t, n) {
                             case"ucs-2":
                             case"utf16le":
                             case"utf-16le":
-                                return b(this, t, e, n);
+                                return S(this, t, e, n);
                             default:
                                 if (i) throw new TypeError("Unknown encoding: " + r);
                                 r = ("" + r).toLowerCase(), i = !0
@@ -16116,13 +15979,13 @@ parcelRequire = function (e, r, t, n) {
                     }, c.prototype.writeInt32BE = function (t, e, n) {
                         return t = +t, e |= 0, n || T(this, t, e, 4, 2147483647, -2147483648), t < 0 && (t = 4294967295 + t + 1), c.TYPED_ARRAY_SUPPORT ? (this[e] = t >>> 24, this[e + 1] = t >>> 16, this[e + 2] = t >>> 8, this[e + 3] = 255 & t) : F(this, t, e, !1), e + 4
                     }, c.prototype.writeFloatLE = function (t, e, n) {
-                        return U(this, t, e, !0, n)
-                    }, c.prototype.writeFloatBE = function (t, e, n) {
-                        return U(this, t, e, !1, n)
-                    }, c.prototype.writeDoubleLE = function (t, e, n) {
                         return M(this, t, e, !0, n)
-                    }, c.prototype.writeDoubleBE = function (t, e, n) {
+                    }, c.prototype.writeFloatBE = function (t, e, n) {
                         return M(this, t, e, !1, n)
+                    }, c.prototype.writeDoubleLE = function (t, e, n) {
+                        return U(this, t, e, !0, n)
+                    }, c.prototype.writeDoubleBE = function (t, e, n) {
+                        return U(this, t, e, !1, n)
                     }, c.prototype.copy = function (t, e, n, r) {
                         if (n || (n = 0), r || 0 === r || (r = this.length), e >= t.length && (e = t.length), e || (e = 0), r > 0 && r < n && (r = n), r === n) return 0;
                         if (0 === t.length || 0 === this.length) return 0;
@@ -16212,7 +16075,7 @@ parcelRequire = function (e, r, t, n) {
                         for (var o = 0; o < r && !(o + n >= e.length || o >= t.length); ++o) e[o + n] = t[o];
                         return o
                     }
-                }).call(this, n(86))
+                }).call(this, n(83))
             }, function (t, e, n) {
                 "use strict";
                 e.byteLength = function (t) {
@@ -16270,8 +16133,8 @@ parcelRequire = function (e, r, t, n) {
                 var r = n(152);
                 t.exports = r
             }, function (t, e, n) {
-                n(42), n(41);
-                var r = n(75);
+                n(41), n(40);
+                var r = n(71);
                 t.exports = r
             }, function (t, e, n) {
                 var r = n(158);
@@ -16280,40 +16143,40 @@ parcelRequire = function (e, r, t, n) {
                 var r = n(155);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(304);
+                var r = n(303);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(305), o = Array.prototype;
+                var r = n(304), o = Array.prototype;
                 t.exports = function (t) {
                     var e = t.splice;
                     return t === o || t instanceof Array && e === o.splice ? r : e
                 }
             }, function (t, e, n) {
-                n(306);
+                n(305);
                 var r = n(23);
                 t.exports = r("Array").splice
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(106), i = n(83), a = n(28), s = n(32), c = n(98), u = n(78), l = n(79), h = n(45),
+                var r = n(8), o = n(106), i = n(80), a = n(28), s = n(32), c = n(95), u = n(74), l = n(75), h = n(45),
                     f = l("splice"), p = h("splice", {ACCESSORS: !0, 0: 0, 1: 2}), d = Math.max, v = Math.min;
                 r({target: "Array", proto: !0, forced: !f || !p}, {
                     splice: function (t, e) {
-                        var n, r, l, h, f, p, g = s(this), y = a(g.length), x = o(t, y), C = arguments.length;
-                        if (0 === C ? n = r = 0 : 1 === C ? (n = 0, r = y - x) : (n = C - 2, r = v(d(i(e), 0), y - x)), y + n - r > 9007199254740991) throw TypeError("Maximum allowed length exceeded");
-                        for (l = c(g, r), h = 0; h < r; h++) (f = x + h) in g && u(l, h, g[f]);
+                        var n, r, l, h, f, p, g = s(this), y = a(g.length), C = o(t, y), x = arguments.length;
+                        if (0 === x ? n = r = 0 : 1 === x ? (n = 0, r = y - C) : (n = x - 2, r = v(d(i(e), 0), y - C)), y + n - r > 9007199254740991) throw TypeError("Maximum allowed length exceeded");
+                        for (l = c(g, r), h = 0; h < r; h++) (f = C + h) in g && u(l, h, g[f]);
                         if (l.length = r, n < r) {
-                            for (h = x; h < y - r; h++) p = h + n, (f = h + r) in g ? g[p] = g[f] : delete g[p];
+                            for (h = C; h < y - r; h++) p = h + n, (f = h + r) in g ? g[p] = g[f] : delete g[p];
                             for (h = y; h > y - r + n; h--) delete g[h - 1]
-                        } else if (n > r) for (h = y - r; h > x; h--) p = h + n - 1, (f = h + r - 1) in g ? g[p] = g[f] : delete g[p];
-                        for (h = 0; h < n; h++) g[h + x] = arguments[h + 2];
+                        } else if (n > r) for (h = y - r; h > C; h--) p = h + n - 1, (f = h + r - 1) in g ? g[p] = g[f] : delete g[p];
+                        for (h = 0; h < n; h++) g[h + C] = arguments[h + 2];
                         return g.length = y - r + n, l
                     }
                 })
             }, function (t, e, n) {
-                var r = n(308);
+                var r = n(307);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(309), o = Array.prototype;
+                var r = n(308), o = Array.prototype;
                 t.exports = function (t) {
                     var e = t.concat;
                     return t === o || t instanceof Array && e === o.concat ? r : e
@@ -16323,57 +16186,35 @@ parcelRequire = function (e, r, t, n) {
                 var r = n(23);
                 t.exports = r("Array").concat
             }, function (t, e, n) {
-                var r = n(311);
-                t.exports = r
-            }, function (t, e, n) {
-                var r = n(312), o = RegExp.prototype;
-                t.exports = function (t) {
-                    return !(t === o || t instanceof RegExp) || "flags" in t ? t.flags : r(t)
-                }
-            }, function (t, e, n) {
-                n(313);
-                var r = n(314);
-                t.exports = function (t) {
-                    return r.call(t)
-                }
-            }, function (t, e) {
-            }, function (t, e, n) {
-                "use strict";
-                var r = n(26);
-                t.exports = function () {
-                    var t = r(this), e = "";
-                    return t.global && (e += "g"), t.ignoreCase && (e += "i"), t.multiline && (e += "m"), t.dotAll && (e += "s"), t.unicode && (e += "u"), t.sticky && (e += "y"), e
-                }
-            }, function (t, e, n) {
-                n(42);
-                var r = n(316), o = n(54), i = Array.prototype, a = {DOMTokenList: !0, NodeList: !0};
+                n(41);
+                var r = n(310), o = n(53), i = Array.prototype, a = {DOMTokenList: !0, NodeList: !0};
                 t.exports = function (t) {
                     var e = t.values;
                     return t === i || t instanceof Array && e === i.values || a.hasOwnProperty(o(t)) ? r : e
                 }
             }, function (t, e, n) {
-                var r = n(317);
+                var r = n(311);
                 t.exports = r
             }, function (t, e, n) {
-                n(97);
+                n(94);
                 var r = n(23);
                 t.exports = r("Array").values
             }, function (t, e, n) {
-                var r = n(319);
+                var r = n(313);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(320), o = Array.prototype;
+                var r = n(314), o = Array.prototype;
                 t.exports = function (t) {
                     var e = t.flatMap;
                     return t === o || t instanceof Array && e === o.flatMap ? r : e
                 }
             }, function (t, e, n) {
-                n(321), n(323);
+                n(315), n(317);
                 var r = n(23);
                 t.exports = r("Array").flatMap
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(322), i = n(32), a = n(28), s = n(39), c = n(98);
+                var r = n(8), o = n(316), i = n(32), a = n(28), s = n(38), c = n(95);
                 r({target: "Array", proto: !0}, {
                     flatMap: function (t) {
                         var e, n = i(this), r = a(n.length);
@@ -16382,7 +16223,7 @@ parcelRequire = function (e, r, t, n) {
                 })
             }, function (t, e, n) {
                 "use strict";
-                var r = n(63), o = n(28), i = n(46), a = function (t, e, n, s, c, u, l, h) {
+                var r = n(61), o = n(28), i = n(46), a = function (t, e, n, s, c, u, l, h) {
                     for (var f, p = c, d = 0, v = !!l && i(l, h, 3); d < s;) {
                         if (d in n) {
                             if (f = v ? v(n[d], d, e) : n[d], u > 0 && r(f)) p = a(t, e, f, o(f.length), p, u - 1) - 1; else {
@@ -16399,21 +16240,21 @@ parcelRequire = function (e, r, t, n) {
             }, function (t, e, n) {
                 n(116)("flatMap")
             }, function (t, e, n) {
-                var r = n(325);
+                var r = n(319);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(326), o = Array.prototype;
+                var r = n(320), o = Array.prototype;
                 t.exports = function (t) {
                     var e = t.sort;
                     return t === o || t instanceof Array && e === o.sort ? r : e
                 }
             }, function (t, e, n) {
-                n(327);
+                n(321);
                 var r = n(23);
                 t.exports = r("Array").sort
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(39), i = n(32), a = n(17), s = n(84), c = [], u = c.sort, l = a(function () {
+                var r = n(8), o = n(38), i = n(32), a = n(17), s = n(81), c = [], u = c.sort, l = a(function () {
                     c.sort(void 0)
                 }), h = a(function () {
                     c.sort(null)
@@ -16424,35 +16265,35 @@ parcelRequire = function (e, r, t, n) {
                     }
                 })
             }, function (t, e, n) {
-                var r = n(329);
+                var r = n(323);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(330), o = Array.prototype;
+                var r = n(324), o = Array.prototype;
                 t.exports = function (t) {
                     var e = t.map;
                     return t === o || t instanceof Array && e === o.map ? r : e
                 }
             }, function (t, e, n) {
-                n(331);
+                n(325);
                 var r = n(23);
                 t.exports = r("Array").map
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(80).map, i = n(79), a = n(45), s = i("map"), c = a("map");
+                var r = n(8), o = n(76).map, i = n(75), a = n(45), s = i("map"), c = a("map");
                 r({target: "Array", proto: !0, forced: !s || !c}, {
                     map: function (t) {
                         return o(this, t, arguments.length > 1 ? arguments[1] : void 0)
                     }
                 })
             }, function (t, e, n) {
-                var r = n(333);
+                var r = n(327);
                 t.exports = r
             }, function (t, e, n) {
-                n(97), n(334);
-                var r = n(16);
+                n(94), n(328);
+                var r = n(15);
                 t.exports = r.Object.fromEntries
             }, function (t, e, n) {
-                var r = n(8), o = n(52), i = n(78);
+                var r = n(8), o = n(51), i = n(74);
                 r({target: "Object", stat: !0}, {
                     fromEntries: function (t) {
                         var e = {};
@@ -16462,42 +16303,42 @@ parcelRequire = function (e, r, t, n) {
                     }
                 })
             }, function (t, e, n) {
-                var r = n(336);
+                var r = n(330);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(337), o = Array.prototype;
+                var r = n(331), o = Array.prototype;
                 t.exports = function (t) {
                     var e = t.filter;
                     return t === o || t instanceof Array && e === o.filter ? r : e
                 }
             }, function (t, e, n) {
-                n(338);
+                n(332);
                 var r = n(23);
                 t.exports = r("Array").filter
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(80).filter, i = n(79), a = n(45), s = i("filter"), c = a("filter");
+                var r = n(8), o = n(76).filter, i = n(75), a = n(45), s = i("filter"), c = a("filter");
                 r({target: "Array", proto: !0, forced: !s || !c}, {
                     filter: function (t) {
                         return o(this, t, arguments.length > 1 ? arguments[1] : void 0)
                     }
                 })
             }, function (t, e, n) {
-                var r = n(340);
+                var r = n(334);
                 t.exports = r
             }, function (t, e, n) {
-                var r = n(341), o = Array.prototype;
+                var r = n(335), o = Array.prototype;
                 t.exports = function (t) {
                     var e = t.reduce;
                     return t === o || t instanceof Array && e === o.reduce ? r : e
                 }
             }, function (t, e, n) {
-                n(342);
+                n(336);
                 var r = n(23);
                 t.exports = r("Array").reduce
             }, function (t, e, n) {
                 "use strict";
-                var r = n(8), o = n(343).left, i = n(84), a = n(45), s = n(96), c = n(94), u = i("reduce"),
+                var r = n(8), o = n(337).left, i = n(81), a = n(45), s = n(93), c = n(91), u = i("reduce"),
                     l = a("reduce", {1: 0});
                 r({target: "Array", proto: !0, forced: !u || !l || !c && s > 79 && s < 83}, {
                     reduce: function (t) {
@@ -16505,7 +16346,7 @@ parcelRequire = function (e, r, t, n) {
                     }
                 })
             }, function (t, e, n) {
-                var r = n(39), o = n(32), i = n(89), a = n(28), s = function (t) {
+                var r = n(38), o = n(32), i = n(86), a = n(28), s = function (t) {
                     return function (e, n, s, c) {
                         r(n);
                         var u = o(e), l = i(u), h = a(u.length), f = t ? h - 1 : 0, p = t ? -1 : 1;
@@ -16522,36 +16363,36 @@ parcelRequire = function (e, r, t, n) {
                 };
                 t.exports = {left: s(!1), right: s(!0)}
             }, function (t, e, n) {
-                var r = n(345);
+                var r = n(339);
                 t.exports = r
             }, function (t, e, n) {
-                n(346);
-                var r = n(16);
+                n(340);
+                var r = n(15);
                 t.exports = r.Number.isInteger
             }, function (t, e, n) {
-                n(8)({target: "Number", stat: !0}, {isInteger: n(347)})
+                n(8)({target: "Number", stat: !0}, {isInteger: n(341)})
             }, function (t, e, n) {
                 var r = n(21), o = Math.floor;
                 t.exports = function (t) {
                     return !r(t) && isFinite(t) && o(t) === t
                 }
             }, function (t, e, n) {
-                var r = n(349);
+                var r = n(343);
                 t.exports = r
             }, function (t, e, n) {
-                n(350), n(353), n(172);
-                var r = n(16);
+                n(344), n(347), n(172);
+                var r = n(15);
                 t.exports = r.URL
             }, function (t, e, n) {
                 "use strict";
-                n(41);
-                var r, o = n(8), i = n(24), a = n(171), s = n(15), c = n(130), u = n(55), l = n(76), h = n(25),
-                    f = n(351), p = n(156), d = n(146).codeAt, v = n(352), g = n(48), y = n(172), x = n(49), C = s.URL,
-                    w = y.URLSearchParams, m = y.getState, k = x.set, b = x.getterFor("URL"), S = Math.floor,
-                    P = Math.pow, E = /[A-Za-z]/, R = /[\d+-.A-Za-z]/, A = /\d/, I = /^(0x|0X)/, D = /^[0-7]+$/,
+                n(40);
+                var r, o = n(8), i = n(25), a = n(171), s = n(14), c = n(130), u = n(54), l = n(72), h = n(26),
+                    f = n(345), p = n(156), d = n(146).codeAt, v = n(346), g = n(48), y = n(172), C = n(49), x = s.URL,
+                    w = y.URLSearchParams, m = y.getState, k = C.set, S = C.getterFor("URL"), b = Math.floor,
+                    P = Math.pow, E = /[A-Za-z]/, A = /[\d+-.A-Za-z]/, R = /\d/, I = /^(0x|0X)/, D = /^[0-7]+$/,
                     T = /^\d+$/, L = /^[\dA-Fa-f]+$/, F = /[\u0000\u0009\u000A\u000D #%/:?@[\\]]/,
-                    O = /[\u0000\u0009\u000A\u000D #/:?@[\\]]/, U = /^[\u0000-\u001F ]+|[\u0000-\u001F ]+$/g,
-                    M = /[\u0009\u000A\u000D]/g, N = function (t, e) {
+                    O = /[\u0000\u0009\u000A\u000D #/:?@[\\]]/, M = /^[\u0000-\u001F ]+|[\u0000-\u001F ]+$/g,
+                    U = /[\u0009\u000A\u000D]/g, N = function (t, e) {
                         var n, r, o;
                         if ("[" == e.charAt(0)) {
                             if ("]" != e.charAt(e.length - 1)) return "Invalid host";
@@ -16563,7 +16404,7 @@ parcelRequire = function (e, r, t, n) {
                             t.host = n
                         } else {
                             if (O.test(e)) return "Invalid host";
-                            for (n = "", r = p(e), o = 0; o < r.length; o++) n += G(r[o], j);
+                            for (n = "", r = p(e), o = 0; o < r.length; o++) n += Y(r[o], j);
                             t.host = n
                         }
                     }, B = function (t) {
@@ -16602,8 +16443,8 @@ parcelRequire = function (e, r, t, n) {
                                             if (!("." == f() && r < 4)) return;
                                             h++
                                         }
-                                        if (!A.test(f())) return;
-                                        for (; A.test(f());) {
+                                        if (!R.test(f())) return;
+                                        for (; R.test(f());) {
                                             if (i = parseInt(f(), 10), null === o) o = i; else {
                                                 if (0 == o) return;
                                                 o = 10 * o + i
@@ -16630,7 +16471,7 @@ parcelRequire = function (e, r, t, n) {
                     }, z = function (t) {
                         var e, n, r, o;
                         if ("number" == typeof t) {
-                            for (e = [], n = 0; n < 4; n++) e.unshift(t % 256), t = S(t / 256);
+                            for (e = [], n = 0; n < 4; n++) e.unshift(t % 256), t = b(t / 256);
                             return e.join(".")
                         }
                         if ("object" == typeof t) {
@@ -16644,11 +16485,11 @@ parcelRequire = function (e, r, t, n) {
                     }, j = {}, q = f({}, j, {" ": 1, '"': 1, "<": 1, ">": 1, "`": 1}),
                     W = f({}, q, {"#": 1, "?": 1, "{": 1, "}": 1}),
                     V = f({}, W, {"/": 1, ":": 1, ";": 1, "=": 1, "@": 1, "[": 1, "\\": 1, "]": 1, "^": 1, "|": 1}),
-                    G = function (t, e) {
+                    Y = function (t, e) {
                         var n = d(t, 0);
                         return n > 32 && n < 127 && !h(e, t) ? t : encodeURIComponent(t)
-                    }, Y = {ftp: 21, file: null, http: 80, https: 443, ws: 80, wss: 443}, Q = function (t) {
-                        return h(Y, t.scheme)
+                    }, G = {ftp: 21, file: null, http: 80, https: 443, ws: 80, wss: 443}, Q = function (t) {
+                        return h(G, t.scheme)
                     }, H = function (t) {
                         return "" != t.username || "" != t.password
                     }, X = function (t) {
@@ -16665,10 +16506,10 @@ parcelRequire = function (e, r, t, n) {
                     }, Z = function (t) {
                         return "." === t || "%2e" === t.toLowerCase()
                     }, tt = {}, et = {}, nt = {}, rt = {}, ot = {}, it = {}, at = {}, st = {}, ct = {}, ut = {}, lt = {},
-                    ht = {}, ft = {}, pt = {}, dt = {}, vt = {}, gt = {}, yt = {}, xt = {}, Ct = {}, wt = {},
+                    ht = {}, ft = {}, pt = {}, dt = {}, vt = {}, gt = {}, yt = {}, Ct = {}, xt = {}, wt = {},
                     mt = function (t, e, n, o) {
                         var i, a, s, c, u, l = n || tt, f = 0, d = "", v = !1, g = !1, y = !1;
-                        for (n || (t.scheme = "", t.username = "", t.password = "", t.host = null, t.port = null, t.path = [], t.query = null, t.fragment = null, t.cannotBeABaseURL = !1, e = e.replace(U, "")), e = e.replace(M, ""), i = p(e); f <= i.length;) {
+                        for (n || (t.scheme = "", t.username = "", t.password = "", t.host = null, t.port = null, t.path = [], t.query = null, t.fragment = null, t.cannotBeABaseURL = !1, e = e.replace(M, "")), e = e.replace(U, ""), i = p(e); f <= i.length;) {
                             switch (a = i[f], l) {
                                 case tt:
                                     if (!a || !E.test(a)) {
@@ -16679,15 +16520,15 @@ parcelRequire = function (e, r, t, n) {
                                     d += a.toLowerCase(), l = et;
                                     break;
                                 case et:
-                                    if (a && (R.test(a) || "+" == a || "-" == a || "." == a)) d += a.toLowerCase(); else {
+                                    if (a && (A.test(a) || "+" == a || "-" == a || "." == a)) d += a.toLowerCase(); else {
                                         if (":" != a) {
                                             if (n) return "Invalid scheme";
                                             d = "", l = nt, f = 0;
                                             continue
                                         }
-                                        if (n && (Q(t) != h(Y, d) || "file" == d && (H(t) || null !== t.port) || "file" == t.scheme && !t.host)) return;
-                                        if (t.scheme = d, n) return void (Q(t) && Y[t.scheme] == t.port && (t.port = null));
-                                        d = "", "file" == t.scheme ? l = pt : Q(t) && o && o.scheme == t.scheme ? l = rt : Q(t) ? l = st : "/" == i[f + 1] ? (l = ot, f++) : (t.cannotBeABaseURL = !0, t.path.push(""), l = xt)
+                                        if (n && (Q(t) != h(G, d) || "file" == d && (H(t) || null !== t.port) || "file" == t.scheme && !t.host)) return;
+                                        if (t.scheme = d, n) return void (Q(t) && G[t.scheme] == t.port && (t.port = null));
+                                        d = "", "file" == t.scheme ? l = pt : Q(t) && o && o.scheme == t.scheme ? l = rt : Q(t) ? l = st : "/" == i[f + 1] ? (l = ot, f++) : (t.cannotBeABaseURL = !0, t.path.push(""), l = Ct)
                                     }
                                     break;
                                 case nt:
@@ -16713,7 +16554,7 @@ parcelRequire = function (e, r, t, n) {
                                     l = yt;
                                     continue;
                                 case it:
-                                    if (t.scheme = o.scheme, a == r) t.username = o.username, t.password = o.password, t.host = o.host, t.port = o.port, t.path = o.path.slice(), t.query = o.query; else if ("/" == a || "\\" == a && Q(t)) l = at; else if ("?" == a) t.username = o.username, t.password = o.password, t.host = o.host, t.port = o.port, t.path = o.path.slice(), t.query = "", l = Ct; else {
+                                    if (t.scheme = o.scheme, a == r) t.username = o.username, t.password = o.password, t.host = o.host, t.port = o.port, t.path = o.path.slice(), t.query = o.query; else if ("/" == a || "\\" == a && Q(t)) l = at; else if ("?" == a) t.username = o.username, t.password = o.password, t.host = o.host, t.port = o.port, t.path = o.path.slice(), t.query = "", l = xt; else {
                                         if ("#" != a) {
                                             t.username = o.username, t.password = o.password, t.host = o.host, t.port = o.port, t.path = o.path.slice(), t.path.pop(), l = yt;
                                             continue
@@ -16743,10 +16584,10 @@ parcelRequire = function (e, r, t, n) {
                                 case ut:
                                     if ("@" == a) {
                                         v && (d = "%40" + d), v = !0, s = p(d);
-                                        for (var x = 0; x < s.length; x++) {
-                                            var C = s[x];
-                                            if (":" != C || y) {
-                                                var w = G(C, V);
+                                        for (var C = 0; C < s.length; C++) {
+                                            var x = s[C];
+                                            if (":" != x || y) {
+                                                var w = Y(x, V);
                                                 y ? t.password += w : t.username += w
                                             } else y = !0
                                         }
@@ -16778,12 +16619,12 @@ parcelRequire = function (e, r, t, n) {
                                     }
                                     break;
                                 case ft:
-                                    if (!A.test(a)) {
+                                    if (!R.test(a)) {
                                         if (a == r || "/" == a || "?" == a || "#" == a || "\\" == a && Q(t) || n) {
                                             if ("" != d) {
                                                 var m = parseInt(d, 10);
                                                 if (m > 65535) return "Invalid port";
-                                                t.port = Q(t) && m === Y[t.scheme] ? null : m, d = ""
+                                                t.port = Q(t) && m === G[t.scheme] ? null : m, d = ""
                                             }
                                             if (n) return;
                                             l = gt;
@@ -16799,7 +16640,7 @@ parcelRequire = function (e, r, t, n) {
                                             l = yt;
                                             continue
                                         }
-                                        if (a == r) t.host = o.host, t.path = o.path.slice(), t.query = o.query; else if ("?" == a) t.host = o.host, t.path = o.path.slice(), t.query = "", l = Ct; else {
+                                        if (a == r) t.host = o.host, t.path = o.path.slice(), t.query = o.query; else if ("?" == a) t.host = o.host, t.path = o.path.slice(), t.query = "", l = xt; else {
                                             if ("#" != a) {
                                                 J(i.slice(f).join("")) || (t.host = o.host, t.path = o.path.slice(), $(t)), l = yt;
                                                 continue
@@ -16834,40 +16675,40 @@ parcelRequire = function (e, r, t, n) {
                                         if (l = yt, "/" != a && "\\" != a) continue
                                     } else if (n || "?" != a) if (n || "#" != a) {
                                         if (a != r && (l = yt, "/" != a)) continue
-                                    } else t.fragment = "", l = wt; else t.query = "", l = Ct;
+                                    } else t.fragment = "", l = wt; else t.query = "", l = xt;
                                     break;
                                 case yt:
                                     if (a == r || "/" == a || "\\" == a && Q(t) || !n && ("?" == a || "#" == a)) {
                                         if (".." === (u = (u = d).toLowerCase()) || "%2e." === u || ".%2e" === u || "%2e%2e" === u ? ($(t), "/" == a || "\\" == a && Q(t) || t.path.push("")) : Z(d) ? "/" == a || "\\" == a && Q(t) || t.path.push("") : ("file" == t.scheme && !t.path.length && K(d) && (t.host && (t.host = ""), d = d.charAt(0) + ":"), t.path.push(d)), d = "", "file" == t.scheme && (a == r || "?" == a || "#" == a)) for (; t.path.length > 1 && "" === t.path[0];) t.path.shift();
-                                        "?" == a ? (t.query = "", l = Ct) : "#" == a && (t.fragment = "", l = wt)
-                                    } else d += G(a, W);
-                                    break;
-                                case xt:
-                                    "?" == a ? (t.query = "", l = Ct) : "#" == a ? (t.fragment = "", l = wt) : a != r && (t.path[0] += G(a, j));
+                                        "?" == a ? (t.query = "", l = xt) : "#" == a && (t.fragment = "", l = wt)
+                                    } else d += Y(a, W);
                                     break;
                                 case Ct:
-                                    n || "#" != a ? a != r && ("'" == a && Q(t) ? t.query += "%27" : t.query += "#" == a ? "%23" : G(a, j)) : (t.fragment = "", l = wt);
+                                    "?" == a ? (t.query = "", l = xt) : "#" == a ? (t.fragment = "", l = wt) : a != r && (t.path[0] += Y(a, j));
+                                    break;
+                                case xt:
+                                    n || "#" != a ? a != r && ("'" == a && Q(t) ? t.query += "%27" : t.query += "#" == a ? "%23" : Y(a, j)) : (t.fragment = "", l = wt);
                                     break;
                                 case wt:
-                                    a != r && (t.fragment += G(a, q))
+                                    a != r && (t.fragment += Y(a, q))
                             }
                             f++
                         }
                     }, kt = function (t) {
                         var e, n, r = l(this, kt, "URL"), o = arguments.length > 1 ? arguments[1] : void 0, a = String(t),
                             s = k(r, {type: "URL"});
-                        if (void 0 !== o) if (o instanceof kt) e = b(o); else if (n = mt(e = {}, String(o))) throw TypeError(n);
+                        if (void 0 !== o) if (o instanceof kt) e = S(o); else if (n = mt(e = {}, String(o))) throw TypeError(n);
                         if (n = mt(s, a, null, e)) throw TypeError(n);
                         var c = s.searchParams = new w, u = m(c);
                         u.updateSearchParams(s.query), u.updateURL = function () {
                             s.query = String(c) || null
-                        }, i || (r.href = St.call(r), r.origin = Pt.call(r), r.protocol = Et.call(r), r.username = Rt.call(r), r.password = At.call(r), r.host = It.call(r), r.hostname = Dt.call(r), r.port = Tt.call(r), r.pathname = Lt.call(r), r.search = Ft.call(r), r.searchParams = Ot.call(r), r.hash = Ut.call(r))
-                    }, bt = kt.prototype, St = function () {
-                        var t = b(this), e = t.scheme, n = t.username, r = t.password, o = t.host, i = t.port, a = t.path,
+                        }, i || (r.href = bt.call(r), r.origin = Pt.call(r), r.protocol = Et.call(r), r.username = At.call(r), r.password = Rt.call(r), r.host = It.call(r), r.hostname = Dt.call(r), r.port = Tt.call(r), r.pathname = Lt.call(r), r.search = Ft.call(r), r.searchParams = Ot.call(r), r.hash = Mt.call(r))
+                    }, St = kt.prototype, bt = function () {
+                        var t = S(this), e = t.scheme, n = t.username, r = t.password, o = t.host, i = t.port, a = t.path,
                             s = t.query, c = t.fragment, u = e + ":";
                         return null !== o ? (u += "//", H(t) && (u += n + (r ? ":" + r : "") + "@"), u += z(o), null !== i && (u += ":" + i)) : "file" == e && (u += "//"), u += t.cannotBeABaseURL ? a[0] : a.length ? "/" + a.join("/") : "", null !== s && (u += "?" + s), null !== c && (u += "#" + c), u
                     }, Pt = function () {
-                        var t = b(this), e = t.scheme, n = t.port;
+                        var t = S(this), e = t.scheme, n = t.port;
                         if ("blob" == e) try {
                             return new URL(e.path[0]).origin
                         } catch (t) {
@@ -16875,89 +16716,89 @@ parcelRequire = function (e, r, t, n) {
                         }
                         return "file" != e && Q(t) ? e + "://" + z(t.host) + (null !== n ? ":" + n : "") : "null"
                     }, Et = function () {
-                        return b(this).scheme + ":"
-                    }, Rt = function () {
-                        return b(this).username
+                        return S(this).scheme + ":"
                     }, At = function () {
-                        return b(this).password
+                        return S(this).username
+                    }, Rt = function () {
+                        return S(this).password
                     }, It = function () {
-                        var t = b(this), e = t.host, n = t.port;
+                        var t = S(this), e = t.host, n = t.port;
                         return null === e ? "" : null === n ? z(e) : z(e) + ":" + n
                     }, Dt = function () {
-                        var t = b(this).host;
+                        var t = S(this).host;
                         return null === t ? "" : z(t)
                     }, Tt = function () {
-                        var t = b(this).port;
+                        var t = S(this).port;
                         return null === t ? "" : String(t)
                     }, Lt = function () {
-                        var t = b(this), e = t.path;
+                        var t = S(this), e = t.path;
                         return t.cannotBeABaseURL ? e[0] : e.length ? "/" + e.join("/") : ""
                     }, Ft = function () {
-                        var t = b(this).query;
+                        var t = S(this).query;
                         return t ? "?" + t : ""
                     }, Ot = function () {
-                        return b(this).searchParams
-                    }, Ut = function () {
-                        var t = b(this).fragment;
+                        return S(this).searchParams
+                    }, Mt = function () {
+                        var t = S(this).fragment;
                         return t ? "#" + t : ""
-                    }, Mt = function (t, e) {
+                    }, Ut = function (t, e) {
                         return {get: t, set: e, configurable: !0, enumerable: !0}
                     };
-                if (i && c(bt, {
-                    href: Mt(St, function (t) {
-                        var e = b(this), n = String(t), r = mt(e, n);
+                if (i && c(St, {
+                    href: Ut(bt, function (t) {
+                        var e = S(this), n = String(t), r = mt(e, n);
                         if (r) throw TypeError(r);
                         m(e.searchParams).updateSearchParams(e.query)
-                    }), origin: Mt(Pt), protocol: Mt(Et, function (t) {
-                        var e = b(this);
+                    }), origin: Ut(Pt), protocol: Ut(Et, function (t) {
+                        var e = S(this);
                         mt(e, String(t) + ":", tt)
-                    }), username: Mt(Rt, function (t) {
-                        var e = b(this), n = p(String(t));
+                    }), username: Ut(At, function (t) {
+                        var e = S(this), n = p(String(t));
                         if (!X(e)) {
                             e.username = "";
-                            for (var r = 0; r < n.length; r++) e.username += G(n[r], V)
+                            for (var r = 0; r < n.length; r++) e.username += Y(n[r], V)
                         }
-                    }), password: Mt(At, function (t) {
-                        var e = b(this), n = p(String(t));
+                    }), password: Ut(Rt, function (t) {
+                        var e = S(this), n = p(String(t));
                         if (!X(e)) {
                             e.password = "";
-                            for (var r = 0; r < n.length; r++) e.password += G(n[r], V)
+                            for (var r = 0; r < n.length; r++) e.password += Y(n[r], V)
                         }
-                    }), host: Mt(It, function (t) {
-                        var e = b(this);
+                    }), host: Ut(It, function (t) {
+                        var e = S(this);
                         e.cannotBeABaseURL || mt(e, String(t), lt)
-                    }), hostname: Mt(Dt, function (t) {
-                        var e = b(this);
+                    }), hostname: Ut(Dt, function (t) {
+                        var e = S(this);
                         e.cannotBeABaseURL || mt(e, String(t), ht)
-                    }), port: Mt(Tt, function (t) {
-                        var e = b(this);
+                    }), port: Ut(Tt, function (t) {
+                        var e = S(this);
                         X(e) || ("" == (t = String(t)) ? e.port = null : mt(e, t, ft))
-                    }), pathname: Mt(Lt, function (t) {
-                        var e = b(this);
+                    }), pathname: Ut(Lt, function (t) {
+                        var e = S(this);
                         e.cannotBeABaseURL || (e.path = [], mt(e, t + "", gt))
-                    }), search: Mt(Ft, function (t) {
-                        var e = b(this);
-                        "" == (t = String(t)) ? e.query = null : ("?" == t.charAt(0) && (t = t.slice(1)), e.query = "", mt(e, t, Ct)), m(e.searchParams).updateSearchParams(e.query)
-                    }), searchParams: Mt(Ot), hash: Mt(Ut, function (t) {
-                        var e = b(this);
+                    }), search: Ut(Ft, function (t) {
+                        var e = S(this);
+                        "" == (t = String(t)) ? e.query = null : ("?" == t.charAt(0) && (t = t.slice(1)), e.query = "", mt(e, t, xt)), m(e.searchParams).updateSearchParams(e.query)
+                    }), searchParams: Ut(Ot), hash: Ut(Mt, function (t) {
+                        var e = S(this);
                         "" != (t = String(t)) ? ("#" == t.charAt(0) && (t = t.slice(1)), e.fragment = "", mt(e, t, wt)) : e.fragment = null
                     })
-                }), u(bt, "toJSON", function () {
-                    return St.call(this)
-                }, {enumerable: !0}), u(bt, "toString", function () {
-                    return St.call(this)
-                }, {enumerable: !0}), C) {
-                    var Nt = C.createObjectURL, Bt = C.revokeObjectURL;
+                }), u(St, "toJSON", function () {
+                    return bt.call(this)
+                }, {enumerable: !0}), u(St, "toString", function () {
+                    return bt.call(this)
+                }, {enumerable: !0}), x) {
+                    var Nt = x.createObjectURL, Bt = x.revokeObjectURL;
                     Nt && u(kt, "createObjectURL", function (t) {
-                        return Nt.apply(C, arguments)
+                        return Nt.apply(x, arguments)
                     }), Bt && u(kt, "revokeObjectURL", function (t) {
-                        return Bt.apply(C, arguments)
+                        return Bt.apply(x, arguments)
                     })
                 }
                 g(kt, "URL"), o({global: !0, forced: !a, sham: !i}, {URL: kt})
             }, function (t, e, n) {
                 "use strict";
-                var r = n(24), o = n(17), i = n(73), a = n(161), s = n(88), c = n(32), u = n(89), l = Object.assign,
+                var r = n(25), o = n(17), i = n(69), a = n(161), s = n(85), c = n(32), u = n(86), l = Object.assign,
                     h = Object.defineProperty;
                 t.exports = !l || o(function () {
                     if (r && 1 !== l({b: 1}, l(h({}, "a", {
@@ -17004,11 +16845,11 @@ parcelRequire = function (e, r, t, n) {
                             for (h += (v - l) * g, l = v, e = 0; e < t.length; e++) {
                                 if ((n = t[e]) < l && ++h > 2147483647) throw RangeError(i);
                                 if (n == l) {
-                                    for (var y = h, x = 36; ; x += 36) {
-                                        var C = x <= f ? 1 : x >= f + 26 ? 26 : x - f;
-                                        if (y < C) break;
-                                        var w = y - C, m = 36 - C;
-                                        r.push(s(c(C + w % m))), y = a(w / m)
+                                    for (var y = h, C = 36; ; C += 36) {
+                                        var x = C <= f ? 1 : C >= f + 26 ? 26 : C - f;
+                                        if (y < x) break;
+                                        var w = y - x, m = 36 - x;
+                                        r.push(s(c(x + w % m))), y = a(w / m)
                                     }
                                     r.push(s(c(y))), f = u(h, g, d == p), h = 0, ++d
                                 }
@@ -17051,7 +16892,7 @@ parcelRequire = function (e, r, t, n) {
             if (!a.SistersPlayerContext.checkP2PSupport()) return r.logger.error("unsupported bilibili p2p"), null;
             var p = new a.SistersPlayerContext(function (e, t) {
                 r.logger.info(t)
-            }, {trackerParams: {stream: c, roomid: d, timeshift: v}, sdkParams: {trackerServer: m}});
+            }, {trackerParams: {stream: c, roomid: d, timeshift: v}, sdkParams: {trackerServers: m}});
             if (void 0 !== p.getStatisticsData) throw new Error("getStatisticsData is exist, cannot be extended");
             return p.getStatisticsData = o(p, {timeshift: v, streamName: c}), n.setP2PContext({
                 P2PBufferLength: 3,
@@ -17187,14 +17028,14 @@ parcelRequire = function (e, r, t, n) {
         "use strict";
         var e = this && this.__assign || function () {
             return (e = Object.assign || function (e) {
-                for (var r, n = 1, t = arguments.length; n < t; n++) for (var i in r = arguments[n]) Object.prototype.hasOwnProperty.call(r, i) && (e[i] = r[i]);
+                for (var r, t = 1, n = arguments.length; t < n; t++) for (var i in r = arguments[t]) Object.prototype.hasOwnProperty.call(r, i) && (e[i] = r[i]);
                 return e
             }).apply(this, arguments)
-        }, r = this && this.__awaiter || function (e, r, n, t) {
-            return new (n || (n = Promise))(function (i, o) {
+        }, r = this && this.__awaiter || function (e, r, t, n) {
+            return new (t || (t = Promise))(function (i, o) {
                 function a(e) {
                     try {
-                        u(t.next(e))
+                        u(n.next(e))
                     } catch (r) {
                         o(r)
                     }
@@ -17202,7 +17043,7 @@ parcelRequire = function (e, r, t, n) {
 
                 function l(e) {
                     try {
-                        u(t.throw(e))
+                        u(n.throw(e))
                     } catch (r) {
                         o(r)
                     }
@@ -17210,15 +17051,15 @@ parcelRequire = function (e, r, t, n) {
 
                 function u(e) {
                     var r;
-                    e.done ? i(e.value) : (r = e.value, r instanceof n ? r : new n(function (e) {
+                    e.done ? i(e.value) : (r = e.value, r instanceof t ? r : new t(function (e) {
                         e(r)
                     })).then(a, l)
                 }
 
-                u((t = t.apply(e, r || [])).next())
+                u((n = n.apply(e, r || [])).next())
             })
-        }, n = this && this.__generator || function (e, r) {
-            var n, t, i, o, a = {
+        }, t = this && this.__generator || function (e, r) {
+            var t, n, i, o, a = {
                 label: 0, sent: function () {
                     if (1 & i[0]) throw i[1];
                     return i[1]
@@ -17235,10 +17076,10 @@ parcelRequire = function (e, r, t, n) {
             function l(o) {
                 return function (l) {
                     return function (o) {
-                        if (n) throw new TypeError("Generator is already executing.");
+                        if (t) throw new TypeError("Generator is already executing.");
                         for (; a;) try {
-                            if (n = 1, t && (i = 2 & o[0] ? t.return : o[0] ? t.throw || ((i = t.return) && i.call(t), 0) : t.next) && !(i = i.call(t, o[1])).done) return i;
-                            switch (t = 0, i && (o = [2 & o[0], i.value]), o[0]) {
+                            if (t = 1, n && (i = 2 & o[0] ? n.return : o[0] ? n.throw || ((i = n.return) && i.call(n), 0) : n.next) && !(i = i.call(n, o[1])).done) return i;
+                            switch (n = 0, i && (o = [2 & o[0], i.value]), o[0]) {
                                 case 0:
                                 case 1:
                                     i = o;
@@ -17246,7 +17087,7 @@ parcelRequire = function (e, r, t, n) {
                                 case 4:
                                     return a.label++, {value: o[1], done: !1};
                                 case 5:
-                                    a.label++, t = o[1], o = [0];
+                                    a.label++, n = o[1], o = [0];
                                     continue;
                                 case 7:
                                     o = a.ops.pop(), a.trys.pop();
@@ -17273,53 +17114,53 @@ parcelRequire = function (e, r, t, n) {
                             }
                             o = r.call(e, a)
                         } catch (l) {
-                            o = [6, l], t = 0
+                            o = [6, l], n = 0
                         } finally {
-                            n = i = 0
+                            t = i = 0
                         }
                         if (5 & o[0]) throw o[1];
                         return {value: o[0] ? o[1] : void 0, done: !0}
                     }([o, l])
                 }
             }
-        }, t = this && this.__importDefault || function (e) {
+        }, n = this && this.__importDefault || function (e) {
             return e && e.__esModule ? e : {default: e}
         };
         Object.defineProperty(exports, "__esModule", {value: !0});
         var i = require("@bilibili-live/web-player-common"), o = require("@bilibili-live/web-player-video"),
-            a = t(require("@bilibili-live/web-player-p2p")), l = t(require("@bilibili-live/web-player-track"));
+            a = n(require("@bilibili-live/web-player-p2p")), l = n(require("@bilibili-live/web-player-track"));
 
         function u(e) {
-            var t = e.video, l = e.type, u = e.roomId, d = e.interval;
+            var n = e.video, l = e.type, u = e.roomId, d = e.interval;
             return r(this, void 0, Promise, function () {
                 var e;
-                return n(this, function (r) {
+                return t(this, function (r) {
                     switch (r.label) {
                         case 0:
-                            return i.logger.info("launch p2p: " + l), l !== i.P2PType.FLV_QVB ? [3, 4] : (t.delyLoad(), null != window.QVBP2P ? [3, 2] : [4, i.loadScript("//s1.hdslb.com/bfs/static/blive/web-player/p2p/qvbp2p_bilibili_v1.8.16.min.js").catch(function () {
+                            return i.logger.info("launch p2p: " + l), l !== i.P2PType.FLV_QVB ? [3, 4] : (n.delyLoad(), null != window.QVBP2P ? [3, 2] : [4, i.loadScript("//s1.hdslb.com/bfs/static/blive/web-player/p2p/qvbp2p_bilibili_v1.8.16.min.js").catch(function () {
                                 i.logger.error("qvb script loading failed")
                             })]);
                         case 1:
                             r.sent(), r.label = 2;
                         case 2:
                             return [4, new Promise(function (e, r) {
-                                t.once(o.EventType.LoadStart, function (n) {
-                                    var t = n.corePlayer, i = n.videoEl;
+                                n.once(o.EventType.LoadStart, function (t) {
+                                    var n = t.corePlayer, i = t.videoEl;
                                     a.default.bindQVB({
-                                        corePlayer: t,
+                                        corePlayer: n,
                                         videoEl: i
                                     }) ? e() : r(new Error("launch flv_qvb failed"))
-                                }), t.load()
+                                }), n.load()
                             })];
                         case 3:
                             return [2, r.sent()];
                         case 4:
-                            return l !== i.P2PType.HLS_BILI ? [3, 6] : (t.delyLoad(), [4, f(u, t.getSrc()).catch(function (e) {
+                            return l !== i.P2PType.HLS_BILI ? [3, 6] : (n.delyLoad(), [4, f(u, n.getSrc()).catch(function (e) {
                                 return i.logger.error(e), null
                             })]);
                         case 5:
-                            return null == (e = r.sent()) ? (t.load(), [2]) : [2, new Promise(function (r, n) {
-                                t.once(o.EventType.CorePlayerCreated, function (i) {
+                            return null == (e = r.sent()) || 0 === e.length ? (n.load(), [2]) : [2, new Promise(function (r, t) {
+                                n.once(o.EventType.CorePlayerCreated, function (i) {
                                     var l = i.corePlayer, f = i.videoEl, p = i.src, v = a.default.bindBili({
                                         corePlayer: l,
                                         videoEl: f,
@@ -17332,11 +17173,11 @@ parcelRequire = function (e, r, t, n) {
                                             c(e, l)
                                         };
                                         var b = s(v, f, d);
-                                        t.once(o.EventType.Destroyed, function () {
+                                        n.once(o.EventType.Destroyed, function () {
                                             b(), v.destroy()
                                         }), r()
-                                    } else n(new Error("launch bili_p2p failed"))
-                                }), t.load()
+                                    } else t(new Error("launch bili_p2p failed"))
+                                }), n.load()
                             })];
                         case 6:
                             return [2]
@@ -17355,14 +17196,14 @@ parcelRequire = function (e, r, t, n) {
             }
         }
 
-        function s(r, n, t) {
-            void 0 === t && (t = 30);
+        function s(r, t, n) {
+            void 0 === n && (n = 30);
             var o = 0, a = l.default.fixedDynamicFieldsVerIns();
 
             function u() {
-                var t = i.remainBufferLength(n);
-                t = t < 0 ? 0 : t;
-                var u = Math.round(1e3 * (n.currentTime + t)), c = i.roundNumber((u < 0 ? 0 : u) - o, 0);
+                var n = i.remainBufferLength(t);
+                n = n < 0 ? 0 : n;
+                var u = Math.round(1e3 * (t.currentTime + n)), c = i.roundNumber((u < 0 ? 0 : u) - o, 0);
                 o = u;
                 var s = r.getStatisticsData();
                 null != s && a.custom(l.default.CustomCode.P2PData, e(e({}, s), {duration: c}), {
@@ -17371,7 +17212,7 @@ parcelRequire = function (e, r, t, n) {
                 })
             }
 
-            var c = setInterval(u, 1e3 * (t >= 10 || t <= 300 ? t : 30)), s = function () {
+            var c = setInterval(u, 1e3 * (n >= 10 || n <= 300 ? n : 30)), s = function () {
                 clearInterval(c), u()
             };
             return window.addEventListener("beforeunload", s), function () {
@@ -17382,22 +17223,22 @@ parcelRequire = function (e, r, t, n) {
         exports.default = u;
         var f = function () {
             var e = {};
-            return function (t, o) {
+            return function (n, o) {
                 return r(void 0, void 0, void 0, function () {
                     var r, l;
-                    return n(this, function (n) {
-                        switch (n.label) {
+                    return t(this, function (t) {
+                        switch (t.label) {
                             case 0:
-                                if (r = a.default.getTrackerParamsString(o, t), null != e[r]) return [2, e[r]];
-                                l = null, n.label = 1;
+                                if (r = a.default.getTrackerParamsString(o, n), null != e[r]) return [2, e[r]];
+                                l = [], t.label = 1;
                             case 1:
-                                return n.trys.push([1, 4, , 5]), [4, i.ajax("/xlive/open-interface/v2/tracker/conf" + r)];
+                                return t.trys.push([1, 4, , 5]), [4, i.ajax("/xlive/open-interface/v2/tracker/conf" + r)];
                             case 2:
-                                return [4, n.sent().domains[0]];
+                                return [4, t.sent().domains];
                             case 3:
-                                return l = n.sent(), [3, 5];
+                                return l = t.sent(), [3, 5];
                             case 4:
-                                return n.sent(), i.logger.error("track server url parsed error"), [3, 5];
+                                return t.sent(), i.logger.error("track server url parsed error"), [3, 5];
                             case 5:
                                 return e[r] = l, [2, l]
                         }
@@ -17620,95 +17461,95 @@ parcelRequire = function (e, r, t, n) {
     "rPou": [function (require, module, exports) {
         "use strict";
         var e = this && this.__awaiter || function (e, t, n, r) {
-            return new (n || (n = Promise))(function (o, a) {
-                function i(e) {
+            return new (n || (n = Promise))(function (o, i) {
+                function a(e) {
                     try {
-                        u(r.next(e))
+                        l(r.next(e))
                     } catch (t) {
-                        a(t)
-                    }
-                }
-
-                function l(e) {
-                    try {
-                        u(r.throw(e))
-                    } catch (t) {
-                        a(t)
+                        i(t)
                     }
                 }
 
                 function u(e) {
+                    try {
+                        l(r.throw(e))
+                    } catch (t) {
+                        i(t)
+                    }
+                }
+
+                function l(e) {
                     var t;
                     e.done ? o(e.value) : (t = e.value, t instanceof n ? t : new n(function (e) {
                         e(t)
-                    })).then(i, l)
+                    })).then(a, u)
                 }
 
-                u((r = r.apply(e, t || [])).next())
+                l((r = r.apply(e, t || [])).next())
             })
         }, t = this && this.__generator || function (e, t) {
-            var n, r, o, a, i = {
+            var n, r, o, i, a = {
                 label: 0, sent: function () {
                     if (1 & o[0]) throw o[1];
                     return o[1]
                 }, trys: [], ops: []
             };
-            return a = {
-                next: l(0),
-                throw: l(1),
-                return: l(2)
-            }, "function" == typeof Symbol && (a[Symbol.iterator] = function () {
+            return i = {
+                next: u(0),
+                throw: u(1),
+                return: u(2)
+            }, "function" == typeof Symbol && (i[Symbol.iterator] = function () {
                 return this
-            }), a;
+            }), i;
 
-            function l(a) {
-                return function (l) {
-                    return function (a) {
+            function u(i) {
+                return function (u) {
+                    return function (i) {
                         if (n) throw new TypeError("Generator is already executing.");
-                        for (; i;) try {
-                            if (n = 1, r && (o = 2 & a[0] ? r.return : a[0] ? r.throw || ((o = r.return) && o.call(r), 0) : r.next) && !(o = o.call(r, a[1])).done) return o;
-                            switch (r = 0, o && (a = [2 & a[0], o.value]), a[0]) {
+                        for (; a;) try {
+                            if (n = 1, r && (o = 2 & i[0] ? r.return : i[0] ? r.throw || ((o = r.return) && o.call(r), 0) : r.next) && !(o = o.call(r, i[1])).done) return o;
+                            switch (r = 0, o && (i = [2 & i[0], o.value]), i[0]) {
                                 case 0:
                                 case 1:
-                                    o = a;
+                                    o = i;
                                     break;
                                 case 4:
-                                    return i.label++, {value: a[1], done: !1};
+                                    return a.label++, {value: i[1], done: !1};
                                 case 5:
-                                    i.label++, r = a[1], a = [0];
+                                    a.label++, r = i[1], i = [0];
                                     continue;
                                 case 7:
-                                    a = i.ops.pop(), i.trys.pop();
+                                    i = a.ops.pop(), a.trys.pop();
                                     continue;
                                 default:
-                                    if (!(o = (o = i.trys).length > 0 && o[o.length - 1]) && (6 === a[0] || 2 === a[0])) {
-                                        i = 0;
+                                    if (!(o = (o = a.trys).length > 0 && o[o.length - 1]) && (6 === i[0] || 2 === i[0])) {
+                                        a = 0;
                                         continue
                                     }
-                                    if (3 === a[0] && (!o || a[1] > o[0] && a[1] < o[3])) {
-                                        i.label = a[1];
+                                    if (3 === i[0] && (!o || i[1] > o[0] && i[1] < o[3])) {
+                                        a.label = i[1];
                                         break
                                     }
-                                    if (6 === a[0] && i.label < o[1]) {
-                                        i.label = o[1], o = a;
+                                    if (6 === i[0] && a.label < o[1]) {
+                                        a.label = o[1], o = i;
                                         break
                                     }
-                                    if (o && i.label < o[2]) {
-                                        i.label = o[2], i.ops.push(a);
+                                    if (o && a.label < o[2]) {
+                                        a.label = o[2], a.ops.push(i);
                                         break
                                     }
-                                    o[2] && i.ops.pop(), i.trys.pop();
+                                    o[2] && a.ops.pop(), a.trys.pop();
                                     continue
                             }
-                            a = t.call(e, i)
-                        } catch (l) {
-                            a = [6, l], r = 0
+                            i = t.call(e, a)
+                        } catch (u) {
+                            i = [6, u], r = 0
                         } finally {
                             n = o = 0
                         }
-                        if (5 & a[0]) throw a[1];
-                        return {value: a[0] ? a[1] : void 0, done: !0}
-                    }([a, l])
+                        if (5 & i[0]) throw i[1];
+                        return {value: i[0] ? i[1] : void 0, done: !0}
+                    }([i, u])
                 }
             }
         }, n = this && this.__importDefault || function (e) {
@@ -17716,105 +17557,110 @@ parcelRequire = function (e, r, t, n) {
         };
         Object.defineProperty(exports, "__esModule", {value: !0}), exports.createVideoTracker = void 0;
         var r = require("@bilibili-live/web-player-video"), o = n(require("@bilibili-live/web-player-track")),
-            a = o.default.PerfCode, i = o.default.EventCode, l = o.default.CustomCode;
+            i = o.default.PerfCode, a = o.default.EventCode, u = o.default.CustomCode;
 
-        function u() {
-            var n = this, u = !1, c = !1;
-            return function (s) {
-                o.default.event(i.CreateVideo, null, {
+        function l() {
+            var n = this, l = !1, c = !1, s = !1;
+            return window.addEventListener("unload", function () {
+                s = !0
+            }), function (f) {
+                o.default.event(a.CreateVideo, null, {
                     sampleRate: .1,
                     extFields: ["sProtocol", "sHost", "p2pType", "sCodec", "sName", "sFormat"],
                     randDelay: 0
-                }), s.once(r.EventType.NetworkResponse, function (e) {
+                }), f.once(r.EventType.NetworkResponse, function (e) {
                     var t, n = e.headers.get("x-service-module");
                     null != n && o.default.updateDynamicInfo(((t = {})["x-service-module"] = n, t))
-                }), s.once(r.EventType.FirstFrame, function (e) {
-                    o.default.perf(a.FirstFrame, e, {sampleRate: .1, extFields: "all"})
-                }), s.once(r.EventType.FirstPacket, function (e) {
-                    o.default.perf(a.FirstPacket, e, {sampleRate: .05})
-                }), s.once(r.EventType.MetaData, function (e) {
-                    o.default.perf(a.VideoMeta, e, {sampleRate: .05})
-                }), s.once(r.EventType.Ended, function () {
+                }), f.once(r.EventType.FirstFrame, function (e) {
+                    o.default.perf(i.FirstFrame, e, {sampleRate: .1, extFields: "all"})
+                }), f.once(r.EventType.FirstPacket, function (e) {
+                    o.default.perf(i.FirstPacket, e, {sampleRate: .05})
+                }), f.once(r.EventType.MetaData, function (e) {
+                    o.default.perf(i.VideoMeta, e, {sampleRate: .05})
+                }), f.once(r.EventType.Ended, function () {
                     return e(n, void 0, void 0, function () {
                         return t(this, function (e) {
-                            return u = !0, [2]
+                            return l = !0, [2]
                         })
                     })
-                }), s.once(r.EventType.FirstFrame, function () {
-                    u = !1, c = !1
-                }), s.once(r.EventType.Error, function (e) {
-                    c || (c = !0, u || o.default.error(e.code, JSON.stringify(e.errInfo)))
+                }), f.once(r.EventType.FirstFrame, function () {
+                    l = !1, c = !1
+                }), f.once(r.EventType.Error, function (e) {
+                    s || c || (c = !0, l || o.default.error(e.code, JSON.stringify(e.errInfo)))
                 });
-                var f = o.default.fixedDynamicFieldsVerIns();
-                s.on(r.EventType.WaitReport, function (e) {
-                    f.custom(l.Waiting, e, {randDelay: 5e3, extFields: "all"})
+                var d = o.default.fixedDynamicFieldsVerIns();
+                f.on(r.EventType.WaitReport, function (e) {
+                    d.custom(u.Waiting, e, {randDelay: 5e3, extFields: "all"})
                 })
             }
         }
 
-        exports.createVideoTracker = u;
+        exports.createVideoTracker = l;
     }, {"@bilibili-live/web-player-video": "ao58", "@bilibili-live/web-player-track": "ESUf"}],
     "XQD5": [function (require, module, exports) {
         module.exports = {
-            webPlayerReplayContainer: "_web-player-replay-container_407e6",
-            replayShow: "_replay-show_407e6",
-            replayHidden: "_replay-hidden_407e6",
-            webPlayerReplayElement: "_web-player-replay-element_407e6",
-            progressShow: "_progress-show_407e6",
-            progressHidden: "_progress-hidden_407e6",
-            webPlayerReplayProgress: "_web-player-replay-progress_407e6",
-            webPlayerReplayCurrentPoint: "_web-player-replay-current-point_407e6",
-            webPlayerReplayBar: "_web-player-replay-bar_407e6",
-            webPlayerReplayHighlightsHidden: "_web-player-replay-highlights-hidden_407e6",
-            highlightItem: "_highlight-item_407e6",
-            highlightPot: "_highlight-pot_407e6",
-            highlightIcon: "_highlight-icon_407e6",
-            webPlayerReplayHighlightsShow: "_web-player-replay-highlights-show_407e6",
-            webPlayerReplayHighlights: "_web-player-replay-highlights_407e6",
-            highlightImg: "_highlight-img_407e6",
-            backliveBtnContainer: "_backlive-btn-container_407e6",
-            backliveBtn: "_backlive-btn_407e6",
-            backliveDot: "_backlive-dot_407e6"
+            webPlayerReplayContainer: "_web-player-replay-container_87470",
+            replayShow: "_replay-show_87470",
+            replayHidden: "_replay-hidden_87470",
+            webPlayerReplayElement: "_web-player-replay-element_87470",
+            progressShow: "_progress-show_87470",
+            progressHidden: "_progress-hidden_87470",
+            webPlayerReplayProgress: "_web-player-replay-progress_87470",
+            webPlayerReplayCurrentPoint: "_web-player-replay-current-point_87470",
+            webPlayerReplayBar: "_web-player-replay-bar_87470",
+            webPlayerReplayHighlightsHidden: "_web-player-replay-highlights-hidden_87470",
+            highlightItem: "_highlight-item_87470",
+            highlightPot: "_highlight-pot_87470",
+            highlightIcon: "_highlight-icon_87470",
+            webPlayerReplayHighlightsShow: "_web-player-replay-highlights-show_87470",
+            webPlayerReplayHighlights: "_web-player-replay-highlights_87470",
+            highlightImg: "_highlight-img_87470",
+            backliveBtnContainer: "_backlive-btn-container_87470",
+            backliveBtn: "_backlive-btn_87470",
+            backliveDot: "_backlive-dot_87470"
         };
+        var e = '._web-player-replay-container_87470{z-index:12;position:absolute;bottom:0;width:100%;height:3px;user-select:none;-webkit-touch-callout:none}._web-player-replay-container_87470 div._replay-show_87470{bottom:40px}._web-player-replay-container_87470 div._replay-hidden_87470{bottom:0}@media screen and (max-width:850px){._web-player-replay-container_87470 div._replay-show_87470{bottom:30px;height:50px;display:flex;align-items:center}}._web-player-replay-container_87470 ._web-player-replay-element_87470{opacity:.8;bottom:0;left:7px;right:7px;position:absolute}._web-player-replay-container_87470 ._web-player-replay-element_87470 div._progress-show_87470{height:4px;padding:2px 0}._web-player-replay-container_87470 ._web-player-replay-element_87470 div._progress-hidden_87470{height:3px;padding:0}@media screen and (max-width:850px){._web-player-replay-container_87470 ._web-player-replay-element_87470 div._progress-show_87470{height:2px;padding:2px 0}._web-player-replay-container_87470 ._web-player-replay-element_87470 div._progress-hidden_87470{height:2px;padding:0}}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-progress_87470{height:3px;padding:0;position:relative;width:100%;background:hsla(0,0%,100%,.3);cursor:pointer;opacity:.9;background-clip:content-box}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-progress_87470 ._web-player-replay-current-point_87470{position:absolute;left:100%;margin-left:-7px;margin-top:-6px;width:14px;height:14px;background-size:100%;z-index:1;display:none;background-image:url(https://i0.hdslb.com/bfs/activity-plat/static/20210315/d0411babbbf77c49ca42a3320eb804ae/F7QzSyeFMa.png)}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-progress_87470 ._web-player-replay-bar_87470{width:100%;height:100%;background:#00a1d6}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights-hidden_87470 ._highlight-item_87470{top:0}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights-hidden_87470 ._highlight-item_87470 ._highlight-pot_87470{width:3px;height:3px}@media screen and (max-width:850px){._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights-hidden_87470 ._highlight-item_87470 ._highlight-pot_87470{width:2px;height:2px}}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights-hidden_87470 ._highlight-icon_87470{display:none}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights-show_87470 ._highlight-item_87470{top:2px}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights-show_87470 ._highlight-item_87470 ._highlight-pot_87470{width:4px;height:4px}@media screen and (max-width:850px){._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights-show_87470 ._highlight-item_87470 ._highlight-pot_87470{width:2px;height:2px}}@media screen and (max-width:850px){._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights-show_87470 ._highlight-item_87470{top:calc(50% - 1px)}}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights-show_87470 ._highlight-icon_87470{display:block}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights_87470 ._highlight-item_87470{position:absolute}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights_87470 ._highlight-item_87470 ._highlight-pot_87470{position:absolute;left:0;border-radius:50%;background-color:#fff;cursor:pointer}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights_87470 ._highlight-item_87470 ._highlight-icon_87470{position:absolute;width:36px;height:36px;top:-50px;left:-16px;border-radius:50%;background:#00a1d6;cursor:pointer}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights_87470 ._highlight-item_87470 ._highlight-icon_87470 ._highlight-img_87470{position:absolute;left:2px;top:2px;width:32px;height:32px;border-radius:50%;overflow:hidden;background-size:cover;z-index:1}._web-player-replay-container_87470 ._web-player-replay-element_87470 ._web-player-replay-highlights_87470 ._highlight-item_87470 ._highlight-icon_87470:after{content:"";position:absolute;left:13px;bottom:-3px;width:10px;height:10px;transform:rotate(45deg);background-color:#00a1d6}._backlive-btn-container_87470{display:flex;height:22px}._backlive-btn-container_87470 ._backlive-btn_87470{padding:0 8px;margin:0 9px;color:#fff;background-color:rgba(51,51,51,.8);border-radius:12px;font-size:12px;cursor:pointer;display:flex;align-items:center}._backlive-btn-container_87470 ._backlive-btn_87470 ._backlive-dot_87470{display:inline-block;margin-right:6px;width:6px;height:6px;font-size:0;border-radius:50%;background:#ff5243;vertical-align:middle}',
+            l = document.createElement("style");
+        l.type = "text/css", l.appendChild(document.createTextNode(e)), document.head.appendChild(l);
     }, {}],
     "EfpE": [function (require, module, exports) {
         var define;
-        var e;
+        var t;
 
-        function t(e) {
-            return (t = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) {
-                return typeof e
-            } : function (e) {
-                return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e
-            })(e)
+        function e(t) {
+            return (e = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (t) {
+                return typeof t
+            } : function (t) {
+                return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t
+            })(t)
         }
 
         !function (n, o) {
-            "object" == ("undefined" == typeof exports ? "undefined" : t(exports)) && "object" == ("undefined" == typeof module ? "undefined" : t(module)) ? module.exports = o() : "function" == typeof e && e.amd ? e([], o) : "object" == ("undefined" == typeof exports ? "undefined" : t(exports)) ? exports.DanmakuWebSocket = o() : n.DanmakuWebSocket = o()
+            "object" == ("undefined" == typeof exports ? "undefined" : e(exports)) && "object" == ("undefined" == typeof module ? "undefined" : e(module)) ? module.exports = o() : "function" == typeof t && t.amd ? t([], o) : "object" == ("undefined" == typeof exports ? "undefined" : e(exports)) ? exports.DanmakuWebSocket = o() : n.DanmakuWebSocket = o()
         }("undefined" != typeof self ? self : this, function () {
-            return function (e) {
-                function t(o) {
+            return function (t) {
+                function e(o) {
                     if (n[o]) return n[o].exports;
                     var i = n[o] = {i: o, l: !1, exports: {}};
-                    return e[o].call(i.exports, i, i.exports, t), i.l = !0, i.exports
+                    return t[o].call(i.exports, i, i.exports, e), i.l = !0, i.exports
                 }
 
                 var n = {};
-                return t.m = e, t.c = n, t.d = function (e, n, o) {
-                    t.o(e, n) || Object.defineProperty(e, n, {configurable: !1, enumerable: !0, get: o})
-                }, t.n = function (e) {
-                    var n = e && e.__esModule ? function () {
-                        return e.default
+                return e.m = t, e.c = n, e.d = function (t, n, o) {
+                    e.o(t, n) || Object.defineProperty(t, n, {configurable: !1, enumerable: !0, get: o})
+                }, e.n = function (t) {
+                    var n = t && t.__esModule ? function () {
+                        return t.default
                     } : function () {
-                        return e
+                        return t
                     };
-                    return t.d(n, "a", n), n
-                }, t.o = function (e, t) {
-                    return Object.prototype.hasOwnProperty.call(e, t)
-                }, t.p = "", t(t.s = 1)
-            }([function (e, t, n) {
+                    return e.d(n, "a", n), n
+                }, e.o = function (t, e) {
+                    return Object.prototype.hasOwnProperty.call(t, e)
+                }, e.p = "", e(e.s = 1)
+            }([function (t, e, n) {
                 "use strict";
-                t.a = {
+                e.a = {
                     WS_OP_HEARTBEAT: 2,
                     WS_OP_HEARTBEAT_REPLY: 3,
                     WS_OP_MESSAGE: 5,
@@ -17834,66 +17680,69 @@ parcelRequire = function (e, r, t, n) {
                     WS_AUTH_OK: 0,
                     WS_AUTH_TOKEN_ERROR: -101
                 }
-            }, function (e, t, n) {
+            }, function (t, e, n) {
                 var o = n(2).default;
-                e.exports = o
-            }, function (e, t, n) {
+                t.exports = o
+            }, function (t, e, n) {
                 "use strict";
-                Object.defineProperty(t, "__esModule", {value: !0});
+                Object.defineProperty(e, "__esModule", {value: !0});
                 var o = n(3), i = function () {
-                    function e(e, t) {
-                        for (var n = 0; n < t.length; n++) {
-                            var o = t[n];
-                            o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, o.key, o)
+                    function t(t, e) {
+                        for (var n = 0; n < e.length; n++) {
+                            var o = e[n];
+                            o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o)
                         }
                     }
 
-                    return function (t, n, o) {
-                        return n && e(t.prototype, n), o && e(t, o), t
+                    return function (e, n, o) {
+                        return n && t(e.prototype, n), o && t(e, o), e
                     }
                 }(), r = function () {
-                    function e(t) {
-                        return function (e, t) {
-                            if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function")
-                        }(this, e), "development" === e.CONFIG.bundleType && (console.clear(), console.dir(e.CONFIG)), this.initialize(t)
+                    function t(e) {
+                        return function (t, e) {
+                            if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
+                        }(this, t), "development" === t.CONFIG.bundleType && (console.clear(), console.dir(t.CONFIG)), this.initialize(e)
                     }
 
-                    return e.prototype.initialize = function (t) {
+                    return t.prototype.initialize = function (e) {
                         var n = this;
-                        "development" === e.CONFIG.bundleType && console.log("App Initialized.");
+                        "development" === t.CONFIG.bundleType && console.log("App Initialized.");
                         var i = document.createElement("script");
                         return i.src = "//activity.hdslb.com/blackboard/static/20210425/d0411babbbf77c49ca42a3320eb804ae/0NCT06vruR.js", i.onload = function () {
-                            n.ws = new o.a(t)
+                            n.ws = new o.a(e)
                         }, window.document.head.append(i), this.getReturn()
-                    }, e.prototype.getReturn = function () {
-                        return "development" === e.CONFIG.bundleType ? this : {
+                    }, t.prototype.getReturn = function () {
+                        return "development" === t.CONFIG.bundleType ? this : {
                             destroy: this.destroy.bind(this),
                             send: this.send.bind(this),
                             getAuthInfo: this.getAuthInfo.bind(this),
-                            getRetryCount: this.getRetryCount.bind(this)
+                            getRetryCount: this.getRetryCount.bind(this),
+                            getState: this.getState.bind(this)
                         }
-                    }, e.prototype.destroy = function () {
+                    }, t.prototype.destroy = function () {
                         this.ws && this.ws.destroy()
-                    }, e.prototype.send = function (e) {
-                        this.ws && this.ws.send(e)
-                    }, e.prototype.getAuthInfo = function () {
+                    }, t.prototype.getState = function () {
+                        return this.ws && this.ws.getState()
+                    }, t.prototype.send = function (t) {
+                        this.ws && this.ws.send(t)
+                    }, t.prototype.getAuthInfo = function () {
                         return this.ws && this.ws.getAuthInfo()
-                    }, e.prototype.getRetryCount = function () {
+                    }, t.prototype.getRetryCount = function () {
                         return this.ws && this.ws.getRetryCount()
-                    }, i(e, null, [{
+                    }, i(t, null, [{
                         key: "CONFIG", get: function () {
-                            return {version: "1.4.4", gitHash: "cfc1ae5b", build: "33", bundleType: "release"}
+                            return {version: "1.4.4", gitHash: "31c446ee", build: "34", bundleType: "release"}
                         }
-                    }]), e
+                    }]), t
                 }();
-                t.default = r
-            }, function (e, t, n) {
+                e.default = r
+            }, function (t, e, n) {
                 "use strict";
                 var o = n(0), i = n(4), r = n(5), s = function () {
-                    function e(t) {
-                        if (function (e, t) {
-                            if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function")
-                        }(this, e), e.checkOptions(t)) {
+                    function t(e) {
+                        if (function (t, e) {
+                            if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
+                        }(this, t), t.checkOptions(e)) {
                             var n = {
                                 url: "",
                                 urlList: [],
@@ -17932,14 +17781,15 @@ parcelRequire = function (e, r, t, n) {
                                 onLogger: function () {
                                 }
                             };
-                            this.options = r.a.extend({}, n, t), this.wsBinaryHeaderList = r.a.extend([], i.a), this.authInfo = {
+                            this.options = r.a.extend({}, n, e), this.wsBinaryHeaderList = r.a.extend([], i.a), this.authInfo = {
                                 origin: "",
                                 encode: ""
                             }, 0 !== this.options.urlList.length && 0 !== this.options.retryMaxCount && this.options.retryMaxCount < this.options.urlList.length && (this.options.retryMaxCount = this.options.urlList.length - 1), this.state = {
                                 retryCount: 0,
                                 listConnectFinishedCount: 0,
                                 index: 0,
-                                connectTimeoutTimes: 0
+                                connectTimeoutTimes: 0,
+                                url: ""
                             }, this.callbackQueueList = {
                                 onInitializedQueue: [],
                                 onOpenQueue: [],
@@ -17954,23 +17804,23 @@ parcelRequire = function (e, r, t, n) {
                         }
                     }
 
-                    return e.prototype.initialize = function (e) {
-                        var t = this, n = "MozWebSocket" in window ? window.MozWebSocket : window.WebSocket,
+                    return t.prototype.initialize = function (t) {
+                        var e = this, n = "MozWebSocket" in window ? window.MozWebSocket : window.WebSocket,
                             o = this.options;
                         try {
-                            this.ws = new n(e), this.ws.binaryType = "arraybuffer", this.ws.onopen = this.onOpen.bind(this), this.ws.onmessage = this.onMessage.bind(this), this.ws.onclose = this.onClose.bind(this), this.ws.onerror = this.onError.bind(this), r.a.callFunction(this.callbackQueueList.onInitializedQueue), this.callbackQueueList.onInitializedQueue = [];
+                            this.state.url = t, this.ws = new n(t), this.ws.binaryType = "arraybuffer", this.ws.onopen = this.onOpen.bind(this), this.ws.onmessage = this.onMessage.bind(this), this.ws.onclose = this.onClose.bind(this), this.ws.onerror = this.onError.bind(this), r.a.callFunction(this.callbackQueueList.onInitializedQueue), this.callbackQueueList.onInitializedQueue = [];
                             var i = this.state.connectTimeoutTimes >= 3 ? o.retryconnectTimeout : o.connectTimeout;
                             this.CONNECT_TIMEOUT = setTimeout(function () {
-                                t.state.connectTimeoutTimes += 1, t.options.onLogger("connect timeout " + t.state.connectTimeoutTimes), t.ws.close()
+                                e.state.connectTimeoutTimes += 1, e.options.onLogger("connect timeout " + e.state.connectTimeoutTimes), e.ws.close()
                             }, i)
-                        } catch (e) {
+                        } catch (t) {
                             "function" == typeof o.fallback && o.fallback()
                         }
                         return this
-                    }, e.prototype.onOpen = function () {
+                    }, t.prototype.onOpen = function () {
                         return r.a.callFunction(this.callbackQueueList.onOpenQueue), this.state.connectTimeoutTimes = 0, this.CONNECT_TIMEOUT && clearTimeout(this.CONNECT_TIMEOUT), this.userAuthentication(), this
-                    }, e.prototype.userAuthentication = function () {
-                        var e, t = this, n = this.options,
+                    }, t.prototype.userAuthentication = function () {
+                        var t, e = this, n = this.options,
                             i = {uid: parseInt(n.uid, 10), roomid: parseInt(n.rid, 10), protover: 3};
                         n.aid && (i.aid = parseInt(n.aid, 10)), n.from > 0 && (i.from = parseInt(n.from, 10) || 7);
                         for (var r = 0; r < n.customAuthParam.length; r++) {
@@ -17989,24 +17839,26 @@ parcelRequire = function (e, r, t, n) {
                                     return void this.options.onLogger("Unsupported customAuthParam type!【" + a + "】")
                             }
                         }
-                        e = this.convertToArrayBuffer(JSON.stringify(i), o.a.WS_OP_USER_AUTHENTICATION), this.authInfo.origin = i, this.authInfo.encode = e, setTimeout(function () {
-                            t.ws.send(e)
+                        t = this.convertToArrayBuffer(JSON.stringify(i), o.a.WS_OP_USER_AUTHENTICATION), this.authInfo.origin = i, this.authInfo.encode = t, setTimeout(function () {
+                            e.ws.send(t)
                         }, 0)
-                    }, e.prototype.getAuthInfo = function () {
+                    }, t.prototype.getAuthInfo = function () {
                         return this.authInfo
-                    }, e.prototype.heartBeat = function () {
-                        var e = this;
-                        clearTimeout(this.HEART_BEAT_INTERVAL);
-                        var t = this.convertToArrayBuffer({}, o.a.WS_OP_HEARTBEAT);
-                        this.ws.send(t), this.HEART_BEAT_INTERVAL = setTimeout(function () {
-                            e.heartBeat()
-                        }, 1e3 * this.options.heartBeatInterval)
-                    }, e.prototype.onMessage = function (e) {
+                    }, t.prototype.getState = function () {
+                        return this.state
+                    }, t.prototype.heartBeat = function () {
                         var t = this;
+                        clearTimeout(this.HEART_BEAT_INTERVAL);
+                        var e = this.convertToArrayBuffer({}, o.a.WS_OP_HEARTBEAT);
+                        this.ws.send(e), this.HEART_BEAT_INTERVAL = setTimeout(function () {
+                            t.heartBeat()
+                        }, 1e3 * this.options.heartBeatInterval)
+                    }, t.prototype.onMessage = function (t) {
+                        var e = this;
                         try {
-                            var n = this.convertToObject(e.data);
-                            if (n instanceof Array) n.forEach(function (e) {
-                                t.onMessage(e)
+                            var n = this.convertToObject(t.data);
+                            if (n instanceof Array) n.forEach(function (t) {
+                                e.onMessage(t)
                             }); else if (n instanceof Object) switch (n.op) {
                                 case o.a.WS_OP_HEARTBEAT_REPLY:
                                     this.onHeartBeatReply(n.body);
@@ -18026,79 +17878,79 @@ parcelRequire = function (e, r, t, n) {
                                             this.onClose()
                                     } else this.heartBeat()
                             }
-                        } catch (e) {
-                            this.options.onLogger("WebSocket Error: ", e)
+                        } catch (t) {
+                            this.options.onLogger("WebSocket Error: ", t)
                         }
                         return this
-                    }, e.prototype.onMessageReply = function (e, t) {
+                    }, t.prototype.onMessageReply = function (t, e) {
                         var n = this;
                         try {
-                            e instanceof Array ? e.forEach(function (e) {
-                                n.onMessageReply(e, t)
-                            }) : e instanceof Object && "function" == typeof this.options.onReceivedMessage && this.options.onReceivedMessage(e, t)
-                        } catch (e) {
-                            this.options.onLogger("On Message Resolve Error: ", e)
+                            t instanceof Array ? t.forEach(function (t) {
+                                n.onMessageReply(t, e)
+                            }) : t instanceof Object && "function" == typeof this.options.onReceivedMessage && this.options.onReceivedMessage(t, e)
+                        } catch (t) {
+                            this.options.onLogger("On Message Resolve Error: ", t)
                         }
-                    }, e.prototype.onHeartBeatReply = function (e) {
-                        r.a.callFunction(this.callbackQueueList.onHeartBeatReplyQueue, e)
-                    }, e.prototype.onClose = function () {
-                        var e = this, t = this.options.urlList.length;
+                    }, t.prototype.onHeartBeatReply = function (t) {
+                        r.a.callFunction(this.callbackQueueList.onHeartBeatReplyQueue, t)
+                    }, t.prototype.onClose = function () {
+                        var t = this, e = this.options.urlList.length;
                         return r.a.callFunction(this.callbackQueueList.onCloseQueue), clearTimeout(this.HEART_BEAT_INTERVAL), this.options.retry ? (this.checkRetryState() ? setTimeout(function () {
-                            e.options.onLogger("Danmaku Websocket Retry .", e.state.retryCount), e.state.index += 1, 0 === t || e.state.retryCount > e.options.retryThreadCount ? setTimeout(function () {
-                                e.initialize(e.options.url)
-                            }, 1e3 * e.options.retryRoundInterval) : 0 !== t && e.state.index > t - 1 ? (e.state.index = 0, e.state.listConnectFinishedCount += 1, 1 === e.state.listConnectFinishedCount && r.a.callFunction(e.callbackQueueList.onListConnectErrorQueue), setTimeout(function () {
-                                e.initialize(e.options.urlList[e.state.index])
-                            }, 1e3 * e.options.retryRoundInterval)) : e.initialize(e.options.urlList[e.state.index])
+                            t.options.onLogger("Danmaku Websocket Retry .", t.state.retryCount), t.state.index += 1, 0 === e || t.state.retryCount > t.options.retryThreadCount ? setTimeout(function () {
+                                t.initialize(t.options.url)
+                            }, 1e3 * t.options.retryRoundInterval) : 0 !== e && t.state.index > e - 1 ? (t.state.index = 0, t.state.listConnectFinishedCount += 1, 1 === t.state.listConnectFinishedCount && r.a.callFunction(t.callbackQueueList.onListConnectErrorQueue), setTimeout(function () {
+                                t.initialize(t.options.urlList[t.state.index])
+                            }, 1e3 * t.options.retryRoundInterval)) : t.initialize(t.options.urlList[t.state.index])
                         }, 1e3 * this.options.retryInterval) : (this.options.onLogger("Danmaku Websocket Retry Failed."), r.a.callFunction(this.callbackQueueList.onRetryFallbackQueue)), this) : this
-                    }, e.prototype.onError = function (e) {
-                        return this.options.onLogger("Danmaku Websocket On Error.", e), r.a.callFunction(this.callbackQueueList.onErrorQueue, e), this
-                    }, e.prototype.destroy = function () {
+                    }, t.prototype.onError = function (t) {
+                        return this.options.onLogger("Danmaku Websocket On Error.", t), r.a.callFunction(this.callbackQueueList.onErrorQueue, t), this
+                    }, t.prototype.destroy = function () {
                         this.HEART_BEAT_INTERVAL && clearTimeout(this.HEART_BEAT_INTERVAL), this.CONNECT_TIMEOUT && clearTimeout(this.CONNECT_TIMEOUT), this.options.retry = !1, this.ws && this.ws.close(), this.ws = null
-                    }, e.prototype.convertToArrayBuffer = function (e, t) {
+                    }, t.prototype.convertToArrayBuffer = function (t, e) {
                         this.encoder || (this.encoder = r.a.getEncoder());
                         var n = new ArrayBuffer(o.a.WS_PACKAGE_HEADER_TOTAL_LENGTH),
-                            i = new DataView(n, o.a.WS_PACKAGE_OFFSET), s = this.encoder.encode(e);
-                        return i.setInt32(o.a.WS_PACKAGE_OFFSET, o.a.WS_PACKAGE_HEADER_TOTAL_LENGTH + s.byteLength), this.wsBinaryHeaderList[2].value = t, this.wsBinaryHeaderList.forEach(function (e) {
-                            4 === e.bytes ? i.setInt32(e.offset, e.value) : 2 === e.bytes && i.setInt16(e.offset, e.value)
+                            i = new DataView(n, o.a.WS_PACKAGE_OFFSET), s = this.encoder.encode(t);
+                        return i.setInt32(o.a.WS_PACKAGE_OFFSET, o.a.WS_PACKAGE_HEADER_TOTAL_LENGTH + s.byteLength), this.wsBinaryHeaderList[2].value = e, this.wsBinaryHeaderList.forEach(function (t) {
+                            4 === t.bytes ? i.setInt32(t.offset, t.value) : 2 === t.bytes && i.setInt16(t.offset, t.value)
                         }), r.a.mergeArrayBuffer(n, s)
-                    }, e.prototype.convertToObject = function (e) {
-                        var t = new DataView(e), n = {body: []};
-                        if (n.packetLen = t.getInt32(o.a.WS_PACKAGE_OFFSET), this.wsBinaryHeaderList.forEach(function (e) {
-                            4 === e.bytes ? n[e.key] = t.getInt32(e.offset) : 2 === e.bytes && (n[e.key] = t.getInt16(e.offset))
-                        }), n.packetLen < e.byteLength && this.convertToObject(e.slice(0, n.packetLen)), this.decoder || (this.decoder = r.a.getDecoder()), !n.op || o.a.WS_OP_MESSAGE !== n.op && n.op !== o.a.WS_OP_CONNECT_SUCCESS) n.op && o.a.WS_OP_HEARTBEAT_REPLY === n.op && (n.body = {count: t.getInt32(o.a.WS_PACKAGE_HEADER_TOTAL_LENGTH)}); else for (var i = o.a.WS_PACKAGE_OFFSET, s = n.packetLen, a = "", u = ""; i < e.byteLength; i += s) {
-                            s = t.getInt32(i), a = t.getInt16(i + o.a.WS_HEADER_OFFSET);
+                    }, t.prototype.convertToObject = function (t) {
+                        var e = new DataView(t), n = {body: []};
+                        if (n.packetLen = e.getInt32(o.a.WS_PACKAGE_OFFSET), this.wsBinaryHeaderList.forEach(function (t) {
+                            4 === t.bytes ? n[t.key] = e.getInt32(t.offset) : 2 === t.bytes && (n[t.key] = e.getInt16(t.offset))
+                        }), n.packetLen < t.byteLength && this.convertToObject(t.slice(0, n.packetLen)), this.decoder || (this.decoder = r.a.getDecoder()), !n.op || o.a.WS_OP_MESSAGE !== n.op && n.op !== o.a.WS_OP_CONNECT_SUCCESS) n.op && o.a.WS_OP_HEARTBEAT_REPLY === n.op && (n.body = {count: e.getInt32(o.a.WS_PACKAGE_HEADER_TOTAL_LENGTH)}); else for (var i = o.a.WS_PACKAGE_OFFSET, s = n.packetLen, a = "", u = ""; i < t.byteLength; i += s) {
+                            s = e.getInt32(i), a = e.getInt16(i + o.a.WS_HEADER_OFFSET);
                             try {
                                 if (n.ver === o.a.WS_BODY_PROTOCOL_VERSION_NORMAL) {
-                                    var c = this.decoder.decode(e.slice(i + a, i + s));
+                                    var c = this.decoder.decode(t.slice(i + a, i + s));
                                     u = 0 !== c.length ? JSON.parse(c) : null
                                 } else if (n.ver === o.a.WS_BODY_PROTOCOL_VERSION_BROTLI) {
-                                    var l = e.slice(i + a, i + s), h = window.BrotliDecode(new Uint8Array(l));
+                                    var l = t.slice(i + a, i + s), h = window.BrotliDecode(new Uint8Array(l));
                                     u = this.convertToObject(h.buffer).body
                                 }
                                 u && n.body.push(u)
-                            } catch (t) {
-                                this.options.onLogger("decode body error:", new Uint8Array(e), n, t)
+                            } catch (e) {
+                                this.options.onLogger("decode body error:", new Uint8Array(t), n, e)
                             }
                         }
                         return n
-                    }, e.prototype.send = function (e) {
-                        this.ws && this.ws.send(e)
-                    }, e.prototype.addCallback = function (e, t) {
-                        return "function" == typeof e && t instanceof Array && t.push(e), this
-                    }, e.prototype.mixinCallback = function () {
-                        var e = this.options, t = this.callbackQueueList;
-                        return this.addCallback(e.onReceivedMessage, t.onReceivedMessageQueue).addCallback(e.onHeartBeatReply, t.onHeartBeatReplyQueue).addCallback(e.onInitialized, t.onInitializedQueue).addCallback(e.onOpen, t.onOpenQueue).addCallback(e.onClose, t.onCloseQueue).addCallback(e.onError, t.onErrorQueue).addCallback(e.onRetryFallback, t.onRetryFallbackQueue).addCallback(e.onListConnectError, t.onListConnectErrorQueue).addCallback(e.onReceiveAuthRes, t.onReceiveAuthResQueue), this
-                    }, e.prototype.getRetryCount = function () {
+                    }, t.prototype.send = function (t) {
+                        this.ws && this.ws.send(t)
+                    }, t.prototype.addCallback = function (t, e) {
+                        return "function" == typeof t && e instanceof Array && e.push(t), this
+                    }, t.prototype.mixinCallback = function () {
+                        var t = this.options, e = this.callbackQueueList;
+                        return this.addCallback(t.onReceivedMessage, e.onReceivedMessageQueue).addCallback(t.onHeartBeatReply, e.onHeartBeatReplyQueue).addCallback(t.onInitialized, e.onInitializedQueue).addCallback(t.onOpen, e.onOpenQueue).addCallback(t.onClose, e.onCloseQueue).addCallback(t.onError, e.onErrorQueue).addCallback(t.onRetryFallback, e.onRetryFallbackQueue).addCallback(t.onListConnectError, e.onListConnectErrorQueue).addCallback(t.onReceiveAuthRes, e.onReceiveAuthResQueue), this
+                    }, t.prototype.getRetryCount = function () {
                         return this.state.retryCount
-                    }, e.prototype.checkRetryState = function () {
-                        var e = this.options, t = !1;
-                        return (0 === e.retryMaxCount || this.state.retryCount < e.retryMaxCount) && (this.state.retryCount += 1, t = !0), t
-                    }, e.checkOptions = function (e) {
-                        return e || e instanceof Object ? e.url ? !!e.rid || (this.options.onLogger("WebSocket Initialize options rid(cid) missing."), !1) : (this.options.onLogger("WebSocket Initialize options url missing."), !1) : (this.options.onLogger("WebSocket Initialize options missing or error.", e), !1)
-                    }, e
+                    }, t.prototype.checkRetryState = function () {
+                        var t = this.options, e = !1;
+                        return (0 === t.retryMaxCount || this.state.retryCount < t.retryMaxCount) && (this.state.retryCount += 1, e = !0), e
+                    }, t.checkOptions = function (t) {
+                        return t || t instanceof Object ? t.url ? null != t.rid || (console.error("WebSocket Initialize options rid(cid) missing."), !1) : (this.options.onLogger("WebSocket Initialize options url missing."), !1) : (this.options.onLogger("WebSocket Initialize options missing or error.", t), !1)
+                    }, t
                 }();
-                t.a = s
-            }, function (e, t, n) {
+                e.a = s
+            }, function (t, e, n) {
                 "use strict";
                 var o = n(0), i = [{
                     name: "Header Length",
@@ -18125,52 +17977,52 @@ parcelRequire = function (e, r, t, n) {
                     offset: o.a.WS_SEQUENCE_OFFSET,
                     value: o.a.WS_HEADER_DEFAULT_SEQUENCE
                 }];
-                t.a = i
-            }, function (e, t, n) {
+                e.a = i
+            }, function (t, e, n) {
                 "use strict";
                 var o = {
                     getDecoder: function () {
                         return window.TextDecoder ? new window.TextDecoder : {
-                            decode: function (e) {
-                                return decodeURIComponent(window.escape(String.fromCharCode.apply(String, new Uint8Array(e))))
+                            decode: function (t) {
+                                return decodeURIComponent(window.escape(String.fromCharCode.apply(String, new Uint8Array(t))))
                             }
                         }
                     }, getEncoder: function () {
                         return window.TextEncoder ? new window.TextEncoder : {
-                            encode: function (e) {
-                                for (var t = new ArrayBuffer(e.length), n = new Uint8Array(t), o = 0, i = e.length; o < i; o++) n[o] = e.charCodeAt(o);
-                                return t
+                            encode: function (t) {
+                                for (var e = new ArrayBuffer(t.length), n = new Uint8Array(e), o = 0, i = t.length; o < i; o++) n[o] = t.charCodeAt(o);
+                                return e
                             }
                         }
-                    }, mergeArrayBuffer: function (e, t) {
-                        var n = new Uint8Array(e), o = new Uint8Array(t),
+                    }, mergeArrayBuffer: function (t, e) {
+                        var n = new Uint8Array(t), o = new Uint8Array(e),
                             i = new Uint8Array(n.byteLength + o.byteLength);
                         return i.set(n, 0), i.set(o, n.byteLength), i.buffer
-                    }, callFunction: function (e, t) {
-                        return e instanceof Array && e.length ? (e.forEach(function (e) {
-                            return "function" == typeof e && e(t)
-                        }), null) : "function" == typeof e && e(t)
-                    }, extend: function (e) {
-                        for (var t = arguments.length, n = Array(t > 1 ? t - 1 : 0), o = 1; o < t; o++) n[o - 1] = arguments[o];
-                        var i = e || {};
-                        return i instanceof Object && n.forEach(function (e) {
-                            e instanceof Object && Object.keys(e).forEach(function (t) {
-                                i[t] = e[t]
+                    }, callFunction: function (t, e) {
+                        return t instanceof Array && t.length ? (t.forEach(function (t) {
+                            return "function" == typeof t && t(e)
+                        }), null) : "function" == typeof t && t(e)
+                    }, extend: function (t) {
+                        for (var e = arguments.length, n = Array(e > 1 ? e - 1 : 0), o = 1; o < e; o++) n[o - 1] = arguments[o];
+                        var i = t || {};
+                        return i instanceof Object && n.forEach(function (t) {
+                            t instanceof Object && Object.keys(t).forEach(function (e) {
+                                i[e] = t[e]
                             })
                         }), i
                     }
                 };
-                t.a = o
+                e.a = o
             }])
         });
     }, {}],
     "MWvE": [function (require, module, exports) {
         "use strict";
-        var e, t, n = this && this.__awaiter || function (e, t, n, o) {
-            return new (n || (n = Promise))(function (r, i) {
+        var e, t, n = this && this.__awaiter || function (e, t, n, r) {
+            return new (n || (n = Promise))(function (o, i) {
                 function s(e) {
                     try {
-                        c(o.next(e))
+                        c(r.next(e))
                     } catch (t) {
                         i(t)
                     }
@@ -18178,7 +18030,7 @@ parcelRequire = function (e, r, t, n) {
 
                 function a(e) {
                     try {
-                        c(o.throw(e))
+                        c(r.throw(e))
                     } catch (t) {
                         i(t)
                     }
@@ -18186,18 +18038,18 @@ parcelRequire = function (e, r, t, n) {
 
                 function c(e) {
                     var t;
-                    e.done ? r(e.value) : (t = e.value, t instanceof n ? t : new n(function (e) {
+                    e.done ? o(e.value) : (t = e.value, t instanceof n ? t : new n(function (e) {
                         e(t)
                     })).then(s, a)
                 }
 
-                c((o = o.apply(e, t || [])).next())
+                c((r = r.apply(e, t || [])).next())
             })
-        }, o = this && this.__generator || function (e, t) {
-            var n, o, r, i, s = {
+        }, r = this && this.__generator || function (e, t) {
+            var n, r, o, i, s = {
                 label: 0, sent: function () {
-                    if (1 & r[0]) throw r[1];
-                    return r[1]
+                    if (1 & o[0]) throw o[1];
+                    return o[1]
                 }, trys: [], ops: []
             };
             return i = {
@@ -18213,52 +18065,52 @@ parcelRequire = function (e, r, t, n) {
                     return function (i) {
                         if (n) throw new TypeError("Generator is already executing.");
                         for (; s;) try {
-                            if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 0) : o.next) && !(r = r.call(o, i[1])).done) return r;
-                            switch (o = 0, r && (i = [2 & i[0], r.value]), i[0]) {
+                            if (n = 1, r && (o = 2 & i[0] ? r.return : i[0] ? r.throw || ((o = r.return) && o.call(r), 0) : r.next) && !(o = o.call(r, i[1])).done) return o;
+                            switch (r = 0, o && (i = [2 & i[0], o.value]), i[0]) {
                                 case 0:
                                 case 1:
-                                    r = i;
+                                    o = i;
                                     break;
                                 case 4:
                                     return s.label++, {value: i[1], done: !1};
                                 case 5:
-                                    s.label++, o = i[1], i = [0];
+                                    s.label++, r = i[1], i = [0];
                                     continue;
                                 case 7:
                                     i = s.ops.pop(), s.trys.pop();
                                     continue;
                                 default:
-                                    if (!(r = (r = s.trys).length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+                                    if (!(o = (o = s.trys).length > 0 && o[o.length - 1]) && (6 === i[0] || 2 === i[0])) {
                                         s = 0;
                                         continue
                                     }
-                                    if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+                                    if (3 === i[0] && (!o || i[1] > o[0] && i[1] < o[3])) {
                                         s.label = i[1];
                                         break
                                     }
-                                    if (6 === i[0] && s.label < r[1]) {
-                                        s.label = r[1], r = i;
+                                    if (6 === i[0] && s.label < o[1]) {
+                                        s.label = o[1], o = i;
                                         break
                                     }
-                                    if (r && s.label < r[2]) {
-                                        s.label = r[2], s.ops.push(i);
+                                    if (o && s.label < o[2]) {
+                                        s.label = o[2], s.ops.push(i);
                                         break
                                     }
-                                    r[2] && s.ops.pop(), s.trys.pop();
+                                    o[2] && s.ops.pop(), s.trys.pop();
                                     continue
                             }
                             i = t.call(e, s)
                         } catch (a) {
-                            i = [6, a], o = 0
+                            i = [6, a], r = 0
                         } finally {
-                            n = r = 0
+                            n = o = 0
                         }
                         if (5 & i[0]) throw i[1];
                         return {value: i[0] ? i[1] : void 0, done: !0}
                     }([i, a])
                 }
             }
-        }, r = this && this.__classPrivateFieldGet || function (e, t) {
+        }, o = this && this.__classPrivateFieldGet || function (e, t) {
             if (!t.has(e)) throw new TypeError("attempted to get private field on non-instance");
             return t.get(e)
         }, i = this && this.__classPrivateFieldSet || function (e, t, n) {
@@ -18273,7 +18125,7 @@ parcelRequire = function (e, r, t, n) {
 
         function f(e) {
             return n(this, void 0, Promise, function () {
-                return o(this, function (t) {
+                return r(this, function (t) {
                     switch (t.label) {
                         case 0:
                             return [4, u.ajax("/xlive/web-room/v1/index/getDanmuInfo?id=" + e + "&type=0")];
@@ -18289,7 +18141,7 @@ parcelRequire = function (e, r, t, n) {
         }(a = exports.SocketMsgType || (exports.SocketMsgType = {}));
         var h = function () {
             function s(n) {
-                this.opts = n, e.set(this, null), t.set(this, new u.EventBus), this.on = r(this, t).on, this.emit = r(this, t).emit, this.init().catch(function (e) {
+                this.opts = n, e.set(this, null), t.set(this, new u.EventBus), this.on = o(this, t).on, this.emit = o(this, t).emit, this.init().catch(function (e) {
                     u.logger.error(e)
                 })
             }
@@ -18298,14 +18150,14 @@ parcelRequire = function (e, r, t, n) {
                 var t;
                 return n(this, void 0, Promise, function () {
                     var n, s, a = this;
-                    return o(this, function (o) {
-                        switch (o.label) {
+                    return r(this, function (r) {
+                        switch (r.label) {
                             case 0:
-                                return o.trys.push([0, 2, , 3]), [4, f(this.opts.roomId)];
+                                return r.trys.push([0, 2, , 3]), [4, f(this.opts.roomId)];
                             case 1:
-                                return n = o.sent(), [3, 3];
+                                return n = r.sent(), [3, 3];
                             case 2:
-                                return s = o.sent(), u.logger.error("get danmainfo failed " + u.any2Str(s)), n = {
+                                return s = r.sent(), u.logger.error("get danmainfo failed " + u.any2Str(s)), n = {
                                     host_list: [],
                                     token: "",
                                     max_delay: 5e3
@@ -18332,10 +18184,11 @@ parcelRequire = function (e, r, t, n) {
                                     onClose: function () {
                                         u.logger.info("WebSocket On Close.")
                                     },
-                                    onError: function (e) {
-                                        u.logger.warn("WebSocket On Error. url: " + JSON.stringify(e.code)), d({
+                                    onError: function (t) {
+                                        u.logger.warn("WebSocket On Error. url: " + JSON.stringify(t.code)), d({
                                             type: 1,
-                                            evt: e.code
+                                            evt: t.code,
+                                            url: o(a, e).getState().url
                                         })
                                     },
                                     onInitialized: function () {
@@ -18351,7 +18204,7 @@ parcelRequire = function (e, r, t, n) {
                                     },
                                     onReceiveAuthRes: function (t) {
                                         var n;
-                                        u.logger.warn("token expired, reconnect."), null === (n = r(a, e)) || void 0 === n || n.destroy(), a.init().catch(function (e) {
+                                        u.logger.warn("token expired, reconnect."), null === (n = o(a, e)) || void 0 === n || n.destroy(), a.init().catch(function (e) {
                                             u.logger.error(e)
                                         })
                                     },
@@ -18370,7 +18223,7 @@ parcelRequire = function (e, r, t, n) {
                 })
             }, s.prototype.destroy = function () {
                 var n;
-                null === (n = r(this, e)) || void 0 === n || n.destroy(), r(this, t).destroy()
+                null === (n = o(this, e)) || void 0 === n || n.destroy(), o(this, t).destroy()
             }, s
         }();
 
@@ -19174,13 +19027,13 @@ parcelRequire = function (e, r, t, n) {
                     return {vendor: n, renderer: t}
                 }
 
-                var u = "name", l = "version";
+                var u = "name", w = "version";
 
-                function w(e, r) {
+                function l(e, r) {
                     for (var n, t, a, i, s, c = {}, u = 0; u < r.length; u += 2) {
                         n = r[u], a = r[u + 1];
-                        for (var l = 0; l < n.length; l++) if (s = n[l].exec(e)) {
-                            for (var w = 0; w < a.length; w++) i = s[w + 1], "object" === o(t = a[w]) && t.length > 0 ? 2 === t.length ? c[t[0]] = t[1] : console.error("[Browser] [rgxMapper] not support arg count!") : c[t] = i || void 0;
+                        for (var w = 0; w < n.length; w++) if (s = n[w].exec(e)) {
+                            for (var l = 0; l < a.length; l++) i = s[l + 1], "object" === o(t = a[l]) && t.length > 0 ? 2 === t.length ? c[t[0]] = t[1] : console.error("[Browser] [rgxMapper] not support arg count!") : c[t] = i || void 0;
                             return c
                         }
                     }
@@ -19192,11 +19045,11 @@ parcelRequire = function (e, r, t, n) {
                         r = "other", o = "other", n = "0";
                     if (null !== e) {
                         r = function (e) {
-                            var r = w(e, [[/microsoft (windows) (vista|xp)/i], "", [/(windows) nt 6\.2; (arm)/i, /(windows (?:phone(?: os)?|mobile))[/ ]?([\d.\w ]*)/i, /(windows)[/ ]?([ntce\d. ]+\w)(?!.+xbox)/i], [u], [/(win(?=3|9|n)|win 9x )([nt\d.]+)/i], "Windows", [/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac|; opera)/i, /cfnetwork\/.+darwin/i], [[u, "iOS"]], [/(mac os x) ?([\w. ]*)/i, /(macintosh|mac_powerpc\b)(?!.+haiku)/i], [[u, "Mac OS"]]]).name;
+                            var r = l(e, [[/microsoft (windows) (vista|xp)/i], "", [/(windows) nt 6\.2; (arm)/i, /(windows (?:phone(?: os)?|mobile))[/ ]?([\d.\w ]*)/i, /(windows)[/ ]?([ntce\d. ]+\w)(?!.+xbox)/i], [u], [/(win(?=3|9|n)|win 9x )([nt\d.]+)/i], "Windows", [/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac|; opera)/i, /cfnetwork\/.+darwin/i], [[u, "iOS"]], [/(mac os x) ?([\w. ]*)/i, /(macintosh|mac_powerpc\b)(?!.+haiku)/i], [[u, "Mac OS"]]]).name;
                             return {Windows: !0, "Mac OS": !0}[r] ? r : "other"
                         }(e);
                         var a = function (e) {
-                            var r = w(e, [[/edg(?:e|ios|a)?\/([\w.]+)/i], [l, [u, "Edge"]], [/\bopr\/([\w.]+)/i], [l, [u, "Opera"]], [/(kindle)\/([\w.]+)/i, /(lunascape|maxthon|netfront|jasmine|blazer)[/ ]?([\w.]*)/i, /(avant |iemobile|slim)(?:browser)?[/ ]?([\w.]*)/i, /(ba?idubrowser)[/ ]?([\w.]+)/i, /(?:ms|\()(ie) ([\w.]+)/i, /(flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark|qupzilla|falkon|rekonq|puffin|brave|whale|qqbrowserlite|qq)\/([-\w.]+)/i, /(weibo)__([\d.]+)/i], [u, l], [/(?:\buc? ?browser|(?:juc.+)ucweb)[/ ]?([\w.]+)/i], [l, [u, "UCBrowser"]], [/\bqbcore\/([\w.]+)/i], [l, [u, "WeChat(Win) Desktop"]], [/micromessenger\/([\w.]+)/i], [l, [u, "WeChat"]], [/konqueror\/([\w.]+)/i], [l, [u, "Konqueror"]], [/trident.+rv[: ]([\w.]{1,9})\b.+like gecko/i], [l, [u, "IE"]], [/yabrowser\/([\w.]+)/i], [l, [u, "Yandex"]], [/(avast|avg)\/([\w.]+)/i], [[u, "Avast/AVG Secure Browser"], l], [/coc_coc\w+\/([\w.]+)/i], [l, [u, "Coc Coc"]], [/dolfin\/([\w.]+)/i], [l, [u, "Dolphin"]], [/slbrowser\/([\w.]+)/i], [l, [u, "Lenovo"]], [/115browser\/([\w.]+)/i], [l, [u, "115 Browser"]], [/\bqihu|(qi?ho?o?|360)browser/i], [[u, "360 Browser"]], [/(comodo_dragon)\/([\w.]+)/i], [[u, "Comodo Dragon"], l], [/(electron)\/([\w.]+) safari/i, /(tesla)(?: qtcarbrowser|\/(20\d\d\.[-\w.]+))/i, /m?(qqbrowser|baiduboxapp|2345Explorer)[/ ]?([\w.]+)/i], [u, l], [/(metasr)[/ ]?([\w.]+)/i, /(lbbrowser)/i], [u], [/headlesschrome(?:\/([\w.]+)| )/i], [l, [u, "Chrome Headless"]], [/ wv\).+(chrome)\/([\w.]+)/i], [[u, "Chrome WebView"], l], [/(chrome)\/v?([\w.]+)/i], [[u, "Chrome"], l]]);
+                            var r = l(e, [[/edg(?:e|ios|a)?\/([\w.]+)/i], [w, [u, "Edge"]], [/\bopr\/([\w.]+)/i], [w, [u, "Opera"]], [/(kindle)\/([\w.]+)/i, /(lunascape|maxthon|netfront|jasmine|blazer)[/ ]?([\w.]*)/i, /(avant |iemobile|slim)(?:browser)?[/ ]?([\w.]*)/i, /(ba?idubrowser)[/ ]?([\w.]+)/i, /(?:ms|\()(ie) ([\w.]+)/i, /(flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark|qupzilla|falkon|rekonq|puffin|brave|whale|qqbrowserlite|qq)\/([-\w.]+)/i, /(weibo)__([\d.]+)/i], [u, w], [/(?:\buc? ?browser|(?:juc.+)ucweb)[/ ]?([\w.]+)/i], [w, [u, "UCBrowser"]], [/\bqbcore\/([\w.]+)/i], [w, [u, "WeChat(Win) Desktop"]], [/micromessenger\/([\w.]+)/i], [w, [u, "WeChat"]], [/konqueror\/([\w.]+)/i], [w, [u, "Konqueror"]], [/trident.+rv[: ]([\w.]{1,9})\b.+like gecko/i], [w, [u, "IE"]], [/yabrowser\/([\w.]+)/i], [w, [u, "Yandex"]], [/(avast|avg)\/([\w.]+)/i], [[u, "Avast/AVG Secure Browser"], w], [/coc_coc\w+\/([\w.]+)/i], [w, [u, "Coc Coc"]], [/dolfin\/([\w.]+)/i], [w, [u, "Dolphin"]], [/slbrowser\/([\w.]+)/i], [w, [u, "Lenovo"]], [/115browser\/([\w.]+)/i], [w, [u, "115 Browser"]], [/\bqihu|(qi?ho?o?|360)browser/i], [[u, "360 Browser"]], [/(comodo_dragon)\/([\w.]+)/i], [[u, "Comodo Dragon"], w], [/(electron)\/([\w.]+) safari/i, /(tesla)(?: qtcarbrowser|\/(20\d\d\.[-\w.]+))/i, /m?(qqbrowser|baiduboxapp|2345Explorer)[/ ]?([\w.]+)/i], [u, w], [/(metasr)[/ ]?([\w.]+)/i, /(lbbrowser)/i], [u], [/headlesschrome(?:\/([\w.]+)| )/i], [w, [u, "Chrome Headless"]], [/ wv\).+(chrome)\/([\w.]+)/i], [[u, "Chrome WebView"], w], [/(chrome)\/v?([\w.]+)/i], [[u, "Chrome"], w]]);
                             return {
                                 browser: {Chrome: !0, Edge: !0}[r.name] ? r.name : "other",
                                 version: r.version || "0"
@@ -19215,7 +19068,7 @@ parcelRequire = function (e, r, t, n) {
                         isPThreadSupported: t,
                         isSupportHEVC: s("hvc1.1.6.L123")
                     }
-                }, p = "4.7.7", f = "1" === window.localStorage.getItem("__bwphevc_live_debug__") || !1, m = {
+                }, p = "5.0.5", f = "1" === window.localStorage.getItem("_wasm_player_debug_") || !1, m = {
                     BROWSER_LIST: {Chrome: {min: 80, blackList: []}, Edge: {min: 80, blackList: []}},
                     OS_LIST: {Windows: !0, "Mac OS": !0},
                     GPU_LIST: [],
@@ -19229,7 +19082,7 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }
 
-                var v = navigator.userAgent, y = "bwphevc_live_supported", h = !1, g = null, S = {
+                var y = navigator.userAgent, v = "wasm_player_supported", h = !1, g = null, S = {
                     browser: !1,
                     browserHEVC: !1,
                     cpu: !1,
@@ -19242,8 +19095,8 @@ parcelRequire = function (e, r, t, n) {
 
                 function C() {
                     if (null !== g) return g;
-                    var e = JSON.parse(localStorage.getItem(y) || "null"), r = (null == e ? void 0 : e.version) === p;
-                    if (e && r && e.ua === v) null != e && e.supported ? (g = !0, null != e && e.cached ? (b("SUPPORT! Already cached!"), h = !0) : (b("SUPPORT! But not cache done!"), S = e.supportInfo, h = !1)) : g = !1; else {
+                    var e = JSON.parse(localStorage.getItem(v) || "null"), r = (null == e ? void 0 : e.version) === p;
+                    if (e && r && e.ua === y) null != e && e.supported ? (g = !0, null != e && e.cached ? (b("SUPPORT! Already cached!"), h = !0) : (b("SUPPORT! But not cache done!"), S = e.supportInfo, h = !1)) : g = !1; else {
                         h = Boolean(e && e.cached && r);
                         var o = function () {
                             var e = +new Date, r = !1, o = d(), n = m.BROWSER_LIST[o.browser],
@@ -19251,16 +19104,16 @@ parcelRequire = function (e, r, t, n) {
                                 a = o.isSupportHEVC, i = o.hardwareConcurrency >= m.BASE_CPU_CORE_NUMBER;
                             a && "Chrome" === o.browser && (b("use browser HEVC!"), r = !0, t = !0);
                             var s = r ? null : o.gpuInfo(), c = !r && !!o.gpuInfo(), u = !r && o.isPThreadSupported(),
-                                l = !r && o.isSIMDSupported(), w = !!r || !!(u && i && c && t);
+                                w = !r && o.isSIMDSupported(), l = !!r || !!(u && i && c && t);
                             return b("supportedChecker end spent: ".concat(+new Date - e, "ms")), {
-                                pass: w,
+                                pass: l,
                                 supportInfo: {
                                     browser: t,
                                     browserHEVC: a,
                                     cpu: i,
                                     gpu: c,
                                     gpuInfo: s,
-                                    simd: l,
+                                    simd: w,
                                     pthread: u,
                                     hardwareConcurrency: o.hardwareConcurrency
                                 },
@@ -19270,13 +19123,13 @@ parcelRequire = function (e, r, t, n) {
                         S = o.supportInfo, g = o.pass, b("supportInfo:", S), o.isUseNativeHEVC && (b("IsUseNativeHEVC set cached true!"), h = !0), function (e) {
                             var r = JSON.stringify({
                                 version: p,
-                                ua: v,
+                                ua: y,
                                 supported: e,
                                 supportInfo: S,
                                 cached: h,
                                 date: +new Date
                             });
-                            localStorage.setItem(y, r)
+                            localStorage.setItem(v, r)
                         }(g)
                     }
                     return g || !1
@@ -19289,16 +19142,16 @@ parcelRequire = function (e, r, t, n) {
                                 b("start load WasmPlayer SDK");
                                 var o = +new Date, n = function () {
                                     window.WasmPlayer ? (b("load done WasmPlayer SDK, spent: ".concat(+new Date - o, " ms")), h ? e() : window.WasmPlayer.preloadBwp(function (o) {
-                                        o ? e() : r("Cache WasmPlayer lib error, please retry!")
-                                    })) : r("Can not get WasmPlayer Instance!")
+                                        o ? e() : r(new Error("Cache WasmPlayer lib error, please retry!"))
+                                    })) : r(new Error("Can not get WasmPlayer Instance!"))
                                 };
                                 if (window.WasmPlayer) n(); else {
                                     var t = document.createElement("script");
-                                    t.type = "text/javascript", t.setAttribute("async", "async"), t.src = "//s1.hdslb.com/bfs/static/wasmplayer/wasm-player-4.7.7.min.js", document.body.appendChild(t), t.addEventListener("load", n), t.addEventListener("error", function () {
-                                        r("ERROR: load SDK error!")
+                                    t.type = "text/javascript", t.setAttribute("async", "async"), t.src = "//s1.hdslb.com/bfs/static/wasm-player/wasm-player-5.0.5.min.js", document.body.appendChild(t), t.addEventListener("load", n), t.addEventListener("error", function () {
+                                        r(new Error("load SDK error!"))
                                     })
                                 }
-                            }(e, r) : r("Not Support!")
+                            }(e, r) : r(new Error("Not Support!"))
                         })
                     }, isHEVCSupported: C, isBwpSupported: C
                 };
@@ -19701,17 +19554,17 @@ parcelRequire = function (e, r, t, n) {
     }, {"@bilibili-live/web-player-common": "KGHo", "@bilibili-live/web-player-track": "ESUf"}],
     "pBr6": [function (require, module, exports) {
         "use strict";
-        var e, t, i, r, n, o, l, a, s, u, c, d, p, h, f, y, v, g, m, w, P, E, S, C, T, b, I,
-            _ = this && this.__assign || function () {
-                return (_ = Object.assign || function (e) {
-                    for (var t, i = 1, r = arguments.length; i < r; i++) for (var n in t = arguments[i]) Object.prototype.hasOwnProperty.call(t, n) && (e[n] = t[n]);
+        var e, t, r, i, n, o, l, a, s, u, c, d, p, h, y, f, v, g, m, w, P, E, S, C, T,
+            I = this && this.__assign || function () {
+                return (I = Object.assign || function (e) {
+                    for (var t, r = 1, i = arguments.length; r < i; r++) for (var n in t = arguments[r]) Object.prototype.hasOwnProperty.call(t, n) && (e[n] = t[n]);
                     return e
                 }).apply(this, arguments)
-            }, L = this && this.__awaiter || function (e, t, i, r) {
-                return new (i || (i = Promise))(function (n, o) {
+            }, b = this && this.__awaiter || function (e, t, r, i) {
+                return new (r || (r = Promise))(function (n, o) {
                     function l(e) {
                         try {
-                            s(r.next(e))
+                            s(i.next(e))
                         } catch (t) {
                             o(t)
                         }
@@ -19719,7 +19572,7 @@ parcelRequire = function (e, r, t, n) {
 
                     function a(e) {
                         try {
-                            s(r.throw(e))
+                            s(i.throw(e))
                         } catch (t) {
                             o(t)
                         }
@@ -19727,15 +19580,15 @@ parcelRequire = function (e, r, t, n) {
 
                     function s(e) {
                         var t;
-                        e.done ? n(e.value) : (t = e.value, t instanceof i ? t : new i(function (e) {
+                        e.done ? n(e.value) : (t = e.value, t instanceof r ? t : new r(function (e) {
                             e(t)
                         })).then(l, a)
                     }
 
-                    s((r = r.apply(e, t || [])).next())
+                    s((i = i.apply(e, t || [])).next())
                 })
-            }, k = this && this.__generator || function (e, t) {
-                var i, r, n, o, l = {
+            }, _ = this && this.__generator || function (e, t) {
+                var r, i, n, o, l = {
                     label: 0, sent: function () {
                         if (1 & n[0]) throw n[1];
                         return n[1]
@@ -19752,10 +19605,10 @@ parcelRequire = function (e, r, t, n) {
                 function a(o) {
                     return function (a) {
                         return function (o) {
-                            if (i) throw new TypeError("Generator is already executing.");
+                            if (r) throw new TypeError("Generator is already executing.");
                             for (; l;) try {
-                                if (i = 1, r && (n = 2 & o[0] ? r.return : o[0] ? r.throw || ((n = r.return) && n.call(r), 0) : r.next) && !(n = n.call(r, o[1])).done) return n;
-                                switch (r = 0, n && (o = [2 & o[0], n.value]), o[0]) {
+                                if (r = 1, i && (n = 2 & o[0] ? i.return : o[0] ? i.throw || ((n = i.return) && n.call(i), 0) : i.next) && !(n = n.call(i, o[1])).done) return n;
+                                switch (i = 0, n && (o = [2 & o[0], n.value]), o[0]) {
                                     case 0:
                                     case 1:
                                         n = o;
@@ -19763,7 +19616,7 @@ parcelRequire = function (e, r, t, n) {
                                     case 4:
                                         return l.label++, {value: o[1], done: !1};
                                     case 5:
-                                        l.label++, r = o[1], o = [0];
+                                        l.label++, i = o[1], o = [0];
                                         continue;
                                     case 7:
                                         o = l.ops.pop(), l.trys.pop();
@@ -19790,191 +19643,184 @@ parcelRequire = function (e, r, t, n) {
                                 }
                                 o = t.call(e, l)
                             } catch (a) {
-                                o = [6, a], r = 0
+                                o = [6, a], i = 0
                             } finally {
-                                i = n = 0
+                                r = n = 0
                             }
                             if (5 & o[0]) throw o[1];
                             return {value: o[0] ? o[1] : void 0, done: !0}
                         }([o, a])
                     }
                 }
-            }, V = this && this.__classPrivateFieldSet || function (e, t, i) {
+            }, L = this && this.__classPrivateFieldSet || function (e, t, r) {
                 if (!t.has(e)) throw new TypeError("attempted to set private field on non-instance");
-                return t.set(e, i), i
-            }, M = this && this.__classPrivateFieldGet || function (e, t) {
+                return t.set(e, r), r
+            }, V = this && this.__classPrivateFieldGet || function (e, t) {
                 if (!t.has(e)) throw new TypeError("attempted to get private field on non-instance");
                 return t.get(e)
-            }, U = this && this.__spreadArray || function (e, t) {
-                for (var i = 0, r = t.length, n = e.length; i < r; i++, n++) e[n] = t[i];
+            }, k = this && this.__spreadArray || function (e, t) {
+                for (var r = 0, i = t.length, n = e.length; r < i; r++, n++) e[n] = t[r];
                 return e
-            }, H = this && this.__importDefault || function (e) {
+            }, U = this && this.__importDefault || function (e) {
                 return e && e.__esModule ? e : {default: e}
             };
         Object.defineProperty(exports, "__esModule", {value: !0}), exports.LivePlayer = exports.LivePlayerEvent = exports.isBwpSupported = void 0;
-        var Q = require("@bilibili-live/web-player-common"), D = require("@bilibili-live/web-player-video"),
-            F = H(require("@bilibili-live/web-player-playurl-parser")), N = H(require("../common/controller")),
-            q = H(require("./p2p-adapter")), x = require("../common/utils"), W = require("../common/track-video"),
-            O = H(require("@bilibili-live/web-player-track")), B = H(require("./replay")),
-            A = require("../common/connects"), R = H(require("./sticker")), j = require("./hevc-adapter"),
-            J = require("./live-player-tool"), G = require("./switch-better-line"), K = require("./retry-strategy"),
-            z = require("./panorama"), X = require("./hevc-adapter");
+        var M, H = require("@bilibili-live/web-player-common"), N = require("@bilibili-live/web-player-video"),
+            D = U(require("@bilibili-live/web-player-playurl-parser")), Q = U(require("../common/controller")),
+            x = U(require("./p2p-adapter")), F = require("../common/utils"), q = require("../common/track-video"),
+            W = U(require("@bilibili-live/web-player-track")), B = U(require("./replay")),
+            O = require("../common/connects"), A = U(require("./sticker")), R = require("./hevc-adapter"),
+            j = require("./live-player-tool"), K = require("./switch-better-line"), J = require("./retry-strategy"),
+            G = require("./panorama"), z = require("./hevc-adapter");
         Object.defineProperty(exports, "isBwpSupported", {
             enumerable: !0, get: function () {
-                return X.isBwpSupported
+                return z.isBwpSupported
             }
-        });
-        var Y,
-            Z = null !== (t = null === (e = navigator.userAgent.match(/Version\/[\d.]+/gi)) || void 0 === e ? void 0 : e[0]) && void 0 !== t ? t : null,
-            $ = Q.ua.isSafari() && ["15.4", "15.5"].some(function (e) {
-                var t;
-                return null !== (t = null == Z ? void 0 : Z.includes(e)) && void 0 !== t && t
-            });
-        !function (e) {
+        }), function (e) {
             e.Failed = "liveplayer-failed", e.LiveStatusChange = "liveplayer-status-change", e.Destroyed = "liveplayer-destroyed"
-        }(Y = exports.LivePlayerEvent || (exports.LivePlayerEvent = {}));
-        var ee = function () {
-            function e(e, t, U) {
-                var H, F = this;
-                this.container = e, this.opts = t, this.socket = U, i.set(this, ""), r.set(this, ""), n.set(this, null), o.set(this, null), this.playUrlParser = null, l.set(this, 0), this.replay = null, a.set(this, []), s.set(this, []), u.set(this, null), c.set(this, !1), d.set(this, null), p.set(this, null), h.set(this, "Fetch"), f.set(this, void 0), y.set(this, null), v.set(this, function () {
-                }), g.set(this, !1), m.set(this, new Q.EventBus), this.on = M(this, m).on, this.once = M(this, m).once, this.emit = M(this, m).emit, w.set(this, new Set), P.set(this, function (e) {
-                    return L(F, void 0, Promise, function () {
-                        var t, i, r, n, a = this;
-                        return k(this, function (u) {
+        }(M = exports.LivePlayerEvent || (exports.LivePlayerEvent = {}));
+        var X = function () {
+            function U(k, U, D) {
+                var x, O = this;
+                this.container = k, this.opts = U, this.socket = D, e.set(this, ""), t.set(this, ""), r.set(this, null), i.set(this, null), this.playUrlParser = null, n.set(this, 0), this.replay = null, o.set(this, []), l.set(this, []), a.set(this, null), s.set(this, !1), u.set(this, null), c.set(this, null), d.set(this, "Fetch"), p.set(this, void 0), h.set(this, null), y.set(this, function () {
+                }), f.set(this, !1), v.set(this, new H.EventBus), this.on = V(this, v).on, this.once = V(this, v).once, this.emit = V(this, v).emit, g.set(this, new Set), m.set(this, function (e) {
+                    return b(O, void 0, Promise, function () {
+                        var t, r, o, a, s = this;
+                        return _(this, function (u) {
                             switch (u.label) {
                                 case 0:
-                                    return V(this, l, e), this.opts.roomId = e, Q.logger.info("live player init roomId: " + e), null != this.opts.roomInfo ? [3, 2] : [4, M(this, C).call(this)];
+                                    return L(this, n, e), this.opts.roomId = e, H.logger.info("live player init roomId: " + e), null != this.opts.roomInfo ? [3, 2] : [4, V(this, E).call(this)];
                                 case 1:
                                     return u.sent(), [3, 3];
                                 case 2:
-                                    if (V(this, o, this.opts.roomInfo), null == M(this, o).playurl_info.playurl) return this.emit(Y.Failed, O.default.ErrorCode.PlayUrlNull), Q.logger.error("playUrlInfo.playurl is null"), [2];
-                                    this.playUrlParser = ue(M(this, o).playurl_info, {
+                                    if (L(this, i, this.opts.roomInfo), null == V(this, i).playurl_info.playurl) return this.emit(M.Failed, W.default.ErrorCode.PlayUrlNull), H.logger.error("playUrlInfo.playurl is null"), [2];
+                                    this.playUrlParser = oe(V(this, i).playurl_info, {
                                         userId: this.opts.userId,
-                                        ownerId: M(this, o).uid,
+                                        ownerId: V(this, i).uid,
                                         isMobile: null !== (t = this.opts.isMobile) && void 0 !== t && t
                                     }), u.label = 3;
                                 case 3:
-                                    return this.reload(), null != (null === (i = M(this, o)) || void 0 === i ? void 0 : i.live_time) && M(this, s).push(re(M(this, o).live_time, this.ctrl.getCtrlUI())), null != M(this, o) && !0 !== this.opts.isMobile && (this.replay = new B.default(this.container, {
-                                        live_time: null === (r = M(this, o)) || void 0 === r ? void 0 : r.live_time,
-                                        rid: null === (n = M(this, o)) || void 0 === n ? void 0 : n.room_id
+                                    return this.reload(), null != (null === (r = V(this, i)) || void 0 === r ? void 0 : r.live_time) && V(this, l).push($(V(this, i).live_time, this.ctrl.getCtrlUI())), null != V(this, i) && !0 !== this.opts.isMobile && this.opts.enableCtrlUI && (this.replay = new B.default(this.container, {
+                                        live_time: null === (o = V(this, i)) || void 0 === o ? void 0 : o.live_time,
+                                        rid: null === (a = V(this, i)) || void 0 === a ? void 0 : a.room_id
                                     }, this.socket, this.ctrl), this.replay.on("timeShiftChange", function (e) {
-                                        a.tmShiftHandler(e), a.reload()
+                                        s.tmShiftHandler(e), s.reload()
                                     }), this.enableReplay() && this.replay.init()), [2]
                             }
                         })
                     })
                 }), this.tmShiftHandler = function (e) {
-                    var t, i, r, n = F.playUrlParser;
-                    if (null != F.replay && null != n) {
-                        var o = n.getCurP2PType(), l = n.getCurStreamInfo().protocol, a = Q.ProtocolType.HTTP_HLS,
-                            s = Q.P2PType.HLS_NOT_P2P, u = n.getCurStreamInfo().timeshift;
-                        0 !== e ? (0 === u && (F.replay.bakState = {
+                    var t, r, i, n = O.playUrlParser;
+                    if (null != O.replay && null != n) {
+                        var o = n.getCurP2PType(), l = n.getCurStreamInfo().protocol, a = H.ProtocolType.HTTP_HLS,
+                            s = H.P2PType.HLS_NOT_P2P, u = n.getCurStreamInfo().timeshift;
+                        0 !== e ? (0 === u && (O.replay.bakState = {
                             p2pType: o,
                             protocol: l
-                        }), (null !== (t = F.replay.bakState.p2pType) && void 0 !== t ? t : o) > 0 && (n.setCurP2PType(Q.P2PType.HLS_BILI), s = Q.P2PType.HLS_BILI)) : (s = null !== (i = F.replay.bakState.p2pType) && void 0 !== i ? i : o, n.setCurP2PType(s), a = null !== (r = F.replay.bakState.protocol) && void 0 !== r ? r : l, F.replay.bakState = {}), n.setTimeShift(e), n.useStream({
+                        }), (null !== (t = O.replay.bakState.p2pType) && void 0 !== t ? t : o) > 0 && (n.setCurP2PType(H.P2PType.HLS_BILI), s = H.P2PType.HLS_BILI)) : (s = null !== (r = O.replay.bakState.p2pType) && void 0 !== r ? r : o, n.setCurP2PType(s), a = null !== (i = O.replay.bakState.protocol) && void 0 !== i ? i : l, O.replay.bakState = {}), n.setTimeShift(e), n.useStream({
                             protocol: a,
                             expectP2PType: s
                         })
                     }
-                }, E.set(this, function (e) {
-                    var t, i,
-                        r = null !== (i = null === (t = F.playUrlParser) || void 0 === t ? void 0 : t.getLineCandidates().length) && void 0 !== i ? i : 0,
-                        n = new G.SwitchBetterLine(e.getVideoEl(), {lineNum: r}),
-                        o = e.on(D.EventType.WaitStart, function () {
-                            var t, i, r;
-                            if (!0 !== (null === (t = F.replay) || void 0 === t ? void 0 : t.isReplay) && n.getNeedSwitchLine()) {
+                }, w.set(this, function (e) {
+                    var t, r,
+                        i = null !== (r = null === (t = O.playUrlParser) || void 0 === t ? void 0 : t.getLineCandidates().length) && void 0 !== r ? r : 0,
+                        n = new K.SwitchBetterLine(e.getVideoEl(), {lineNum: i}),
+                        l = e.on(N.EventType.WaitStart, function () {
+                            var t, r, i;
+                            if (!0 !== (null === (t = O.replay) || void 0 === t ? void 0 : t.isReplay) && n.getNeedSwitchLine()) {
                                 var o = performance.now(), l = navigator.connection;
-                                F.switchLine(G.SwitchBetterLine.switchNum, !1), O.default.custom(O.default.CustomCode.SwitchLine, {
-                                    switchNum: G.SwitchBetterLine.switchNum,
+                                O.switchLine(K.SwitchBetterLine.switchNum, !1), W.default.custom(W.default.CustomCode.SwitchLine, {
+                                    switchNum: K.SwitchBetterLine.switchNum,
                                     videoCurrentTime: e.getVideoEl().currentTime,
-                                    interval: Math.floor((o - G.SwitchBetterLine.lastSwitchTime) / 1e3),
-                                    downlink: null !== (i = null == l ? void 0 : l.downlink) && void 0 !== i ? i : -1,
-                                    rtt: null !== (r = null == l ? void 0 : l.rtt) && void 0 !== r ? r : -1
-                                }), Q.logger.warn("waiting auto switch line to " + G.SwitchBetterLine.switchNum)
+                                    interval: Math.floor((o - K.SwitchBetterLine.lastSwitchTime) / 1e3),
+                                    downlink: null !== (r = null == l ? void 0 : l.downlink) && void 0 !== r ? r : -1,
+                                    rtt: null !== (i = null == l ? void 0 : l.rtt) && void 0 !== i ? i : -1
+                                }), H.logger.warn("waiting auto switch line to " + K.SwitchBetterLine.switchNum)
                             }
                         });
-                    M(F, a).push(n.destroy), M(F, a).push(o)
-                }), S.set(this, function () {
-                    M(F, a).forEach(function (e) {
+                    V(O, o).push(n.destroy), V(O, o).push(l)
+                }), P.set(this, function () {
+                    V(O, o).forEach(function (e) {
                         return e()
-                    }), V(F, a, [])
-                }), C.set(this, x.retry(function (e) {
-                    return L(F, void 0, Promise, function () {
-                        var t, i, r, n, a, s, u, c, p, h, f, y, v, g = this;
-                        return k(this, function (m) {
+                    }), L(O, o, [])
+                }), E.set(this, F.retry(function (e) {
+                    return b(O, void 0, Promise, function () {
+                        var t, r, o, l, a, s, c, d, p, h, y, f, v, g = this;
+                        return _(this, function (m) {
                             switch (m.label) {
                                 case 0:
-                                    return t = this.playUrlParser, i = null !== (u = null === (s = null == t ? void 0 : t.getQualityDesc(t.getCurQuality())) || void 0 === s ? void 0 : s.code) && void 0 !== u ? u : 0, null != e && (i = e), x.loadingOrCoverImg(this.container, M(this, d)), r = null !== (p = null === (c = this.playUrlParser) || void 0 === c ? void 0 : c.getCurLine()) && void 0 !== p ? p : 0, n = (null !== (f = null === (h = this.playUrlParser) || void 0 === h ? void 0 : h.getCurStreamInfo()) && void 0 !== f ? f : {}).timeshift, Q.logger.info("updateRoomInfo quality: " + i + ", line: " + r), [4, new Promise(function (e, t) {
-                                        Q.ajax(ie(M(g, l), i, g.opts.isMobile), {
+                                    return t = this.playUrlParser, r = null !== (c = null === (s = null == t ? void 0 : t.getQualityDesc(t.getCurQuality())) || void 0 === s ? void 0 : s.code) && void 0 !== c ? c : 0, null != e && (r = e), F.loadingOrCoverImg(this.container, V(this, u)), o = null !== (p = null === (d = this.playUrlParser) || void 0 === d ? void 0 : d.getCurLine()) && void 0 !== p ? p : 0, l = (null !== (y = null === (h = this.playUrlParser) || void 0 === h ? void 0 : h.getCurStreamInfo()) && void 0 !== y ? y : {}).timeshift, H.logger.info("updateRoomInfo quality: " + r + ", line: " + o), [4, new Promise(function (e, t) {
+                                        H.ajax(Z(V(g, n), r, g.opts.isMobile), {
                                             handleRes: function (t) {
-                                                t.code !== Q.ApiErrorCode.AreaBlock ? e(t.data) : g.emit(Y.Failed, Q.ApiErrorCode.AreaBlock, t.message)
+                                                t.code !== H.ApiErrorCode.AreaBlock ? e(t.data) : g.emit(M.Failed, H.ApiErrorCode.AreaBlock, t.message)
                                             }
                                         }).catch(t)
                                     })];
                                 case 1:
-                                    return 1 !== (a = m.sent()).live_status ? (Q.unloading(), this.emit(Y.LiveStatusChange, a.live_status), [2]) : null == a.playurl_info ? (Q.unloading(), this.playUrlParser = null, Q.logger.info("playUrlInfo is null"), [2]) : (V(this, o, a), Q.logger.debug("room info: " + JSON.stringify(a)), null == a.playurl_info.playurl ? (this.emit(Y.Failed, O.default.ErrorCode.PlayUrlNull), Q.logger.error("playUrlInfo.playurl is null"), [2]) : (this.playUrlParser = ue(M(this, o).playurl_info, {
+                                    return 1 !== (a = m.sent()).live_status ? (H.unloading(), this.emit(M.LiveStatusChange, a.live_status), [2]) : null == a.playurl_info ? (H.unloading(), this.playUrlParser = null, H.logger.info("playUrlInfo is null"), [2]) : (L(this, i, a), H.logger.debug("room info: " + JSON.stringify(a)), null == a.playurl_info.playurl ? (this.emit(M.Failed, W.default.ErrorCode.PlayUrlNull), H.logger.error("playUrlInfo.playurl is null"), [2]) : (this.playUrlParser = oe(V(this, i).playurl_info, {
                                         userId: this.opts.userId,
                                         ownerId: a.uid,
-                                        isMobile: null !== (y = this.opts.isMobile) && void 0 !== y && y
-                                    }), null === (v = this.playUrlParser) || void 0 === v || v.setCurLine(r), this.tmShiftHandler(null != n ? n : 0), [2]))
+                                        isMobile: null !== (f = this.opts.isMobile) && void 0 !== f && f
+                                    }), null === (v = this.playUrlParser) || void 0 === v || v.setCurLine(o), this.tmShiftHandler(null != l ? l : 0), [2]))
                             }
                         })
                     })
                 }, [0, 1, 3, 5, 10, 20, 30, 60, 90, 120].map(function (e) {
                     return 1e3 * e
-                }))), T.set(this, function (e, t) {
-                    e.once(D.EventType.FirstFrame, function () {
-                        var o, l, s = null;
-                        if (M(F, a).push(function () {
-                            null == s || s.remove()
-                        }), M(F, w).forEach(function (t) {
-                            t !== e && (t.destroy(), M(F, w).delete(t))
-                        }), V(F, i, Q.uuid()), V(F, r, t), M(F, c)) e.destroy(); else {
-                            null === (o = M(F, n)) || void 0 === o || o.removeVideoEl();
-                            var d = e.getVideoEl();
-                            !0 === F.opts.isMobile && (d.setAttribute("webkit-playsinline", "true"), d.setAttribute("playsinline", "true")), F.container.appendChild(d), V(F, n, e), !0 !== F.opts.isMobile && (s = D.checkVideoRate(e.getVideoEl())), null === (l = M(F, u)) || void 0 === l || l.success(), M(F, v).call(F), V(F, v, oe(e, M(F, y)))
+                }))), S.set(this, function (i, n) {
+                    i.once(N.EventType.FirstFrame, function () {
+                        var l, u, c = null;
+                        if (V(O, o).push(function () {
+                            null == c || c.remove()
+                        }), V(O, g).forEach(function (e) {
+                            e !== i && (e.destroy(), V(O, g).delete(e))
+                        }), L(O, e, H.uuid()), L(O, t, n), V(O, s)) i.destroy(); else {
+                            null === (l = V(O, r)) || void 0 === l || l.removeVideoEl();
+                            var d = i.getVideoEl();
+                            !0 === O.opts.isMobile && (d.setAttribute("webkit-playsinline", "true"), d.setAttribute("playsinline", "true")), O.container.appendChild(d), L(O, r, i), !0 !== O.opts.isMobile && (c = N.checkVideoRate(i.getVideoEl())), null === (u = V(O, a)) || void 0 === u || u.success(), V(O, y).call(O), L(O, y, te(i, V(O, h)))
                         }
                     })
-                }), b.set(this, function (e) {
-                    var t, i, r, n, o = x.maxRetryChecker(e);
-                    e.once(D.EventType.Ended, function () {
-                        return L(F, void 0, void 0, function () {
-                            return k(this, function (t) {
+                }), C.set(this, function (e) {
+                    var t, r, i, n, o = F.maxRetryChecker(e);
+                    e.once(N.EventType.Ended, function () {
+                        return b(O, void 0, void 0, function () {
+                            return _(this, function (t) {
                                 return e.destroy(), o() ? (a(function () {
                                 }).catch(function (e) {
-                                    Q.logger.error(e)
-                                }), [2]) : (Q.logger.error("retry over 1 min"), this.emit(Y.Failed, O.default.ErrorCode.RetryMaxTime), [2])
+                                    H.logger.error(e)
+                                }), [2]) : (H.logger.error("retry over 1 min"), this.emit(M.Failed, W.default.ErrorCode.RetryMaxTime), [2])
                             })
                         })
-                    }), e.once(D.EventType.Error, function (t) {
-                        return L(F, void 0, void 0, function () {
-                            var i, r;
-                            return k(this, function (n) {
-                                return e.destroy(), Q.logger.error(t), o() ? (i = x.loadingOrCoverImg(this.container, M(this, d)), !0 === (null === (r = this.replay) || void 0 === r ? void 0 : r.isReplay) ? [2] : (a(i).catch(function (e) {
-                                    Q.logger.error(e), i()
-                                }), [2])) : (this.emit(Y.Failed, O.default.ErrorCode.RetryMaxTime), [2])
+                    }), e.once(N.EventType.Error, function (t) {
+                        return b(O, void 0, void 0, function () {
+                            var r, i;
+                            return _(this, function (n) {
+                                return e.destroy(), H.logger.error(t), o() ? (r = F.loadingOrCoverImg(this.container, V(this, u)), !0 === (null === (i = this.replay) || void 0 === i ? void 0 : i.isReplay) ? [2] : (a(r).catch(function (e) {
+                                    H.logger.error(e), r()
+                                }), [2])) : (this.emit(M.Failed, W.default.ErrorCode.RetryMaxTime), [2])
                             })
                         })
-                    }), Q.logger.debug("max retry times：" + (null !== (i = null === (t = F.playUrlParser) || void 0 === t ? void 0 : t.getPlayUrlCandates().length) && void 0 !== i ? i : 0));
-                    var l = Math.min(null !== (n = null === (r = F.playUrlParser) || void 0 === r ? void 0 : r.getPlayUrlCandates().length) && void 0 !== n ? n : 0, 4),
+                    }), H.logger.debug("max retry times：" + (null !== (r = null === (t = O.playUrlParser) || void 0 === t ? void 0 : t.getPlayUrlCandates().length) && void 0 !== r ? r : 0));
+                    var l = Math.min(null !== (n = null === (i = O.playUrlParser) || void 0 === i ? void 0 : i.getPlayUrlCandates().length) && void 0 !== n ? n : 0, 4),
                         a = function (e) {
-                            return L(F, void 0, Promise, function () {
-                                var t, i, r, n;
-                                return k(this, function (o) {
+                            return b(O, void 0, Promise, function () {
+                                var t, r, i, n;
+                                return _(this, function (o) {
                                     switch (o.label) {
                                         case 0:
-                                            return o.trys.push([0, 2, , 7]), [4, x.backoffById(this.playUrlParser, l)];
+                                            return o.trys.push([0, 2, , 7]), [4, F.backoffById(this.playUrlParser, l)];
                                         case 1:
-                                            if (t = o.sent(), null != this.playUrlParser) if ((i = K.useRetryStrategy(this.playUrlParser, t, l)) === K.RetryStrategies.SwitchLine) this.emit(Q.ExternalEventType.SwitchLine, this.playUrlParser.getCurLine()); else if (i === K.RetryStrategies.Failed) throw new Error("not supported hls protocol stream");
+                                            if (t = o.sent(), null != this.playUrlParser) if ((r = J.useRetryStrategy(this.playUrlParser, t, l)) === J.RetryStrategies.SwitchLine) this.emit(H.ExternalEventType.SwitchLine, this.playUrlParser.getCurLine()); else if (r === J.RetryStrategies.Failed) throw new Error("not supported hls protocol stream");
                                             return e(), [3, 7];
                                         case 2:
-                                            r = o.sent(), e(), Q.logger.error(r), o.label = 3;
+                                            i = o.sent(), e(), H.logger.error(i), o.label = 3;
                                         case 3:
-                                            return o.trys.push([3, 5, , 6]), [4, M(this, C).call(this)];
+                                            return o.trys.push([3, 5, , 6]), [4, V(this, E).call(this)];
                                         case 4:
                                             return o.sent(), [3, 6];
                                         case 5:
-                                            throw n = o.sent(), this.emit(Y.Failed, O.default.ErrorCode.RoomP0ApiFetchError), this.destroy(), n;
+                                            throw n = o.sent(), this.emit(M.Failed, W.default.ErrorCode.RoomP0ApiFetchError), this.destroy(), n;
                                         case 6:
                                             return [3, 7];
                                         case 7:
@@ -19983,217 +19829,223 @@ parcelRequire = function (e, r, t, n) {
                                 })
                             })
                         }
-                }), I.set(this, function (e) {
-                    var t = Q.seiKeyComparator(Q.SEIType.LIVE_SEI_CHANNEL);
-                    return e.once(D.EventType.Destroyed, function () {
-                        F.emit(D.EventType.Destroyed)
-                    }), [Q.EventBus.forwardEvent(e, M(F, m), [D.EventType.Play, D.EventType.Pause, D.EventType.LoadStart, D.EventType.MetaData, D.EventType.FirstFrame, D.EventType.WaitStart, D.EventType.NotAutoPlay, D.EventType.MutePlay]), e.on(D.EventType.VideoInfo, function (e) {
-                        var t, i;
-                        F.emit(D.EventType.VideoInfo, {
-                            mediaInfo: _(_({}, e.mediaInfo), {corePlayerType: (null !== (i = null === (t = e.mediaInfo) || void 0 === t ? void 0 : t.corePlayerType) && void 0 !== i ? i : "") + " (" + M(F, h) + ")"}),
+                }), T.set(this, function (e) {
+                    var t = H.seiKeyComparator(H.SEIType.LIVE_SEI_CHANNEL),
+                        r = H.seiKeyComparator(H.SEIType.B_LIVE_VIBRATION),
+                        i = H.seiKeyComparator(H.SEIType.LIVE_SEI_PC_LINK);
+                    return e.once(N.EventType.Destroyed, function () {
+                        O.emit(N.EventType.Destroyed)
+                    }), [H.EventBus.forwardEvent(e, V(O, v), [N.EventType.Play, N.EventType.Pause, N.EventType.LoadStart, N.EventType.MetaData, N.EventType.FirstFrame, N.EventType.WaitStart, N.EventType.NotAutoPlay, N.EventType.MutePlay]), e.on(N.EventType.VideoInfo, function (e) {
+                        var t, r;
+                        O.emit(N.EventType.VideoInfo, {
+                            mediaInfo: I(I({}, e.mediaInfo), {corePlayerType: (null !== (r = null === (t = e.mediaInfo) || void 0 === t ? void 0 : t.corePlayerType) && void 0 !== r ? r : "") + " (" + V(O, d) + ")"}),
                             realtimeInfo: e.realtimeInfo
                         })
-                    }), e.on(D.EventType.SEIData, function () {
-                        for (var e = [], i = 0; i < arguments.length; i++) e[i] = arguments[i];
+                    }), e.on(N.EventType.SEIData, function () {
+                        for (var e = [], n = 0; n < arguments.length; n++) e[n] = arguments[n];
                         if (t(e[2])) {
-                            var r = Q.uint8ArrayToString(e[3]);
-                            F.emit(Q.ExternalEventType.SEIParseData, Q.SEIType.LIVE_SEI_CHANNEL, r)
-                        } else F.emit(D.EventType.SEIData, e)
-                    }), e.once(D.EventType.WASMDecoderDegrade, function () {
-                        var e = F.playUrlParser;
+                            var o = H.uint8ArrayToString(e[3]);
+                            O.emit(H.ExternalEventType.SEIParseData, H.SEIType.LIVE_SEI_CHANNEL, o)
+                        } else r(e[2]) ? O.emit(H.ExternalEventType.SEIParseData, H.SEIType.B_LIVE_VIBRATION, e[1], e[3]) : i(e[2]) ? O.emit(H.ExternalEventType.SEIParseData, H.SEIType.LIVE_SEI_PC_LINK, e) : O.emit(N.EventType.SEIData, e)
+                    }), e.once(N.EventType.WASMDecoderDegrade, function () {
+                        var e = O.playUrlParser;
                         if (null != e) {
                             var t = e.getQualityDesc();
-                            if ((null == t ? void 0 : t.codec) === Q.CodecType.HEVC) {
-                                var i = J.getHEVCDowngradeQn(t, e.getAVCQnCandidates());
-                                F.switchQuality(i, "CPU负载较高，")
+                            if ((null == t ? void 0 : t.codec) === H.CodecType.HEVC) {
+                                var r = j.getHEVCDowngradeQn(t, e.getAVCQnCandidates());
+                                O.switchQuality(r, "CPU负载较高，")
                             }
                         }
                     })]
                 }), this.play = function () {
                     var e;
-                    null === (e = M(F, n)) || void 0 === e || e.play().catch(function () {
+                    null === (e = V(O, r)) || void 0 === e || e.play().catch(function () {
                     })
                 }, this.pause = function () {
                     var e;
-                    null === (e = M(F, n)) || void 0 === e || e.pause()
+                    null === (e = V(O, r)) || void 0 === e || e.pause()
                 }, this.volume = function (e) {
                     var t;
-                    null === (t = M(F, n)) || void 0 === t || t.volume(e)
+                    null === (t = V(O, r)) || void 0 === t || t.volume(e)
                 }, this.mute = function (e) {
                     var t;
-                    null === (t = M(F, n)) || void 0 === t || t.mute(e)
+                    null === (t = V(O, r)) || void 0 === t || t.mute(e)
                 }, this.enableReplay = function () {
-                    return null != M(F, o) && null != F.playUrlParser && !(!M(F, o).all_special_types.includes(19) || !F.playUrlParser.hasHLSPlayerSupportStream())
-                }, !0 !== t.isMobile && (e.style.overflow = "hidden"), this.ctrl = new N.default(e, {
-                    userId: t.userId,
-                    isMobile: null !== (H = this.opts.isMobile) && void 0 !== H && H
-                }), te(this.ctrl, this, e), V(this, f, W.createVideoTracker()), M(this, P).call(this, this.opts.roomId).catch(function (e) {
-                    Q.logger.error(e), O.default.error(O.default.ErrorCode.RoomEnterLiveError, e)
+                    return null != V(O, i) && null != O.playUrlParser && !(!V(O, i).all_special_types.includes(19) || !O.playUrlParser.hasHLSPlayerSupportStream())
+                }, !0 !== U.isMobile && (k.style.overflow = "hidden"), this.ctrl = new Q.default(k, {
+                    userId: U.userId,
+                    isMobile: null !== (x = this.opts.isMobile) && void 0 !== x && x,
+                    enableCtrlUI: U.enableCtrlUI
+                }), Y(this.ctrl, this, k), L(this, p, q.createVideoTracker()), V(this, m).call(this, this.opts.roomId).catch(function (e) {
+                    H.logger.error(e), W.default.error(W.default.ErrorCode.RoomEnterLiveError, e)
                 })
             }
 
-            return e.prototype.reload = function () {
-                var e, t, i, r = this;
-                if (!M(this, c)) {
-                    Q.logger.info("live player load roomId: " + M(this, l));
-                    var n = M(this, l);
-                    if (null != M(this, o) && 0 !== n && null != this.playUrlParser) {
-                        var s, u = this.playUrlParser;
-                        null == M(this, p) && V(this, p, u.getCurQuality());
+            return U.prototype.reload = function () {
+                var e, t, r, l = this;
+                if (!V(this, s)) {
+                    H.logger.info("live player load roomId: " + V(this, n));
+                    var a = V(this, n);
+                    if (null != V(this, i) && 0 !== a && null != this.playUrlParser) {
+                        var h, y = this.playUrlParser;
+                        null == V(this, c) && L(this, c, y.getCurQuality());
                         try {
-                            s = u.getCurPlayUrl()
-                        } catch (P) {
-                            return Q.logger.error(P), void M(this, C).call(this).then(function () {
-                                r.reload()
+                            h = y.getCurPlayUrl()
+                        } catch (b) {
+                            return H.logger.error(b), void V(this, E).call(this).then(function () {
+                                l.reload()
                             }).catch(function (e) {
-                                Q.logger.error(e)
+                                H.logger.error(e)
                             })
                         }
-                        if (!M(this, c)) {
-                            var y = this.playUrlParser.getCurStreamInfo();
-                            O.default.updateDynamicInfo({
-                                p2pType: y.p2pType,
-                                sHost: y.host,
-                                sQuery: y.query,
-                                sProtocol: y.protocol,
-                                sCodec: y.codec,
-                                sName: y.name,
-                                quality: y.quality,
-                                sFormat: null !== (i = y.format) && void 0 !== i ? i : "",
+                        if (!V(this, s)) {
+                            var v = this.playUrlParser.getCurStreamInfo();
+                            W.default.updateDynamicInfo({
+                                p2pType: v.p2pType,
+                                sHost: v.host,
+                                sQuery: v.query,
+                                sProtocol: v.protocol,
+                                sCodec: v.codec,
+                                sName: v.name,
+                                quality: v.quality,
+                                sFormat: null !== (r = v.format) && void 0 !== r ? r : "",
                                 line: this.playUrlParser.getCurLine()
-                            }, !0), Q.logger.info("current stream info: " + JSON.stringify(y)), M(this, S).call(this);
-                            var v = new D.Video(s, {wasmDecode: u.getCurCodecType() === Q.CodecType.HEVC && !j.isHardSupportHEVC() && !j.maybe360Browser() && j.isWASMSupportHEVC()});
-                            y.codec === Q.CodecType.HEVC && O.default.updateDynamicInfo({videoTag: v.getVideoEl().tagName}), (e = M(this, a)).push.apply(e, ce(this.playUrlParser, this.container, n.toString(), v.getVideoEl(), this.ctrl)), M(this, w).add(v), ae(this.ctrl.getCtrlUI(), u, Q.wpd.SupportHEVC || j.isHardSupportHEVC() || M(this, g)), M(this, E).call(this, v), se(v, this, this.container), M(this, T).call(this, v, s), M(this, b).call(this, v), M(this, f).call(this, v), (t = M(this, a)).push.apply(t, U([A.connectUIandVideo(this.ctrl, v), ne(v), A.connectVideoLoading(v, this.container, M(this, d)), A.connectVideoPip(v, this.ctrl), A.connectMirror(v, this.ctrl)], M(this, I).call(this, v)));
-                            var m = u.getCurP2PType();
-                            q.default({
-                                video: v,
-                                type: m,
-                                roomId: n,
-                                interval: u.getDynamicConfig().report_interval_sec
+                            }, !0), H.logger.info("current stream info: " + JSON.stringify(v)), V(this, P).call(this);
+                            var m = new N.Video(h, {
+                                wasmDecode: y.getCurCodecType() === H.CodecType.HEVC && !R.isHardSupportHEVC() && !R.maybe360Browser() && R.isWASMSupportHEVC(),
+                                forceNativePlayer: "panorama" === y.getCurStreamInfo().curAttrName || navigator.userAgent.includes("PlayStation")
+                            });
+                            v.codec === H.CodecType.HEVC && W.default.updateDynamicInfo({videoTag: m.getVideoEl().tagName}), (e = V(this, o)).push.apply(e, le(this.playUrlParser, this.container, a.toString(), m.getVideoEl(), this.ctrl)), V(this, g).add(m), ie(this.ctrl.getCtrlUI(), y, H.wpd.SupportHEVC || R.isHardSupportHEVC() || V(this, f)), V(this, w).call(this, m), ne(m, this, this.container), V(this, S).call(this, m, h), V(this, C).call(this, m), V(this, p).call(this, m), (t = V(this, o)).push.apply(t, k([O.connectUIandVideo(this.ctrl, m), ee(m), O.connectVideoLoading(m, this.container, V(this, u)), O.connectVideoPip(m, this.ctrl), O.connectMirror(m, this.ctrl)], V(this, T).call(this, m)));
+                            var I = y.getCurP2PType();
+                            x.default({
+                                video: m,
+                                type: I,
+                                roomId: a,
+                                interval: y.getDynamicConfig().report_interval_sec
                             }).then(function () {
                                 var e;
-                                V(r, h, (e = {}, e[Q.P2PType.HLS_BILI] = "SistersFetcher", e[Q.P2PType.FLV_QVB] = "QVBFetcher", e[Q.P2PType.HLS_NOT_P2P] = "Fetch", e[Q.P2PType.NONE] = "Fetch", e)[m])
+                                L(l, d, (e = {}, e[H.P2PType.HLS_BILI] = "SistersFetcher", e[H.P2PType.FLV_QVB] = "QVBFetcher", e[H.P2PType.HLS_NOT_P2P] = "Fetch", e[H.P2PType.NONE] = "Fetch", e)[I])
                             }).catch(function (e) {
                                 var t;
-                                V(r, h, "Fetch");
-                                var i = ((t = {})[Q.P2PType.HLS_BILI] = Q.P2PType.HLS_NOT_P2P, t[Q.P2PType.FLV_QVB] = Q.P2PType.NONE, t);
-                                u.setCurP2PType(i[m]), O.default.updateDynamicInfo({p2pType: i[m]}), Q.logger.error(e)
+                                L(l, d, "Fetch");
+                                var r = ((t = {})[H.P2PType.HLS_BILI] = H.P2PType.HLS_NOT_P2P, t[H.P2PType.FLV_QVB] = H.P2PType.NONE, t);
+                                y.setCurP2PType(r[I]), W.default.updateDynamicInfo({p2pType: r[I]}), H.logger.error(e)
                             })
                         }
                     }
                 }
-            }, e.prototype.setTitlePageImg = function (e) {
-                V(this, d, e)
-            }, e.prototype.setAutoSyncCfg = function (e) {
-                /chrome\/91/g.test(navigator.userAgent.toLowerCase()) || (V(this, y, e), null != M(this, n) && (M(this, v).call(this), V(this, v, oe(M(this, n), e))))
-            }, e.prototype.getPlayerInfo = function () {
-                var e, t, o, l, a, s;
+            }, U.prototype.setTitlePageImg = function (e) {
+                L(this, u, e)
+            }, U.prototype.setAutoSyncCfg = function (e) {
+                /chrome\/91/g.test(navigator.userAgent.toLowerCase()) || (L(this, h, e), null != V(this, r) && (V(this, y).call(this), L(this, y, te(V(this, r), e))))
+            }, U.prototype.getPlayerInfo = function () {
+                var i, n, o, l, a, s;
                 return {
-                    guid: M(this, i),
-                    playingStatus: !(null === (t = null === (e = M(this, n)) || void 0 === e ? void 0 : e.getVideoEl().paused) || void 0 === t || t),
-                    playSrc: M(this, r),
+                    guid: V(this, e),
+                    playingStatus: !(null === (n = null === (i = V(this, r)) || void 0 === i ? void 0 : i.getVideoEl().paused) || void 0 === n || n),
+                    playSrc: V(this, t),
                     quality: null !== (l = null === (o = this.playUrlParser) || void 0 === o ? void 0 : o.getCurQuality()) && void 0 !== l ? l : "",
                     qualityCandidates: null !== (s = null === (a = this.playUrlParser) || void 0 === a ? void 0 : a.getQnCandidates()) && void 0 !== s ? s : []
                 }
-            }, e.prototype.getVideoEl = function () {
+            }, U.prototype.getVideoEl = function () {
                 var e;
-                return null === (e = M(this, n)) || void 0 === e ? void 0 : e.getVideoEl()
-            }, e.prototype.blockStream = function () {
+                return null === (e = V(this, r)) || void 0 === e ? void 0 : e.getVideoEl()
+            }, U.prototype.blockStream = function () {
                 var e = this;
-                x.blockStream(M(this, n), function () {
-                    e.emit(D.EventType.Play)
+                F.blockStream(V(this, r), function () {
+                    e.emit(N.EventType.Play)
                 })
-            }, e.prototype.discardFrame = function (e) {
-                var t, i = null === (t = M(this, n)) || void 0 === t ? void 0 : t.getVideoEl();
+            }, U.prototype.discardFrame = function (e) {
+                var t, i = null === (t = V(this, r)) || void 0 === t ? void 0 : t.getVideoEl();
                 null != i && (i.currentTime += e)
-            }, e.prototype.remainBufferLength = function () {
-                var e, t = null === (e = M(this, n)) || void 0 === e ? void 0 : e.getVideoEl();
-                return null == t ? 0 : Q.remainBufferLength(t)
-            }, e.prototype.showHEVCQuality = function (e) {
+            }, U.prototype.remainBufferLength = function () {
+                var e, t = null === (e = V(this, r)) || void 0 === e ? void 0 : e.getVideoEl();
+                return null == t ? 0 : H.remainBufferLength(t)
+            }, U.prototype.showHEVCQuality = function (e) {
                 var t = this;
-                if (!j.isHardSupportHEVC()) {
-                    var i = this.playUrlParser;
-                    if (null != i) if (e) j.loadWASMDecoder().then(function () {
-                        null != t.playUrlParser && (V(t, g, !0), ae(t.ctrl.getCtrlUI(), t.playUrlParser, M(t, g) || Q.wpd.SupportHEVC || j.isHardSupportHEVC()))
+                if (!R.isHardSupportHEVC()) {
+                    var r = this.playUrlParser;
+                    if (null != r) if (e) R.loadWASMDecoder().then(function () {
+                        null != t.playUrlParser && (L(t, f, !0), ie(t.ctrl.getCtrlUI(), t.playUrlParser, V(t, f) || H.wpd.SupportHEVC || R.isHardSupportHEVC()))
                     }).catch(function (e) {
-                        Q.logger.error(e)
+                        H.logger.error(e)
                     }); else {
-                        V(this, g, !1);
-                        var r = i.getQualityDesc();
-                        if ((null == r ? void 0 : r.codec) !== Q.CodecType.HEVC) return void ae(this.ctrl.getCtrlUI(), i, !1);
-                        var n = J.getHEVCDowngradeQn(r, i.getAVCQnCandidates());
+                        L(this, f, !1);
+                        var i = r.getQualityDesc();
+                        if ((null == i ? void 0 : i.codec) !== H.CodecType.HEVC) return void ie(this.ctrl.getCtrlUI(), r, !1);
+                        var n = j.getHEVCDowngradeQn(i, r.getAVCQnCandidates());
                         this.switchQuality(n)
                     }
                 }
-            }, e.prototype.destroy = function (e) {
+            }, U.prototype.destroy = function (e) {
                 var t, i;
-                Q.logger.info("live player destroy, holdLastFrame: " + String(e)), null === (t = M(this, n)) || void 0 === t || t.destroy(e), M(this, c) || (V(this, c, !0), this.emit(Y.Destroyed), null === (i = this.replay) || void 0 === i || i.destroy(), M(this, S).call(this), this.ctrl.destroy(), M(this, m).destroy(), M(this, s).forEach(function (e) {
+                H.logger.info("live player destroy, holdLastFrame: " + String(e)), null === (t = V(this, r)) || void 0 === t || t.destroy(e), V(this, s) || (L(this, s, !0), this.emit(M.Destroyed), null === (i = this.replay) || void 0 === i || i.destroy(), V(this, P).call(this), this.ctrl.destroy(), V(this, v).destroy(), V(this, l).forEach(function (e) {
                     return e()
-                }), V(this, s, []))
-            }, e.prototype.switchQuality = function (e, t) {
-                var i, r, n = this;
-                void 0 === t && (t = ""), Q.logger.info("switchQuality to " + e);
+                }), L(this, l, []))
+            }, U.prototype.switchQuality = function (e, t) {
+                var r, i, n = this;
+                void 0 === t && (t = ""), H.logger.info("switchQuality to " + e);
                 var o = this.playUrlParser;
                 if (null != o) {
-                    var l = o.getQualityDesc(e), a = o.getQualityDesc(o.getCurQuality()),
-                        s = o.getQualityDesc(null !== (i = M(this, p)) && void 0 !== i ? i : "0");
-                    if (null != l && null != s && null != a) {
-                        if (0 === this.opts.userId && l.code > s.code) return Q.logger.warn("user not login, reject switch quality"), this.emit(Q.ExternalEventType.SwitchQualityNotLogin, {
+                    var l = o.getQualityDesc(e), s = o.getQualityDesc(o.getCurQuality()),
+                        u = o.getQualityDesc(null !== (r = V(this, c)) && void 0 !== r ? r : "0");
+                    if (null != l && null != u && null != s) {
+                        if (0 === this.opts.userId && l.code > u.code) return H.logger.warn("user not login, reject switch quality"), this.emit(H.ExternalEventType.SwitchQualityNotLogin, {
                             newQn: {
                                 qn: e,
                                 text: l.label
-                            }, oldQn: {qn: a.value, text: a.label}
+                            }, oldQn: {qn: s.value, text: s.label}
                         }), !1;
-                        if (Q.toast(t + "清晰度即将切换至" + l.label, this.container), V(this, u, {
+                        if (H.toast(t + "清晰度即将切换至" + l.label, this.container), L(this, a, {
                             success: function () {
-                                Q.toast(t + "清晰度已经切换至" + l.label, n.container), V(n, u, null), n.emit(Q.ExternalEventType.SwitchQuality, e, a.value, o.getQnCandidates().map(function (e) {
+                                H.toast(t + "清晰度已经切换至" + l.label, n.container), L(n, a, null), n.emit(H.ExternalEventType.SwitchQuality, e, s.value, o.getQnCandidates().map(function (e) {
                                     var t = e.label;
                                     return {qn: e.value, desc: t}
                                 }))
                             }
-                        }), a.code === l.code) return null === (r = this.playUrlParser) || void 0 === r || r.useStream({codec: l.codec}), void this.reload();
-                        M(this, C).call(this, l.code).then(function () {
-                            var e, t = 3e4 === l.code ? Q.ProtocolType.HTTP_HLS : void 0;
+                        }), s.code === l.code) return null === (i = this.playUrlParser) || void 0 === i || i.useStream({codec: l.codec}), void this.reload();
+                        V(this, E).call(this, l.code).then(function () {
+                            var e, t = 3e4 === l.code ? H.ProtocolType.HTTP_HLS : void 0;
                             null === (e = n.playUrlParser) || void 0 === e || e.useStream({
                                 codec: l.codec,
                                 protocol: t
                             }), n.reload()
                         }).catch(function (e) {
-                            Q.logger.error(e)
+                            H.logger.error(e)
                         })
-                    } else Q.logger.error("switchQuality: quality parser error. " + JSON.stringify({
+                    } else H.logger.error("switchQuality: quality parser error. " + JSON.stringify({
                         targetQnDesc: l,
-                        curQnDesc: a,
-                        defQnDesc: s
+                        curQnDesc: s,
+                        defQnDesc: u
                     }))
                 }
-            }, e.prototype.switchLine = function (e, t) {
-                var i, r, n, o = this;
+            }, U.prototype.switchLine = function (e, t) {
+                var r, i, n, o = this;
                 void 0 === t && (t = !0);
                 var l = this.playUrlParser;
-                null != l && (t && Q.toast("线路即将切换至" + (null !== (r = null === (i = l.getLineCandidates().find(function (t) {
+                null != l && (t && H.toast("线路即将切换至" + (null !== (i = null === (r = l.getLineCandidates().find(function (t) {
                     return t.value === e
-                })) || void 0 === i ? void 0 : i.label) && void 0 !== r ? r : ""), this.container), V(this, u, {
+                })) || void 0 === r ? void 0 : r.label) && void 0 !== i ? i : ""), this.container), L(this, a, {
                     success: function () {
-                        t && Q.toast("线路已经切换至" + l.getCurLineDesc().label, o.container), V(o, u, null), o.emit(Q.ExternalEventType.SwitchLine, e)
+                        t && H.toast("线路已经切换至" + l.getCurLineDesc().label, o.container), L(o, a, null), o.emit(H.ExternalEventType.SwitchLine, e)
                     }
                 }), null === (n = this.playUrlParser) || void 0 === n || n.setCurLine(e), this.reload())
-            }, e.prototype.capturePic = function (e, t) {
-                var i, r;
-                return null !== (r = null === (i = M(this, n)) || void 0 === i ? void 0 : i.capturePic(e, t)) && void 0 !== r ? r : null
-            }, e
+            }, U.prototype.capturePic = function (e, t) {
+                var i, n;
+                return null !== (n = null === (i = V(this, r)) || void 0 === i ? void 0 : i.capturePic(e, t)) && void 0 !== n ? n : null
+            }, U
         }();
 
-        function te(e, t, i) {
-            var r = this, n = !1, o = e.onRefresh(function () {
-                var e, r;
-                t.once(D.EventType.FirstFrame, function () {
-                    n && (Q.toast("刷新成功", i), n = !1)
-                }), Q.toast("正在刷新", i), n = !0, !0 === (null === (e = t.replay) || void 0 === e ? void 0 : e.isReplay) && (null === (r = t.replay) || void 0 === r || r.returnLive()), t.tmShiftHandler(0), t.reload(), t.emit(Q.ExternalEventType.Reload), O.default.operation(O.default.OperationCode.Refresh)
-            }), l = e.onChange(function (e, i) {
-                return L(r, void 0, void 0, function () {
-                    return k(this, function (r) {
-                        return "quality" === e ? [2, t.switchQuality(i)] : ("line" === e && t.switchLine(i), le(e, i), [2])
+        function Y(e, t, r) {
+            var i = this, n = !1, o = e.onRefresh(function () {
+                var e, i;
+                t.once(N.EventType.FirstFrame, function () {
+                    n && (H.toast("刷新成功", r), n = !1)
+                }), H.toast("正在刷新", r), n = !0, !0 === (null === (e = t.replay) || void 0 === e ? void 0 : e.isReplay) && (null === (i = t.replay) || void 0 === i || i.returnLive()), t.tmShiftHandler(0), t.reload(), t.emit(H.ExternalEventType.Reload), W.default.operation(W.default.OperationCode.Refresh)
+            }), l = e.onChange(function (e, r) {
+                return b(i, void 0, void 0, function () {
+                    return _(this, function (i) {
+                        return "quality" === e ? [2, t.switchQuality(r)] : ("line" === e && t.switchLine(r), re(e, r), [2])
                     })
                 })
             });
@@ -20202,104 +20054,101 @@ parcelRequire = function (e, r, t, n) {
             }
         }
 
-        function ie(e, t, i) {
-            return void 0 === t && (t = 0), void 0 === i && (i = !1), "//api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo?room_id=" + e + "&protocol=0,1&format=0,1,2&codec=0,1&qn=" + t + "&platform=web&ptype=8&dolby=5" + (i ? "" : "&panorama=1")
+        function Z(e, t, r) {
+            return void 0 === t && (t = 0), void 0 === r && (r = !1), "//api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo?room_id=" + e + "&protocol=0,1&format=0,1,2&codec=0,1&qn=" + t + "&platform=web&ptype=8&dolby=5" + (r ? "" : "&panorama=1")
         }
 
-        function re(e, t) {
-            var i = Date.now() / 1e3 - e - performance.now() / 1e3, r = window.setInterval(function () {
-                t.time = {value: Q.formatTime(performance.now() / 1e3 + i), tips: "直播持续时间"}
+        function $(e, t) {
+            var r = Date.now() / 1e3 - e - performance.now() / 1e3, i = window.setInterval(function () {
+                t.time = {value: H.formatTime(performance.now() / 1e3 + r), tips: "直播持续时间"}
             }, 1e3);
             return function () {
-                clearInterval(r)
+                clearInterval(i)
             }
         }
 
-        function ne(e) {
-            var t = [], i = e.getVideoEl(), r = 0;
-            return Q.logger.info("start monitor buffer length"), e.on(D.EventType.VideoInfo, function (e) {
+        function ee(e) {
+            var t = [], r = e.getVideoEl(), i = 0;
+            return H.logger.info("start monitor buffer length"), e.on(N.EventType.VideoInfo, function (e) {
                 var n = e.realtimeInfo;
-                if (!(i.paused || i.currentTime <= 0)) {
+                if (!(r.paused || r.currentTime <= 0)) {
                     var o = n.videoBufferLength;
-                    (o > 10 || r === i.currentTime && o > 5) && (i.currentTime += o / 2, Q.logger.warn("auto discard frame, current time: " + i.currentTime), t.length < 3 && ((t = t.filter(function (e) {
+                    (o > 10 || i === r.currentTime && o > 5) && (r.currentTime += o / 2, H.logger.warn("auto discard frame, current time: " + r.currentTime), t.length < 3 && ((t = t.filter(function (e) {
                         return performance.now() - e < 5e3
-                    })).push(performance.now()), 3 === t.length && O.default.custom(O.default.CustomCode.AutoDiscardFrame, null, {extFields: "all"}))), r = i.currentTime
+                    })).push(performance.now()), 3 === t.length && W.default.custom(W.default.CustomCode.AutoDiscardFrame, null, {extFields: "all"}))), i = r.currentTime
                 }
             })
         }
 
-        function oe(e, t) {
+        function te(e, t) {
             if (null === t) return function () {
             };
-            if (!Q.ua.isChrome() && !Q.ua.isEdg()) return function () {
+            if (!H.ua.isChrome() && !H.ua.isEdg()) return function () {
             };
-            var i = t.auto_sync_enable, r = t.auto_sync_high_speed, n = t.auto_sync_low_speed,
+            var r = t.auto_sync_enable, i = t.auto_sync_high_speed, n = t.auto_sync_low_speed,
                 o = t.auto_sync_max_threshold, l = t.auto_sync_min_threshold;
-            return 1 !== i ? function () {
-            } : (Q.logger.info("live player start auto sync video progress"), e.on(D.EventType.VideoInfo, function (t) {
-                var i = 1e3 * t.realtimeInfo.videoBufferLength;
-                if (!(i < 0 || isNaN(i))) {
+            return 1 !== r ? function () {
+            } : (H.logger.info("live player start auto sync video progress"), e.on(N.EventType.VideoInfo, function (t) {
+                var r = 1e3 * t.realtimeInfo.videoBufferLength;
+                if (!(r < 0 || isNaN(r))) {
                     var a = e.getVideoEl(), s = 1;
-                    i < l ? s = n : i > o && (s = r), (s <= 0 || s > 2) && (s = 1), s !== a.playbackRate && (a.playbackRate = s)
+                    r < l ? s = n : r > o && (s = i), (s <= 0 || s > 2) && (s = 1), s !== a.playbackRate && (a.playbackRate = s)
                 }
             }))
         }
 
-        function le(e, t) {
-            "quality" === e ? O.default.operation(O.default.OperationCode.SwitchQuality, {quality: t}) : "line" === e ? O.default.operation(O.default.OperationCode.SwitchLine, {line: t}) : "danmaku" === e ? O.default.operation(O.default.OperationCode.Danmaku, _({}, t)) : "volume" === e ? !0 === t.disabled ? O.default.operation(O.default.OperationCode.Mute) : O.default.operation(O.default.OperationCode.Volume, {value: t.value}) : "playStatus" === e ? !0 === t ? O.default.operation(O.default.OperationCode.Play) : O.default.operation(O.default.OperationCode.Pause) : "fullScreenStatus" === e ? O.default.operation(O.default.OperationCode.FullScreen, {value: t}) : "webFullScreenStatus" === e && O.default.operation(O.default.OperationCode.WebFullScreen, {value: t})
+        function re(e, t) {
+            "quality" === e ? W.default.operation(W.default.OperationCode.SwitchQuality, {quality: t}) : "line" === e ? W.default.operation(W.default.OperationCode.SwitchLine, {line: t}) : "danmaku" === e ? W.default.operation(W.default.OperationCode.Danmaku, I({}, t)) : "volume" === e ? !0 === t.disabled ? W.default.operation(W.default.OperationCode.Mute) : W.default.operation(W.default.OperationCode.Volume, {value: t.value}) : "playStatus" === e ? !0 === t ? W.default.operation(W.default.OperationCode.Play) : W.default.operation(W.default.OperationCode.Pause) : "fullScreenStatus" === e ? W.default.operation(W.default.OperationCode.FullScreen, {value: t}) : "webFullScreenStatus" === e && W.default.operation(W.default.OperationCode.WebFullScreen, {value: t})
         }
 
-        function ae(e, t, i) {
-            var r, n, o, l = {
-                list: null !== (r = t.getLineCandidates()) && void 0 !== r ? r : [],
+        function ie(e, t, r) {
+            var i, n, o, l = {
+                list: null !== (i = t.getLineCandidates()) && void 0 !== i ? i : [],
                 value: null !== (n = t.getCurLine()) && void 0 !== n ? n : 0
             };
             e.line = l;
             var a = t.getQnCandidates();
-            i || (a = t.getAVCQnCandidates()), $ && (a = a.filter(function (e) {
-                return !e.label.includes("全景")
-            }));
+            r || (a = t.getAVCQnCandidates());
             var s = {list: a, value: null !== (o = t.getCurQuality()) && void 0 !== o ? o : "0"};
             e.quality = s
         }
 
-        function se(e, t, i) {
-            Q.logger.debug("listen sticker SEI");
-            var r = null, n = !1, o = t.on(Q.ExternalEventType.SEIParseData, function (e, t) {
-                e === Q.SEIType.LIVE_SEI_CHANNEL && (n || (n = !0, r = new R.default(i)), null == r || r.onSei(t))
-            }), l = e.on(D.EventType.MetaData, function (e) {
-                n && (Q.logger.info("destroy sticker when metadata"), null == r || r.destroy(), n = !1)
+        function ne(e, t, r) {
+            H.logger.debug("listen sticker SEI");
+            var i = null, n = !1, o = t.on(H.ExternalEventType.SEIParseData, function (e, t) {
+                e === H.SEIType.LIVE_SEI_CHANNEL && (n || (n = !0, i = new A.default(r)), null == i || i.onSei(t))
+            }), l = e.on(N.EventType.MetaData, function (e) {
+                n && (H.logger.info("destroy sticker when metadata"), null == i || i.destroy(), n = !1)
             }), a = 0, s = t.ctrl.onChange(function (e, t) {
                 "webFullScreenStatus" !== e && "fullScreenStatus" !== e || (clearTimeout(a), a = window.setTimeout(function () {
-                    null == r || r.calcDisplayInfo(), null == r || r.batchUpdateStickerElement()
+                    null == i || i.calcDisplayInfo(), null == i || i.batchUpdateStickerElement()
                 }, "webFullScreenStatus" === e ? 10 : 300))
-            }), u = e.on(D.EventType.VideoInfo, function (e) {
-                null == r || r.onVideoInfo({width: e.mediaInfo.width, height: e.mediaInfo.height})
+            }), u = e.on(N.EventType.VideoInfo, function (e) {
+                null == i || i.onVideoInfo({width: e.mediaInfo.width, height: e.mediaInfo.height})
             });
-            t.once(Y.Destroyed, d), e.once(D.EventType.Destroyed, d);
+            t.once(M.Destroyed, d), e.once(N.EventType.Destroyed, d);
             var c = !1;
 
             function d() {
-                c || (c = !0, Q.logger.info("destroy sticker..."), clearTimeout(a), null == r || r.destroy(), s(), o(), l(), u())
+                c || (c = !0, H.logger.info("destroy sticker..."), clearTimeout(a), null == i || i.destroy(), s(), o(), l(), u())
             }
         }
 
-        function ue(e, t) {
-            var i = t.userId, r = t.ownerId, n = t.isMobile, o = new F.default(e);
-            return (i === r || n) && (o.setCurP2PType(Q.P2PType.NONE), O.default.updateDynamicInfo({p2pType: Q.P2PType.NONE})), j.isHardSupportHEVC() && o.useStream({
-                codec: Q.CodecType.HEVC,
+        function oe(e, t) {
+            var r = t.userId, i = t.ownerId, n = t.isMobile, o = new D.default(e);
+            return (r === i || n) && (o.setCurP2PType(H.P2PType.NONE), W.default.updateDynamicInfo({p2pType: H.P2PType.NONE})), R.isHardSupportHEVC() && o.useStream({
+                codec: H.CodecType.HEVC,
                 expectP2PType: o.getCurP2PType()
             }), o
         }
 
-        exports.LivePlayer = ee, i = new WeakMap, r = new WeakMap, n = new WeakMap, o = new WeakMap, l = new WeakMap, a = new WeakMap, s = new WeakMap, u = new WeakMap, c = new WeakMap, d = new WeakMap, p = new WeakMap, h = new WeakMap, f = new WeakMap, y = new WeakMap, v = new WeakMap, g = new WeakMap, m = new WeakMap, w = new WeakMap, P = new WeakMap, E = new WeakMap, S = new WeakMap, C = new WeakMap, T = new WeakMap, b = new WeakMap, I = new WeakMap;
-        var ce = function (e, t, i, r, n) {
+        exports.LivePlayer = X, e = new WeakMap, t = new WeakMap, r = new WeakMap, i = new WeakMap, n = new WeakMap, o = new WeakMap, l = new WeakMap, a = new WeakMap, s = new WeakMap, u = new WeakMap, c = new WeakMap, d = new WeakMap, p = new WeakMap, h = new WeakMap, y = new WeakMap, f = new WeakMap, v = new WeakMap, g = new WeakMap, m = new WeakMap, w = new WeakMap, P = new WeakMap, E = new WeakMap, S = new WeakMap, C = new WeakMap, T = new WeakMap;
+        var le = function (e, t, r, i, n) {
             var o = [];
-            if ($) return o;
             if (null != e.getQnCandidates().find(function (e) {
                 return e.label.includes("全景")
             })) {
-                var l = z.showPanoramaTip(t, i);
+                var l = G.showPanoramaTip(t, r);
                 if (null != l) {
                     n.show();
                     var a = setTimeout(function () {
@@ -20314,8 +20163,8 @@ parcelRequire = function (e, r, t, n) {
                 }
             }
             if ("panorama" === e.getCurStreamInfo().curAttrName) {
-                var u = new z.Panorama(t, r, function () {
-                    Q.toast("资源加载失败，无法进行全景交互", t)
+                var u = new G.Panorama(t, i, function () {
+                    H.toast("资源加载失败，无法进行全景交互", t)
                 });
                 o.push(u.destroy)
             }
@@ -20454,21 +20303,21 @@ parcelRequire = function (e, r, t, n) {
                 var _ = this;
                 this.container = p, this.opts = E, e.set(this, ""), t.set(this, null), n.set(this, ""), r.set(this, !1), i.set(this, []), o.set(this, null), l.set(this, new v.EventBus), this.on = d(this, l).on, this.emit = d(this, l).emit, a.set(this, function () {
                     return s(_, void 0, Promise, function () {
-                        var p, b, E, _, R, k, S, M, V, q, F = this;
-                        return c(this, function (W) {
-                            switch (W.label) {
+                        var p, b, E, _, R, k, S, M, V, q, C = this;
+                        return c(this, function (F) {
+                            switch (F.label) {
                                 case 0:
                                     return d(this, r) ? [2] : (v.logger.info("round player start loop playing"), null === (V = d(this, t)) || void 0 === V || V.destroy(), p = v.loading(this.container), [4, P(this.opts.roomId)]);
                                 case 1:
-                                    return b = W.sent(), p(), b.cid === f.Failed ? [2] : b.cid <= 0 ? (E = void 0, b.cid === f.Nonenabled && (E = w.default.ErrorCode.RoomUnSettingRound), v.logger.warn("exit round cause: " + f[b.cid]), this.emit("failed", b.cid, b.play_time, E), this.destroy(), [2]) : (this.emit(v.ExternalEventType.StartPlayRound, b), [4, x(b.cid, b.bvid)]);
+                                    return b = F.sent(), p(), b.cid === f.Failed ? [2] : b.cid <= 0 ? (E = void 0, b.cid === f.Nonenabled && (E = w.default.ErrorCode.RoomUnSettingRound), v.logger.warn("exit round cause: " + f[b.cid]), this.emit("failed", b.cid, b.play_time, E), this.destroy(), [2]) : (this.emit(v.ExternalEventType.StartPlayRound, b), [4, x(b.cid, b.bvid)]);
                                 case 2:
-                                    if (_ = W.sent(), null == (R = T(_, b.play_time))) throw new Error("can't find round segment");
+                                    if (_ = F.sent(), null == (R = T(_, b.play_time))) throw new Error("can't find round segment");
                                     return d(this, r) ? [2] : (k = new y.Video(R.url, {startTime: R.startTime}), h(this, e, v.uuid()), h(this, n, R.url), d(this, i).forEach(function (e) {
                                         return e()
                                     }), h(this, i, []), k.once(y.EventType.Destroyed, function () {
-                                        F.emit(y.EventType.Destroyed)
+                                        C.emit(y.EventType.Destroyed)
                                     }), d(this, i).push(d(this, u).call(this, b.title), m.connectUIandVideo(this.ctrl, k), m.connectVideoLoading(k, this.container, d(this, o)), m.connectVideoPip(k, this.ctrl), m.connectMirror(k, this.ctrl), v.EventBus.forwardEvent(k, d(this, l), [y.EventType.Play, y.EventType.Pause, y.EventType.LoadStart, y.EventType.MetaData, y.EventType.VideoInfo, y.EventType.FirstFrame])), S = null, M = function () {
-                                        return s(F, void 0, Promise, function () {
+                                        return s(C, void 0, Promise, function () {
                                             var e, t;
                                             return c(this, function (n) {
                                                 switch (n.label) {
@@ -20515,7 +20364,8 @@ parcelRequire = function (e, r, t, n) {
                     null === (n = d(_, t)) || void 0 === n || n.mute(e)
                 }, v.logger.info("enter round"), this.ctrl = new b.default(p, {
                     userId: E.userId,
-                    isMobile: !1
+                    isMobile: !1,
+                    enableCtrlUI: E.enableCtrlUI
                 }), this.ctrl.onRefresh(function () {
                     d(_, a).call(_).catch(function (e) {
                         v.logger.error(e), w.default.error(w.default.ErrorCode.RoomEnterRoundError, e)
@@ -20857,34 +20707,34 @@ parcelRequire = function (e, r, t, n) {
     }, {}],
     "uyEh": [function (require, module, exports) {
         "use strict";
-        var e, t, n, i, o, a, r, l, s, u, c, d, h, f = this && this.__awaiter || function (e, t, n, i) {
+        var e, t, n, i, o, a, r, s, l, u, c, d, h, f = this && this.__awaiter || function (e, t, n, i) {
             return new (n || (n = Promise))(function (o, a) {
                 function r(e) {
                     try {
-                        s(i.next(e))
-                    } catch (t) {
-                        a(t)
-                    }
-                }
-
-                function l(e) {
-                    try {
-                        s(i.throw(e))
+                        l(i.next(e))
                     } catch (t) {
                         a(t)
                     }
                 }
 
                 function s(e) {
+                    try {
+                        l(i.throw(e))
+                    } catch (t) {
+                        a(t)
+                    }
+                }
+
+                function l(e) {
                     var t;
                     e.done ? o(e.value) : (t = e.value, t instanceof n ? t : new n(function (e) {
                         e(t)
-                    })).then(r, l)
+                    })).then(r, s)
                 }
 
-                s((i = i.apply(e, t || [])).next())
+                l((i = i.apply(e, t || [])).next())
             })
-        }, m = this && this.__generator || function (e, t) {
+        }, p = this && this.__generator || function (e, t) {
             var n, i, o, a, r = {
                 label: 0, sent: function () {
                     if (1 & o[0]) throw o[1];
@@ -20892,15 +20742,15 @@ parcelRequire = function (e, r, t, n) {
                 }, trys: [], ops: []
             };
             return a = {
-                next: l(0),
-                throw: l(1),
-                return: l(2)
+                next: s(0),
+                throw: s(1),
+                return: s(2)
             }, "function" == typeof Symbol && (a[Symbol.iterator] = function () {
                 return this
             }), a;
 
-            function l(a) {
-                return function (l) {
+            function s(a) {
+                return function (s) {
                     return function (a) {
                         if (n) throw new TypeError("Generator is already executing.");
                         for (; r;) try {
@@ -20939,17 +20789,17 @@ parcelRequire = function (e, r, t, n) {
                                     continue
                             }
                             a = t.call(e, r)
-                        } catch (l) {
-                            a = [6, l], i = 0
+                        } catch (s) {
+                            a = [6, s], i = 0
                         } finally {
                             n = o = 0
                         }
                         if (5 & a[0]) throw a[1];
                         return {value: a[0] ? a[1] : void 0, done: !0}
-                    }([a, l])
+                    }([a, s])
                 }
             }
-        }, p = this && this.__classPrivateFieldSet || function (e, t, n) {
+        }, m = this && this.__classPrivateFieldSet || function (e, t, n) {
             if (!t.has(e)) throw new TypeError("attempted to set private field on non-instance");
             return t.set(e, n), n
         }, v = this && this.__classPrivateFieldGet || function (e, t) {
@@ -20964,13 +20814,13 @@ parcelRequire = function (e, r, t, n) {
         !function (e) {
             e[e.Text = 0] = "Text", e[e.Emoji = 1] = "Emoji", e[e.Voice = 2] = "Voice"
         }(y = exports.DmType || (exports.DmType = {}));
-        var T = "web-player-danmaku", x = "danmaku-item-container", W = function () {
+        var x = "web-player-danmaku", T = "danmaku-item-container", W = function () {
             function w(w, g) {
                 var b = this;
-                this.container = w, this.opts = g, e.set(this, void 0), t.set(this, void 0), n.set(this, []), i.set(this, !1), o.set(this, void 0), a.set(this, void 0), r.set(this, void 0), l.set(this, void 0), s.set(this, null), u.set(this, []), c.set(this, void 0), d.set(this, void 0), h.set(this, 0), this.parseEmoticon = function (e, t) {
+                this.container = w, this.opts = g, e.set(this, void 0), t.set(this, void 0), n.set(this, []), i.set(this, !1), o.set(this, void 0), a.set(this, void 0), r.set(this, void 0), s.set(this, void 0), l.set(this, null), u.set(this, []), c.set(this, void 0), d.set(this, void 0), h.set(this, 0), this.parseEmoticon = function (e, t) {
                     return f(b, void 0, Promise, function () {
                         var n, i;
-                        return m(this, function (o) {
+                        return p(this, function (o) {
                             switch (o.label) {
                                 case 0:
                                     return !1, e.dmType !== y.Emoji ? [3, 2] : (n = new Image, i = t.url, n.style.width = "100%", n.style.height = "100%", n.src = i + (E ? "@56h.webp" : "@56h.png"), [4, new Promise(function (e) {
@@ -20992,7 +20842,7 @@ parcelRequire = function (e, r, t, n) {
                 }, this.getEmoticonInfo = function (e) {
                     return f(b, void 0, Promise, function () {
                         var t, n, i, o;
-                        return m(this, function (a) {
+                        return p(this, function (a) {
                             switch (a.label) {
                                 case 0:
                                     return t = null !== (o = e.emoticonOptions) && void 0 !== o ? o : {
@@ -21013,36 +20863,36 @@ parcelRequire = function (e, r, t, n) {
                     void 0 === i && (i = !1), null != v(b, t) && (i ? e.dmType === y.Emoji ? b.getEmoticonInfo(e).then(function (n) {
                         v(b, t).add(Object.assign({}, e, {html: n.html, emojiRatio: n.emojiRatio}))
                     }).finally(function () {
-                    }) : v(b, t).add(e) : (v(b, n).length > 20 && v(b, n).shift(), v(b, n).push(e), null == v(b, s) && b.render()))
+                    }) : v(b, t).add(e) : (v(b, n).length > 20 && v(b, n).shift(), v(b, n).push(e), null == v(b, l) && b.render()))
                 }, this.onPlay = function (e) {
-                    p(b, o, e)
+                    m(b, o, e)
                 }, this.onPause = function (e) {
-                    p(b, a, e)
+                    m(b, a, e)
                 }, this.offPlay = function () {
-                    p(b, o, void 0)
+                    m(b, o, void 0)
                 }, this.offPause = function () {
-                    p(b, a, void 0)
+                    m(b, a, void 0)
                 }, this.onSelect = function (e) {
-                    b.offSelect(), p(b, r, e), p(b, l, function (n) {
+                    b.offSelect(), m(b, r, e), m(b, s, function (n) {
                         var i, o = b.container.getBoundingClientRect(),
                             a = Number(null !== (i = getComputedStyle(document.documentElement).zoom) && void 0 !== i ? i : 1),
-                            r = n.clientX / a - o.left, l = n.clientY / a - o.top, s = v(b, t).searchAreaDanmaku(r, l);
-                        s.length > 0 && (e(s.map(function (e) {
+                            r = n.clientX / a - o.left, s = n.clientY / a - o.top, l = v(b, t).searchAreaDanmaku(r, s);
+                        l.length > 0 && (e(l.map(function (e) {
                             return e.textData
                         })), n.preventDefault())
-                    }), b.container.addEventListener("contextmenu", v(b, l), !0)
+                    }), b.container.addEventListener("contextmenu", v(b, s), !0)
                 }, this.offSelect = function () {
                     var e;
-                    null != v(b, l) && (null === (e = b.container) || void 0 === e || e.removeEventListener("contextmenu", v(b, l), !0), p(b, l, void 0))
+                    null != v(b, s) && (null === (e = b.container) || void 0 === e || e.removeEventListener("contextmenu", v(b, s), !0), m(b, s, void 0))
                 }, this.play = function () {
                     var e;
-                    v(b, i) || (p(b, i, !0), null === (e = v(b, t)) || void 0 === e || e.play(), null != v(b, o) && v(b, o).call(b))
+                    v(b, i) || (m(b, i, !0), null === (e = v(b, t)) || void 0 === e || e.play(), null != v(b, o) && v(b, o).call(b))
                 }, this.pause = function () {
                     var e;
-                    v(b, i) && (p(b, i, !1), null === (e = v(b, t)) || void 0 === e || e.pause(), null != v(b, a) && v(b, a).call(b))
+                    v(b, i) && (m(b, i, !1), null === (e = v(b, t)) || void 0 === e || e.pause(), null != v(b, a) && v(b, a).call(b))
                 }, this.setRenderType = function (n) {
                     var i;
-                    null === (i = v(b, t)) || void 0 === i || i.setType(n), null != v(b, e) && b.setBackGroundImage(v(b, e)), null != v(b, l) && (b.offSelect(), null != v(b, r) && b.onSelect(v(b, r)))
+                    null === (i = v(b, t)) || void 0 === i || i.setType(n), null != v(b, e) && b.setBackGroundImage(v(b, e)), null != v(b, s) && (b.offSelect(), null != v(b, r) && b.onSelect(v(b, r)))
                 }, this.resize = function () {
                     var e, n = v(b, t).config.container;
                     return null != n && (n.style.width = v(b, c).clientWidth + "px", n.style.height = v(b, c).clientHeight + "px", null === (e = v(b, t)) || void 0 === e || e.resize()), b
@@ -21054,7 +20904,7 @@ parcelRequire = function (e, r, t, n) {
                     null === (e = v(b, t)) || void 0 === e || e.visible(!1)
                 }, this.setBackGroundImage = function (t) {
                     if (null == v(b, c)) throw new Error("danmakuWrapNode must be HTMLElement");
-                    t !== v(b, e) && p(b, e, t), v(b, c).style.backgroundImage = "url(" + t + ")", v(b, c).style.backgroundRepeat = "no-repeat", v(b, c).style.backgroundPosition = "center", v(b, c).style.backgroundSize = "contain"
+                    t !== v(b, e) && m(b, e, t), v(b, c).style.backgroundImage = "url(" + t + ")", v(b, c).style.backgroundRepeat = "no-repeat", v(b, c).style.backgroundPosition = "center", v(b, c).style.backgroundSize = "contain"
                 }, this.set = function (e) {
                     var n = v(b, t);
                     if (null != n) for (var i in e) {
@@ -21078,7 +20928,7 @@ parcelRequire = function (e, r, t, n) {
                     null === (e = v(b, t)) || void 0 === e || e.clear()
                 }, this.destroy = function () {
                     var e;
-                    v(b, c).remove(), null === (e = v(b, t)) || void 0 === e || e.destroy(), p(b, t, null), v(b, d).destroy(), null != v(b, s) && (window.cancelIdleCallback(v(b, s)), p(b, s, null)), p(b, n, []), v(b, u).forEach(function (e) {
+                    v(b, c).remove(), null === (e = v(b, t)) || void 0 === e || e.destroy(), m(b, t, null), v(b, d).destroy(), null != v(b, l) && (window.cancelIdleCallback(v(b, l)), m(b, l, null)), m(b, n, []), v(b, u).forEach(function (e) {
                         return window.clearTimeout(e)
                     }), window.removeEventListener("resize", b.resize), cancelAnimationFrame(v(b, h))
                 }, this.addMaskSVG = function (e) {
@@ -21088,15 +20938,19 @@ parcelRequire = function (e, r, t, n) {
                 }, this.addMaskToWrap = function (e) {
                     var t = v(b, c), n = v(b, d);
                     cancelAnimationFrame(v(b, h));
-                    p(b, h, window.requestAnimationFrame(function i(o) {
-                        o > performance.now() - 5 && n.onUpdateMask(e, t), p(b, h, window.requestAnimationFrame(i))
+                    m(b, h, window.requestAnimationFrame(function i(o) {
+                        o > performance.now() - 5 && n.onUpdateMask(e, t), m(b, h, window.requestAnimationFrame(i))
                     }))
-                }, p(this, e, null == g ? void 0 : g.backgroundImage), p(this, c, document.createElement("div")), v(this, c).classList.add(T), v(this, c).style.cssText = "\n        width: 100%;\n        height: 100%;\n        position: relative;\n        top: 0;\n        left: 0;\n        z-index: 8;\n        pointer-events: none;\n      ", w.appendChild(v(this, c)), this.initialize(), p(this, d, new k.default)
+                }, this.fullscreenDM = function () {
+                    v(b, c).style.position = "fixed"
+                }, this.offsetDM = function (e) {
+                    v(b, c).style.transform = "translate3d(" + e + "px, " + e + "px, 0)"
+                }, m(this, e, null == g ? void 0 : g.backgroundImage), m(this, c, document.createElement("div")), v(this, c).classList.add(x), v(this, c).style.cssText = "\n        width: 100%;\n        height: 100%;\n        position: relative;\n        top: 0;\n        left: 0;\n        z-index: 8;\n        pointer-events: none;\n      ", w.appendChild(v(this, c)), this.initialize(), m(this, d, new k.default)
             }
 
             return w.prototype.render = function () {
                 var e = this;
-                p(this, s, window.requestIdleCallback(function (i) {
+                m(this, l, window.requestIdleCallback(function (i) {
                     if (null != i.timeRemaining) for (var o = function () {
                         var i = v(e, n).shift(), o = 100 * v(e, u).length, a = setTimeout(function () {
                             try {
@@ -21111,13 +20965,13 @@ parcelRequire = function (e, r, t, n) {
                         v(e, u).push(a)
                     }; (i.timeRemaining() > 0 || i.didTimeout) && v(e, n).length > 0 && v(e, u).length < 10;) o();
                     if (v(e, n).length > 0) return e.render();
-                    null != v(e, s) && (window.cancelIdleCallback(v(e, s)), p(e, s, null))
+                    null != v(e, l) && (window.cancelIdleCallback(v(e, l)), m(e, l, null))
                 }, {timeout: 1e3}))
             }, w.prototype.initialize = function () {
                 var n, i, o = document.createElement("div");
-                o.classList.add(x);
+                o.classList.add(T);
                 var a = document.createElement("style");
-                a.innerHTML = "\n        ." + T + " ." + x + "{\n          width: " + v(this, c).clientWidth + "px;\n          height: " + v(this, c).clientHeight + "px;\n          position: relative;\n          overflow: hidden;\n        }", document.getElementsByTagName("HEAD")[0].appendChild(a), v(this, c).appendChild(o), p(this, t, new g.default({
+                a.innerHTML = "\n        ." + x + " ." + T + "{\n          width: " + v(this, c).clientWidth + "px;\n          height: " + v(this, c).clientHeight + "px;\n          position: relative;\n          overflow: hidden;\n        }", document.getElementsByTagName("HEAD")[0].appendChild(a), v(this, c).appendChild(o), m(this, t, new g.default({
                     container: o,
                     isLive: !0,
                     type: "div",
@@ -21135,7 +20989,7 @@ parcelRequire = function (e, r, t, n) {
                 return v(this, c)
             }, w
         }();
-        exports.default = W, e = new WeakMap, t = new WeakMap, n = new WeakMap, i = new WeakMap, o = new WeakMap, a = new WeakMap, r = new WeakMap, l = new WeakMap, s = new WeakMap, u = new WeakMap, c = new WeakMap, d = new WeakMap, h = new WeakMap;
+        exports.default = W, e = new WeakMap, t = new WeakMap, n = new WeakMap, i = new WeakMap, o = new WeakMap, a = new WeakMap, r = new WeakMap, s = new WeakMap, l = new WeakMap, u = new WeakMap, c = new WeakMap, d = new WeakMap, h = new WeakMap;
     }, {
         "requestidlecallback-polyfill": "jM0N",
         "@bilibili-live/live-danmaku-engine-v2": "NApx",
@@ -21168,37 +21022,196 @@ parcelRequire = function (e, r, t, n) {
 
         Object.defineProperty(exports, "__esModule", {value: !0}), exports.createErrorPanel = void 0, exports.createErrorPanel = e;
     }, {}],
+    "Rvqf": [function (require, module, exports) {
+        "use strict";
+        var t = this && this.__classPrivateFieldSet || function (t, e, n) {
+            if (!e.has(t)) throw new TypeError("attempted to set private field on non-instance");
+            return e.set(t, n), n
+        }, e = this && this.__classPrivateFieldGet || function (t, e) {
+            if (!e.has(t)) throw new TypeError("attempted to get private field on non-instance");
+            return e.get(t)
+        };
+        Object.defineProperty(exports, "__esModule", {value: !0}), exports.WebHaptic = void 0;
+        var n = !1, i = function t() {
+            n = !0, window.removeEventListener("touchstart", t), window.removeEventListener("click", t)
+        };
+        window.addEventListener("touchstart", i), window.addEventListener("click", i);
+        var a = function () {
+            function i(k) {
+                var b = this;
+                void 0 === k && (k = !0), a.set(this, !1), o.set(this, 0), s.set(this, 0), r.set(this, !1), c.set(this, !0), d.set(this, []), l.set(this, void 0), p.set(this, void 0), u.set(this, 1e3), w.set(this, -1), this.enableControllerHaptic = function () {
+                    t(b, c, !0)
+                }, this.disableControllerHaptic = function () {
+                    t(b, c, !1)
+                }, this.dispose = function () {
+                    b.setState(0, 0), e(b, r) && (window.removeEventListener("gamepadconnected", e(b, l)), window.removeEventListener("gamepaddisconnected", e(b, p)))
+                }, this.setState = function (n, i) {
+                    clearTimeout(e(b, w)), e(b, v).call(b, n, i), e(b, h).call(b, n, i), (n > 0 || i > 0) && t(b, w, window.setTimeout(function () {
+                        t(b, w, -1), b.setState(0, 0)
+                    }, e(b, u)))
+                }, v.set(this, function (r, c) {
+                    if (i.IsSupportWebHaptic()) {
+                        var d = Math.max(r, .5 * c);
+                        if (d !== e(b, o)) {
+                            if (t(b, o, d), t(b, s, d / 65535), !n) return;
+                            d > 0 ? e(b, a) || (t(b, a, !0), e(b, m).call(b, b)) : (t(b, a, !1), window.navigator.vibrate(0))
+                        }
+                    }
+                }), h.set(this, function (t, n) {
+                    var i, a;
+                    if (e(b, r)) for (var o = t / 65535, s = n / 65535, c = 0, l = Object.entries(e(b, d)); c < l.length; c++) {
+                        var p = l[c], u = (p[0], p[1]);
+                        null != u && (null === (a = null === (i = u) || void 0 === i ? void 0 : i.vibrationActuator) || void 0 === a || a.playEffect("dual-rumble", {
+                            duration: 1e3,
+                            strongMagnitude: o,
+                            weakMagnitude: s
+                        }))
+                    }
+                }), this.getMotorPercent = function () {
+                    return e(b, s)
+                }, f.set(this, function () {
+                    t(b, d, navigator.getGamepads())
+                }), m.set(this, function (t) {
+                    n && e(t, o) > 0 && e(t, a) && (e(t, s) < .075 ? e(t, W).call(t, t, e(t, s)) : e(b, s) < .88 ? e(t, M).call(t, t, e(t, s)) : e(t, g).call(t, t, e(t, s)))
+                }), g.set(this, function (t, n) {
+                    var i = 100 * n;
+                    window.navigator.vibrate(i), setTimeout(function () {
+                        e(t, m).call(t, t)
+                    }, i)
+                }), M.set(this, function (t, n) {
+                    var i = 50 * n;
+                    window.navigator.vibrate(i), setTimeout(function () {
+                        e(t, m).call(t, t)
+                    }, i)
+                }), W.set(this, function (t, n) {
+                    var i = 100 - n / .025 * 100;
+                    window.navigator.vibrate(2), setTimeout(function () {
+                        e(t, m).call(t, t)
+                    }, i)
+                }), t(this, c, k), e(this, c) && t(this, r, i.IsSupportControllerHaptic()), t(this, l, function (t) {
+                    console.log("A gamepad was connected:" + t.gamepad.id), e(b, f).call(b)
+                }), t(this, p, function (t) {
+                    console.log("A gamepad was disconnected:" + t.gamepad.id), e(b, f).call(b)
+                }), e(this, r) && (window.addEventListener("gamepadconnected", e(this, l)), window.addEventListener("gamepaddisconnected", e(this, p)), e(this, f).call(this))
+            }
+
+            var a, o, s, r, c, d, l, p, u, w, v, h, f, m, g, M, W;
+            return a = new WeakMap, o = new WeakMap, s = new WeakMap, r = new WeakMap, c = new WeakMap, d = new WeakMap, l = new WeakMap, p = new WeakMap, u = new WeakMap, w = new WeakMap, v = new WeakMap, h = new WeakMap, f = new WeakMap, m = new WeakMap, g = new WeakMap, M = new WeakMap, W = new WeakMap, i.IsSupportControllerHaptic = function () {
+                var t, e;
+                return !(null == window.Gamepad || null == window.GamepadHapticActuator || null === (e = null === (t = window.GamepadHapticActuator) || void 0 === t ? void 0 : t.prototype) || void 0 === e || !e.hasOwnProperty("playEffect"))
+            }, i.IsSupportWebHaptic = function () {
+                return null != window.navigator.vibrate
+            }, i.IsSupport = function () {
+                return i.IsSupportControllerHaptic() || i.IsSupportWebHaptic()
+            }, i
+        }();
+        exports.WebHaptic = a;
+    }, {}],
+    "rPeE": [function (require, module, exports) {
+        "use strict";
+        var t, e, i, a, n, s, r, o, c, p = this && this.__classPrivateFieldSet || function (t, e, i) {
+            if (!e.has(t)) throw new TypeError("attempted to set private field on non-instance");
+            return e.set(t, i), i
+        }, h = this && this.__classPrivateFieldGet || function (t, e) {
+            if (!e.has(t)) throw new TypeError("attempted to get private field on non-instance");
+            return e.get(t)
+        };
+        Object.defineProperty(exports, "__esModule", {value: !0}), exports.VibrateTask = void 0;
+        var u = require("@bilibili-live/web-player-common"), l = require("./haptic"), m = !0, f = function () {
+            function f(f, d) {
+                var b = this;
+                this.dmBiz = d, t.set(this, []), e.set(this, new l.WebHaptic), i.set(this, void 0), a.set(this, 0), n.set(this, null), s.set(this, -1), r.set(this, {
+                    shiftLimit: 2,
+                    curLocation: 0,
+                    speed: .4,
+                    direction: "top"
+                }), this.clear = function () {
+                    h(b, t).splice(0, h(b, t).length)
+                }, this.input = function (t, e) {
+                    var i = u.uint8ArrayToString(e), a = JSON.parse(i);
+                    b.addVibrateData({timestamp: t, vibrate: a})
+                }, this.output = function (e) {
+                    if (0 !== h(b, t).length) {
+                        for (var i = 0, a = e - h(b, t)[0].timestamp, n = Math.abs(a), s = 1; s < h(b, t).length; ++s) {
+                            var r = Math.abs(e - h(b, t)[s].timestamp), o = Math.abs(r);
+                            if (!(o <= n)) break;
+                            i = s, a = r, n = o
+                        }
+                        var c = h(b, t)[i];
+                        return h(b, t).splice(0, i), c
+                    }
+                }, this.addVibrateData = function (e) {
+                    if (0 === h(b, t).length) h(b, t).push(e); else {
+                        for (var i = h(b, t).length - 1; i >= 0; --i) {
+                            if (h(b, t)[i].timestamp < e.timestamp) {
+                                i += 1;
+                                break
+                            }
+                        }
+                        h(b, t).splice(i, 0, e)
+                    }
+                }, this.onUpdateVibrate = function () {
+                    var t = h(b, i).currentTime, e = b.output(t);
+                    if (null != h(b, a) && t - h(b, a) > 1 && m && b.webXInputSetState(0, 0), null != e && null != e.vibrate && e.vibrate !== h(b, n)) {
+                        var s = e.timestamp - t;
+                        if (Math.abs(s) <= 1) {
+                            if (m) {
+                                var r = Math.max(0, s);
+                                setTimeout(function () {
+                                    b.webXInputSetState(e.vibrate.l, e.vibrate.r)
+                                }, 1e3 * r)
+                            }
+                            p(b, n, e.vibrate), p(b, a, e.timestamp)
+                        }
+                    }
+                }, this.onFrameCallback = function (t) {
+                    t > performance.now() - 5 && b.onUpdateVibrate(), p(b, s, window.requestAnimationFrame(b.onFrameCallback))
+                }, this.destroy = function () {
+                    cancelAnimationFrame(h(b, s)), p(b, t, []), b.webXInputSetState(0, 0), h(b, e).dispose()
+                }, o.set(this, function (t) {
+                    0 === t ? (h(b, r).shiftLimit = 0, h(b, r).curLocation = 0) : t < .075 ? h(b, r).shiftLimit = 2 : t <= .88 ? h(b, r).shiftLimit = 5 : t > .88 && (h(b, r).shiftLimit = 7), h(b, r).speed = 4 * t, h(b, c).call(b)
+                }), c.set(this, function () {
+                    "top" === h(b, r).direction ? (h(b, r).curLocation += h(b, r).speed, h(b, r).curLocation += h(b, r).speed) : (h(b, r).curLocation -= h(b, r).speed, h(b, r).curLocation -= h(b, r).speed), Math.abs(h(b, r).curLocation) > h(b, r).shiftLimit && ("top" === h(b, r).direction ? (h(b, r).direction = "bottom", h(b, r).curLocation = h(b, r).shiftLimit) : (h(b, r).direction = "top", h(b, r).curLocation = h(b, r).shiftLimit)), null != b.dmBiz && b.dmBiz.offsetDM(h(b, r).curLocation)
+                }), p(this, t, []), p(this, i, f), this.onFrameCallback(0)
+            }
+
+            return f.prototype.webXInputSetState = function (t, i) {
+                h(this, e).setState(t, i), h(this, o).call(this, h(this, e).getMotorPercent())
+            }, f
+        }();
+        exports.VibrateTask = f, t = new WeakMap, e = new WeakMap, i = new WeakMap, a = new WeakMap, n = new WeakMap, s = new WeakMap, r = new WeakMap, o = new WeakMap, c = new WeakMap;
+    }, {"@bilibili-live/web-player-common": "KGHo", "./haptic": "Rvqf"}],
     "YQ89": [function (require, module, exports) {
         "use strict";
-        var e, o, r = this && this.__awaiter || function (e, o, r, t) {
-            return new (r || (r = Promise))(function (n, i) {
+        var e, r, o = this && this.__awaiter || function (e, r, o, t) {
+            return new (o || (o = Promise))(function (n, i) {
                 function a(e) {
                     try {
                         u(t.next(e))
-                    } catch (o) {
-                        i(o)
+                    } catch (r) {
+                        i(r)
                     }
                 }
 
                 function l(e) {
                     try {
                         u(t.throw(e))
-                    } catch (o) {
-                        i(o)
+                    } catch (r) {
+                        i(r)
                     }
                 }
 
                 function u(e) {
-                    var o;
-                    e.done ? n(e.value) : (o = e.value, o instanceof r ? o : new r(function (e) {
-                        e(o)
+                    var r;
+                    e.done ? n(e.value) : (r = e.value, r instanceof o ? r : new o(function (e) {
+                        e(r)
                     })).then(a, l)
                 }
 
-                u((t = t.apply(e, o || [])).next())
+                u((t = t.apply(e, r || [])).next())
             })
-        }, t = this && this.__generator || function (e, o) {
-            var r, t, n, i, a = {
+        }, t = this && this.__generator || function (e, r) {
+            var o, t, n, i, a = {
                 label: 0, sent: function () {
                     if (1 & n[0]) throw n[1];
                     return n[1]
@@ -21215,9 +21228,9 @@ parcelRequire = function (e, r, t, n) {
             function l(i) {
                 return function (l) {
                     return function (i) {
-                        if (r) throw new TypeError("Generator is already executing.");
+                        if (o) throw new TypeError("Generator is already executing.");
                         for (; a;) try {
-                            if (r = 1, t && (n = 2 & i[0] ? t.return : i[0] ? t.throw || ((n = t.return) && n.call(t), 0) : t.next) && !(n = n.call(t, i[1])).done) return n;
+                            if (o = 1, t && (n = 2 & i[0] ? t.return : i[0] ? t.throw || ((n = t.return) && n.call(t), 0) : t.next) && !(n = n.call(t, i[1])).done) return n;
                             switch (t = 0, n && (i = [2 & i[0], n.value]), i[0]) {
                                 case 0:
                                 case 1:
@@ -21251,11 +21264,11 @@ parcelRequire = function (e, r, t, n) {
                                     n[2] && a.ops.pop(), a.trys.pop();
                                     continue
                             }
-                            i = o.call(e, a)
+                            i = r.call(e, a)
                         } catch (l) {
                             i = [6, l], t = 0
                         } finally {
-                            r = n = 0
+                            o = n = 0
                         }
                         if (5 & i[0]) throw i[1];
                         return {value: i[0] ? i[1] : void 0, done: !0}
@@ -21265,27 +21278,28 @@ parcelRequire = function (e, r, t, n) {
         }, n = this && this.__importDefault || function (e) {
             return e && e.__esModule ? e : {default: e}
         };
-        Object.defineProperty(exports, "__esModule", {value: !0}), exports.pressToOpenVideoInfoListener = exports.pause10SecBlockStream = exports.getUserId = exports.updateDanmakuSetting = exports.createContextmenuHandler = exports.ajaxWatcher = exports.loadRoomInfo = exports.initPlayer = exports.commonLogInfo = exports.downloadFile = exports.isSupported = exports.PlayerEnv = exports.ENV = void 0;
+        Object.defineProperty(exports, "__esModule", {value: !0}), exports.dmVisualVibrate = exports.pressToOpenVideoInfoListener = exports.pause10SecBlockStream = exports.getUserId = exports.updateDanmakuSetting = exports.createContextmenuHandler = exports.ajaxWatcher = exports.loadRoomInfo = exports.initPlayer = exports.commonLogInfo = exports.downloadFile = exports.isSupported = exports.PlayerEnv = exports.ENV = void 0;
         var i, a = require("@bilibili-live/web-player-common"), l = n(require("@bilibili-live/web-player-track")),
-            u = require("./ui-components/error-panel"), c = require("@bilibili-live/web-player");
+            u = require("./ui-components/error-panel"), c = require("@bilibili-live/web-player"),
+            s = require("./vibrate/vibrate_task");
 
-        function s() {
+        function d() {
             var e;
             return null != Object.entries && null != Element.prototype.prepend && ("fetch" in window && "ReadableStream" in window && Boolean(null === (e = window.MediaSource) || void 0 === e ? void 0 : e.isTypeSupported('video/mp4; codecs="avc1.42E01E,mp4a.40.2"')) || a.ua.isIOS())
         }
 
-        function d(o, r) {
+        function p(r, o) {
             try {
                 var t = document.createElement("a");
-                t.download = r, t.style.display = "none";
-                var n = new Blob([o]);
+                t.download = o, t.style.display = "none";
+                var n = new Blob([r]);
                 t.href = window.URL.createObjectURL(n), document.body.appendChild(t), t.click(), document.body.removeChild(t)
             } catch (e) {
                 a.logger.error("Failed to download file")
             }
         }
 
-        function p(e) {
+        function f(e) {
             a.logger.info(e + " version: " + exports.ENV.VERSION + ", current date: " + (new Date).toLocaleDateString() + ", build time: " + exports.ENV.BUILD_TIME), a.logger.info("user agent: " + navigator.userAgent), setTimeout(function () {
                 a.ajax("/xlive/web-room/v1/index/getIpInfo").then(function (e) {
                     a.logger.info("client ip info: " + JSON.stringify(e))
@@ -21293,41 +21307,41 @@ parcelRequire = function (e, r, t, n) {
             }, 100)
         }
 
-        function f(e, o) {
-            var r = a.uuid(), t = g();
+        function v(e, r) {
+            var o = a.uuid(), t = x();
             return a.logger.info("userId: " + t), l.default.initStaticInfo({
-                uvid: r,
+                uvid: o,
                 uid: t,
-                version: o + exports.ENV.VERSION,
+                version: r + exports.ENV.VERSION,
                 roomId: e
-            }), a.userSetting.init(t), s() || (l.default.error(l.default.ErrorCode.UnsupportedPlayer, "UnsupportedPlayer"), a.logger.error("Unsupported Player")), {
+            }), a.userSetting.init(t), d() || (l.default.error(l.default.ErrorCode.UnsupportedPlayer, "UnsupportedPlayer"), a.logger.error("Unsupported Player")), {
                 userId: t,
-                uvid: r
+                uvid: o
             }
         }
 
-        function v(e, o, n) {
-            return void 0 === n && (n = !1), r(this, void 0, Promise, function () {
-                return t(this, function (r) {
-                    switch (r.label) {
+        function m(e, r, n) {
+            return void 0 === n && (n = !1), o(this, void 0, Promise, function () {
+                return t(this, function (o) {
+                    switch (o.label) {
                         case 0:
-                            return [4, new Promise(function (r, t) {
+                            return [4, new Promise(function (o, t) {
                                 a.ajax("//api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo?room_id=" + e + "&protocol=0,1&format=0,1,2&codec=0,1&qn=0&platform=web&ptype=8&dolby=5" + (n ? "" : "&panorama=1"), {
                                     handleRes: function (e) {
-                                        if (e.code === a.ApiErrorCode.AreaBlock) throw u.createErrorPanel(o, a.ApiErrorCode.AreaBlock, "Sorry, bilibili is currently not available in your country according to copyright restrictions<br/>非常抱歉，根据版权方要求，您所在的地区无法观看本直播"), new Error("RoomAreaBlock");
-                                        r(e.data)
+                                        if (e.code === a.ApiErrorCode.AreaBlock) throw u.createErrorPanel(r, a.ApiErrorCode.AreaBlock, "Sorry, bilibili is currently not available in your country according to copyright restrictions<br/>非常抱歉，根据版权方要求，您所在的地区无法观看本直播"), new Error("RoomAreaBlock");
+                                        o(e.data)
                                     }
                                 }).catch(t)
                             })];
                         case 1:
-                            return [2, r.sent()]
+                            return [2, o.sent()]
                     }
                 })
             })
         }
 
-        function m(e, o) {
-            var r = o.duration, t = void 0 === r ? 0 : r, n = o.errMsg, i = void 0 === n ? "ApiError" : n, a = o.apiUrl,
+        function y(e, r) {
+            var o = r.duration, t = void 0 === o ? 0 : o, n = r.errMsg, i = void 0 === n ? "ApiError" : n, a = r.apiUrl,
                 u = void 0 === a ? "" : a;
             "apiBizErr" === e ? l.default.error(l.default.ErrorCode.ApiBiz, i, {
                 apiUrl: u,
@@ -21346,27 +21360,27 @@ parcelRequire = function (e, r, t, n) {
             })
         }
 
-        function h(e, o) {
+        function h(e, r) {
             return {
-                handleLogger: function (o) {
-                    var r, t = a.logger.dump();
-                    switch (o) {
+                handleLogger: function (r) {
+                    var o, t = a.logger.dump();
+                    switch (r) {
                         case"copy":
-                            return void (null === (r = navigator.clipboard) || void 0 === r || r.writeText(t).catch(function () {
+                            return void (null === (o = navigator.clipboard) || void 0 === o || o.writeText(t).catch(function () {
                             }));
                         case"download":
-                            return void d(t, "Bilibili-Live-HTML5-Player-EventLog-" + Date.now() + ".txt");
+                            return void p(t, "Bilibili-Live-HTML5-Player-EventLog-" + Date.now() + ".txt");
                         case"show":
                             e.show()
                     }
                 }, handleVideoInfo: function () {
-                    o.show()
+                    r.show()
                 }
             }
         }
 
-        function y(e, o) {
-            var r = {area: "danmakuArea", fontScale: "fontSize"}, t = function (e) {
+        function b(e, r) {
+            var o = {area: "danmakuArea", fontScale: "fontSize"}, t = function (e) {
                 return e / 100
             }, n = {
                 opacity: t, fontScale: t, density: t, area: function (e) {
@@ -21374,22 +21388,22 @@ parcelRequire = function (e, r, t, n) {
                 }
             };
             Object.entries(e).map(function (e) {
-                var o, t, i = e[0], a = e[1];
-                return [null !== (o = r[i]) && void 0 !== o ? o : i, (null !== (t = n[i]) && void 0 !== t ? t : function (e) {
+                var r, t, i = e[0], a = e[1];
+                return [null !== (r = o[i]) && void 0 !== r ? r : i, (null !== (t = n[i]) && void 0 !== t ? t : function (e) {
                     return e
                 })(a)]
             }).forEach(function (e) {
-                var r, t = e[0], n = e[1];
-                "display" === t ? o[n ? "show" : "hide"]() : o.set(((r = {})[t] = n, r))
+                var o, t = e[0], n = e[1];
+                "display" === t ? r[n ? "show" : "hide"]() : r.set(((o = {})[t] = n, o))
             })
         }
 
-        function g() {
+        function x() {
             return Number(a.getCookie("DedeUserID"))
         }
 
-        function x(e, o) {
-            var r = 0, t = !1;
+        function g(e, r) {
+            var o = 0, t = !1;
             a.mediaAction.on("play", function () {
                 n()
             }), a.mediaAction.on("pause", function () {
@@ -21397,103 +21411,227 @@ parcelRequire = function (e, r, t, n) {
             });
             var n = function () {
                 var n, i;
-                if (clearTimeout(r), t) {
+                if (clearTimeout(o), t) {
                     t = !1;
                     var l = e instanceof c.LivePlayer && !0 === (null === (n = e.replay) || void 0 === n ? void 0 : n.isReplay);
-                    a.logger.info("reload when blocked stream, isReplay?: " + String(l)), l ? null === (i = e.replay) || void 0 === i || i.reload() : (e.destroy(), o.reload().catch(function (e) {
+                    a.logger.info("reload when blocked stream, isReplay?: " + String(l)), l ? null === (i = e.replay) || void 0 === i || i.reload() : (e.destroy(), r.reload().catch(function (e) {
                         a.logger.error(e)
                     }))
                 }
-            }, i = e.on(c.VideoEventType.Play, n), l = e.ctrl.onChange(function (e, o) {
-                "playStatus" === e && (o ? n() : u())
+            }, i = e.on(c.VideoEventType.Play, n), l = e.ctrl.onChange(function (e, r) {
+                "playStatus" === e && (r ? n() : u())
             }), u = function () {
-                r = window.setTimeout(function () {
+                o = window.setTimeout(function () {
                     a.logger.info("block stream because paused 10 sec"), t = !0, e.blockStream()
                 }, 1e4)
             };
             return function () {
-                i(), l(), clearTimeout(r), t = !1, a.mediaAction.destroy()
+                i(), l(), clearTimeout(o), t = !1, a.mediaAction.destroy()
             }
         }
 
-        function b(e) {
-            var o = [], r = function (r) {
-                o.push(performance.now()), (o = o.filter(function (e) {
+        function w(e) {
+            var r = [], o = function (o) {
+                r.push(performance.now()), (r = r.filter(function (e) {
                     return performance.now() - e < 50
-                })).length >= 2 && (o = [], e.dispatchEvent(new MouseEvent("contextmenu", {
-                    clientX: r.changedTouches[0].clientX,
-                    clientY: r.changedTouches[0].clientY
+                })).length >= 2 && (r = [], e.dispatchEvent(new MouseEvent("contextmenu", {
+                    clientX: o.changedTouches[0].clientX,
+                    clientY: o.changedTouches[0].clientY
                 })))
             };
-            return e.addEventListener("touchend", r), function () {
-                e.removeEventListener("touchend", r)
+            return e.addEventListener("touchend", o), function () {
+                e.removeEventListener("touchend", o)
             }
         }
 
         exports.ENV = {
-            VERSION: null !== (e = "3.6.64") && void 0 !== e ? e : "unknown",
-            BUILD_TIME: null !== (o = "2022/7/8 上午11:06:16") && void 0 !== o ? o : "unknown",
+            VERSION: null !== (e = "3.6.73") && void 0 !== e ? e : "unknown",
+            BUILD_TIME: null !== (r = "2022/8/10 下午4:06:52") && void 0 !== r ? r : "unknown",
             NODE_ENV: "production"
         }, function (e) {
             e.Activity = "A", e.Room = "R", e.Home = "H", e.Mobile = "M"
-        }(i = exports.PlayerEnv || (exports.PlayerEnv = {})), exports.isSupported = s, exports.downloadFile = d, exports.commonLogInfo = p, exports.initPlayer = f, exports.loadRoomInfo = v, exports.ajaxWatcher = m, exports.createContextmenuHandler = h, exports.updateDanmakuSetting = y, exports.getUserId = g, exports.pause10SecBlockStream = x, exports.pressToOpenVideoInfoListener = b;
+        }(i = exports.PlayerEnv || (exports.PlayerEnv = {})), exports.isSupported = d, exports.downloadFile = p, exports.commonLogInfo = f, exports.initPlayer = v, exports.loadRoomInfo = m, exports.ajaxWatcher = y, exports.createContextmenuHandler = h, exports.updateDanmakuSetting = b, exports.getUserId = x, exports.pause10SecBlockStream = g, exports.pressToOpenVideoInfoListener = w;
+        var E = function (e, r) {
+            var o = null;
+            return e.on(a.ExternalEventType.SEIParseData, function (t, n, i) {
+                if (t === a.SEIType.B_LIVE_VIBRATION) {
+                    var l = e.getVideoEl();
+                    null != l && (null == o && (o = new s.VibrateTask(l, r)), o.input(n, i))
+                }
+            }), e.on(c.VideoEventType.Destroyed, function () {
+                null == o || o.destroy(), o = null
+            }), e.on(c.VideoEventType.WaitStart, function () {
+                null == o || o.webXInputSetState(0, 0)
+            }), function () {
+                null == o || o.destroy(), o = null
+            }
+        };
+        exports.dmVisualVibrate = E;
     }, {
         "@bilibili-live/web-player-common": "KGHo",
         "@bilibili-live/web-player-track": "ESUf",
         "./ui-components/error-panel": "E90K",
-        "@bilibili-live/web-player": "DfF7"
+        "@bilibili-live/web-player": "DfF7",
+        "./vibrate/vibrate_task": "rPeE"
     }],
     "ipbQ": [function (require, module, exports) {
         "use strict";
 
         async function e(e) {
             const t = document.createElement("script"), n = document.getElementsByTagName("head")[0],
-                o = new Promise((e, n) => {
+                a = new Promise((e, n) => {
                     t.onload = (() => {
                         e()
                     }), t.onerror = n
                 });
-            t.src = e, null != n && n.appendChild(t), await o
+            t.src = e, null != n && n.appendChild(t), await a
         }
 
         function t(e, t) {
             let n;
-            return function (...o) {
+            return function (...a) {
                 void 0 !== n && window.clearTimeout(n), n = window.setTimeout(() => {
-                    e.apply(this, o)
+                    e.apply(this, a)
                 }, t)
             }
         }
 
-        Object.defineProperty(exports, "__esModule", {value: !0}), exports.bodyMaskDetector = void 0;
+        Object.defineProperty(exports, "__esModule", {value: !0}), exports.createFlowerRain = m, exports.bodyMaskDetector = void 0;
         let n = null;
-        const o = {
-            isSupported: () => "OffscreenCanvas" in window, async start(o, i) {
-                let d = window.LiveShadow;
-                if (null == d && (null == n && (n = e("//s1.hdslb.com/bfs/blive-engineer-pkg/live-shadow/detect-body-mask.629e9f91.umd.js")), await n, null == (d = window.LiveShadow))) throw Error("LiveShadow load failed");
-                let s = await d.detectBodyMask(o, i), a = !1, {width: r, height: l} = o.getBoundingClientRect();
-                const c = new ResizeObserver(t(async e => {
-                    if (null == d) return;
-                    const t = e[0].contentRect;
-                    t.width === r && t.height === l || (r = t.width, l = t.height, s(), s = await d.detectBodyMask(o, i), a && s())
-                }, 1e3));
-                c.observe(o);
-                let w = o.videoWidth, u = o.videoHeight;
-                const h = setInterval(async () => {
-                    if (null == d) return;
-                    const {videoWidth: e, videoHeight: t} = o;
-                    e === w && t === u || (w = e, u = t, s(), s = await d.detectBodyMask(o, i), a && s())
-                }, 1e3);
+        const a = {
+            isSupported() {
+                var e, t;
+                return "OffscreenCanvas" in window && (null != (e = navigator.hardwareConcurrency) ? e : -1) > 4 && (null != (t = navigator.deviceMemory) ? t : -1) > 4
+            }, async start(t, a, r) {
+                let i = window.LiveShadow;
+                if (null == i && (null == n && (n = e("//s1.hdslb.com/bfs/blive-engineer-pkg/live-shadow/detect-body-mask.473689a2.umd.js")), await n, null == (i = window.LiveShadow))) throw Error("LiveShadow load failed");
+                let d = await i.detectBodyMask(t, a, r), c = !1;
+
+                async function l() {
+                    d(), null != i && (d = await i.detectBodyMask(t, a, r), c && d())
+                }
+
+                const h = s(t, l), v = o(t, l);
                 return () => {
-                    a || (a = !0, c.disconnect(), clearInterval(h), s())
+                    c || (c = !0, h(), v(), d())
                 }
             }
         };
-        exports.bodyMaskDetector = o;
+
+        function o(e, t) {
+            if (!(e instanceof HTMLVideoElement)) return () => {
+            };
+            let n = e.videoWidth, a = e.videoHeight;
+            const o = setInterval(async () => {
+                const {videoWidth: o, videoHeight: s} = e;
+                o === n && s === a || (n = o, a = s, t())
+            }, 1e3);
+            return () => {
+                clearInterval(o)
+            }
+        }
+
+        function s(e, n) {
+            let {width: a, height: o} = e.getBoundingClientRect();
+            const s = new ResizeObserver(t(async e => {
+                const t = e[0].contentRect;
+                t.width === a && t.height === o || (a = t.width, o = t.height, n())
+            }, 1e3));
+            return s.observe(e), () => {
+                s.disconnect()
+            }
+        }
+
+        exports.bodyMaskDetector = a;
+        const r = () => {
+            let e;
+            self.onmessage = (t => {
+                "start" === t.data.event && (self.clearInterval(e), e = self.setInterval(() => {
+                    self.postMessage({})
+                }, 16.7)), "stop" === t.data.event && self.clearInterval(e)
+            })
+        }, i = () => {
+            const e = new Blob([`(${r.toString()})()`]), t = URL.createObjectURL(e);
+            return new Worker(t)
+        }, d = new Map;
+        let c = 1;
+        const l = i();
+        l.onmessage = (() => {
+            c += 1;
+            for (const [e, t] of d.entries()) c % e == 0 && t.forEach(e => e())
+        });
+        const h = (e, t = 1) => {
+            var n;
+            const a = null != (n = d.get(t)) ? n : new Set;
+            return a.add(e), d.set(t, a), 1 === d.size && 1 === a.size && l.postMessage({event: "start"}), () => {
+                a.delete(e), 0 === a.size && d.delete(t), 0 === d.size && (c = 0, l.postMessage({event: "stop"}))
+            }
+        }, v = new Image;
+        v.src = "https://i0.hdslb.com/bfs/activity-plat/static/20220801/6ad1a552c5f99f6be0ff1b0072d86e59/KhLcCEjHmx.png", v.crossOrigin = "anymouse";
+        const p = [[0, 0, 72, 63], [75, 0, 51, 67], [139, 0, 70, 62]], u = () => {
+        };
+
+        function m(e, t) {
+            const {width: n, height: o} = e, s = document.createElement("canvas");
+            s.width = n, s.height = o;
+            let r = 0, i = 22, d = !0, c = u, l = u, v = u, p = null;
+            const m = s.getContext("2d"), g = [];
+
+            async function M() {
+                v == u && a.isSupported() && (v = await a.start(e, e => {
+                    p = e
+                }, {type: "bitmap"}))
+            }
+
+            (async () => {
+                await M(), v(), v = u
+            })();
+            let y = u;
+            return {
+                canvas: s, sprinkle() {
+                    d = !1, c == u && (l(), l = h(() => w(m, g, {
+                        width: n,
+                        height: o,
+                        bodyMaskBitmap: p
+                    }), 2), c = h(() => {
+                        r += 1, d || r % i != 0 || g.push(f({width: n, height: o}));
+                        for (let e = 0; e < g.length; e += 1) {
+                            const a = g[e];
+                            a.y.v > o ? (g.splice(e, 1), 0 === g.length && (c(), c = u, m.clearRect(0, 0, n, o), l(), l = u, v(), v = u, r = 0, i = 22, t.onEnded())) : (a.x.v += a.x.spd, a.y.v += a.y.spd, a.rz.v = r * a.rz.spd * a.rz.d, a.rx.v = Math.sin(r * a.rx.spd) * a.rx.d, a.z.v = (Math.sin(r * a.z.spd) + 3) / a.z.scaleRate)
+                        }
+                    }, 2)), M(), y(), y = h(() => {
+                        d = !0, y()
+                    }, 300);
+                    const e = i - 4;
+                    e < 2 || (i = e)
+                }
+            }
+        }
+
+        function w(e, t, n) {
+            e.setTransform(1, 0, 0, 1, 0, 0), e.clearRect(0, 0, n.width, n.height), e.globalCompositeOperation = "source-over";
+            for (const a of t) {
+                const [t, n, o, s] = p[a.type];
+                e.setTransform(1, 0, 0, 1, a.x.v + o / 2, a.y.v + s / 2), e.rotate(a.rz.v), e.scale(1, a.rx.v), e.drawImage(v, t, n, o, s, -o / a.z.v / 2, -s / a.z.v / 2, o / a.z.v, s / a.z.v)
+            }
+            null != n.bodyMaskBitmap && (e.setTransform(1, 0, 0, 1, 0, 0), e.globalCompositeOperation = "destination-in", e.drawImage(n.bodyMaskBitmap, 0, 0, n.width, n.height))
+        }
+
+        function f(e) {
+            const t = e.height / 720;
+            return {
+                x: {v: Math.random() * e.width - 80, spd: (Math.random() + .5) * t},
+                y: {v: -70, spd: (3 * Math.random() + 2) * t},
+                z: {v: 0, d: Math.random() > .5 ? 1 : -1, spd: Math.random() / 30, scaleRate: t},
+                rz: {v: 2 * Math.random() * Math.PI, d: Math.random() > .5 ? 1 : -1, spd: Math.random() / 20},
+                rx: {v: 2 * Math.random() * Math.PI, d: Math.random() > .5 ? 1 : -1, spd: Math.random() / 40},
+                type: Math.floor(3 * Math.random())
+            }
+        }
     }, {}],
     "ZWNU": [function (require, module, exports) {
         "use strict";
-        var e, t, n, i, o, a, r, s, l, u, c, d, h, p, f, m, y = this && this.__assign || function () {
+        var e, t, n, i, o, a, r, s, l, u, c, d, h, f, p, m, y = this && this.__assign || function () {
             return (y = Object.assign || function (e) {
                 for (var t, n = 1, i = arguments.length; n < i; n++) for (var o in t = arguments[n]) Object.prototype.hasOwnProperty.call(t, o) && (e[o] = t[o]);
                 return e
@@ -21610,12 +21748,12 @@ parcelRequire = function (e, r, t, n) {
         }, _ = this && this.__classPrivateFieldSet || function (e, t, n) {
             if (!t.has(e)) throw new TypeError("attempted to set private field on non-instance");
             return t.set(e, n), n
-        }, S = this && this.__classPrivateFieldGet || function (e, t) {
+        }, M = this && this.__classPrivateFieldGet || function (e, t) {
             if (!t.has(e)) throw new TypeError("attempted to get private field on non-instance");
             return t.get(e)
         };
         Object.defineProperty(exports, "__esModule", {value: !0}), exports.roomBlockAdapter = exports.DanmakuBiz = void 0;
-        var M = require("@bilibili-live/web-player-common"), D = b(require("@bilibili-live/web-player-danmaku")),
+        var S = require("@bilibili-live/web-player-common"), D = b(require("@bilibili-live/web-player-danmaku")),
             B = require("./biz-interface"), T = require("./biz-common"), x = require("@bilibili-live/live-shadow"),
             O = {mode: 1, size: 25, color: 16777215}, j = function () {
                 function k(y, k) {
@@ -21632,11 +21770,11 @@ parcelRequire = function (e, r, t, n) {
                         type: "level",
                         level: 0,
                         second: 0
-                    }), h.set(this, !0), this.bodyMaskDetectorStatus = !1, p.set(this, []), f.set(this, !1), this.maskState = !1, this.isBlocked = function (e) {
+                    }), h.set(this, !0), this.bodyMaskDetectorStatus = !1, f.set(this, []), p.set(this, !1), this.maskState = !1, this.isBlocked = function (e) {
                         var r;
-                        return !!S(v, o).includes(e.type) || (!!S(v, a).includes(e.dmType) || (S(v, i).level > e.user.level || (!!(S(v, i).rank && e.user.rank < 1e4) || (!(null === (r = S(v, i)) || void 0 === r || !r.verify || e.user.verify) || (!!S(v, n).some(function (t) {
+                        return !!M(v, o).includes(e.type) || (!!M(v, a).includes(e.dmType) || (M(v, i).level > e.user.level || (!!(M(v, i).rank && e.user.rank < 1e4) || (!(null === (r = M(v, i)) || void 0 === r || !r.verify || e.user.verify) || (!!M(v, n).some(function (t) {
                             return e.text.includes(t)
-                        }) || !!S(v, t).some(function (t) {
+                        }) || !!M(v, t).some(function (t) {
                             return t.id === e.uid
                         }))))))
                     }, m.set(this, function (e) {
@@ -21647,23 +21785,29 @@ parcelRequire = function (e, r, t, n) {
                             v.blockUser({uid: t, uname: n}, "add")
                         }), null != (null == e ? void 0 : e.shield_rules))) {
                             var t = e.shield_rules;
-                            S(v, i).level = Number(t.level), S(v, i).rank = Boolean(t.rank), S(v, i).verify = Boolean(t.verify)
+                            M(v, i).level = Number(t.level), M(v, i).rank = Boolean(t.rank), M(v, i).verify = Boolean(t.verify)
                         }
-                    }), _(this, e, new D.default(this.container, k)), this.danmakuStateHandler = C(this), T.updateDanmakuSetting(M.userSetting.getDanmaku(), this)
+                    }), this.getDanmakuElement = function () {
+                        return M(v, e).getDanmakuElement()
+                    }, this.fullscreenDM = function () {
+                        M(v, e).fullscreenDM()
+                    }, this.offsetDM = function (t) {
+                        M(v, e).offsetDM(t)
+                    }, _(this, e, new D.default(this.container, k)), this.danmakuStateHandler = C(this), T.updateDanmakuSetting(S.userSetting.getDanmaku(), this)
                 }
 
                 return k.prototype.onSei = function (t) {
-                    S(this, e).addMaskSVG(t)
+                    M(this, e).addMaskSVG(t)
                 }, k.prototype.clearMask = function () {
-                    S(this, e).clearMask()
+                    M(this, e).clearMask()
                 }, k.prototype.changeMaskState = function (t, n, i) {
-                    void 0 === i && (i = !1), this.maskState = n, n ? S(this, e).addMaskToWrap(t) : S(this, e).closeMask(i)
+                    void 0 === i && (i = !1), this.maskState = n, n ? M(this, e).addMaskToWrap(t) : M(this, e).closeMask(i)
                 }, k.prototype.connectSocket = function (t, n) {
-                    _(this, r, L(S(this, e), this, t, y(y({}, this.opts), {isBlocked: this.isBlocked, emitDanmaku: n})))
+                    _(this, r, L(M(this, e), this, t, y(y({}, this.opts), {isBlocked: this.isBlocked, emitDanmaku: n})))
                 }, k.prototype.initDanmakuConfig = function (e) {
-                    _(this, s, !0), null != e.userBlockInfo && S(this, m).call(this, e.userBlockInfo), null != e.danmakuInfo && _(this, c, Object.assign(S(this, c), e.danmakuInfo)), null != e.roomBlockInfo && _(this, d, Object.assign(S(this, d), e.roomBlockInfo))
+                    _(this, s, !0), null != e.userBlockInfo && M(this, m).call(this, e.userBlockInfo), null != e.danmakuInfo && _(this, c, Object.assign(M(this, c), e.danmakuInfo)), null != e.roomBlockInfo && _(this, d, Object.assign(M(this, d), e.roomBlockInfo))
                 }, k.prototype.getBlockList = function () {
-                    return S(this, n).concat(S(this, t).map(function (e) {
+                    return M(this, n).concat(M(this, t).map(function (e) {
                         return e.id + "_" + e.name
                     }))
                 }, k.prototype.setBlockTypes = function (e) {
@@ -21671,50 +21815,50 @@ parcelRequire = function (e, r, t, n) {
                 }, k.prototype.setBlockSpecialDanmakuTypes = function (e) {
                     Array.isArray(e) && _(this, a, e)
                 }, k.prototype.blockUser = function (e, n) {
-                    "add" === n && null != e.uid && null != e.uname ? (S(this, l)[S(this, u)] = {
+                    "add" === n && null != e.uid && null != e.uname ? (M(this, l)[M(this, u)] = {
                         type: "user",
                         value: e.uid
-                    }, _(this, u, S(this, u) + 1), S(this, t).push({
+                    }, _(this, u, M(this, u) + 1), M(this, t).push({
                         id: e.uid,
                         name: e.uname
-                    })) : "del" === n && _(this, t, S(this, t).filter(function (t) {
+                    })) : "del" === n && _(this, t, M(this, t).filter(function (t) {
                         return t.id !== e.uid
                     }))
                 }, k.prototype.supportMaskDanmaku = function () {
                     return x.bodyMaskDetector.isSupported()
                 }, k.prototype.setDanmakuMask = function (t) {
-                    var n = S(this, e).getDanmakuElement();
+                    var n = M(this, e).getDanmakuElement();
                     "" !== t ? (n.style.webkitMaskImage = "url(" + t + ")", n.style.webkitMaskSize = "100%, 100%") : (n.style.webkitMaskImage = "", n.style.webkitMaskSize = "")
                 }, k.prototype.enableMaskDanmaku = function (e) {
                     var t, n = this;
-                    null === (t = this.stopBodyMaskDetector) || void 0 === t || t.call(this), M.logger.debug("enable MaskDanmaku"), S(this, h) && (this.bodyMaskDetectorStatus = !0, x.bodyMaskDetector.start(e, function (e) {
-                        S(n, f) ? n.setDanmakuMask("") : n.setDanmakuMask(e)
-                    }).then(function (e) {
-                        M.logger.info("stop resolved");
+                    null === (t = this.stopBodyMaskDetector) || void 0 === t || t.call(this), S.logger.debug("enable MaskDanmaku"), M(this, h) && (this.bodyMaskDetectorStatus = !0, x.bodyMaskDetector.start(e, function (e) {
+                        M(n, p) ? n.setDanmakuMask("") : "string" == typeof e && n.setDanmakuMask(e)
+                    }, {type: "base64"}).then(function (e) {
+                        S.logger.info("stop resolved");
                         var t = function () {
-                            M.logger.info("clear trigger, " + S(n, p).length), S(n, p).forEach(function (e) {
+                            S.logger.info("clear trigger, " + M(n, f).length), M(n, f).forEach(function (e) {
                                 return null == e ? void 0 : e()
-                            }), _(n, p, [])
+                            }), _(n, f, [])
                         };
-                        t(), S(n, p).push(e), n.stopBodyMaskDetector = function () {
-                            M.logger.info("stop trigger"), n.setDanmakuMask(""), n.stopBodyMaskDetector = void 0, n.bodyMaskDetectorStatus = !1, t()
+                        t(), M(n, f).push(e), n.stopBodyMaskDetector = function () {
+                            S.logger.info("stop trigger"), n.setDanmakuMask(""), n.stopBodyMaskDetector = void 0, n.bodyMaskDetectorStatus = !1, t()
                         }, n.bodyMaskDetectorStatus || n.stopBodyMaskDetector()
                     }).catch(function (e) {
-                        n.setDanmakuMask(""), M.logger.error(e)
+                        n.setDanmakuMask(""), S.logger.error(e)
                     }))
                 }, k.prototype.blockKeyword = function (e, t) {
-                    "add" !== t || S(this, n).includes(e) ? "del" === t && _(this, n, S(this, n).filter(function (t) {
+                    "add" !== t || M(this, n).includes(e) ? "del" === t && _(this, n, M(this, n).filter(function (t) {
                         return t !== e
-                    })) : (S(this, l)[S(this, u)] = {
+                    })) : (M(this, l)[M(this, u)] = {
                         type: "keyword",
                         value: e
-                    }, _(this, u, S(this, u) + 1), S(this, n).push(e))
+                    }, _(this, u, M(this, u) + 1), M(this, n).push(e))
                 }, k.prototype.findBlockKwOrUserByIdx = function (e) {
-                    return S(this, l)[e]
+                    return M(this, l)[e]
                 }, k.prototype.blockBatchUsers = function (e, t) {
-                    "level" === e ? S(this, i).level = t : ["rank", "verify"].includes(e) && (S(this, i)[e] = Boolean(t))
+                    "level" === e ? M(this, i).level = t : ["rank", "verify"].includes(e) && (M(this, i)[e] = Boolean(t))
                 }, k.prototype.clear = function () {
-                    S(this, e).clear()
+                    M(this, e).clear()
                 }, k.prototype.userSendDanmaku = function (t) {
                     var n, i, o, a;
                     return g(this, void 0, Promise, function () {
@@ -21741,7 +21885,7 @@ parcelRequire = function (e, r, t, n) {
                                         text: null === (a = t.emoticonOptions) || void 0 === a ? void 0 : a.emoji,
                                         dmType: D.DmType.Emoji
                                     }), delete t.emoticonOptions), delete t.isIgnore, delete t.uniqueID, [4, new Promise(function (n, i) {
-                                        A(y(y({}, t), {
+                                        P(y(y({}, t), {
                                             color: r.color,
                                             fontsize: r.size,
                                             mode: r.mode,
@@ -21749,9 +21893,9 @@ parcelRequire = function (e, r, t, n) {
                                             roomid: s.opts.roomId
                                         }), function (i) {
                                             var o, a, l;
-                                            if (0 === i.code && S(s, h)) {
+                                            if (0 === i.code && M(s, h)) {
                                                 var u = null === (o = i.data) || void 0 === o ? void 0 : o.mode_info;
-                                                r.modeInfo = u, r.dmType === D.DmType.Emoji && 1 !== (null !== (l = null === (a = t.emoticonOptions) || void 0 === a ? void 0 : a.inPlayerArea) && void 0 !== l ? l : 1) || S(s, e).add(r, !0)
+                                                r.modeInfo = u, r.dmType === D.DmType.Emoji && 1 !== (null !== (l = null === (a = t.emoticonOptions) || void 0 === a ? void 0 : a.inPlayerArea) && void 0 !== l ? l : 1) || M(s, e).add(r, !0)
                                             }
                                             n(i)
                                         }).catch(function (e) {
@@ -21764,53 +21908,53 @@ parcelRequire = function (e, r, t, n) {
                         })
                     })
                 }, k.prototype.onSelect = function (t) {
-                    S(this, e).onSelect(t)
+                    M(this, e).onSelect(t)
                 }, k.prototype.offSelect = function () {
-                    S(this, e).offSelect()
+                    M(this, e).offSelect()
                 }, k.prototype.getDanmakuConfig = function () {
-                    var e = S(this, c).color.toString(16);
+                    var e = M(this, c).color.toString(16);
                     return e = (Array(6).join("0") + e).slice(-6), {
-                        ready: S(this, s),
-                        level: S(this, i).level,
+                        ready: M(this, s),
+                        level: M(this, i).level,
                         shield_list: this.getBlockList(),
-                        shield_keyword: S(this, n),
-                        shield_users: S(this, t).map(function (e) {
+                        shield_keyword: M(this, n),
+                        shield_users: M(this, t).map(function (e) {
                             return e.id + "_" + e.name
                         }),
                         danmu_color: "0x" + e,
-                        danmu_length: S(this, c).length,
-                        danmu_mode: S(this, c).mode,
-                        room_silent_type: S(this, d).type,
-                        room_silent_level: S(this, d).level,
-                        room_silent_second: S(this, d).second,
-                        user_silent_level: S(this, i).level,
-                        user_silent_rank: S(this, i).rank,
-                        user_silent_verify: S(this, i).verify
+                        danmu_length: M(this, c).length,
+                        danmu_mode: M(this, c).mode,
+                        room_silent_type: M(this, d).type,
+                        room_silent_level: M(this, d).level,
+                        room_silent_second: M(this, d).second,
+                        user_silent_level: M(this, i).level,
+                        user_silent_rank: M(this, i).rank,
+                        user_silent_verify: M(this, i).verify
                     }
                 }, k.prototype.fetchBlockRules = function () {
                     var e = this;
-                    M.ajax("/banned_service/v1/shield/get_shield_info").then(function (t) {
-                        S(e, m).call(e, t)
+                    S.ajax("/banned_service/v1/shield/get_shield_info").then(function (t) {
+                        M(e, m).call(e, t)
                     }).catch(function (e) {
-                        M.logger.error(e)
+                        S.logger.error(e)
                     })
                 }, k.prototype.show = function () {
-                    _(this, h, !0), S(this, e).show(), this.danmakuStateHandler.dmSwitch(!0)
+                    _(this, h, !0), M(this, e).show(), this.danmakuStateHandler.dmSwitch(!0)
                 }, k.prototype.hide = function () {
-                    _(this, h, !1), S(this, e).hide(), this.danmakuStateHandler.dmSwitch(!1)
+                    _(this, h, !1), M(this, e).hide(), this.danmakuStateHandler.dmSwitch(!1)
                 }, k.prototype.resize = function () {
-                    S(this, e).resize()
+                    M(this, e).resize()
                 }, k.prototype.set = function () {
                     for (var t, n = [], i = 0; i < arguments.length; i++) n[i] = arguments[i];
-                    (t = S(this, e)).set.apply(t, n)
+                    (t = M(this, e)).set.apply(t, n)
                 }, k.prototype.destroy = function () {
                     var t, n;
-                    null === (t = S(this, r)) || void 0 === t || t.call(this), S(this, e).destroy(), null === (n = this.stopBodyMaskDetector) || void 0 === n || n.call(this), this.danmakuStateHandler.destroy()
+                    null === (t = M(this, r)) || void 0 === t || t.call(this), M(this, e).destroy(), null === (n = this.stopBodyMaskDetector) || void 0 === n || n.call(this), this.danmakuStateHandler.destroy()
                 }, k.prototype.updateDanmakuExtraConfig = function (e, t) {
                     var n, i, o;
-                    void 0 === t && (t = !1), _(this, f, e.dm_tag > 0 && e.platform.includes(t ? B.EPlatform.H5 : B.EPlatform.Web)), this.set({
+                    void 0 === t && (t = !1), _(this, p, e.dm_tag > 0 && e.platform.includes(t ? B.EPlatform.H5 : B.EPlatform.Web)), this.set({
                         extra: {
-                            type: S(this, f) ? e.dm_tag : 0,
+                            type: M(this, p) ? e.dm_tag : 0,
                             useMode: null !== (n = null == e ? void 0 : e.dm_mode) && void 0 !== n ? n : [],
                             config: null !== (i = null == e ? void 0 : e.dm_chronos_extra) && void 0 !== i ? i : "",
                             material: null !== (o = null == e ? void 0 : e.material_conf) && void 0 !== o ? o : []
@@ -21819,7 +21963,7 @@ parcelRequire = function (e, r, t, n) {
                 }, k
             }();
 
-        function P(e, t, n, i) {
+        function E(e, t, n, i) {
             if ("block" === e.component) {
                 var o = e.action, a = e.data, r = e.callback;
                 switch (o) {
@@ -21830,7 +21974,7 @@ parcelRequire = function (e, r, t, n) {
                         });
                         break;
                     case"addShieldWord":
-                        E("add", a, function (e) {
+                        A("add", a, function (e) {
                             0 === e.code ? (t.blockKeyword(a, "add"), i("addShieldList", {
                                 code: 0,
                                 msg: a
@@ -21840,7 +21984,7 @@ parcelRequire = function (e, r, t, n) {
                     case"deleteShieldId":
                         Array.isArray(a) && a.forEach(function (e) {
                             var o = t.findBlockKwOrUserByIdx(e), a = o.type, r = o.value;
-                            "keyword" === a ? E("del", r, function (n) {
+                            "keyword" === a ? A("del", r, function (n) {
                                 0 === n.code ? (t.blockKeyword(r, "del"), i("deleteShieldList", {
                                     code: 0,
                                     msg: [e]
@@ -21863,7 +22007,7 @@ parcelRequire = function (e, r, t, n) {
                         I(Boolean(a), n).then(function () {
                             i("roomListShield", Boolean(a))
                         }).catch(function (e) {
-                            M.logger.error(e)
+                            S.logger.error(e)
                         });
                         break;
                     case"globalShield":
@@ -21878,18 +22022,18 @@ parcelRequire = function (e, r, t, n) {
                                 null == r || r(e), 0 === e.code && t.blockBatchUsers(a.type, a.level)
                             }
                         }).catch(function (e) {
-                            M.logger.error(e)
+                            S.logger.error(e)
                         })
                 }
             }
         }
 
-        function A(e, t) {
+        function P(e, t) {
             return g(this, void 0, Promise, function () {
                 return w(this, function (n) {
                     switch (n.label) {
                         case 0:
-                            return [4, M.ajax("/msg/send", {method: "POST", data: e, handleRes: t})];
+                            return [4, S.ajax("/msg/send", {method: "POST", data: e, handleRes: t})];
                         case 1:
                             return [2, n.sent()]
                     }
@@ -21897,24 +22041,24 @@ parcelRequire = function (e, r, t, n) {
             })
         }
 
-        function E(e, t, n) {
+        function A(e, t, n) {
             var i = "/xlive/web-ucenter/v1/banned/DelShieldKeyword";
-            "add" === e && (i = "/xlive/web-ucenter/v1/banned/AddShieldKeyword"), M.ajax(i, {
+            "add" === e && (i = "/xlive/web-ucenter/v1/banned/AddShieldKeyword"), S.ajax(i, {
                 method: "POST",
                 data: {keyword: t},
                 handleRes: n
             }).catch(function (e) {
-                M.logger.error(e)
+                S.logger.error(e)
             })
         }
 
         function W(e, t, n, i) {
-            M.ajax("/liveact/shield_user", {
+            S.ajax("/liveact/shield_user", {
                 method: "POST",
                 data: {uid: t, roomid: n, type: "add" === e ? 1 : 0},
                 handleRes: i
             }).catch(function (e) {
-                M.logger.error(e)
+                S.logger.error(e)
             })
         }
 
@@ -21923,7 +22067,7 @@ parcelRequire = function (e, r, t, n) {
                 return w(this, function (n) {
                     switch (n.label) {
                         case 0:
-                            return [4, M.ajax("/liveact/set_room_shield", {
+                            return [4, S.ajax("/liveact/set_room_shield", {
                                 method: "POST",
                                 data: {roomid: t, type: e}
                             })];
@@ -21936,12 +22080,12 @@ parcelRequire = function (e, r, t, n) {
 
         function z(e, t, n) {
             var i = e.type, o = e.level, a = e.minute;
-            M.ajax("/liveact/room_silent", {
+            S.ajax("/liveact/room_silent", {
                 method: "POST",
                 data: {room_id: t, type: i, level: o, minute: a},
                 handleRes: n
             }).catch(function (e) {
-                M.logger.error(e)
+                S.logger.error(e)
             })
         }
 
@@ -21951,7 +22095,7 @@ parcelRequire = function (e, r, t, n) {
                 return w(this, function (e) {
                     switch (e.label) {
                         case 0:
-                            return [4, M.ajax("/liveact/user_silent", {
+                            return [4, S.ajax("/liveact/user_silent", {
                                 method: "POST",
                                 data: {type: t, level: n},
                                 handleRes: i
@@ -21970,10 +22114,10 @@ parcelRequire = function (e, r, t, n) {
                 if ("DANMU_TAG_CHANGE" === n.cmd && t.updateDanmakuExtraConfig(n.data, l), n.cmd.startsWith("DANMU_MSG")) {
                     var c = N(n.cmd), d = c.web, h = c.h5;
                     if (n.info[2][0] !== o || n.info[0][5] !== a) {
-                        var p = K(n.info);
-                        if (!r(p)) {
-                            var f = !0 === l ? h : d;
-                            f.danmaku && (p.dmType === D.DmType.Emoji && 1 !== (null !== (u = null === (i = n.info[0][13]) || void 0 === i ? void 0 : i.in_player_area) && void 0 !== u ? u : 1) || (e.add(p), t.danmakuStateHandler.dmMsg())), f.panel && s(y(y({}, n), {cmd: "DANMU_MSG"}))
+                        var f = K(n.info);
+                        if (!r(f)) {
+                            var p = !0 === l ? h : d;
+                            p.danmaku && (f.dmType === D.DmType.Emoji && 1 !== (null !== (u = null === (i = n.info[0][13]) || void 0 === i ? void 0 : i.in_player_area) && void 0 !== u ? u : 1) || (e.add(f), t.danmakuStateHandler.dmMsg())), p.panel && s(y(y({}, n), {cmd: "DANMU_MSG"}))
                         }
                     }
                 }
@@ -22012,7 +22156,7 @@ parcelRequire = function (e, r, t, n) {
             }) : t === D.DmType.Voice ? Object.assign({}, o, {dmType: D.DmType.Voice, voiceConfig: n}) : o
         }
 
-        exports.DanmakuBiz = j, e = new WeakMap, t = new WeakMap, n = new WeakMap, i = new WeakMap, o = new WeakMap, a = new WeakMap, r = new WeakMap, s = new WeakMap, l = new WeakMap, u = new WeakMap, c = new WeakMap, d = new WeakMap, h = new WeakMap, p = new WeakMap, f = new WeakMap, m = new WeakMap, exports.roomBlockAdapter = P;
+        exports.DanmakuBiz = j, e = new WeakMap, t = new WeakMap, n = new WeakMap, i = new WeakMap, o = new WeakMap, a = new WeakMap, r = new WeakMap, s = new WeakMap, l = new WeakMap, u = new WeakMap, c = new WeakMap, d = new WeakMap, h = new WeakMap, f = new WeakMap, p = new WeakMap, m = new WeakMap, exports.roomBlockAdapter = E;
         var C = function (e) {
             var t = null, n = -1, i = !1, o = !1, a = !1, r = !0, s = function () {
                 var n;
@@ -22326,19 +22470,22 @@ parcelRequire = function (e, r, t, n) {
     }, {"@bilibili-live/web-player-common": "KGHo"}],
     "ntSr": [function (require, module, exports) {
         module.exports = {
-            "web-player-context-menu": "_web-player-context-menu_19303",
-            "context-menu-item": "_context-menu-item_19303",
-            disabled: "_disabled_19303",
-            "context-sub-menu": "_context-sub-menu_19303",
-            "menu-item-hr": "_menu-item-hr_19303",
-            "context-menu-right-arrow": "_context-menu-right-arrow_19303",
-            "context-menu-text": "_context-menu-text_19303",
-            "context-sub-menu-item": "_context-sub-menu-item_19303",
-            "left-sub-menu": "_left-sub-menu_19303",
-            "blp-icon-show": "_blp-icon-show_19303",
-            "blp-icon-copy": "_blp-icon-copy_19303",
-            "blp-icon-download": "_blp-icon-download_19303"
+            "web-player-context-menu": "_web-player-context-menu_860e6",
+            "context-menu-item": "_context-menu-item_860e6",
+            disabled: "_disabled_860e6",
+            "context-sub-menu": "_context-sub-menu_860e6",
+            "menu-item-hr": "_menu-item-hr_860e6",
+            "context-menu-right-arrow": "_context-menu-right-arrow_860e6",
+            "context-menu-text": "_context-menu-text_860e6",
+            "context-sub-menu-item": "_context-sub-menu-item_860e6",
+            "left-sub-menu": "_left-sub-menu_860e6",
+            "blp-icon-show": "_blp-icon-show_860e6",
+            "blp-icon-copy": "_blp-icon-copy_860e6",
+            "blp-icon-download": "_blp-icon-download_860e6"
         };
+        var e = '._web-player-context-menu_860e6 li,ul._web-player-context-menu_860e6{list-style:none;margin:0;padding:0}ul._web-player-context-menu_860e6{position:absolute;left:-9999px;top:-9999px;padding:3px;min-width:80px;font-size:12px;color:#eee;background:rgba(28,28,28,.9);border-radius:3px;opacity:0;text-shadow:0 0 2px rgba(0,0,0,.5);transition:opacity .1s cubic-bezier(0,0,.2,1);z-index:99;font-family:PingFang SC,Microsoft YaHei;outline:none}ul._web-player-context-menu_860e6 ._context-menu-item_860e6{position:relative;padding:3px 20px;width:200px;line-height:22px;cursor:pointer}ul._web-player-context-menu_860e6 ._context-menu-item_860e6._disabled_860e6{color:#777;cursor:default}ul._web-player-context-menu_860e6 ._context-menu-item_860e6:not(._disabled_860e6):hover{background:hsla(0,0%,100%,.1)}ul._web-player-context-menu_860e6 ._context-menu-item_860e6:not(._disabled_860e6):hover ._context-sub-menu_860e6{width:auto;opacity:1}ul._web-player-context-menu_860e6 ._context-menu-item_860e6._menu-item-hr_860e6:before{content:"";position:absolute;bottom:0;left:9px;right:9px;height:1px;background-color:#aaa}ul._web-player-context-menu_860e6 ._context-menu-item_860e6 ._context-menu-right-arrow_860e6{position:absolute;right:4px;top:10px;width:8px;height:8px}ul._web-player-context-menu_860e6 ._context-menu-item_860e6 ._context-menu-right-arrow_860e6:before{content:"";position:absolute;top:0;left:0;border:4px solid transparent;border-left-color:#eee;opacity:.8}ul._web-player-context-menu_860e6 ._context-menu-item_860e6 ._context-menu-text_860e6{display:inline-block;width:100%;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle;overflow:hidden}ul._web-player-context-menu_860e6 ._context-sub-menu_860e6{list-style:none;outline:none;margin:0;padding:0;position:absolute;left:100%;top:0;width:0;color:#eee;background:rgba(28,28,28,.9);border-radius:3px;opacity:0;overflow:hidden}ul._web-player-context-menu_860e6 ._context-sub-menu_860e6 ._context-sub-menu-item_860e6{padding:3px 20px;width:120px;height:22px;line-height:22px;text-align:left;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transition:all .3s ease-in-out}ul._web-player-context-menu_860e6 ._context-sub-menu_860e6 ._context-sub-menu-item_860e6._disabled_860e6{color:#777;cursor:default}ul._web-player-context-menu_860e6 ._context-sub-menu_860e6 ._context-sub-menu-item_860e6:not(._disabled_860e6):hover{background:hsla(0,0%,100%,.1)}ul._web-player-context-menu_860e6._left-sub-menu_860e6 ._context-sub-menu_860e6{left:0;transform:translate(-100%)}ul._web-player-context-menu_860e6 ._blp-icon-copy_860e6,ul._web-player-context-menu_860e6 ._blp-icon-download_860e6,ul._web-player-context-menu_860e6 ._blp-icon-show_860e6{width:12px;height:12px;margin-right:6px;display:inline-block;position:relative;top:2px;margin-left:2px;pointer-events:none}ul._web-player-context-menu_860e6 ._blp-icon-copy_860e6:after,ul._web-player-context-menu_860e6 ._blp-icon-copy_860e6:before,ul._web-player-context-menu_860e6 ._blp-icon-download_860e6:after,ul._web-player-context-menu_860e6 ._blp-icon-download_860e6:before,ul._web-player-context-menu_860e6 ._blp-icon-show_860e6:after,ul._web-player-context-menu_860e6 ._blp-icon-show_860e6:before{content:"";position:absolute}ul._web-player-context-menu_860e6 ._blp-icon-show_860e6:before{width:14px;height:10px;border-radius:14px/10px;background:#aaa;top:1px;left:-1px}ul._web-player-context-menu_860e6 ._blp-icon-show_860e6:after{width:6px;height:10px;border-radius:6px/10px;background:#777;left:3px;top:1px}ul._web-player-context-menu_860e6 ._blp-icon-copy_860e6:after,ul._web-player-context-menu_860e6 ._blp-icon-copy_860e6:before{width:5px;height:5px;border:2px solid #aaa;top:0;left:0;border-radius:1px}ul._web-player-context-menu_860e6 ._blp-icon-copy_860e6:after{top:4px;left:4px;background:#1c1c1c;background:rgba(28,28,28,.8);-webkit-box-shadow:-1px 0 0 rgba(28,28,28,.8),0 -1px 0 rgba(28,28,28,.8);-moz-box-shadow:-1px 0 0 rgba(28,28,28,.8),0 -1px 0 rgba(28,28,28,.8);box-shadow:-1px 0 0 rgba(28,28,28,.8),0 -1px 0 rgba(28,28,28,.8)}ul._web-player-context-menu_860e6 ._blp-icon-download_860e6:before{width:6px;height:8px;background:#aaa;top:1px;left:3px;border-radius:1px}ul._web-player-context-menu_860e6 ._blp-icon-download_860e6:after{border:5px solid transparent;border-top-color:#aaa;top:7px;left:1px}',
+            t = document.createElement("style");
+        t.type = "text/css", t.appendChild(document.createTextNode(e)), document.head.appendChild(t);
     }, {}],
     "wERC": [function (require, module, exports) {
         "use strict";
@@ -22826,7 +22973,9 @@ parcelRequire = function (e, r, t, n) {
         e = new WeakMap, t = new WeakMap, i = new WeakMap, a = new WeakMap, r = new WeakMap, exports.default = c;
     }, {"@bilibili-live/web-player-common": "KGHo", "./wave-graph": "RYhb", "./panel": "E7iI"}],
     "qhQO": [function (require, module, exports) {
-
+        var o = '.blp-plugin-modal{position:absolute;top:100px;left:0;padding:15px;z-index:99;display:none;background:#fff;border-radius:4px}.blp-plugin-modal.active{display:block}.blp-plugin-modal-header{font-size:16px;color:#4fc1e9;height:26px;line-height:20px}.blp-plugin-modal-body{margin:10px 0;font-size:14px}.blp-plugin-modal-footer{text-align:center;position:relative}.blp-plugin-modal-btn{border:none;display:inline-block;margin:0 2px;font-size:14px;padding:6px 10px;cursor:pointer;outline:none;border-radius:4px}.blp-plugin-modal-btn.submit-btn{color:#fff;background:#4fc1e9}.blp-plugin-modal-btn.submit-btn:hover{background:#61c7eb}.blp-plugin-modal-btn.cancel-btn{color:#4fc1e9;background:#e0f4fb}.blp-plugin-modal-btn.cancel-btn:hover{background:#ceeef9}.blp-plugin-modal-close{position:absolute;width:30px;height:30px;top:9px;right:9px;cursor:pointer;border-radius:100%;transition:transform .3s ease-in-out;display:none}.blp-plugin-modal-close:hover{transform:rotate(180deg)}.blp-plugin-modal-close:before{content:"";position:absolute;width:22px;height:22px;left:4px;top:4px;border-radius:100%}.blp-plugin-modal-close i{font-size:14px;color:#999;position:absolute;z-index:10;text-align:center;top:9px;left:9px}.blp-plugin-modal-close.active{display:block}',
+            e = document.createElement("style");
+        e.type = "text/css", e.appendChild(document.createTextNode(o)), document.head.appendChild(e);
     }, {}],
     "ywxt": [function (require, module, exports) {
         "use strict";
@@ -22917,6 +23066,11 @@ parcelRequire = function (e, r, t, n) {
         }();
         exports.default = e;
     }, {"@bilibili-live/web-player-common": "KGHo", "./modal.less": "qhQO"}],
+    "lmPI": [function (require, module, exports) {
+        var e = '.web-player-report-msg{color:#4fc1e9;font-size:12px;line-height:2}.web-player-report-msg img{height:25px}.web-player-report-uname{font-size:12px;color:#666;line-height:2}.web-player-report-select-input{height:32px;position:relative;border:1px solid #e3e8ec;font-size:12px;background:#fff;cursor:pointer;border-radius:4px;margin:10px 0 25px}.web-player-report-select-wrap{position:absolute;height:34px;width:360px}.web-player-report-select-wrap:hover .bilibili-live-player-report-icon:after{transform-origin:center;transform:rotate(-135deg);transition:transform .3s}.web-player-report-icon{display:inline-block;width:40px;height:30px;margin-right:20px}.web-player-report-icon:after{display:inline-block;content:" ";height:6px;width:6px;border-color:#999;border-style:solid;border-width:0 2px 2px 0;transform:matrix(.71,.71,-.71,.71,0,0);transform-origin:center;transition:transform .3s;position:absolute;top:50%;right:10px;margin-top:-4px}.web-player-report-curt{padding-left:8px;height:32px;line-height:32px;color:#646c7a}.web-player-report-ul{display:none;position:relative;top:-27px;width:358px;height:160px;padding:0;margin:0;font-size:inherit;border:1px solid #ddd;border-top:0;background:#fff;overflow-y:auto;-webkit-box-shadow:0 1px 2px 0 rgba(105,115,133,.22);box-shadow:0 1px 2px 0 rgba(105,115,133,.22);border-radius:0 0 4px 4px;z-index:1;cursor:pointer}.web-player-report-ul li{padding:10px 0 10px 8px;color:#999;font-size:12px;height:24px;line-height:24px}.web-player-report-ul li:hover{background:#eef9fd}',
+            r = document.createElement("style");
+        r.type = "text/css", r.appendChild(document.createTextNode(e)), document.head.appendChild(r);
+    }, {}],
     "wafJ": [function (require, module, exports) {
         "use strict";
         var e, t, r = this && this.__awaiter || function (e, t, r, n) {
@@ -23161,15 +23315,18 @@ parcelRequire = function (e, r, t, n) {
             }, l
         }();
         e = new WeakMap, t = new WeakMap, exports.default = d;
-    }, {"./modal": "ywxt", "@bilibili-live/web-player-common": "KGHo", "./index.less": "qhQO"}],
+    }, {"./modal": "ywxt", "@bilibili-live/web-player-common": "KGHo", "./index.less": "lmPI"}],
     "jLTy": [function (require, module, exports) {
         module.exports = {
-            webPlayerLogPanel: "_web-player-log-panel_7c689",
-            log0: "_log-0_7c689",
-            log2: "_log-2_7c689",
-            log3: "_log-3_7c689",
-            closeBtn: "_close-btn_7c689"
+            webPlayerLogPanel: "_web-player-log-panel_43651",
+            log0: "_log-0_43651",
+            log2: "_log-2_43651",
+            log3: "_log-3_43651",
+            closeBtn: "_close-btn_43651"
         };
+        var e = "._web-player-log-panel_43651{display:none;position:absolute;top:10px;right:10px;padding:0 5px 0 10px;text-align:left;color:#fff;background-color:rgba(28,28,28,.8);border-radius:4px;font-size:12px;z-index:101;cursor:text;user-select:text}._web-player-log-panel_43651 pre::-webkit-scrollbar{background-color:transparent;width:4px}._web-player-log-panel_43651 pre::-webkit-scrollbar-thumb{background-color:hsla(0,0%,100%,.5);border-radius:8px}._web-player-log-panel_43651 pre{overflow-y:scroll;word-break:break-all;white-space:break-spaces;width:240px;height:310px}._web-player-log-panel_43651 pre ._log-0_43651{color:#999}._web-player-log-panel_43651 pre ._log-2_43651{color:#f90}._web-player-log-panel_43651 pre ._log-3_43651{color:#f3323e}._web-player-log-panel_43651 pre code{font-family:PingFang SC,Microsoft YaHei}._web-player-log-panel_43651 ._close-btn_43651{position:absolute;top:8px;right:8px;width:14px;height:14px;line-height:14px;text-align:center;cursor:pointer}",
+            l = document.createElement("style");
+        l.type = "text/css", l.appendChild(document.createTextNode(e)), document.head.appendChild(l);
     }, {}],
     "MY3w": [function (require, module, exports) {
         "use strict";
@@ -24164,47 +24321,43 @@ parcelRequire = function (e, r, t, n) {
         "use strict";
         var e;
         Object.defineProperty(exports, "__esModule", {value: !0}), exports.logStorageConfig = exports.goldMiner = exports.logLevelColos = void 0;
-        var o, r = require("@bilibili-live/web-player-common"), t = require("@bilibili-live/gold-miner"),
-            n = require("./biz-common");
-
-        function i(e) {
-            exports.goldMiner.recieveMsg(e, {source: "socket-report", latestCount: 20})
-        }
+        var o = require("@bilibili-live/web-player-common"), r = require("@bilibili-live/gold-miner"),
+            t = require("./biz-common");
+        exports.logLevelColos = ((e = {})[o.LogLevel.Error] = "red", e[o.LogLevel.Info] = "blue", e[o.LogLevel.Warn] = "orange", e[o.LogLevel.Debug] = "gray", e);
+        var n, i = "indexedDB" in window || "webkitIndexedDB" in window || "mozIndexedDB" in window;
 
         function l(e) {
-            exports.goldMiner.init({
+            i && exports.goldMiner.recieveMsg(e, {source: "socket-report", latestCount: 20})
+        }
+
+        function s(e) {
+            i && (exports.goldMiner.init({
                 roomId: e.roomId,
-                uid: n.getUserId(),
+                uid: t.getUserId(),
                 ref: window.location.href,
                 createTime: Date.now(),
                 updateTime: Date.now()
-            }), null != e.socket && (null != o && o(), o = e.socket.on("message", i))
+            }), null != e.socket && (null != n && n(), n = e.socket.on("message", l)))
         }
 
-        function s() {
-            void 0 !== indexedDB.databases && indexedDB.databases().then(function (e) {
-                e.some(function (e) {
-                    var o = e.name;
-                    if ("livePlayerLog" === o) return indexedDB.deleteDatabase(o), !0
-                })
-            })
-        }
-
-        exports.logLevelColos = ((e = {})[r.LogLevel.Error] = "red", e[r.LogLevel.Info] = "blue", e[r.LogLevel.Warn] = "orange", e[r.LogLevel.Debug] = "gray", e), exports.goldMiner = new t.GoldMiner({appName: "live-web-player"}), exports.goldMiner.formatter(function (e) {
+        exports.goldMiner = new r.GoldMiner({appName: "live-web-player"}), exports.goldMiner.formatter(function (e) {
             return {content: e.$content, ts: e.$createTime, color: exports.logLevelColos[e.$type]}
-        }), r.logger.watch(function (e) {
+        }), i && o.logger.watch(function (e) {
             exports.goldMiner.log({content: e.content, ts: e.ts, type: e.level})
-        }), exports.logStorageConfig = l, s();
+        }), exports.logStorageConfig = s;
     }, {"@bilibili-live/web-player-common": "KGHo", "@bilibili-live/gold-miner": "zRQJ", "./biz-common": "YQ89"}],
     "z9tw": [function (require, module, exports) {
         module.exports = {
-            notAutoPlayTipContainer: "_not-auto-play-tip-container_4848e",
-            tipImg: "_tip-img_4848e",
-            tipText: "_tip-text_4848e",
-            textTipEmphasize: "_text-tip-emphasize_4848e",
-            tipBtn: "_tip-btn_4848e",
-            mutePlayTipContainer: "_mute-play-tip-container_4848e"
+            notAutoPlayTipContainer: "_not-auto-play-tip-container_18442",
+            tipImg: "_tip-img_18442",
+            tipText: "_tip-text_18442",
+            textTipEmphasize: "_text-tip-emphasize_18442",
+            tipBtn: "_tip-btn_18442",
+            mutePlayTipContainer: "_mute-play-tip-container_18442"
         };
+        var t = "._not-auto-play-tip-container_18442{width:100%;height:100%;display:flex;align-items:center;flex-direction:column;justify-content:center;position:absolute;top:0;left:0;background:rgba(0,0,0,.5);z-index:40}._not-auto-play-tip-container_18442 ._tip-img_18442{margin-top:-10%;width:230px}._not-auto-play-tip-container_18442 ._tip-text_18442{font-family:PingFang SC;font-style:normal;font-weight:400;font-size:18px;line-height:34px;color:#fff;margin-bottom:20px;margin-top:0}._not-auto-play-tip-container_18442 ._tip-text_18442 ._text-tip-emphasize_18442{color:#23ade5}._not-auto-play-tip-container_18442 ._tip-btn_18442{width:135px;height:45px;background:#23ade5;border-radius:4px;color:#fff;font-family:PingFang SC;font-style:normal;font-weight:500;font-size:18px;text-align:center;vertical-align:middle;line-height:45px;cursor:pointer}._mute-play-tip-container_18442{position:absolute;width:150px;height:32px;background:#23ade5;border-radius:4px;z-index:40;bottom:40;left:30px;bottom:10px;cursor:pointer}._mute-play-tip-container_18442 ._tip-img_18442{width:18px;height:18px;line-height:28px;position:absolute;top:6px;left:11px;margin-right:9px}._mute-play-tip-container_18442 ._tip-text_18442{position:absolute;font-family:PingFang SC;font-style:normal;font-weight:500;font-size:16px;line-height:32px;color:#fff;top:0;left:41px;white-space:nowrap;margin:0}",
+            i = document.createElement("style");
+        i.type = "text/css", i.appendChild(document.createTextNode(t)), document.head.appendChild(i);
     }, {}],
     "QivA": [function (require, module, exports) {
         "use strict";
@@ -24368,13 +24521,13 @@ parcelRequire = function (e, r, t, n) {
             return e && e.__esModule ? e : {default: e}
         };
         Object.defineProperty(exports, "__esModule", {value: !0}), exports.RoomPlayer = void 0;
-        var c, d = require("@bilibili-live/web-player-common"), f = require("@bilibili-live/web-player"),
-            v = i(require("@bilibili-live/web-player-socket")), p = require("./danmaku-biz"),
+        var c, d = require("@bilibili-live/web-player-common"), v = require("@bilibili-live/web-player"),
+            f = i(require("@bilibili-live/web-player-socket")), p = require("./danmaku-biz"),
             h = require("./biz-common"), m = require("./biz-interface"),
             y = s(require("@bilibili-live/web-player-track")), g = require("./ui-components/end-recommend-panel"),
-            k = s(require("./ui-components/video-logo")), E = s(require("./ui-components/feedback")),
-            S = require("./ui-components/error-panel"), w = s(require("./ui-components/preround-conuter")),
-            b = s(require("@bilibili-live/web-player-contextmenu")),
+            E = s(require("./ui-components/video-logo")), k = s(require("./ui-components/feedback")),
+            S = require("./ui-components/error-panel"), b = s(require("./ui-components/preround-conuter")),
+            w = s(require("@bilibili-live/web-player-contextmenu")),
             T = s(require("@bilibili-live/web-player-video-info")),
             I = s(require("@bilibili-live/web-player-danmaku-report")), M = s(require("./ui-components/log-panel")),
             P = s(require("./browser-fullscreen")), C = require("./log-storage"),
@@ -24383,9 +24536,9 @@ parcelRequire = function (e, r, t, n) {
             e[e.Click = 1] = "Click", e[e.Esc = 2] = "Esc", e[e.DBClick = 3] = "DBClick", e[e.Other = 4] = "Other"
         }(c || (c = {}));
         var V = function () {
-            function t(t, ke) {
-                var Ee, Se, we, be, Te = this;
-                this.container = t, this.opts = ke, n.set(this, void 0), i.set(this, void 0), s.set(this, void 0), x.set(this, null), V.set(this, void 0), A.set(this, void 0), B.set(this, void 0), H.set(this, void 0), j.set(this, void 0), z.set(this, []), G.set(this, null), J.set(this, null), Q.set(this, !1), K.set(this, new d.EventBus), Y.set(this, null), X.set(this, []), Z.set(this, 0), $.set(this, !1), ee.set(this, void 0), te.set(this, void 0), ne.set(this, null), ie.set(this, function () {
+            function t(t, Ee) {
+                var ke, Se, be, we, Te = this;
+                this.container = t, this.opts = Ee, n.set(this, void 0), i.set(this, void 0), s.set(this, void 0), x.set(this, null), V.set(this, void 0), q.set(this, void 0), B.set(this, void 0), H.set(this, void 0), z.set(this, void 0), j.set(this, []), G.set(this, null), Q.set(this, null), J.set(this, !1), K.set(this, new d.EventBus), Y.set(this, null), X.set(this, []), Z.set(this, 0), $.set(this, !1), ee.set(this, void 0), te.set(this, void 0), ne.set(this, null), ie.set(this, function () {
                 }), this.reload = function () {
                     return a(Te, void 0, Promise, function () {
                         var e, t, i, a;
@@ -24399,8 +24552,8 @@ parcelRequire = function (e, r, t, n) {
                                 case 2:
                                     t = o.sent(), o.label = 3;
                                 case 3:
-                                    if (r(this, Q)) return [2];
-                                    switch (r(this, ce).call(this), null === (a = r(this, J)) || void 0 === a || a.setRoomStatus(t.live_status), t.live_status) {
+                                    if (r(this, J)) return [2];
+                                    switch (r(this, ce).call(this), null === (a = r(this, Q)) || void 0 === a || a.setRoomStatus(t.live_status), t.live_status) {
                                         case m.RoomStatus.Preparing:
                                             r(this, pe).call(this, e), this.updateRoomStatus(m.RoomStatus.Preparing);
                                             break;
@@ -24410,7 +24563,7 @@ parcelRequire = function (e, r, t, n) {
                                         case m.RoomStatus.Round:
                                             this.updateRoomStatus(m.RoomStatus.Round), l(this, x, r(this, ae).call(this))
                                     }
-                                    return this.emit(d.ExternalEventType.WebPlayerCreated), null != r(this, x) && (r(this, me).call(this), r(this, z).push(h.pause10SecBlockStream(r(this, x), this))), r(this, z).push(r(this, le).call(this, r(this, V))), l(this, n, void 0), [3, 5];
+                                    return this.emit(d.ExternalEventType.WebPlayerCreated), null != r(this, x) && (r(this, me).call(this), r(this, j).push(h.pause10SecBlockStream(r(this, x), this))), r(this, j).push(r(this, le).call(this, r(this, V))), l(this, n, void 0), [3, 5];
                                 case 4:
                                     return l(this, $, !1), d.logger.info("room player is reload"), [7];
                                 case 5:
@@ -24419,13 +24572,17 @@ parcelRequire = function (e, r, t, n) {
                         })
                     })
                 }, ae.set(this, function () {
-                    var e = r(Te, s), t = new f.RoundPlayer(Te.container, {roomId: e, userId: r(Te, i)});
-                    return t.on("failed", function (t, n, i) {
-                        void 0 === i && (i = y.default.ErrorCode.RoomRoundUnknow), t === f.NonRoundStatus.Preround ? r(Te, z).push(w.default(Te.container, Te.reload, n)) : t === f.NonRoundStatus.Nonenabled ? r(Te, pe).call(Te, e, "系统维护中,轮播暂时不可用") : (y.default.error(i, "" + t), r(Te, z).push(S.createErrorPanel(Te.container, i)))
-                    }), t.on(f.VideoEventType.FirstFrame, function () {
-                        var e, n = t.getVideoEl();
-                        null != n && (r(Te, A).danmakuStateHandler.updateVideoEl(n), !0 === (null === (e = Te.opts.UI) || void 0 === e ? void 0 : e.enableMaskDanmaku) && r(Te, A).danmakuStateHandler.maskSwitch(!0))
-                    }), d.EventBus.forwardEvent(t, Te, [d.ExternalEventType.StartPlayRound, d.ExternalEventType.Reload, [f.VideoEventType.FirstFrame, d.ExternalEventType.FirstFrame], [f.VideoEventType.Play, d.ExternalEventType.Playing], [f.VideoEventType.Pause, d.ExternalEventType.Paused]]), r(Te, z).push(R(r(Te, A), t.ctrl, r(Te, i)), L(t.ctrl, Te)), t
+                    var e, t, n = r(Te, s), a = new v.RoundPlayer(Te.container, {
+                        roomId: n,
+                        userId: r(Te, i),
+                        enableCtrlUI: null === (t = null === (e = Te.opts.UI) || void 0 === e ? void 0 : e.enableCtrlUI) || void 0 === t || t
+                    });
+                    return a.on("failed", function (e, t, i) {
+                        void 0 === i && (i = y.default.ErrorCode.RoomRoundUnknow), e === v.NonRoundStatus.Preround ? r(Te, j).push(b.default(Te.container, Te.reload, t)) : e === v.NonRoundStatus.Nonenabled ? r(Te, pe).call(Te, n, "系统维护中,轮播暂时不可用") : (y.default.error(i, "" + e), r(Te, j).push(S.createErrorPanel(Te.container, i)))
+                    }), a.on(v.VideoEventType.FirstFrame, function () {
+                        var e, t = a.getVideoEl();
+                        null != t && (r(Te, q).danmakuStateHandler.updateVideoEl(t), !0 === (null === (e = Te.opts.UI) || void 0 === e ? void 0 : e.enableMaskDanmaku) && r(Te, q).danmakuStateHandler.maskSwitch(!0))
+                    }), d.EventBus.forwardEvent(a, Te, [d.ExternalEventType.StartPlayRound, d.ExternalEventType.Reload, v.VideoEventType.MutePlay, v.VideoEventType.NotAutoPlay, d.ExternalEventType.LiveStateChange, [v.VideoEventType.FirstFrame, d.ExternalEventType.FirstFrame], [v.VideoEventType.Play, d.ExternalEventType.Playing], [v.VideoEventType.Pause, d.ExternalEventType.Paused]]), r(Te, j).push(R(r(Te, q), a.ctrl, r(Te, i)), _(a.ctrl, Te)), a
                 }), oe.set(this, function () {
                     P.default.exitFullscreen().then(function () {
                         Te.emit(d.ExternalEventType.FeedBackClick)
@@ -24433,29 +24590,30 @@ parcelRequire = function (e, r, t, n) {
                         d.logger.warn(e)
                     })
                 }), re.set(this, function (e, t) {
-                    var n, a, o, l, u = Te.opts.rnd, c = new f.LivePlayer(Te.container, {
+                    var n, a, o, l, u, c = Te.opts, f = c.rnd, p = c.UI, g = new v.LivePlayer(Te.container, {
                         roomId: r(Te, s),
                         roomInfo: e,
                         userId: r(Te, i),
-                        rnd: u
+                        rnd: f,
+                        enableCtrlUI: null === (n = null == p ? void 0 : p.enableCtrlUI) || void 0 === n || n
                     }, t);
-                    f.isBwpSupported() && c.showHEVCQuality(!0);
-                    var v = c.ctrl.getCtrlUI();
-                    return !0 === (null === (n = Te.opts.UI) || void 0 === n ? void 0 : n.showMirror) && (v.ctrlItemVisibility.mirror = !0), null != (null === (a = Te.opts.UI) || void 0 === a ? void 0 : a.pip) && (v.ctrlItemVisibility.pip = null === (o = Te.opts.UI) || void 0 === o ? void 0 : o.pip), !1 === (null === (l = Te.opts.UI) || void 0 === l ? void 0 : l.webFullScreen) && (v.ctrlItemVisibility.webFullScreen = !1), null != r(Te, Y) && c.setAutoSyncCfg(r(Te, Y)), c.on(f.LivePlayerEvent.Failed, function (e, t) {
-                        y.default.error(e, null != t ? t : ""), r(Te, z).push(S.createErrorPanel(Te.container, e, t)), c.destroy()
-                    }), c.on(f.LivePlayerEvent.LiveStatusChange, function (e) {
-                        Te.updateRoomStatus(m.RoomStatus.Preparing), r(Te, ye).call(Te), e === m.RoomStatus.Round ? r(Te, z).push(w.default(Te.container, Te.reload)) : r(Te, pe).call(Te, r(Te, s))
-                    }), c.on(f.VideoEventType.FirstFrame, function () {
-                        var e, t = c.getVideoEl();
+                    r(Te, X).push(h.dmVisualVibrate(g, r(Te, q))), v.isBwpSupported() && g.showHEVCQuality(!0);
+                    var E = g.ctrl.getCtrlUI();
+                    return !0 === (null === (a = Te.opts.UI) || void 0 === a ? void 0 : a.showMirror) && (E.ctrlItemVisibility.mirror = !0), null != (null === (o = Te.opts.UI) || void 0 === o ? void 0 : o.pip) && (E.ctrlItemVisibility.pip = null === (l = Te.opts.UI) || void 0 === l ? void 0 : l.pip), !1 === (null === (u = Te.opts.UI) || void 0 === u ? void 0 : u.webFullScreen) && (E.ctrlItemVisibility.webFullScreen = !1), null != r(Te, Y) && g.setAutoSyncCfg(r(Te, Y)), g.on(v.LivePlayerEvent.Failed, function (e, t) {
+                        y.default.error(e, null != t ? t : ""), r(Te, j).push(S.createErrorPanel(Te.container, e, t)), g.destroy()
+                    }), g.on(v.LivePlayerEvent.LiveStatusChange, function (e) {
+                        Te.updateRoomStatus(m.RoomStatus.Preparing), r(Te, ye).call(Te), e === m.RoomStatus.Round ? r(Te, j).push(b.default(Te.container, Te.reload)) : r(Te, pe).call(Te, r(Te, s))
+                    }), g.on(v.VideoEventType.FirstFrame, function () {
+                        var e, t = g.getVideoEl();
                         if (null != t) {
-                            r(Te, A).danmakuStateHandler.updateVideoEl(t);
+                            r(Te, q).danmakuStateHandler.updateVideoEl(t);
                             var n = !0 === (null === (e = Te.opts.UI) || void 0 === e ? void 0 : e.enableMaskDanmaku);
-                            r(Te, A).danmakuStateHandler.maskSwitch(n), N({
-                                maskDM: n,
-                                dmSwitch: c.ctrl.getCtrlUI().danmaku.display
+                            r(Te, q).danmakuStateHandler.maskSwitch(n), A({
+                                dmBiz: r(Te, q),
+                                dmSwitch: g.ctrl.getCtrlUI().danmaku.display
                             })
                         }
-                    }), d.EventBus.forwardEvent(c, Te, [d.ExternalEventType.SwitchLine, d.ExternalEventType.SwitchQuality, d.ExternalEventType.SwitchQualityNotLogin, d.ExternalEventType.Reload, d.ExternalEventType.SEIParseData, [f.VideoEventType.FirstFrame, d.ExternalEventType.FirstFrame], [f.VideoEventType.Play, d.ExternalEventType.Playing], [f.VideoEventType.Pause, d.ExternalEventType.Paused]]), r(Te, z).push(R(r(Te, A), c.ctrl, r(Te, i)), L(c.ctrl, Te), D(r(Te, B), c)), c
+                    }), d.EventBus.forwardEvent(g, Te, [d.ExternalEventType.SwitchLine, d.ExternalEventType.SwitchQuality, d.ExternalEventType.SwitchQualityNotLogin, d.ExternalEventType.Reload, d.ExternalEventType.SEIParseData, v.VideoEventType.MutePlay, v.VideoEventType.NotAutoPlay, d.ExternalEventType.LiveStateChange, [v.VideoEventType.FirstFrame, d.ExternalEventType.FirstFrame], [v.VideoEventType.Play, d.ExternalEventType.Playing], [v.VideoEventType.Pause, d.ExternalEventType.Paused]]), r(Te, j).push(R(r(Te, q), g.ctrl, r(Te, i)), _(g.ctrl, Te), D(r(Te, B), g)), g
                 }), le.set(this, function (e) {
                     d.logger.info("room player listen socket message");
                     var t = function (e) {
@@ -24465,30 +24623,30 @@ parcelRequire = function (e, r, t, n) {
                     }, n = r(Te, s), i = e.on("message", function (e) {
                         if (!e.cmd.startsWith("DANMU_MSG")) {
                             switch (e.cmd) {
-                                case v.SocketMsgType.Live:
-                                    if (r(Te, x) instanceof f.LivePlayer) break;
-                                    r(Te, z).push(d.disperseAction(1e4, function () {
+                                case f.SocketMsgType.Live:
+                                    if (r(Te, x) instanceof v.LivePlayer) break;
+                                    r(Te, j).push(d.disperseAction(1e4, function () {
                                         t(e.cmd)
                                     }));
                                     break;
-                                case v.SocketMsgType.Round:
-                                    if (r(Te, x) instanceof f.RoundPlayer) break;
+                                case f.SocketMsgType.Round:
+                                    if (r(Te, x) instanceof v.RoundPlayer) break;
                                     t(e.cmd);
                                     break;
-                                case v.SocketMsgType.Preparing:
-                                    r(Te, ye).call(Te), 1 === e.round ? r(Te, z).push(w.default(Te.container, Te.reload)) : r(Te, pe).call(Te, n), Te.updateRoomStatus(m.RoomStatus.Preparing);
+                                case f.SocketMsgType.Preparing:
+                                    r(Te, ye).call(Te), 1 === e.round ? r(Te, j).push(b.default(Te.container, Te.reload)) : r(Te, pe).call(Te, n), Te.updateRoomStatus(m.RoomStatus.Preparing);
                                     break;
-                                case v.SocketMsgType.End:
-                                case v.SocketMsgType.Close:
-                                case v.SocketMsgType.Block:
+                                case f.SocketMsgType.End:
+                                case f.SocketMsgType.Close:
+                                case f.SocketMsgType.Block:
                                     r(Te, pe).call(Te, n), Te.updateRoomStatus(m.RoomStatus.Preparing);
                                     break;
-                                case v.SocketMsgType.Refresh:
+                                case f.SocketMsgType.Refresh:
                                     t(e.cmd);
                                     break;
-                                case v.SocketMsgType.AreaBlock:
+                                case f.SocketMsgType.AreaBlock:
                                     break;
-                                case v.SocketMsgType.HotRoomNotify:
+                                case f.SocketMsgType.HotRoomNotify:
                                     if (!Array.isArray(e.data.random_delay_req_v2)) break;
                                     i = performance.now() + 1e3 * Number(e.data.ttl), isNaN(i) ? d.logger.error("HotRoomNotify ttl error: " + String(e.data.ttl)) : (d.logger.debug("HotRoomNotify msg: " + JSON.stringify(e.data.random_delay_req_v2)), e.data.random_delay_req_v2.forEach(function (e) {
                                         var t = e.path, n = e.delay;
@@ -24506,13 +24664,13 @@ parcelRequire = function (e, r, t, n) {
                     }
                 }), ue.set(this, function (e, t) {
                     var n;
-                    if (r(Te, x) instanceof f.LivePlayer) {
+                    if (r(Te, x) instanceof v.LivePlayer) {
                         var i = null === (n = r(Te, x)) || void 0 === n ? void 0 : n.getVideoEl();
-                        "danmaku" === e && r(Te, A).changeMaskState(i, t.enableMask), "playStatus" === e && !0 !== t && (clearTimeout(r(Te, Z)), r(Te, A).changeMaskState(i, !1, !0))
+                        "danmaku" === e && r(Te, q).changeMaskState(i, t.enableMask), "playStatus" === e && !0 !== t && (clearTimeout(r(Te, Z)), r(Te, q).changeMaskState(i, !1, !0))
                     }
                 }), se.set(this, function (e, t) {
                     return a(Te, void 0, Promise, function () {
-                        var n, i, a, l, u, c, f = this;
+                        var n, i, a, l, u, c, v = this;
                         return o(this, function (o) {
                             switch (o.label) {
                                 case 0:
@@ -24543,8 +24701,8 @@ parcelRequire = function (e, r, t, n) {
                                         component: "block",
                                         action: "addShieldUser",
                                         data: {uid: t.uid, uname: t.uname}
-                                    }, r(this, A), r(this, s), function (e, t) {
-                                        f.emit(d.ExternalEventType.Set, {component: "block", action: e, data: t})
+                                    }, r(this, q), r(this, s), function (e, t) {
+                                        v.emit(d.ExternalEventType.Set, {component: "block", action: e, data: t})
                                     }), [3, 5];
                                 case 4:
                                     return this.emit(d.ExternalEventType.Set, {
@@ -24558,9 +24716,9 @@ parcelRequire = function (e, r, t, n) {
                         })
                     })
                 }), ce.set(this, function () {
-                    r(Te, z).forEach(function (e) {
+                    r(Te, j).forEach(function (e) {
                         return e()
-                    }), l(Te, z, [])
+                    }), l(Te, j, [])
                 }), de.set(this, function () {
                     var t = e(e({
                         NAME: "BILIBILI HTML5 LIVE PLAYER",
@@ -24574,9 +24732,11 @@ parcelRequire = function (e, r, t, n) {
                             var e;
                             null === (e = r(Te, x)) || void 0 === e || e.pause()
                         },
-                        volume: function (e) {
-                            var t;
-                            null === (t = r(Te, x)) || void 0 === t || t.volume(e / 100)
+                        volume: function (t) {
+                            var n;
+                            d.userSetting.setVolume(e(e({}, d.userSetting.getVolume()), {value: t})), null === (n = r(Te, x)) || void 0 === n || n.volume(t / 100)
+                        },
+                        setDanmaku: function () {
                         },
                         reload: Te.reload,
                         destroy: Te.destroy,
@@ -24591,12 +24751,12 @@ parcelRequire = function (e, r, t, n) {
                             })
                         },
                         set: function (e) {
-                            "block" === e.component && p.roomBlockAdapter(e, r(Te, A), r(Te, s), function (e, t) {
+                            "block" === e.component && p.roomBlockAdapter(e, r(Te, q), r(Te, s), function (e, t) {
                                 Te.emit(d.ExternalEventType.Set, {component: "block", action: e, data: t})
                             })
                         },
                         setFullscreenDanmaku: function (e) {
-                            null != r(Te, x) && O(e, r(Te, x))
+                            null != r(Te, x) && F(e, r(Te, x))
                         },
                         sendDanmaku: function (e) {
                             return a(Te, void 0, void 0, function () {
@@ -24604,7 +24764,7 @@ parcelRequire = function (e, r, t, n) {
                                 return o(this, function (n) {
                                     switch (n.label) {
                                         case 0:
-                                            return [4, r(this, A).userSendDanmaku(e).then(function (n) {
+                                            return [4, r(this, q).userSendDanmaku(e).then(function (n) {
                                                 var i = {uniqueID: e.uniqueID, response: n};
                                                 return t.emit(d.ExternalEventType.SendDanmaku, i), i
                                             })];
@@ -24627,17 +24787,17 @@ parcelRequire = function (e, r, t, n) {
                             return null !== (t = null === (e = r(Te, x)) || void 0 === e ? void 0 : e.getVideoEl()) && void 0 !== t ? t : null
                         },
                         supportMaskDanmaku: function () {
-                            return r(Te, A).supportMaskDanmaku()
+                            return r(Te, q).supportMaskDanmaku()
                         },
                         changeUIStatus: function (t) {
                             var n, i, a, o, u, s = null === (n = r(Te, x)) || void 0 === n ? void 0 : n.getVideoEl();
-                            if (null !== (a = null === (i = JSON.stringify(Te.opts.roomInitDataV2)) || void 0 === i ? void 0 : i.includes("全景")) && void 0 !== a && a && null != t.showMirror && (t.showMirror = !1), null != s && (!0 === t.enableMaskDanmaku ? (r(Te, A).bodyMaskDetectorStatus = !0, r(Te, A).danmakuStateHandler.maskSwitch(!0)) : !1 === t.enableMaskDanmaku && (r(Te, A).bodyMaskDetectorStatus = !1, r(Te, A).danmakuStateHandler.maskSwitch(!1))), !1 === t.feedback ? null === (o = r(Te, G)) || void 0 === o || o.call(Te) : !0 === t.feedback && null == r(Te, G) && l(Te, G, E.default(Te.container, r(Te, oe))), !1 === t.logo ? null === (u = r(Te, J)) || void 0 === u || u.destroy() : !0 === t.logo && null == r(Te, J) && l(Te, J, k.default(Te.container)), !1 === t.recommend && r(Te, ie).call(Te), Te.opts.UI = Object.assign({}, Te.opts.UI, t), null != r(Te, x)) {
+                            if (null !== (a = null === (i = JSON.stringify(Te.opts.roomInitDataV2)) || void 0 === i ? void 0 : i.includes("全景")) && void 0 !== a && a && null != t.showMirror && (t.showMirror = !1), null != s && (!0 === t.enableMaskDanmaku ? (r(Te, q).bodyMaskDetectorStatus = !0, r(Te, q).danmakuStateHandler.maskSwitch(!0)) : !1 === t.enableMaskDanmaku && (r(Te, q).bodyMaskDetectorStatus = !1, r(Te, q).danmakuStateHandler.maskSwitch(!1))), !1 === t.feedback ? null === (o = r(Te, G)) || void 0 === o || o.call(Te) : !0 === t.feedback && null == r(Te, G) && l(Te, G, k.default(Te.container, r(Te, oe))), !1 === t.logo ? null === (u = r(Te, Q)) || void 0 === u || u.destroy() : !0 === t.logo && null == r(Te, Q) && l(Te, Q, E.default(Te.container)), !1 === t.recommend && r(Te, ie).call(Te), Te.opts.UI = Object.assign({}, Te.opts.UI, t), null != r(Te, x)) {
                                 var c = r(Te, x).ctrl.getCtrlUI();
                                 null != t.showMirror && (c.ctrlItemVisibility.mirror = t.showMirror), !1 === t.webFullScreen && (c.ctrlItemVisibility.webFullScreen = !1), null != t.pip && (c.ctrlItemVisibility.pip = t.pip), null != t.showDanmakuSetting && (c.ctrlItemVisibility = e(e({}, c.ctrlItemVisibility), {danmakuPanel: t.showDanmakuSetting}))
                             }
                         },
                         changeDanmakuExtraConfig: function (e) {
-                            r(Te, A).updateDanmakuExtraConfig(e)
+                            r(Te, q).updateDanmakuExtraConfig(e)
                         },
                         changeCtrlVisible: function (e) {
                             var t, n;
@@ -24651,7 +24811,7 @@ parcelRequire = function (e, r, t, n) {
                             var a;
                             if (t === d.ExternalEventType.Initialized) return i({type: "html5"}), void d.logger.info("room player emit external event: Initialized");
                             if (t === d.ExternalEventType.InitDanmaku) {
-                                var o = r(Te, A).getDanmakuConfig();
+                                var o = r(Te, q).getDanmakuConfig();
                                 return d.logger.info("room player emit external event: InitDanmaku, data: " + JSON.stringify(o)), void i(e(e({}, o), {room_shield: null === (a = r(Te, n)) || void 0 === a ? void 0 : a.room_shield}))
                             }
                             return Te.on(t, i)
@@ -24665,7 +24825,7 @@ parcelRequire = function (e, r, t, n) {
                         },
                         stopPlayback: function (e) {
                             var t;
-                            null != r(Te, x) && (r(Te, x).destroy(), r(Te, ce).call(Te), d.coverImg(null !== (t = null == e ? void 0 : e.url) && void 0 !== t ? t : "//s1.hdslb.com/bfs/static/player/live/html5/images/error@1x.png", Te.container), r(Te, z).push(function () {
+                            null != r(Te, x) && (r(Te, x).destroy(), r(Te, ce).call(Te), d.coverImg(null !== (t = null == e ? void 0 : e.url) && void 0 !== t ? t : "//s1.hdslb.com/bfs/static/player/live/html5/images/error@1x.png", Te.container), r(Te, j).push(function () {
                                 d.coverImg(null, Te.container)
                             }))
                         },
@@ -24686,7 +24846,7 @@ parcelRequire = function (e, r, t, n) {
                             var o = i.getPlayerInfo(),
                                 l = null !== (t = i.ctrl.getCtrlUI().webFullScreenStatus) && void 0 !== t && t ? 1 : null !== (n = i.ctrl.getCtrlUI().fullScreenStatus) && void 0 !== n && n ? 2 : 0;
                             return e(e({}, a), {
-                                liveStatus: i instanceof f.LivePlayer ? 1 : 0,
+                                liveStatus: i instanceof v.LivePlayer ? 1 : 0,
                                 playerStatus: l,
                                 playingStatus: o.playingStatus,
                                 playurl: o.playSrc,
@@ -24696,21 +24856,28 @@ parcelRequire = function (e, r, t, n) {
                                     var t = e.label;
                                     return {qn: e.value, desc: t}
                                 }),
-                                volume: i.ctrl.getCtrlUI().volume
+                                volume: i.ctrl.getCtrlUI().volume,
+                                danmaku: d.userSetting.getDanmaku()
                             })
+                        },
+                        switchQuality: function (e) {
+                            r(Te, x) instanceof v.LivePlayer && r(Te, x).switchQuality(e)
+                        },
+                        updateDMSetting: function (t) {
+                            null != r(Te, q) && (d.userSetting.setDanmaku(e(e({}, d.userSetting.getDanmaku()), t)), h.updateDanmakuSetting(t, r(Te, q)))
                         },
                         init: function (e, t) {
                             if ("config" === e && (null == t ? void 0 : t.isAdmin)) r(Te, B).setAdmin(); else if ("autoSync" === e) {
                                 var n = t;
                                 for (var i in t) n[i] = Number(t[i]);
-                                l(Te, Y, n), r(Te, x) instanceof f.LivePlayer && r(Te, x).setAutoSyncCfg(n)
+                                l(Te, Y, n), r(Te, x) instanceof v.LivePlayer && r(Te, x).setAutoSyncCfg(n)
                             }
                         },
                         remainBufferLength: function () {
-                            return r(Te, x) instanceof f.LivePlayer ? r(Te, x).remainBufferLength() : 0
+                            return r(Te, x) instanceof v.LivePlayer ? r(Te, x).remainBufferLength() : 0
                         },
                         discardFrame: function (e) {
-                            if (r(Te, x) instanceof f.LivePlayer) {
+                            if (r(Te, x) instanceof v.LivePlayer) {
                                 if (!r(Te, x).getPlayerInfo().playingStatus) return;
                                 r(Te, x).discardFrame(e)
                             }
@@ -24719,7 +24886,7 @@ parcelRequire = function (e, r, t, n) {
                         },
                         resize: function () {
                             var e;
-                            r(Te, A).resize(), null === (e = r(Te, x)) || void 0 === e || e.ctrl.setMiniMode(Te.container.clientWidth <= 500)
+                            r(Te, q).resize(), null === (e = r(Te, x)) || void 0 === e || e.ctrl.setMiniMode(Te.container.clientWidth <= 500)
                         },
                         noticeGift: function () {
                         },
@@ -24728,14 +24895,14 @@ parcelRequire = function (e, r, t, n) {
                         loadVideo: function () {
                         },
                         changeCtrlIconVisible: function (e) {
-                            r(Te, fe).call(Te, e)
+                            r(Te, ve).call(Te, e)
                         },
                         userFeedback: d.debounce(function (t) {
                             return a(Te, void 0, void 0, function () {
                                 return o(this, function (n) {
                                     switch (n.label) {
                                         case 0:
-                                            return y.default.custom(y.default.CustomCode.UserFeedBack, t), [4, q(e(e({}, t), {
+                                            return y.default.custom(y.default.CustomCode.UserFeedBack, t), [4, U(e(e({}, t), {
                                                 mid: r(this, i),
                                                 buvid: r(this, te)
                                             }))];
@@ -24758,7 +24925,7 @@ parcelRequire = function (e, r, t, n) {
                     };
                     for (var c in t) u(c);
                     return t
-                }), fe.set(this, function (t) {
+                }), ve.set(this, function (t) {
                     var n, i;
                     if (null != r(Te, x)) {
                         var a = r(Te, x).ctrl.getCtrlUI();
@@ -24772,27 +24939,27 @@ parcelRequire = function (e, r, t, n) {
                             danmaku: t.danmaku,
                             fullScreen: t.fullscreen,
                             webFullScreen: t.webFullscreen
-                        }), t.danmaku ? r(Te, A).fetchBlockRules() : r(Te, A).destroy(), t.feedback || null === (n = r(Te, G)) || void 0 === n || n.call(Te), t.logo || null === (i = r(Te, J)) || void 0 === i || i.destroy(), null != t.el && a.appendCtrlItem(t.el)
+                        }), t.danmaku ? r(Te, q).fetchBlockRules() : r(Te, q).destroy(), t.feedback || null === (n = r(Te, G)) || void 0 === n || n.call(Te), t.logo || null === (i = r(Te, Q)) || void 0 === i || i.destroy(), null != t.el && a.appendCtrlItem(t.el)
                     }
-                }), ve.set(this, function (e) {
+                }), fe.set(this, function (e) {
                     var t, n;
-                    if (r(Te, x) instanceof f.LivePlayer) {
+                    if (r(Te, x) instanceof v.LivePlayer) {
                         var i = r(Te, x).ctrl.getCtrlUI().danmaku,
                             a = null === (t = r(Te, x)) || void 0 === t ? void 0 : t.getVideoEl();
                         if (null != i && null != a) {
                             var o = null === (n = r(Te, x)) || void 0 === n ? void 0 : n.ctrl.getCtrlUI().playStatus;
-                            d.ua.isChrome() ? (r(Te, A).onSei(e), i.enableMask && (clearTimeout(r(Te, Z)), l(Te, Z, window.setTimeout(function () {
-                                o || (i.showMaskOption = !1, r(Te, A).changeMaskState(a, !1))
-                            }, 1e4))), i.showMaskOption = !0, !r(Te, A).maskState && o && r(Te, A).changeMaskState(a, i.enableMask)) : (i.showMaskOption = !1, i.enableMask = !1, r(Te, A).changeMaskState(a, !1))
+                            d.ua.isChrome() ? (r(Te, q).onSei(e), i.enableMask && (clearTimeout(r(Te, Z)), l(Te, Z, window.setTimeout(function () {
+                                o || (i.showMaskOption = !1, r(Te, q).changeMaskState(a, !1))
+                            }, 1e4))), i.showMaskOption = !0, !r(Te, q).maskState && o && r(Te, q).changeMaskState(a, i.enableMask)) : (i.showMaskOption = !1, i.enableMask = !1, r(Te, q).changeMaskState(a, !1))
                         }
                     }
-                }), this.notifyAnnouncement = (we = !1, function (e, t) {
-                    void 0 === e && (e = !0), void 0 === t && (t = 100), we !== e && (we = e, r(Te, A).set({offsetTop: we ? t : 0}))
-                }), this.updateRoomStatus = (be = m.RoomStatus.Preparing, function (e) {
+                }), this.notifyAnnouncement = (be = !1, function (e, t) {
+                    void 0 === e && (e = !0), void 0 === t && (t = 100), be !== e && (be = e, r(Te, q).set({offsetTop: be ? t : 0}))
+                }), this.updateRoomStatus = (we = m.RoomStatus.Preparing, function (e) {
                     var t;
-                    r(Te, A).danmakuStateHandler.maskSwitch(!1), null === (t = r(Te, x)) || void 0 === t || t.destroy(), l(Te, x, null), be !== e && (be = e, Te.emit(d.ExternalEventType.LiveStateChange), r(Te, he).call(Te).resetHeight())
+                    r(Te, q).danmakuStateHandler.maskSwitch(!1), null === (t = r(Te, x)) || void 0 === t || t.destroy(), l(Te, x, null), we !== e && (we = e, Te.emit(d.ExternalEventType.LiveStateChange, we), r(Te, he).call(Te).resetHeight())
                 }), this.injectInitAPIData = function (e) {
-                    r(Te, A).initDanmakuConfig(e)
+                    r(Te, q).initDanmakuConfig(e)
                 }, this.on = function (e, t) {
                     return r(Te, K).on(e, t)
                 }, this.once = function (e, t) {
@@ -24811,9 +24978,9 @@ parcelRequire = function (e, r, t, n) {
                     }, t))
                 }), this.destroy = function () {
                     var e, t, n, i;
-                    r(Te, Q) || (l(Te, Q, !0), null === (e = r(Te, ne)) || void 0 === e || e.remove(), l(Te, ne, null), r(Te, X).forEach(function (e) {
+                    r(Te, J) || (l(Te, J, !0), null === (e = r(Te, ne)) || void 0 === e || e.remove(), l(Te, ne, null), r(Te, X).forEach(function (e) {
                         return e()
-                    }), l(Te, X, []), d.logger.info("room player destroyed"), null === (t = r(Te, x)) || void 0 === t || t.destroy(), r(Te, V).destroy(), r(Te, A).destroy(), r(Te, H).destroy(), r(Te, j).destroy(), r(Te, B).destroy(), r(Te, ce).call(Te), r(Te, K).destroy(), null === (n = r(Te, G)) || void 0 === n || n.call(Te), null === (i = r(Te, J)) || void 0 === i || i.destroy())
+                    }), l(Te, X, []), d.logger.info("room player destroyed"), null === (t = r(Te, x)) || void 0 === t || t.destroy(), r(Te, V).destroy(), r(Te, q).destroy(), r(Te, H).destroy(), r(Te, z).destroy(), r(Te, B).destroy(), r(Te, ce).call(Te), r(Te, K).destroy(), null === (n = r(Te, G)) || void 0 === n || n.call(Te), null === (i = r(Te, Q)) || void 0 === i || i.destroy())
                 }, this.getOperableElements = function () {
                     var e = r(Te, he).call(Te), t = e.el;
                     return (0, e.resetHeight)(), {mainElement: t}
@@ -24826,31 +24993,31 @@ parcelRequire = function (e, r, t, n) {
                         }
                     }
                 }), me.set(this, function () {
-                    var e = r(Te, x);
-                    if (null != e) {
-                        var t = 0, n = "", i = d.seiKeyComparator(d.SEIType.BILIMASK__SVGBIN);
-                        r(Te, z).push(U(e, Te.container), e.on(f.VideoEventType.Destroyed, function () {
-                            if (r(Te, A).danmakuStateHandler.maskSwitch(!1), e instanceof f.LivePlayer) {
-                                var t = e.getVideoEl();
-                                r(Te, A).changeMaskState(t, !1), r(Te, A).clearMask()
+                    var e, t = r(Te, x);
+                    if (null != t) {
+                        var n = 0, i = "", a = d.seiKeyComparator(d.SEIType.BILIMASK__SVGBIN);
+                        r(Te, j).push(N(t, Te.container, null === (e = Te.opts.UI) || void 0 === e ? void 0 : e.enableAutoPlayTips), t.on(v.VideoEventType.Destroyed, function () {
+                            if (r(Te, q).danmakuStateHandler.maskSwitch(!1), t instanceof v.LivePlayer) {
+                                var e = t.getVideoEl();
+                                r(Te, q).changeMaskState(e, !1), r(Te, q).clearMask()
                             }
-                        }), e.ctrl.onChange(function (e, t) {
+                        }), t.ctrl.onChange(function (e, t) {
                             "volume" === e && Te.emit(d.ExternalEventType.VolumeChange, t), r(Te, ue).call(Te, e, t), "show" === e && Te.emit(d.ExternalEventType.CtrlVisibleChange, t)
-                        }), e.on(f.VideoEventType.SEIData, function (e) {
-                            i(e[2]) && r(Te, ve).call(Te, e)
-                        }), e.on(f.VideoEventType.VideoInfo, function (e) {
-                            r(Te, H).updateVideoTemplate(e), t = e.mediaInfo.videoDataRate;
-                            var i = e.mediaInfo, a = i.height > i.width ? "vertical" : "horizontal";
-                            a !== n && (Te.emit(d.ExternalEventType.VideoDirectionChange, a), n = a)
-                        }), e.on(f.VideoEventType.LoadStart, d.runOnlyOnce("VideoEventType.LoadStart", function () {
+                        }), t.on(v.VideoEventType.SEIData, function (e) {
+                            a(e[2]) && r(Te, fe).call(Te, e)
+                        }), t.on(v.VideoEventType.VideoInfo, function (e) {
+                            r(Te, H).updateVideoTemplate(e), n = e.mediaInfo.videoDataRate;
+                            var t = e.mediaInfo, a = t.height > t.width ? "vertical" : "horizontal";
+                            a !== i && (Te.emit(d.ExternalEventType.VideoDirectionChange, a), i = a)
+                        }), t.on(v.VideoEventType.LoadStart, d.runOnlyOnce("VideoEventType.LoadStart", function () {
                             Te.emit(d.ExternalEventType.FirstLoadStart)
-                        })), e.on(f.VideoEventType.MetaData, d.runOnlyOnce("VideoEventType.MetaData", function () {
+                        })), t.on(v.VideoEventType.MetaData, d.runOnlyOnce("VideoEventType.MetaData", function () {
                             Te.emit(d.ExternalEventType.FirstLoadedMetaData)
-                        })), e.on(f.VideoEventType.Play, d.runOnlyOnce("VideoEventType.Play", function () {
+                        })), t.on(v.VideoEventType.Play, d.runOnlyOnce("VideoEventType.Play", function () {
                             Te.emit(d.ExternalEventType.FirstPlaying)
-                        })), e.on(f.VideoEventType.WaitStart, function () {
-                            var e, n, i = navigator.connection;
-                            d.logger.warn("connect downlink is: " + (null !== (e = null == i ? void 0 : i.downlink) && void 0 !== e ? e : -1) + "Mbps,connect rtt is: " + (null !== (n = null == i ? void 0 : i.rtt) && void 0 !== n ? n : -1) + "ms,video bitRate is: " + (t / 1024).toFixed(2) + "Mbps")
+                        })), t.on(v.VideoEventType.WaitStart, function () {
+                            var e, t, i = navigator.connection;
+                            d.logger.warn("connect downlink is: " + (null !== (e = null == i ? void 0 : i.downlink) && void 0 !== e ? e : -1) + "Mbps,connect rtt is: " + (null !== (t = null == i ? void 0 : i.rtt) && void 0 !== t ? t : -1) + "ms,video bitRate is: " + (n / 1024).toFixed(2) + "Mbps")
                         }))
                     }
                 }), ye.set(this, function () {
@@ -24861,35 +25028,35 @@ parcelRequire = function (e, r, t, n) {
                     Te.emit(d.ExternalEventType.UserRedirect, e)
                 });
                 var Ie = this.opts, Me = Ie.cid, Pe = Ie.roomInitDataV2, Ce = Ie.rnd,
-                    xe = !0 === ke.isActivity ? h.PlayerEnv.Activity : h.PlayerEnv.Room, Ve = h.initPlayer(Me, xe),
+                    xe = !0 === Ee.isActivity ? h.PlayerEnv.Activity : h.PlayerEnv.Room, Ve = h.initPlayer(Me, xe),
                     Re = Ve.userId, De = Ve.uvid;
-                return r(this, X).push(d.ajax.watch(h.ajaxWatcher)), l(this, i, Re), l(this, te, De), y.default.event(y.default.EventCode.RoomPlayerInit, null, {sampleRate: .5}), null != Pe && Pe.code >= 0 && l(this, n, Pe.data), l(this, s, Me), l(this, V, new v.default({
+                return r(this, X).push(d.ajax.watch(h.ajaxWatcher)), l(this, i, Re), l(this, te, De), y.default.event(y.default.EventCode.RoomPlayerInit, null, {sampleRate: .5}), null != Pe && Pe.code >= 0 && l(this, n, Pe.data), l(this, s, Me), l(this, V, new f.default({
                     roomId: Me,
                     userId: Re
-                })), l(this, A, new p.DanmakuBiz(this.container, {
+                })), l(this, q, new p.DanmakuBiz(this.container, {
                     userId: Re,
                     rnd: Ce,
                     roomId: Me
-                })), r(this, A).connectSocket(r(this, V), function (e) {
+                })), r(this, q).connectSocket(r(this, V), function (e) {
                     Te.emit(d.ExternalEventType.ReceiveMessage, e)
                 }), C.logStorageConfig({
                     roomId: Me,
                     socket: r(this, V)
-                }), l(this, H, new T.default(this.container)), l(this, j, new M.default(this.container)), l(this, ee, new I.default(t)), l(this, B, new b.default(this.container, {
+                }), l(this, H, new T.default(this.container)), l(this, z, new M.default(this.container)), l(this, ee, new I.default(t)), l(this, B, new w.default(this.container, {
                     uid: Re,
                     version: h.ENV.VERSION,
                     click: e({
                         handleEvent: r(this, ge),
                         handleDanmu: r(this, se)
-                    }, h.createContextmenuHandler(r(this, j), r(this, H)))
-                })), r(this, X).push(F(r(this, A), r(this, B)), h.pressToOpenVideoInfoListener(this.container)), !1 !== (null === (Ee = ke.UI) || void 0 === Ee ? void 0 : Ee.feedback) && l(this, G, E.default(t, r(this, oe))), !1 !== (null === (Se = ke.UI) || void 0 === Se ? void 0 : Se.logo) && l(this, J, k.default(this.container)), this.reload().catch(function (e) {
+                    }, h.createContextmenuHandler(r(this, z), r(this, H)))
+                })), r(this, X).push(L(r(this, q), r(this, B)), h.pressToOpenVideoInfoListener(this.container)), !1 !== (null === (ke = Ee.UI) || void 0 === ke ? void 0 : ke.feedback) && l(this, G, k.default(t, r(this, oe))), !1 !== (null === (Se = Ee.UI) || void 0 === Se ? void 0 : Se.logo) && l(this, Q, E.default(this.container)), this.reload().catch(function (e) {
                     d.logger.error(e)
-                }), r(this, X).push(W(), _()), r(this, de).call(this)
+                }), r(this, X).push(O(), W()), r(this, de).call(this)
             }
 
-            var n, i, s, x, V, A, B, H, j, z, G, J, Q, K, Y, X, Z, $, ee, te, ne, ie, ae, oe, re, le, ue, se, ce, de,
-                fe, ve, pe, he, me, ye, ge;
-            return n = new WeakMap, i = new WeakMap, s = new WeakMap, x = new WeakMap, V = new WeakMap, A = new WeakMap, B = new WeakMap, H = new WeakMap, j = new WeakMap, z = new WeakMap, G = new WeakMap, J = new WeakMap, Q = new WeakMap, K = new WeakMap, Y = new WeakMap, X = new WeakMap, Z = new WeakMap, $ = new WeakMap, ee = new WeakMap, te = new WeakMap, ne = new WeakMap, ie = new WeakMap, ae = new WeakMap, oe = new WeakMap, re = new WeakMap, le = new WeakMap, ue = new WeakMap, se = new WeakMap, ce = new WeakMap, de = new WeakMap, fe = new WeakMap, ve = new WeakMap, pe = new WeakMap, he = new WeakMap, me = new WeakMap, ye = new WeakMap, ge = new WeakMap, t.isSupported = h.isSupported, t
+            var n, i, s, x, V, q, B, H, z, j, G, Q, J, K, Y, X, Z, $, ee, te, ne, ie, ae, oe, re, le, ue, se, ce, de,
+                ve, fe, pe, he, me, ye, ge;
+            return n = new WeakMap, i = new WeakMap, s = new WeakMap, x = new WeakMap, V = new WeakMap, q = new WeakMap, B = new WeakMap, H = new WeakMap, z = new WeakMap, j = new WeakMap, G = new WeakMap, Q = new WeakMap, J = new WeakMap, K = new WeakMap, Y = new WeakMap, X = new WeakMap, Z = new WeakMap, $ = new WeakMap, ee = new WeakMap, te = new WeakMap, ne = new WeakMap, ie = new WeakMap, ae = new WeakMap, oe = new WeakMap, re = new WeakMap, le = new WeakMap, ue = new WeakMap, se = new WeakMap, ce = new WeakMap, de = new WeakMap, ve = new WeakMap, fe = new WeakMap, pe = new WeakMap, he = new WeakMap, me = new WeakMap, ye = new WeakMap, ge = new WeakMap, t.isSupported = h.isSupported, t
         }();
 
         function R(t, n, i) {
@@ -24925,7 +25092,7 @@ parcelRequire = function (e, r, t, n) {
             }
         }
 
-        function F(e, t) {
+        function L(e, t) {
             return e.onSelect(function (e) {
                 return t.updateDanmuInfo(e)
             }), function () {
@@ -24933,7 +25100,7 @@ parcelRequire = function (e, r, t, n) {
             }
         }
 
-        function L(e, t) {
+        function _(e, t) {
             var n = this, i = !1, r = e.onChange(function (r, l) {
                 return a(n, void 0, void 0, function () {
                     var n;
@@ -24961,7 +25128,7 @@ parcelRequire = function (e, r, t, n) {
             }
         }
 
-        function O(e, t) {
+        function F(e, t) {
             e.on("danmuInputBlur", function () {
                 t.ctrl.setDmSendIsFocus(!1)
             }), e.on("danmuInputFocus", function () {
@@ -24969,7 +25136,7 @@ parcelRequire = function (e, r, t, n) {
             })
         }
 
-        function W() {
+        function O() {
             var e = function e() {
                 return window.setTimeout(function () {
                     y.default.custom(y.default.CustomCode.HangUp, {
@@ -24985,7 +25152,7 @@ parcelRequire = function (e, r, t, n) {
             }
         }
 
-        function _() {
+        function W() {
             var e = setInterval(function () {
                 var e, t, n = navigator.connection;
                 y.default.custom(y.default.CustomCode.NetSpeed, {
@@ -24998,7 +25165,7 @@ parcelRequire = function (e, r, t, n) {
             }
         }
 
-        function q(e) {
+        function U(e) {
             return a(this, void 0, Promise, function () {
                 var t, n;
                 return o(this, function (i) {
@@ -25025,44 +25192,62 @@ parcelRequire = function (e, r, t, n) {
         }
 
         exports.RoomPlayer = V;
-        var U = function (e, t) {
-            var n = [];
-            return n.push(e.on(f.VideoEventType.MutePlay, function () {
-                var i = x.createMutePlayTip(t, function () {
-                    var t = e.getVideoEl();
-                    null != t && (t.muted = !1)
-                });
-                e.ctrl.getCtrlUI().show ? i.change(!0) : i.change(!1), n.push(e.on(f.VideoEventType.Destroyed, i.destroy), e.ctrl.onRefresh(i.destroy), e.on(d.ExternalEventType.SwitchLine, i.destroy), e.on(d.ExternalEventType.SwitchQuality, i.destroy), i.destroy, e.ctrl.onChange(function (e, t) {
-                    if ("show" === e && (!0 === t ? i.change(!0) : i.change(!1)), "volume" === e) {
-                        var n = t, a = n.disabled, o = n.value;
-                        (!a || o > 0) && i.destroy()
-                    }
-                }))
-            })), n.push(e.on(f.VideoEventType.NotAutoPlay, function () {
-                var i = x.createNotAutoPlayTip(t, function () {
-                    var t = e.getVideoEl();
-                    null != t && (t.muted = !1, t.play().catch(function (e) {
-                        d.logger.error("click btn to play failed")
+        var N = function (e, t, n) {
+            var i = null == n || n, a = [];
+            return a.push(e.on(v.VideoEventType.MutePlay, function () {
+                if (i) {
+                    var n = x.createMutePlayTip(t, function () {
+                        var t = e.getVideoEl();
+                        null != t && (t.muted = !1)
+                    });
+                    e.ctrl.getCtrlUI().show ? n.change(!0) : n.change(!1), a.push(e.on(v.VideoEventType.Destroyed, n.destroy), e.ctrl.onRefresh(n.destroy), e.on(d.ExternalEventType.SwitchLine, n.destroy), e.on(d.ExternalEventType.SwitchQuality, n.destroy), n.destroy, e.ctrl.onChange(function (e, t) {
+                        if ("show" === e && (!0 === t ? n.change(!0) : n.change(!1)), "volume" === e) {
+                            var i = t, a = i.disabled, o = i.value;
+                            (!a || o > 0) && n.destroy()
+                        }
                     }))
-                });
-                n.push(e.on(f.VideoEventType.Destroyed, function () {
-                    i()
-                }))
+                }
+            })), a.push(e.on(v.VideoEventType.NotAutoPlay, function () {
+                if (i) {
+                    var n = x.createNotAutoPlayTip(t, function () {
+                        var t = e.getVideoEl();
+                        null != t && (t.muted = !1, t.play().catch(function (e) {
+                            d.logger.error("click btn to play failed")
+                        }))
+                    });
+                    a.push(e.on(v.VideoEventType.Destroyed, function () {
+                        n()
+                    }))
+                }
             })), function () {
-                n.forEach(function (e) {
+                a.forEach(function (e) {
                     e()
                 })
             }
-        };
+        }, q = !1;
 
-        function N(e) {
-            if (!(Math.random() > .001)) {
-                var t = 0, n = d.monitorFPS({type: "avg"}, function (e) {
-                    t = e
+        function A(t) {
+            if (!(q || (q = !0, Math.random() > .01))) {
+                var n = 0, i = d.monitorFPS({type: "avg"}, function (e) {
+                    n = e
                 });
                 window.setTimeout(function () {
-                    n(), y.default.perf(y.default.PerfCode.FPS, t, {params: e})
+                    var o;
+                    i(), y.default.perf(y.default.PerfCode.DevicePerf, n, {
+                        params: e(e({
+                            cpuCnt: navigator.hardwareConcurrency,
+                            mem: null !== (o = navigator.deviceMemory) && void 0 !== o ? o : -1
+                        }, a()), {dmSwitch: t.dmSwitch, maskDM: t.dmBiz.bodyMaskDetectorStatus}), extFields: []
+                    })
                 }, 1e4)
+            }
+
+            function a() {
+                var e = document.createElement("canvas").getContext("experimental-webgl"),
+                    t = {renderer: "", vendor: ""};
+                if (null == e) return t;
+                var n = e.getExtension("WEBGL_debug_renderer_info");
+                return null != n && (t.renderer = e.getParameter(n.UNMASKED_RENDERER_WEBGL), t.vendor = e.getParameter(n.UNMASKED_VENDOR_WEBGL)), t
             }
         }
 
@@ -25089,4 +25274,3 @@ parcelRequire = function (e, r, t, n) {
         "./ui-components/not-auto-play": "QivA"
     }]
 }, {}, ["nuNG"], null)
-//# sourceMappingURL=/room-player.js.map

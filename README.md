@@ -2,6 +2,11 @@
 
 B站直播间 WebSocket 服务，可用于实时获取直播间弹幕
 
+> 以下内容来自于对B站官方脚本的分析，脚本地址:
+> https://s1.hdslb.com/bfs/blive-engineer/live-web-player/room-player.min.js
+>
+> 脚本最后更新时间: 2022-08-10 16:07:33 (Last-Modified)
+
 ## 项目背景
 
 周末在家偶尔看到B站直播间有一个用弹幕玩的游戏，根据用户输入的弹幕内容进行的实时游戏，感觉挺不错的，于是就想研究一下是怎么做的。
