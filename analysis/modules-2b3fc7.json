@@ -1,0 +1,373 @@
+[
+  {
+    "mod": "cPXi",
+    "file": "./interface.js"
+  },
+  {
+    "mod": "MFFc",
+    "file": "./common-utils.js"
+  },
+  {
+    "mod": "GlyE",
+    "file": "./ua.js"
+  },
+  {
+    "mod": "fk22",
+    "file": "./create-element.js"
+  },
+  {
+    "mod": "Klvu",
+    "file": "./loading.js"
+  },
+  {
+    "mod": "PFwM",
+    "file": "./ajax.js"
+  },
+  {
+    "mod": "hSGw",
+    "file": "./fps-monitor.js"
+  },
+  {
+    "mod": "JKnM",
+    "file": "./logger.js"
+  },
+  {
+    "mod": "JkDX",
+    "file": "./event-bus.js"
+  },
+  {
+    "mod": "BEmL",
+    "file": "./player-debug.js"
+  },
+  {
+    "mod": "wHWR",
+    "file": "./toast.js"
+  },
+  {
+    "mod": "U3yD",
+    "file": "./user-setting.js"
+  },
+  {
+    "mod": "Qw13",
+    "file": "./media-action.js"
+  },
+  {
+    "mod": "KGHo",
+    "file": "./common.js"
+  },
+  {
+    "mod": "lV3a",
+    "file": "@bilibili-live/fmp4.js"
+  },
+  {
+    "mod": "MwY8",
+    "file": "./video-utils.js"
+  },
+  {
+    "mod": "ao58",
+    "file": "@bilibili-live/web-player-video.js"
+  },
+  {
+    "mod": "uCDP",
+    "file": "@bilibili-live/web-player-playurl-parser.js"
+  },
+  {
+    "mod": "MW6F",
+    "file": "@bilibili-live/web-player-controller.js"
+  },
+  {
+    "mod": "kyLC",
+    "file": "./utils.js"
+  },
+  {
+    "mod": "wPfs",
+    "file": "./formatter.js"
+  },
+  {
+    "mod": "EpHV",
+    "file": "./core.js"
+  },
+  {
+    "mod": "jGuH",
+    "file": "./exp.js"
+  },
+  {
+    "mod": "oQm6",
+    "file": "./directives/directives.js"
+  },
+  {
+    "mod": "HmVg",
+    "file": "./timing.js"
+  },
+  {
+    "mod": "SCHR",
+    "file": "./dimension.js"
+  },
+  {
+    "mod": "lNBA",
+    "file": "./perf.js"
+  },
+  {
+    "mod": "BuDO",
+    "file": "...js"
+  },
+  {
+    "mod": "ESUf",
+    "file": "@bilibili-live/web-player-track.js"
+  },
+  {
+    "mod": "as8u",
+    "file": "../common/controller.js"
+  },
+  {
+    "mod": "FT5O",
+    "file": "process.js"
+  },
+  {
+    "mod": "GTYV",
+    "file": "@bilibili-live/sisters-p2p.js"
+  },
+  {
+    "mod": "ryqy",
+    "file": "./bili-p2p.js"
+  },
+  {
+    "mod": "p0fG",
+    "file": "./qvb-fetcher.js"
+  },
+  {
+    "mod": "V6Hm",
+    "file": "./qvb-p2p.js"
+  },
+  {
+    "mod": "R6Co",
+    "file": "@bilibili-live/web-player-p2p.js"
+  },
+  {
+    "mod": "A6uK",
+    "file": "./p2p-adapter.js"
+  },
+  {
+    "mod": "KY4m",
+    "file": "../common/utils.js"
+  },
+  {
+    "mod": "rPou",
+    "file": "../common/track-video.js"
+  },
+  {
+    "mod": "XQD5",
+    "file": "./replay.less.js"
+  },
+  {
+    "mod": "EfpE",
+    "file": "../sdk/socket-core.min.js"
+  },
+  {
+    "mod": "MWvE",
+    "file": "@bilibili-live/web-player-socket.js"
+  },
+  {
+    "mod": "xqO8",
+    "file": "./replay.js"
+  },
+  {
+    "mod": "blC7",
+    "file": "../common/connects.js"
+  },
+  {
+    "mod": "fyPa",
+    "file": "./sticker.js"
+  },
+  {
+    "mod": "OKfi",
+    "file": "@bilibili/wasmplayer-loader.js"
+  },
+  {
+    "mod": "lCVI",
+    "file": "./hevc-adapter.js"
+  },
+  {
+    "mod": "yABZ",
+    "file": "./live-player-tool.js"
+  },
+  {
+    "mod": "H7b7",
+    "file": "./switch-better-line.js"
+  },
+  {
+    "mod": "z0Gg",
+    "file": "./retry-strategy.js"
+  },
+  {
+    "mod": "XBQm",
+    "file": "./panorama.js"
+  },
+  {
+    "mod": "pBr6",
+    "file": "./live-player/live-player.js"
+  },
+  {
+    "mod": "W75V",
+    "file": "./round-player/round-player.js"
+  },
+  {
+    "mod": "DfF7",
+    "file": "@bilibili-live/web-player.js"
+  },
+  {
+    "mod": "jM0N",
+    "file": "requestidlecallback-polyfill.js"
+  },
+  {
+    "mod": "NApx",
+    "file": "@bilibili-live/live-danmaku-engine-v2.js"
+  },
+  {
+    "mod": "QxLc",
+    "file": "./mask-decoder.js"
+  },
+  {
+    "mod": "uyEh",
+    "file": "@bilibili-live/web-player-danmaku.js"
+  },
+  {
+    "mod": "Rr2x",
+    "file": "./biz-interface.js"
+  },
+  {
+    "mod": "E90K",
+    "file": "./ui-components/error-panel.js"
+  },
+  {
+    "mod": "Rvqf",
+    "file": "./haptic.js"
+  },
+  {
+    "mod": "rPeE",
+    "file": "./vibrate/vibrate_task.js"
+  },
+  {
+    "mod": "YQ89",
+    "file": "./biz-common.js"
+  },
+  {
+    "mod": "ipbQ",
+    "file": "@bilibili-live/live-shadow.js"
+  },
+  {
+    "mod": "ZWNU",
+    "file": "./danmaku-biz.js"
+  },
+  {
+    "mod": "vDPq",
+    "file": "./ui-components/end-recommend-panel.js"
+  },
+  {
+    "mod": "vS7T",
+    "file": "./ui-components/video-logo.js"
+  },
+  {
+    "mod": "EORf",
+    "file": "./ui-components/feedback.js"
+  },
+  {
+    "mod": "weyG",
+    "file": "./ui-components/preround-conuter.js"
+  },
+  {
+    "mod": "ntSr",
+    "file": "./index.less.js"
+  },
+  {
+    "mod": "wERC",
+    "file": "./contextmenu.js"
+  },
+  {
+    "mod": "x9fc",
+    "file": "./type.js"
+  },
+  {
+    "mod": "YNoa",
+    "file": "@bilibili-live/web-player-contextmenu.js"
+  },
+  {
+    "mod": "RYhb",
+    "file": "./wave-graph.js"
+  },
+  {
+    "mod": "E7iI",
+    "file": "./panel.js"
+  },
+  {
+    "mod": "SR9Z",
+    "file": "@bilibili-live/web-player-video-info.js"
+  },
+  {
+    "mod": "qhQO",
+    "file": "./modal.less.js"
+  },
+  {
+    "mod": "ywxt",
+    "file": "./modal.js"
+  },
+  {
+    "mod": "lmPI",
+    "file": "./index.less.js"
+  },
+  {
+    "mod": "wafJ",
+    "file": "@bilibili-live/web-player-danmaku-report.js"
+  },
+  {
+    "mod": "jLTy",
+    "file": "./log-panel.less.js"
+  },
+  {
+    "mod": "MY3w",
+    "file": "./ui-components/log-panel.js"
+  },
+  {
+    "mod": "PTXm",
+    "file": "./browser-fullscreen.js"
+  },
+  {
+    "mod": "n8Xe",
+    "file": "./idb.js"
+  },
+  {
+    "mod": "cQRo",
+    "file": "./utils.js"
+  },
+  {
+    "mod": "gT7a",
+    "file": "./ajax.js"
+  },
+  {
+    "mod": "NwTf",
+    "file": "./report.js"
+  },
+  {
+    "mod": "wAJK",
+    "file": "./GoldMiner.js"
+  },
+  {
+    "mod": "zRQJ",
+    "file": "@bilibili-live/gold-miner.js"
+  },
+  {
+    "mod": "hY1T",
+    "file": "./log-storage.js"
+  },
+  {
+    "mod": "z9tw",
+    "file": "./not-auto-play.less.js"
+  },
+  {
+    "mod": "QivA",
+    "file": "./ui-components/not-auto-play.js"
+  },
+  {
+    "mod": "nuNG"
+  }
+]

@@ -1,49 +1,74 @@
-parcelRequire = function (e, r, t, n) {
-    var i, o = "function" == typeof parcelRequire && parcelRequire, u = "function" == typeof require && require;
+parcelRequire = function (mods, cache, entryMods, globalName) {
+    let globalError
+    let parentRequire = "function" == typeof parcelRequire && parcelRequire
+    let u = "function" == typeof require && require;
 
-    function f(t, n) {
-        if (!r[t]) {
-            if (!e[t]) {
-                var i = "function" == typeof parcelRequire && parcelRequire;
-                if (!n && i) return i(t, !0);
-                if (o) return o(t, !0);
-                if (u && "string" == typeof t) return u(t);
-                var c = new Error("Cannot find module '" + t + "'");
-                throw c.code = "MODULE_NOT_FOUND", c
+    function Bundle(id, n) {
+        function require(e) {
+            return Bundle(require.resolve(e))
+        }
+
+        if (!cache[id]) {
+            if (!mods[id]) {
+                let i = "function" == typeof parcelRequire && parcelRequire;
+                if (!n && i) {
+                    return i(id, true);
+                }
+                if (parentRequire) {
+                    return parentRequire(id, true);
+                }
+                if (u && "string" == typeof id) {
+                    return u(id);
+                }
+                const err = new Error("Cannot find module '" + id + "'");
+                err.code = "MODULE_NOT_FOUND"
+                throw err
             }
-            p.resolve = function (r) {
-                return e[t][1][r] || r
-            }, p.cache = {};
-            var l = r[t] = new f.Module(t);
-            e[t][0].call(l.exports, p, l, l.exports, this)
+            require.resolve = function (specifier) {
+                return mods[id][1][specifier] || specifier
+            }
+            require.cache = {};
+            const mod = cache[id] = new Bundle.Module(id);
+            mods[id][0].call(mod.exports, require, mod, mod.exports, this)
         }
-        return r[t].exports;
-
-        function p(e) {
-            return f(p.resolve(e))
-        }
+        return cache[id].exports;
     }
 
-    f.isParcelRequire = !0, f.Module = function (e) {
-        this.id = e, this.bundle = f, this.exports = {}
-    }, f.modules = e, f.cache = r, f.parent = o, f.register = function (r, t) {
-        e[r] = [function (e, r) {
-            r.exports = t
+    Bundle.isParcelRequire = true
+    Bundle.Module = function (id) {
+        this.id = id
+        this.bundle = Bundle
+        this.exports = {}
+    }
+    Bundle.modules = mods
+    Bundle.cache = cache
+    Bundle.parent = parentRequire
+    Bundle.register = function (id, exports) {
+        mods[id] = [function (require, module) {
+            module.exports = exports
         }, {}]
     };
-    for (var c = 0; c < t.length; c++) try {
-        f(t[c])
-    } catch (e) {
-        i || (i = e)
+
+    for (let i = 0; i < entryMods.length; i++) {
+        try {
+            Bundle(entryMods[i])
+        } catch (e) {
+            globalError || (globalError = e)
+        }
     }
-    if (t.length) {
-        var l = f(t[t.length - 1]);
-        "object" == typeof exports && "undefined" != typeof module ? module.exports = l : "function" == typeof define && define.amd ? define(function () {
-            return l
-        }) : n && (this[n] = l)
+    if (entryMods.length) {
+        let l = Bundle(entryMods[entryMods.length - 1]);
+        "object" == typeof exports && "undefined" != typeof module
+            ? module.exports = l
+            : "function" == typeof define && define.amd
+                ? define(function () {
+                    return l
+                })
+                : globalName && (this[globalName] = l)
     }
-    if (parcelRequire = f, i) throw i;
-    return f
+    parcelRequire = Bundle
+    if (globalError) throw globalError;
+    return Bundle
 }({
     "cPXi": [function (require, module, exports) {
         "use strict";
