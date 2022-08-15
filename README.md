@@ -5,11 +5,12 @@ B站直播间 WebSocket 服务，可用于实时获取直播间弹幕
 > 以下内容来自于对B站官方脚本的分析，脚本地址:
 > https://s1.hdslb.com/bfs/blive-engineer/live-web-player/room-player.min.js
 >
-> 脚本最后更新时间: 2022-08-10 16:07:33 (Last-Modified)
+> 脚本最后更新时间: 2022-08-10 16:07:33 (Last-Modified)  
+> 脚本构建版本: 1.4.4.34
 
-> 2020.08.15 更新
+> 2020.08.15 更新说明
 > 
-> 突然发现官方提供了直播相关的开放平台 https://open-live.bilibili.com/document/
+> 突然发现官方提供了直播相关的开放平台 https://open-live.bilibili.com/document/，
 > 不过对接这个API需要复杂的鉴权过程，后续看看会不会有什么优势。
 
 ## 项目背景

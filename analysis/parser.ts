@@ -93,19 +93,32 @@ function resolveModule(file: string, moduleNames: string[]) {
     return modules
 }
 
+function resolveBuildConfig(file: string) {
+    const res = file.match(/{version:"(?<version>\d.\d.\d)",gitHash:"(?<gitHash>[\da-z]{8})",build:"(?<build>\d{2,})",bundleType:"release"/)
+    if (res === null) {
+        return null
+    }
+    return {
+        version: res.groups?.version,
+        gitHash: res.groups?.gitHash,
+        build: res.groups?.build,
+    }
+}
+
 function run() {
-    const file = Deno.readTextFileSync(__dirname + '../raw/room-player.min.js')
+    const file = Deno.readTextFileSync(__dirname + '../raw/room-player-2022-08-10T16:07:33.min.js')
 
-    const moduleNames = parseModuleNames(file)
-    const modules = resolveModule(file, moduleNames)
+    // const moduleNames = parseModuleNames(file)
+    // const modules = resolveModule(file, moduleNames)
 
-    const hash = createHash("md5").update(file).toString()
-    const output = __dirname + `modules-${hash.slice(-6)}.json`
-    Deno.writeTextFileSync(output, JSON.stringify(modules))
-    console.log(`输出文件: \n${output}`)
+    // const hash = createHash("md5").update(file).toString()
+    // const output = __dirname + `modules-${hash.slice(-6)}.json`
+    // Deno.writeTextFileSync(output, JSON.stringify(modules))
+    // console.log(`输出文件: \n${output}`)
 
     // resolveModuleDeps(file, 'nuNG')
     // console.log(checkModuleIsEntry(file, 'nuNG'))
+    console.log(resolveBuildConfig(file))
 }
 
 run()
