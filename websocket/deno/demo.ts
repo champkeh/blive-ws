@@ -32,4 +32,4 @@ import {getRealRoomId} from "./api.ts";
 //     // console.log('心跳应答')
 // })
 
-getRealRoomId(732)
+console.log(getRealRoomId(221))

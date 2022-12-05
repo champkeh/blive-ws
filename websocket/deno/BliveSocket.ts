@@ -188,7 +188,6 @@ export default class BliveSocket extends EventTarget {
     }
 
     private onMessage(msg: MessageEvent) {
-        console.log('message')
         try {
             const data = this.convertToObject(msg.data)
 

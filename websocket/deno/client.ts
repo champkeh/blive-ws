@@ -125,6 +125,10 @@ async function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
             inspect(this)
         } else if (userDirective.cmd === 'enter') {
             // 加入房间，确保 rid 为数字类型，否则发送认证包会失败
+            if (userDirective.events.includes('DANMU_MSG')) {
+                // B站普通弹幕消息类型变成了 DANMU_MSG:4:0:2:2:2:0 具体原因不详，这里直接替换为新的类型
+                userDirective.events.push('DANMU_MSG:4:0:2:2:2:0')
+            }
             await enterRoom(+userDirective.rid, userDirective.events, this)
         } else if (userDirective.cmd === 'leave') {
             // 离开房间
@@ -178,6 +182,9 @@ async function enterRoom(rid: number, events: string[], client: WebSocketClient)
     events.forEach(event => {
         const cb = (data: CustomEventInit) => {
             if (data.detail) {
+                if (data.detail?.cmd === 'DANMU_MSG:4:0:2:2:2:0') {
+                    data.detail.cmd = 'DANMU_MSG'
+                }
                 client.socket.send(JSON.stringify({rid, payload: data.detail}))
             } else {
                 client.socket.send(JSON.stringify({rid, payload: {event}}))
