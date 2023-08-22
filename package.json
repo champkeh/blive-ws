@@ -1,6 +1,6 @@
 {
   "name": "blive-ws",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "B站直播间 WebSocket 服务，可用于实时获取直播间弹幕",
   "keywords": [
     "danmaku",
