@@ -168,6 +168,7 @@ async function enterRoom(rid: number, events: string[], client: WebSocketClient)
 
     // 新建房间对应的 B 站 Socket 对象
     const bliveSocket = new BliveSocket({
+        uid: 487408043,
         rid,
         events,
         debug: false,
