@@ -1,41 +1,36 @@
 # blive-ws
 
-B站直播间 WebSocket 服务，可用于实时获取直播间弹幕
+B站直播间 WebSocket 服务，可用于实时获取直播间弹幕数据。
 
-> 以下内容来自于对B站官方脚本的分析，脚本地址:
-> https://s1.hdslb.com/bfs/blive-engineer/live-web-player/room-player.min.js
->
-> 脚本最后更新时间: 2022-08-10 16:07:33 (Last-Modified)  
-> 脚本构建版本: 1.4.4.34
+Demo地址: https://blive.deno.dev
 
-> 2020.08.15 更新说明
-> 
-> 突然发现官方提供了直播相关的开放平台 https://open-live.bilibili.com/document/
-> 不过对接这个API需要复杂的鉴权过程，后续看看会不会有什么优势。
+> 这个在线服务采用免费的 Deno Deploy 部署，**稳定性不能保证，仅用于测试目的**，后续如果有可靠的免费部署服务的话，会考虑切换。
+
+
+## 2022.08.15 更新说明
+突然发现官方提供了直播相关的开放平台 https://open-live.bilibili.com/document/, 不过对接这个sdk需要繁琐的鉴权过程，如果只需要获取弹幕数据的话，可以直接使用本工具。(后续会研究一下官方sdk的其他功能)
 
 ## 项目背景
 
-周末在家偶尔看到B站直播间有一个用弹幕玩的游戏，根据用户输入的弹幕内容进行的实时游戏，感觉挺不错的，于是就想研究一下是怎么做的。
+周末在家刷B站时，偶尔看到B站直播间可以用弹幕玩游戏，根据用户输入的弹幕内容与其他玩家进行实时游戏，感觉挺新颖的，于是就想研究一下是怎么实现的。
 
-网上大概搜了一下，<del>B 站没有提供相关 API</del>(B站有开放直播相关的API，不过需要复杂的鉴权过程，对于想要单纯获取直播间弹幕来说过于复杂)，网上有用 python 爬虫实现的，但我作为一枚前端，首先想到的就是看看能不能直接连接B站的 websocket 弹幕服务器，直接接收弹幕消息。
+网上大概搜了一下，<del>B站没有提供实时获取直播间弹幕的 API</del>(B站提供了开放直播相关的sdk，不过需要繁琐的鉴权过程，于是放弃)，网上有使用爬虫实现的，但作为一枚前端，首先想到的就是看看能不能直接连接B站的 websocket 弹幕服务器，直接接收弹幕消息。
 
-想法有了，于是就开干吧。整个过程其实就是把B站的相关js代码拉下来，然后将压缩版的js代码还原成接近源码的程度，这个过程其实没那么难，只是需要花一些时间。利用周末2天时间，基本上把弹幕的接收端调通了，可以实时接收直播间的弹幕消息。
+想法有了，于是就开干吧。整个过程其实就是把B站的直播间相关js代码拉下来，然后将压缩版的js代码还原成接近源码的程度，弄清楚整个 websocket 是如何通信的。
+
+这个过程其实没那么难，只是需要花一些时间。利用周末2天时间，基本上把弹幕的接收端调通了，可以实时接收直播间的弹幕消息。
 
 > 目前遇到的难点可能就是 await 代码不太好还原成源码，基本只能靠猜。因为 await 编译之后变成了 generator 的实现，中间的逻辑我还没分析出来。
 >
 > 不过，单靠猜基本也能还原个八九不离十。
 >
-> 感兴趣的可以查看下 analysis/await/ 目录下面的相关代码
+> 感兴趣的可以查看下 anatomy/await/ 目录下关于`__awaiter/__generator`函数的实现。
 
 ## 如何使用？
 
-### 方式一：使用在线服务
+通过在服务端部署一个 websocket 代理服务器，这个代理服务器与B站的弹幕服务器进行通讯并封装了繁琐的通讯过程，前端在使用时只需要连接到这个代理服务器，通过几个简单的命令即可开启实时弹幕获取。
 
-这种方式是通过在服务器部署一个 websocket 代理服务器，使用时只需要连接这个代理服务器，然后发送一些命令即可开启实时弹幕获取。
-
-#### 使用方式
-
-> 下面的示例是浏览器 js 代码，其他环境类似，都是通过 websocket 客户端连接到这个代理服务器，然后通过发送指令即可。
+> 下面的示例是浏览器 js 代码，其他环境类似，都是通过 websocket 客户端连接到这个代理服务器，然后发送指令即可。
 > 
 > 目前的公共代理服务器地址为: [wss://blive.deno.dev](https://blive.deno.dev)  
 > 支持私有部署(目前仅支持部署到 Deno Deploy)
@@ -46,33 +41,40 @@ const socket = new WebSocket('wss://blive.deno.dev')
 socket.addEventListener('open', () => {
     // 进入房间命令
     socket.send(JSON.stringify({
-        cmd: 'enter',           // 命令
-        rid: '123',             // 房间号
+        cmd: 'enter',           // 命令名，必填
+        rid: '123',             // 房间号，必填
+        uid: '123',             // 进入房间的用户id，若不传，则为匿名模式，该模式在进入直播间5分钟之后弹幕数据会被脱敏。
         events: ['DANMU_MSG'],  // 监听这个房间中的事件列表
     }))
 
-    // 离开房间命令
+    // 退出房间命令
     socket.send(JSON.stringify({
-        cmd: 'leave',           // 命令
-        rid: '123',             // 房间号
+        cmd: 'leave',           // 命令名，必填
+        rid: '123',             // 房间号，必填
+        uid: '123',             // 用户id，若不传，则所有进入该房间的用户都将退出
     }))
 })
 
 socket.addEventListener('message', ({data}) => {
-    // 接收到的消息，格式为 { rid: '房间号', payload: {} }
+    // 接收到的消息，格式为 { rid: '房间号', uid: '用户id', payload: {} }
     console.log(data)
 })
 ```
 
+![使用效果](assets/demo.png)
+
+
+> (rid, uid) 组合唯一标识一个 websocket 链接，也就是说，同一个用户不能重复进入同一个房间。
+
 支持的命令有：
 
-- enter 进入房间，需要 rid 和 events 参数
-- leave 离开房间，需要 rid 参数
-- exit 退出所有房间
+- enter 进入房间，需要 rid、uid 和 events 参数
+- leave 退出房间，需要 rid、uid 参数
+- exit 退出所有用户的所有房间
 
 支持的 event 有：
 
-> 本人不怎么玩直播，所以下面的事件名字都是根据英文单词猜的，可能跟真正的直播间术语有冲突。
+> 注：本人不怎么玩直播，所以下面的事件名字都是根据英文单词直译的，可能跟大家在直播间使用的术语不一样。
 
 |          事件名(大小写敏感)           |     说明      |
 |:-----------------------------:|:-----------:|
@@ -102,80 +104,29 @@ socket.addEventListener('message', ({data}) => {
 |         WIDGET_BANNER         |     小部件     |
 |     LIVE_INTERACTIVE_GAME     | 现场交互游戏(弹幕？) |
 
-关于方式一的更多细节可以阅读 [websocket重构](apis/refactor.md)。
+关于代理服务器的更多细节可以阅读 [websocket重构](docs/refactor.md)。
 
-Demo地址: https://blive.deno.dev
-
-> 这个在线服务采用免费的 Deno Deploy 部署，**稳定性不能保证，仅用于测试**，后续如果有可靠的免费部署服务的话，会考虑切换。
-
-### 方式二：本地浏览器内运行
-
-1. 克隆项目
-
-```shell
-git clone git@github.com:champkeh/blive-ws.git
-```
-
-2. 安装依赖
-
-npm:
-```shell
-npm i
-```
-
-yarn:
-```shell
-yarn install
-```
-
-pnpm
-```shell
-pnpm i
-```
-
-3. 启动服务
-
-> 该服务主要用来代理B站的相关接口，防止出现 CORS 错误
-
-```shell
-npm run start
-```
-
-4. 输入直播间 roomid 即可开始采集实时弹幕数据了(支持short id)，效果如下
-
-![使用效果](assets/demo.png)
-
-默认监听直播间的【普通弹幕】、【文本交互】、【送礼物】以及【连接】和【断开】事件，想要监听更多消息，可以通过`addEventListener`添加更多类型的监听器。
-
-比如，监听【进入特效】消息代码如下：
-
-```js
-socket.addEventListener('ENTRY_EFFECT', ({detail}) => {
-    // 进入特效的数据 detail
-})
-```
-
-### 浏览器运行的额外说明
-
-由于建立 websocket 连接需要首先调用 http 接口获取`token`值(下面的原理部分有讲解)，而该 http 接口并未开启 CORS，所以这里需要启动一个本地代理服务器来处理跨域问题，如果需要部署到线上，则需要自行解决代理服务器的问题。
 
 ## 目录说明
 
-下面是各个目录的说明：
+下面是本项目各个目录的说明：
 
-- raw: 从b站获取的压缩版js文件，保留不动
-- analysis: 对上面的压缩版js进行格式化，也可能会把一些文件拆成多个文件方便分析
-- apis: b站网页调用的一些接口，后续看看能不能利用一下
-- <del>source/ws: 最终还原出的源码，目前只关注 websocket 弹幕服务，后面如果要分析其他部分，可能会单独创建目录</del>
-- apps: 基于分析出来的源码做的一些案例
+- anatomy: 对B站压缩版js进行还原，也可能会把一些文件拆成多个文件方便分析
+- docs: 收集B站网页调用的接口及一些文档
+- raw: 从B站获取的压缩版js文件(未修改)
 - websocket/deno: 部署到 Deno Deploy 的公共代理服务器
 
 ## 传输协议细节
 
-首先根据房间号调用 HTTP 接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`
-、`host_list`等建立 websocket 连接所需的基本参数。
+> 以下内容来自于对B站官方脚本的分析，脚本地址:
+> https://s1.hdslb.com/bfs/blive-engineer/live-web-player/room-player.min.js
+>
+> 脚本最后更新时间: 2023-08-22 11:54:39 (Last-Modified)  
+> 脚本构建版本: 1.4.5.41
 
-`host_list`是 websocket 断开后的重连服务列表，每次都会随机返回2个地址外加一个固定地址: `broadcastlv.chat.bilibili.com`。
+首先根据房间号调用 HTTP 接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`、`host_list`等建立 websocket 连接所需的基本参数。
+
+`host_list`是 websocket 中断后进行重连的服务列表，接口会返回2个随机地址加1个固定地址: `broadcastlv.chat.bilibili.com`。
 
 `token`用于 websocket 连接建立之后进行用户认证，只有认证成功才会接收到数据。
 
@@ -270,7 +221,7 @@ const body = new TextEncoder().encode(payload)
 
 ### 二进制消息协议
 
-websocket 传输的数据为二进制格式，如下所示：
+B站弹幕 websocket 传输的数据为二进制格式，如下所示：
 
 ```js
 const ws = new WebSocket(url)
@@ -351,7 +302,7 @@ const OPCODE = {
 
 包总大小为20字节，但实际传输的却是35个字节。
 
-我们根据上面心跳包知道，这个数据最后的`[object Object]`是服务器返回了一个空对象`{}`导致的。而 body 的前4个字节表示的当前房间的人气值。
+我们根据上面心跳包知道，这个数据最后的`[object Object]`是服务器返回了一个空对象`{}`导致的。而 body 的前4个字节表示的当前房间的人气值(猜的)。
 
 另外，消息头加上这个人气值正好是20字节，也就是`header.packetLen`值，也就是说，心跳应答包其实不需要返回后面的空对象的(浪费15个字节的传输流量)。
 

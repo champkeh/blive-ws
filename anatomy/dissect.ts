@@ -5,7 +5,7 @@ const __dirname = new URL('.', import.meta.url).pathname
 
 /**
  * 提取文件中的所有模块名
- * @param file
+ * @param file 脚本内容
  */
 function parseModuleNames(file: string) {
     const modules = []
@@ -78,7 +78,7 @@ interface ModuleInfo {
 /**
  * 解析模块信息
  * @param file 文件内容
- * @param moduleNames
+ * @param moduleNames 模块名列表
  */
 function resolveModule(file: string, moduleNames: string[]) {
     const modules: ModuleInfo[] = []
@@ -106,10 +106,11 @@ function resolveBuildConfig(file: string) {
 }
 
 function run() {
-    const file = Deno.readTextFileSync(__dirname + '../raw/room-player-2022-08-10T16:07:33.min.js')
+    const file = Deno.readTextFileSync(__dirname + '../raw/room-player-2023-08-22T03:54:39.min.js')
 
-    // const moduleNames = parseModuleNames(file)
-    // const modules = resolveModule(file, moduleNames)
+    const moduleNames = parseModuleNames(file)
+    // console.log(moduleNames)
+    const modules = resolveModule(file, moduleNames)
 
     // const hash = createHash("md5").update(file).toString()
     // const output = __dirname + `modules-${hash.slice(-6)}.json`
@@ -118,7 +119,7 @@ function run() {
 
     // resolveModuleDeps(file, 'nuNG')
     // console.log(checkModuleIsEntry(file, 'nuNG'))
-    console.log(resolveBuildConfig(file))
+    // console.log(resolveBuildConfig(file))
 }
 
 run()

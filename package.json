@@ -4,24 +4,20 @@
   "description": "B站直播间 WebSocket 服务，可用于实时获取直播间弹幕",
   "keywords": [
     "danmaku",
-    "B站",
     "B站弹幕",
     "直播间弹幕",
     "弹幕抓取",
     "弹幕游戏",
-    "B站WebSocket",
-    "WebSocket"
+    "B站WebSocket"
   ],
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "node apps/server.js",
     "deno": "deno run --allow-read --allow-net websocket/deno/app.ts",
-    "start": "node server.js",
     "demo": "deno run --allow-read --allow-net websocket/deno/demo.ts",
-    "parse": "deno run --allow-read --allow-write analysis/parser.ts"
+    "dissect": "deno run --allow-read --allow-write anatomy/dissect.ts"
   },
-  "dependencies": {
-    "blive-ws": "0.1.1-alpha.2",
+  "devDependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "http-proxy-middleware": "^2.0.6",

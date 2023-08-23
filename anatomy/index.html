@@ -1,0 +1,1770 @@
+<!---
+    Bilibili Live Room.
+    © 2014 - 2023 Bilibili Live Department.
+    Powered By Fantastic Artwork Vue.js @ Evan You.
+    Build: 2023.08.18 - 14:50:03
+    Verison: 4.0.0
+    Env: production
+    ===
+    「あなたに逢えなくなって、錆びた時計と泣いたけど…」
+    # Carry Your World #
+-->
+<!DOCTYPE html>
+<html lab-style="">
+<head>
+    <link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/laputa-css/map.css"/>
+    <link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/laputa-css/light_u.css"/>
+    <link id="__css-map__" rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/laputa-css/light.css"/>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
+    <meta name=renderer content=webkit>
+    <meta http-equiv=Content-Security-Policy content=upgrade-insecure-requests>
+    <title id=link-app-title>哔哩哔哩直播，二次元弹幕直播平台</title>
+    <meta name=description content=哔哩哔哩（bilibili）直播，在这里看见最年轻的生活方式，学习、游戏、电竞、宅舞、唱见、绘画、美食等等应有尽有，快来捕捉你最喜欢的up主最真实的一面吧！>
+    <meta name=keywords content=直播,B站,生放送,bilibili,哔哩哔哩,哔哩哔哩直播,B站直播,热门游戏直播,游戏直播,高清游戏直播,电子竞技直播,lol直播,cf直播,dota2直播,美女直播,弹幕,字幕,动漫,动漫音乐,游戏>
+    <meta name=application-name content=哔哩哔哩直播>
+    <meta name=format-detection content="telephone=no">
+    <meta name=apple-mobile-web-app-capable content=yes>
+    <meta name=apple-mobile-web-app-status-bar-style content=black>
+    <meta name=theme-color content=#4393E2>
+    <meta name=referrer content=no-referrer-when-downgrade>
+    <meta http-equiv=origin-trial content="Asgonbsvb0ufqVFRrwnMJgGf3HAtiwl++2S208XERSmTRBxebWHcsJTu9K4wtePhsFzqKF2Zf9F4FuaDogfx3woAAAB2eyJvcmlnaW4iOiJodHRwczovL2JpbGliaWxpLmNvbTo0NDMiLCJmZWF0dXJlIjoiVW5yZXN0cmljdGVkU2hhcmVkQXJyYXlCdWZmZXIiLCJleHBpcnkiOjE3MDk4NTU5OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+    <meta name=spm_prefix content=444.8>
+    <link rel=icon href=//www.bilibili.com/favicon.ico>
+    <link rel=apple-touch-icon href=//www.bilibili.com/favicon.ico>
+    <link rel=apple-touch-icon-precomposed href=//static.hdslb.com/mobile/img/512.png>
+    <link rel=preconnect href=https://s1.hdslb.com crossorigin>
+    <link rel=dns-prefetch href=https://s1.hdslb.com crossorigin>
+    <link rel=preconnect href=https://activity.hdslb.com crossorigin>
+    <link rel=dns-prefetch href=https://activity.hdslb.com crossorigin>
+    <link rel=preconnect href=https://api.live.bilibili.com>
+    <link rel=dns-prefetch href=https://api.live.bilibili.com>
+    <link rel=preconnect href=https://i0.hdslb.com crossorigin>
+    <link rel=dns-prefetch href=https://i0.hdslb.com crossorigin>
+    <script>
+        function isIE() {
+            return navigator.userAgent.toLowerCase().indexOf("trident") > -1
+        }
+        function lowVerEdge() {
+            var e = navigator.userAgent.toLowerCase()
+                , n = e.indexOf("edge/")
+                , i = !1;
+            return n > 0 && parseInt(e.substring(n + 5, e.indexOf(".", n)), 10) < 79 && (i = !0),
+                i
+        }
+        (isIE() || lowVerEdge()) && (window.location.href = "https://link.bilibili.com/p/eden/browser-guide")
+    </script>
+    <script>
+        function addWaifu(a, n) {
+            try {
+                window.performance.mark(a, {
+                    detail: {
+                        component: "performanceTrack"
+                    },
+                    startTime: void 0 !== n ? n : performance.now()
+                })
+            } catch (a) {
+                console.warn(a)
+            }
+        }
+        addWaifu("neptune")
+    </script>
+    <script>
+        !function() {
+            "use strict";
+            var e, f, a, c, d, t, n, r = {}, b = {};
+            function o(e) {
+                var f = b[e];
+                if (void 0 !== f)
+                    return f.exports;
+                var a = b[e] = {
+                    id: e,
+                    loaded: !1,
+                    exports: {}
+                };
+                return r[e].call(a.exports, a, a.exports, o),
+                    a.loaded = !0,
+                    a.exports
+            }
+            o.m = r,
+                e = [],
+                o.O = function(f, a, c, d) {
+                    if (!a) {
+                        var t = 1 / 0;
+                        for (b = 0; b < e.length; b++) {
+                            a = e[b][0],
+                                c = e[b][1],
+                                d = e[b][2];
+                            for (var n = !0, r = 0; r < a.length; r++)
+                                (!1 & d || t >= d) && Object.keys(o.O).every((function(e) {
+                                        return o.O[e](a[r])
+                                    }
+                                )) ? a.splice(r--, 1) : (n = !1,
+                                d < t && (t = d));
+                            n && (e.splice(b--, 1),
+                                f = c())
+                        }
+                        return f
+                    }
+                    d = d || 0;
+                    for (var b = e.length; b > 0 && e[b - 1][2] > d; b--)
+                        e[b] = e[b - 1];
+                    e[b] = [a, c, d]
+                }
+                ,
+                o.n = function(e) {
+                    var f = e && e.__esModule ? function() {
+                                return e.default
+                            }
+                            : function() {
+                                return e
+                            }
+                    ;
+                    return o.d(f, {
+                        a: f
+                    }),
+                        f
+                }
+                ,
+                a = Object.getPrototypeOf ? function(e) {
+                        return Object.getPrototypeOf(e)
+                    }
+                    : function(e) {
+                        return e.__proto__
+                    }
+                ,
+                o.t = function(e, c) {
+                    if (1 & c && (e = this(e)),
+                    8 & c)
+                        return e;
+                    if ("object" == typeof e && e) {
+                        if (4 & c && e.__esModule)
+                            return e;
+                        if (16 & c && "function" == typeof e.then)
+                            return e
+                    }
+                    var d = Object.create(null);
+                    o.r(d);
+                    var t = {};
+                    f = f || [null, a({}), a([]), a(a)];
+                    for (var n = 2 & c && e; "object" == typeof n && !~f.indexOf(n); n = a(n))
+                        Object.getOwnPropertyNames(n).forEach((function(f) {
+                                t[f] = function() {
+                                    return e[f]
+                                }
+                            }
+                        ));
+                    return t.default = function() {
+                        return e
+                    }
+                        ,
+                        o.d(d, t),
+                        d
+                }
+                ,
+                o.d = function(e, f) {
+                    for (var a in f)
+                        o.o(f, a) && !o.o(e, a) && Object.defineProperty(e, a, {
+                            enumerable: !0,
+                            get: f[a]
+                        })
+                }
+                ,
+                o.f = {},
+                o.e = function(e) {
+                    return Promise.all(Object.keys(o.f).reduce((function(f, a) {
+                            return o.f[a](e, f),
+                                f
+                        }
+                    ), []))
+                }
+                ,
+                o.u = function(e) {
+                    return "static/js/" + e + "." + {
+                        4: "39ee8a26fab1035186f0",
+                        179: "70daddec2acaae2010c8",
+                        226: "27994a07984e62978691",
+                        342: "d59094e1be7377ce9275",
+                        379: "18ec6c042aeaf78b5f90",
+                        415: "8987675b233f417dde3d",
+                        457: "ad42e818e65200ab7ab6",
+                        619: "cd522d0514090e528151",
+                        732: "6ea704ad806313ff8a79",
+                        1057: "19120db8044777e9346b",
+                        1323: "9c3199e95f574d9c6cc3",
+                        1375: "bd9912be2b577025edb7",
+                        1426: "62ba9c201f9672f66fd5",
+                        1482: "da296bf5e1928d637395",
+                        1532: "573552fd3202915667ce",
+                        1543: "c0d77a142830a1eecfff",
+                        1584: "158defc2a2e6b9a8f7ed",
+                        1744: "3125b4eab8f0e35aec6b",
+                        1951: "f5094f2145a5be7edd08",
+                        2054: "399a50b2bd776b738087",
+                        2293: "6e4be6eddfdbde98ddc4",
+                        2312: "1533e9b32ed7bd0a4e28",
+                        2338: "9033089ce7398488e2dd",
+                        2500: "cd7a798f26824d58fa71",
+                        2795: "fb428e41272cafe0f1ce",
+                        2971: "5374a69ec9d545ef5a3c",
+                        3001: "8642040c38fee6adf7c6",
+                        3095: "007872aae637511dc2c1",
+                        3158: "2d38993300d08dc95e7b",
+                        3183: "4607c7aff284a3ae6c5d",
+                        3267: "0417c44dac82ff01633b",
+                        3276: "11047c6d5777f2b3a639",
+                        3405: "8983b3061380a228b452",
+                        3513: "acb4d943c53399f20226",
+                        3815: "691081863547821afa92",
+                        4405: "16869b7119831baf69a9",
+                        4407: "774e33863d34733f34ad",
+                        4492: "a69ca7b0a157177bd9ef",
+                        4536: "40a1819f5f387f3e2b4b",
+                        4719: "16c606e311f653f0de18",
+                        4759: "2650d82910e1717938a9",
+                        4846: "cd7c446383160d433200",
+                        4860: "8e460010005ed5439408",
+                        5058: "ac5a0f6122566a0ff8af",
+                        5228: "50a2764fec5d7a7ff263",
+                        5439: "52f01893263f60763009",
+                        5646: "3d2d75d7d8add9e04769",
+                        5650: "9453c5900c179e69e702",
+                        5699: "f19bb6586bd3f38b68d8",
+                        5775: "ee675935277b27f426ef",
+                        5844: "6b46aa4bfd4c65ab2ae1",
+                        5915: "53ff2a8e2f09ec444ccf",
+                        5942: "71fb637342292722da7c",
+                        6118: "99a6284051858e005edb",
+                        6139: "af5343badca88a7c77e4",
+                        6218: "03b12d0f9ca51332c753",
+                        6468: "4d60160ca2bafb3bd2ce",
+                        6532: "32be8a6b1a401d3fc864",
+                        6636: "5f0dd9ec09c444dcf6fd",
+                        6663: "7c7d1ae53ab461fb9d46",
+                        6741: "fc52e24266d9217b102d",
+                        6833: "b5f5571845979bc4e2b5",
+                        6880: "71edd7d7c1670a289c0f",
+                        7056: "986bde0647eaaad427d8",
+                        7217: "56eb95c61444e566610a",
+                        7219: "1d9edd1671850a0895b3",
+                        7347: "5e5522ebe14a91f3ad30",
+                        7430: "8c837c60195e26d9a9df",
+                        7598: "41cb134a52967fc17f97",
+                        7695: "713e214bf99a82a22055",
+                        7922: "6e14a4214338ef8d9422",
+                        7985: "4ee2950da89b88395c63",
+                        8137: "e65e9731b2f00ba9c43e",
+                        8305: "065c08e987fcf5c262b9",
+                        8510: "06c5d24a579e795c6940",
+                        8585: "cf4f82cc5ee3764b71e7",
+                        8594: "61efec9be0b2808b039c",
+                        8697: "37fa247f00bb37bf8034",
+                        8725: "2dc9f694c2208af54ee9",
+                        8843: "1b27331a081afeae6a2c",
+                        8888: "750da500d281b2a67503",
+                        8985: "afdfe71afdb95eb43f75",
+                        9029: "3dda8f743d2013a03795",
+                        9053: "5d81f613f7f202a20571",
+                        9698: "0b9ac80b82207d3432d6"
+                    }[e] + ".js"
+                }
+                ,
+                o.miniCssF = function(e) {
+                    return 2143 === e ? "static/css/app.418e2b2793c2834ed443.vip.css" : "static/css/" + e + "." + {
+                        4: "86f8817d28c30b928f27",
+                        179: "3d957303e7af5a305451",
+                        226: "8e321f0ff0849c28ce5a",
+                        342: "289cb2b55d89f512aab5",
+                        415: "676e2dd7b360933ccd4d",
+                        1057: "6e36adcaf62e15794115",
+                        1323: "f3e5002f7d8938d7532e",
+                        1375: "75279cb3169f2766b586",
+                        1426: "2ff1016922855aa2172f",
+                        1482: "b9684f8e593c6c9350aa",
+                        1532: "775fb5d54002b3c5089d",
+                        1543: "434fe14f235d552e638e",
+                        1584: "683f88ee17e544df0916",
+                        1744: "a37cc7c23347bcb53d86",
+                        1951: "30b961dc4266e04265ec",
+                        2054: "4434c5b417859ce75e3c",
+                        2293: "a8b07c811397474940dc",
+                        2312: "816c24e05003c83f6769",
+                        2338: "f8d6bbf02f6009759960",
+                        2500: "b48460dbaae63e476b3a",
+                        2971: "d7a48ddccae776097c7a",
+                        3001: "01a44d919eca3f200aad",
+                        3095: "9e43c0a0cc378ceb55f4",
+                        3183: "18982ec0c1d199b609ea",
+                        3267: "6449f31c05240627df52",
+                        3276: "382b69df8fccddbcc0e8",
+                        3405: "d7c796b4eaf991a96b8e",
+                        3513: "1dc57661215e8f735ac8",
+                        3815: "0d7b55ce4ae268662696",
+                        4405: "3530b81e198ae7a91ef4",
+                        4407: "75e0a798e43aa87fad52",
+                        4492: "86cda0a3002b7bde9750",
+                        4719: "62f0f7190876309461d7",
+                        4846: "6d7473b5b9786cde1069",
+                        5058: "5648b841e5716fcd5860",
+                        5228: "850d60604e79d77a7a7e",
+                        5650: "3af58f0f6965d700bb1a",
+                        5775: "a09b1f29f2893a248e4a",
+                        5844: "9945a3cf314ddf4a30d3",
+                        5915: "5e438938dc2109e0594a",
+                        5942: "1750ee50e0eea986d9ca",
+                        6118: "835257d550ad1817eb81",
+                        6139: "45972d9084f99dddfab3",
+                        6218: "fb728c8322ce172e4d0e",
+                        6468: "8065e5aa8e567b2ca2a7",
+                        6636: "5092f95bb29e1a7da39f",
+                        6663: "430c2082998279e06111",
+                        6880: "6ec07b9aa17e1b97387e",
+                        7056: "dc9c868149bfd6e8ee77",
+                        7217: "7f260e55d363220bca89",
+                        7430: "b11da6f44cf8233db53c",
+                        7598: "98f155504e7ea5b81201",
+                        7985: "1514bf52f036f5f1195b",
+                        8137: "94cfde205f9729ef51ec",
+                        8510: "c7c9e4e7c90418c5fe94",
+                        8585: "270c22c1270d2d128e3c",
+                        8594: "296d363b39476568d842",
+                        8725: "eebd184e0e6f2f263467",
+                        8843: "f4ded1f9dd61fd9ca909",
+                        8888: "7c322fc06b9347ed820c",
+                        8985: "1ac6f3a8d597c978d5ee",
+                        9029: "082b78e8c35c78be0fa2"
+                    }[e] + ".vip.css"
+                }
+                ,
+                o.g = function() {
+                    if ("object" == typeof globalThis)
+                        return globalThis;
+                    try {
+                        return this || new Function("return this")()
+                    } catch (e) {
+                        if ("object" == typeof window)
+                            return window
+                    }
+                }(),
+                o.o = function(e, f) {
+                    return Object.prototype.hasOwnProperty.call(e, f)
+                }
+                ,
+                c = {},
+                d = "live-room:",
+                o.l = function(e, f, a, t) {
+                    if (c[e])
+                        c[e].push(f);
+                    else {
+                        var n, r;
+                        if (void 0 !== a)
+                            for (var b = document.getElementsByTagName("script"), i = 0; i < b.length; i++) {
+                                var u = b[i];
+                                if (u.getAttribute("src") == e || u.getAttribute("data-webpack") == d + a) {
+                                    n = u;
+                                    break
+                                }
+                            }
+                        n || (r = !0,
+                            (n = document.createElement("script")).charset = "utf-8",
+                            n.timeout = 120,
+                        o.nc && n.setAttribute("nonce", o.nc),
+                            n.setAttribute("data-webpack", d + a),
+                            n.src = e),
+                            c[e] = [f];
+                        var l = function(f, a) {
+                            n.onerror = n.onload = null,
+                                clearTimeout(s);
+                            var d = c[e];
+                            if (delete c[e],
+                            n.parentNode && n.parentNode.removeChild(n),
+                            d && d.forEach((function(e) {
+                                    return e(a)
+                                }
+                            )),
+                                f)
+                                return f(a)
+                        }
+                            , s = setTimeout(l.bind(null, void 0, {
+                            type: "timeout",
+                            target: n
+                        }), 12e4);
+                        n.onerror = l.bind(null, n.onerror),
+                            n.onload = l.bind(null, n.onload),
+                        r && document.head.appendChild(n)
+                    }
+                }
+                ,
+                o.r = function(e) {
+                    "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
+                        value: "Module"
+                    }),
+                        Object.defineProperty(e, "__esModule", {
+                            value: !0
+                        })
+                }
+                ,
+                o.nmd = function(e) {
+                    return e.paths = [],
+                    e.children || (e.children = []),
+                        e
+                }
+                ,
+                function() {
+                    o.S = {};
+                    var e = {}
+                        , f = {};
+                    o.I = function(a, c) {
+                        c || (c = []);
+                        var d = f[a];
+                        if (d || (d = f[a] = {}),
+                            !(c.indexOf(d) >= 0)) {
+                            if (c.push(d),
+                                e[a])
+                                return e[a];
+                            o.o(o.S, a) || (o.S[a] = {}),
+                                o.S[a];
+                            var t = [];
+                            return e[a] = t.length ? Promise.all(t).then((function() {
+                                    return e[a] = 1
+                                }
+                            )) : 1
+                        }
+                    }
+                }(),
+                o.p = "//s1.hdslb.com/bfs/static/blive/blfe-live-room/",
+                t = function(e) {
+                    return new Promise((function(f, a) {
+                            var c = o.miniCssF(e)
+                                , d = o.p + c;
+                            if (function(e, f) {
+                                for (var a = document.getElementsByTagName("link"), c = 0; c < a.length; c++) {
+                                    var d = (n = a[c]).getAttribute("data-href") || n.getAttribute("href");
+                                    if ("stylesheet" === n.rel && (d === e || d === f))
+                                        return n
+                                }
+                                var t = document.getElementsByTagName("style");
+                                for (c = 0; c < t.length; c++) {
+                                    var n;
+                                    if ((d = (n = t[c]).getAttribute("data-href")) === e || d === f)
+                                        return n
+                                }
+                            }(c, d))
+                                return f();
+                            !function(e, f, a, c) {
+                                var d = document.createElement("link");
+                                d.rel = "stylesheet",
+                                    d.type = "text/css",
+                                    d.onerror = d.onload = function(t) {
+                                        if (d.onerror = d.onload = null,
+                                        "load" === t.type)
+                                            a();
+                                        else {
+                                            var n = t && ("load" === t.type ? "missing" : t.type)
+                                                , r = t && t.target && t.target.href || f
+                                                , b = new Error("Loading CSS chunk " + e + " failed.\n(" + r + ")");
+                                            b.code = "CSS_CHUNK_LOAD_FAILED",
+                                                b.type = n,
+                                                b.request = r,
+                                                d.parentNode.removeChild(d),
+                                                c(b)
+                                        }
+                                    }
+                                    ,
+                                    d.href = f,
+                                    document.head.appendChild(d)
+                            }(e, d, f, a)
+                        }
+                    ))
+                }
+                ,
+                n = {
+                    6700: 0
+                },
+                o.f.miniCss = function(e, f) {
+                    n[e] ? f.push(n[e]) : 0 !== n[e] && {
+                        4: 1,
+                        179: 1,
+                        226: 1,
+                        342: 1,
+                        415: 1,
+                        1057: 1,
+                        1323: 1,
+                        1375: 1,
+                        1426: 1,
+                        1482: 1,
+                        1532: 1,
+                        1543: 1,
+                        1584: 1,
+                        1744: 1,
+                        1951: 1,
+                        2054: 1,
+                        2293: 1,
+                        2312: 1,
+                        2338: 1,
+                        2500: 1,
+                        2971: 1,
+                        3001: 1,
+                        3095: 1,
+                        3183: 1,
+                        3267: 1,
+                        3276: 1,
+                        3405: 1,
+                        3513: 1,
+                        3815: 1,
+                        4405: 1,
+                        4407: 1,
+                        4492: 1,
+                        4719: 1,
+                        4846: 1,
+                        5058: 1,
+                        5228: 1,
+                        5650: 1,
+                        5775: 1,
+                        5844: 1,
+                        5915: 1,
+                        5942: 1,
+                        6118: 1,
+                        6139: 1,
+                        6218: 1,
+                        6468: 1,
+                        6636: 1,
+                        6663: 1,
+                        6880: 1,
+                        7056: 1,
+                        7217: 1,
+                        7430: 1,
+                        7598: 1,
+                        7985: 1,
+                        8137: 1,
+                        8510: 1,
+                        8585: 1,
+                        8594: 1,
+                        8725: 1,
+                        8843: 1,
+                        8888: 1,
+                        8985: 1,
+                        9029: 1
+                    }[e] && f.push(n[e] = t(e).then((function() {
+                            n[e] = 0
+                        }
+                    ), (function(f) {
+                            throw delete n[e],
+                                f
+                        }
+                    )))
+                }
+                ,
+                function() {
+                    var e = {
+                        6700: 0
+                    };
+                    o.f.j = function(f, a) {
+                        var c = o.o(e, f) ? e[f] : void 0;
+                        if (0 !== c)
+                            if (c)
+                                a.push(c[2]);
+                            else if (/^(5228|5844|6700)$/.test(f))
+                                e[f] = 0;
+                            else {
+                                var d = new Promise((function(a, d) {
+                                        c = e[f] = [a, d]
+                                    }
+                                ));
+                                a.push(c[2] = d);
+                                var t = o.p + o.u(f)
+                                    , n = new Error;
+                                o.l(t, (function(a) {
+                                        if (o.o(e, f) && (0 !== (c = e[f]) && (e[f] = void 0),
+                                            c)) {
+                                            var d = a && ("load" === a.type ? "missing" : a.type)
+                                                , t = a && a.target && a.target.src;
+                                            n.message = "Loading chunk " + f + " failed.\n(" + d + ": " + t + ")",
+                                                n.name = "ChunkLoadError",
+                                                n.type = d,
+                                                n.request = t,
+                                                c[1](n)
+                                        }
+                                    }
+                                ), "chunk-" + f, f)
+                            }
+                    }
+                        ,
+                        o.O.j = function(f) {
+                            return 0 === e[f]
+                        }
+                    ;
+                    var f = function(f, a) {
+                        var c, d, t = a[0], n = a[1], r = a[2], b = 0;
+                        for (c in n)
+                            o.o(n, c) && (o.m[c] = n[c]);
+                        if (r)
+                            var i = r(o);
+                        for (f && f(a); b < t.length; b++)
+                            d = t[b],
+                            o.o(e, d) && e[d] && e[d][0](),
+                                e[t[b]] = 0;
+                        return o.O(i)
+                    }
+                        , a = self.webpackChunklive_room = self.webpackChunklive_room || [];
+                    a.forEach(f.bind(null, 0)),
+                        a.push = f.bind(null, a.push.bind(a))
+                }()
+        }()
+    </script>
+    <script>
+        (self.webpackChunklive_room = self.webpackChunklive_room || []).push([[4962], {
+            74967: function(n, t, i) {
+                "use strict";
+                var o = document.cookie;
+                !function(n, t, i) {
+                    if (!function(n) {
+                        return /^(https?):\/\/live.bilibili.com\/(.+\/)?([\d]+)/.test(n)
+                    }(n) || function(n) {
+                        var t = null
+                            , i = n.match(/nmr=[0-9]/);
+                        if (i)
+                            try {
+                                t = parseInt(i[0].match(/[0-9]/)[0], 10)
+                            } catch (n) {}
+                        return 1 === t
+                    }(t) || !function(n) {
+                        return /(iPad|iPhone|iPod|Windows Phone|Android)/i.test(n)
+                    }(i) && "#html5" !== location.hash || /h5/.test(n))
+                        return !1;
+                    var o = function(n) {
+                        return n.indexOf(".com/h5") > -1 ? n : n.replace(/\.com(\/blanc)?/i, ".com/h5")
+                    }(n);
+                    (window.top || window).location.href = o
+                }(window.location.href, o, window.navigator.userAgent)
+            }
+        }, function(n) {
+            "use strict";
+            n(n.s = 74967)
+        }
+        ])
+    </script>
+    <script>
+        !function() {
+            const i = Date.now()
+                , o = Math.floor(i / 1e3);
+            window.BilibiliLive = {
+                INIT_TIME: i,
+                RND: o,
+                UID: 0,
+                ROOMID: 0,
+                ANCHOR_UID: 0
+            },
+                window.DANMU_RND = o
+        }()
+    </script>
+    <script>
+        addWaifu && addWaifu("noire")
+    </script>
+    <link rel=stylesheet href=//s1.hdslb.com/bfs/static/blive/blfe-live-room/static/css/app.418e2b2793c2834ed443.vip.css>
+    <script>
+        addWaifu && addWaifu("blanc")
+    </script>
+</head>
+<body>
+<script src=//s1.hdslb.com/bfs/seed/jinkela/short/b-mirror/biliMirror.umd.mini.js></script>
+<script>
+    const env = "production";
+    if (window.__INITIAL_MIRROR__) {
+        const o = {
+            origin: "live-room",
+            module: "room-page",
+            whiteList: {
+                rejection: ["chrome-extension"],
+                error: ["chrome-extension"]
+            },
+            config: {
+                whiteScreen: {
+                    elemArry: [".live-room-app", "#player-ctnr", ".head-info-section"],
+                    callback: o=>{
+                        console.log("白屏检测是否正常", o)
+                    }
+                    ,
+                    isSkeleton: !1
+                }
+            }
+        };
+        window.__INITIAL_MIRROR__(o)
+    }
+</script>
+<script src=//activity.hdslb.com/blackboard/static/e73ff3f7d8cf6b963d2447680209f2d3/navbar-v3.min.js></script>
+<script src=//s1.hdslb.com/bfs/static/jinkela/long/laputa-css/bili-theme.min.js></script>
+<script>
+    !function() {
+        function e() {
+            return -1 !== window.location.search.indexOf("liteVersion=true") && window.top !== window
+        }
+        function t() {
+            return e() && -1 !== window.location.search.indexOf("hideHeadInfo=true")
+        }
+        function i() {
+            return e() && -1 !== window.location.search.indexOf("hideRankList=true")
+        }
+        function n() {
+            return e() && "object" == typeof window.top.biliBridgePc
+        }
+        function o() {
+            try {
+                return 0 === document.createElement("canvas").toDataURL("image/webp", .5).indexOf("data:image/webp")
+            } catch (e) {
+                return !1
+            }
+        }
+        function a(e, t) {
+            e.forEach((function(e) {
+                    if ("function" == typeof e.activeRule ? e.activeRule() : e.activeRule) {
+                        const i = e.container || t || document.body;
+                        if (e.className && i.classList.add(e.className),
+                            e.attributes)
+                            for (let t = 0, n = e.attributes.length; t < n; t++)
+                                i.setAttribute(e.attributes[t][0], e.attributes[t][1])
+                    }
+                }
+            ))
+        }
+        window.getLiteVersionStatus = e,
+            window.getHeadInfoVmStatus = t,
+            window.getRankListVmStatus = i,
+            window.getPcAppStatus = n,
+            window.isSupportWebp = o,
+            window.setPropsToContainer = a;
+        const c = e();
+        !function() {
+            if (c)
+                try {
+                    document.domain = "bilibili.com",
+                        a([{
+                            activeRule: c,
+                            className: "lite-room"
+                        }, {
+                            activeRule: t,
+                            className: "head-info-hide"
+                        }, {
+                            activeRule: i,
+                            className: "rank-list-hide"
+                        }]),
+                        a([{
+                            activeRule: n(),
+                            className: "pc-app",
+                            attributes: [["lab-style", "dark"]]
+                        }], document.documentElement),
+                    window.top.__NEPTUNE_IS_MY_WAIFU__ && (window.__NEPTUNE_IS_MY_WAIFU__ = JSON.parse(JSON.stringify(window.top.__NEPTUNE_IS_MY_WAIFU__)))
+                } catch (e) {
+                    console.warn("Do♂You♂Like♂Van♂游戏", e)
+                }
+        }(),
+        window._ && (window.bililiveThemeV2 = Object.assign({}, window._),
+            delete window._),
+        window.bililiveThemeV2 && window.bililiveThemeV2.initThemeWithCSR(-1 !== document.documentElement.getAttribute("lab-style").indexOf("dark") ? "dark" : "light"),
+            a([{
+                activeRule: o,
+                className: "supportWebp"
+            }])
+    }()
+</script>
+<div class="live-room-app p-relative">
+    <main class="app-content p-relative z-app-content">
+        <div class="app-body p-relative m-auto z-app-body">
+            <section class="player-and-aside-area p-relative z-player-and-aside-area">
+                <div class=z-room-ssr id=room-ssr-vm></div>
+                <div class="player-ctnr left-container p-relative z-player-ctnr" id=player-ctnr>
+                    <div class="head-info-section live-skin-coloration-area p-relative border-box z-head-info bg-bright-filter" id=head-info-vm>
+                        <head-info></head-info>
+                    </div>
+                    <div class="player-section p-relative border-box none-select z-player-section">
+                        <div class="live-player-ctnr w-100 h-100 p-absolute normal" id=live-player-ctnr>
+                            <div class="h-100 p-relative">
+                                <button class="minimal-restore-btn dp-none p-absolute pointer ts-dot-2" id=minimal-restore-btn title=关闭悬浮播放器>
+                                    <i class="icon icon-font icon-close"></i>
+                                </button>
+                                <div id=player-minimal-panel-vm>
+                                    <minimal-panel></minimal-panel>
+                                </div>
+                                <div class="live-player-mounter h-100" id=live-player>
+                                    <div id=switch-login-guide-vm>
+                                        <login-guide></login-guide>
+                                    </div>
+                                    <div id=fullscreen-danmaku-vm>
+                                        <fullscreen-danmaku></fullscreen-danmaku>
+                                    </div>
+                                </div>
+                                <script>
+                                    function __PLAYER_BOOTSTRAP_FUNC__() {
+                                        var o = function() {
+                                            window.__PLAYER_BOOTSTRAP_FUNC__ = null
+                                        };
+                                        try {
+                                            if (!window.Player)
+                                                return o();
+                                            var e = document.getElementById("live-player");
+                                            if (!e)
+                                                return o();
+                                            var r = window.__NEPTUNE_IS_MY_WAIFU__ || {}
+                                                , a = !!r.roomInitRes && 0 === r.roomInitRes.code && !!r.roomInitRes.data && r.roomInitRes.data.room_id;
+                                            if (!a)
+                                                return o();
+                                            var i = r.roomInitRes || {
+                                                code: -1
+                                            }
+                                                , n = i.data || {};
+                                            if (!n.live_status || n.is_locked || n.encrypted && !n.pwd_verified)
+                                                return o();
+                                            var d = {
+                                                cid: a,
+                                                initTime: performance.now(),
+                                                roomInitDataV2: i && i.data && i.data.playurl_info ? i : {
+                                                    code: -1
+                                                },
+                                                rnd: window.DANMU_RND,
+                                                fnPromiseMode: !0,
+                                                protover: 2,
+                                                mask: {
+                                                    shouldOpenMask: !0
+                                                },
+                                                ptype: 16,
+                                                backgroundFilter: !0,
+                                                coreType: 2,
+                                                coreProtocol: 0
+                                            }
+                                                , t = !!r.roomInfoRes && 0 === r.roomInfoRes.code && !!r.roomInfoRes.data && r.roomInfoRes.data.new_switch_info;
+                                            t && (d.UI = {
+                                                logo: !!Number(t["room-player-watermark"]),
+                                                feedback: !!Number(t["room-feedback"]),
+                                                recommend: !!Number(t["room-recommend-live_off"])
+                                            });
+                                            var _ = new window.Player(e,d);
+                                            window.EmbedPlayer = {
+                                                instance: _
+                                            },
+                                                window.performance.timing.firstscreenfinish = (new Date).getTime(),
+                                            addWaifu && addWaifu("firstscreenfinish"),
+                                            addWaifu && addWaifu("misaka"),
+                                                _.on("firstLoadedMetaData", (function() {
+                                                        addWaifu && addWaifu("mikoto"),
+                                                        window.__PLAYER_GLOBAL_INSTANCE__ && (window.__PLAYER_GLOBAL_INIT_FLAG__ = "我不想再说一遍")
+                                                    }
+                                                )),
+                                                window.__PLAYER_GLOBAL_INSTANCE__ = _
+                                        } catch (o) {
+                                            console.error("Player Bootstrap Error: ", o)
+                                        }
+                                        o()
+                                    }
+                                </script>
+                                <script>
+                                    addWaifu && addWaifu("vert")
+                                </script>
+                            </div>
+                        </div>
+                        <div class="aside-area-toggle-btn dp-none p-absolute">
+                            <div class="dp-table-cell w-100 v-middle">
+                                <div class="btn-ctnr p-relative">
+                                    <button class="restore-btn dp-none h-100 p-absolute bg-no-repeat pointer a-fade-in" id=aside-area-toggle-btn></button>
+                                    <div class="btn-slider dp-none h-100 p-absolute a-fade-in"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=z-player-effect-vm id=player-effect-vm>
+                            <player-effect></player-effect>
+                        </div>
+                        <div class=z-shop-popover-vm id=shop-popover-vm>
+                            <shop-popover></shop-popover>
+                        </div>
+                        <div class=guard-lottery-animation id=guard-lottery-animation-vm>
+                            <guard-lottery-animation></guard-lottery-animation>
+                        </div>
+                        <div class=over-hidden id=cloud-game></div>
+                    </div>
+                    <div class="gift-control-section p-relative border-box z-gift-control-section bg-bright-filter" id=gift-control-vm>
+                        <gift-control-panel></gift-control-panel>
+                    </div>
+                    <div id=fullscreen-gift-control-vm></div>
+                    <div id=pk-guard-vm>
+                        <pk-guard v-if=isShowPKGuard></pk-guard>
+                    </div>
+                    <live-charge class="p-relative z-navbar" id=live-charge-vm></live-charge>
+                    <lpl-member class="p-relative z-navbar" id=lpl-member-vm></lpl-member>
+                </div>
+                <div class="aside-area p-absolute border-box z-aside-area" id=aside-area-vm>
+                    <div class="live-skin-coloration-area p-relative rank-list-section" id=rank-list-vm>
+                        <rank-list v-if=isShowRankList></rank-list>
+                    </div>
+                    <div class=msg-bubble-setting id=chat-msg-bubble-vm>
+                        <chat-msg-bubble></chat-msg-bubble>
+                    </div>
+                    <div class=gift-bubble-setting id=chat-gift-bubble-vm>
+                        <super-gift-bubble></super-gift-bubble>
+                    </div>
+                    <div class=pay-note-setting id=pay-note-panel-vm>
+                        <pay-note-panel></pay-note-panel>
+                        <guidence-step-one></guidence-step-one>
+                    </div>
+                    <div id=privacy-dialog-vm></div>
+                    <div class=chat-history-panel>
+                        <div class="chat-history-list h-100 p-relative border-box" id=chat-history-list>
+                            <div class=chat-items id=chat-items></div>
+                        </div>
+                        <div id=fans-medal-popover-vm>
+                            <fans-medal-popover></fans-medal-popover>
+                        </div>
+                        <div class="brush-prompt w-100 p-relative over-hidden" id=brush-prompt></div>
+                        <div class="penury-gift-msg w-100 p-relative over-hidden" id=penury-gift-msg></div>
+                        <div class="lottery-gift-toast w-100 p-relative over-hidden" id=lottery-gift-toast></div>
+                        <div class="danmaku-menu-ctnr z-danmaku-menu" id=danmaku-menu-vm></div>
+                        <div class="p-absolute w-100 h-100 p-zero guard-popup-setting" id=guard-popup>
+                            <guard-popup></guard-popup>
+                        </div>
+                        <div class=danmaku-buffer-prompt id=danmaku-buffer-prompt>
+                            <span class=danmaku-buffer-num></span>
+                            <i class="icon-font icon-arrow-down"></i>
+                        </div>
+                    </div>
+                    <div class=activity-welcome-section id=activity-welcome-area-vm>
+                        <activity-welcome-area></activity-welcome-area>
+                    </div>
+                    <div class=welcome-section-bottom id=welcome-area-bottom-vm>
+                        <welcome-area-bottom></welcome-area-bottom>
+                    </div>
+                    <div class=chat-popups-section id=chat-draw-area-vm>
+                        <chat-draw-area></chat-draw-area>
+                    </div>
+                    <div class=red-envelope-position id=red-envelope-entry-vm>
+                        <red-envelope-entry></red-envelope-entry>
+                    </div>
+                    <div class=gift-anim-setting id=gift-screen-animation-vm>
+                        <gift-screen-animation></gift-screen-animation>
+                    </div>
+                    <div class="chat-control-panel bg-bright-filter" id=chat-control-panel-vm>
+                        <chat-control-panel>
+                            <div class=gm-skeleton>
+                                <div class="chat-input-ctnr p-relative">
+                                    <div class=medal-section></div>
+                                    <div class="chat-input border-box"></div>
+                                </div>
+                            </div>
+                        </chat-control-panel>
+                    </div>
+                </div>
+                <div class="background-changer z-background-manage" id=background-manage-vm>
+                    <background-manage v-if=isAnchor></background-manage>
+                </div>
+                <!--Live Haruna By LancerComet at 17:48, 2016.11.23.
+    # Carry Your World #
+    ===
+    SUPER SPEED PERSON (?!) Mark II
+    Haruna will be enhanced by an unknown force soon.-->
+                <div class=haruna-sekai-de-ichiban-kawaii id=my-dear-haruna-vm>
+                    <live-haruna></live-haruna>
+                </div>
+            </section>
+            <section id=sections-vm>
+                <div class="section-block f-clear z-section-blocks">
+                    <div class=left-container>
+                        <ad-banner></ad-banner>
+                        <room-info></room-info>
+                        <feed></feed>
+                    </div>
+                    <div class=right-container>
+                        <room-announcement></room-announcement>
+                        <live-record-card></live-record-card>
+                        <room-aside></room-aside>
+                    </div>
+                </div>
+                <div class=z-feed-card-popup id=link-feed-card-popup></div>
+            </section>
+            <div class="p-relative z-sidebar contain-optimize" id=sidebar-vm>
+                <sidebar></sidebar>
+            </div>
+        </div>
+        <div class="link-footer-ctnr z-link-footer-ctnr" id=link-footer-vm>
+            <link-footer></link-footer>
+        </div>
+    </main>
+    <div class="p-relative z-full-screen-guard" id=guard-store-vm>
+        <guard-store-new></guard-store-new>
+    </div>
+    <div class="p-relative z-navbar" id=guard-guide-vm>
+        <guard-guide></guard-guide>
+    </div>
+    <div class="p-relative z-navbar" id=guard-diary-vm>
+        <guard-diary></guard-diary>
+    </div>
+    <div class="p-relative z-navbar" id=ema-wishing-vm>
+        <ema-wishing v-if=showEmaWishing :close=closeEmaWishing></ema-wishing>
+    </div>
+    <div class=enter-failure id=enter-failure>
+        <enter-failure :type=enterFailed></enter-failure>
+    </div>
+    <div class="p-relative z-navbar" id=super-popup-area-vm>
+        <super-popup-area></super-popup-area>
+    </div>
+    <div class="p-relative z-navbar" id=iframe-popup-area></div>
+    <pk id=pk-vm></pk>
+    <!--//- 大乱斗 pk  https://www.tapd.bilibili.co/55254715/prong/stories/view/1155254715002999052 需求让老板本下线-->
+    <!--chaos-pk#chaos-pk-vm-->
+    <awesome-pk id=awesome-pk-vm></awesome-pk>
+    <star-live-pk id=star-live-pk-vm></star-live-pk>
+    <multi-player id=multi-player></multi-player>
+    <multi-voice-chat id=multi-voice-chat></multi-voice-chat>
+    <multi-voice-index id=multi-voice-index></multi-voice-index>
+    <player-prompt id=player-prompt-vm></player-prompt>
+    <link-mic id=link-mic-vm></link-mic>
+    <player-like-so-hot id=player-like-so-hot-vm></player-like-so-hot>
+    <link-video id=link-video-vm></link-video>
+    <lead-up id=lead-up-vm></lead-up>
+    <player-animation id=player-animation-vm></player-animation>
+    <sound-track id=sound-track-vm></sound-track>
+    <player-together-wrap id=player-together-wrap-vm></player-together-wrap>
+</div>
+<script>
+    addWaifu && addWaifu("nepgear")
+</script>
+<div class=script-requirement>
+    <script>
+        window.__NEPTUNE_IS_MY_WAIFU__ = {
+            "roomInitRes": {
+                "code": 0,
+                "message": "0",
+                "ttl": 1,
+                "data": {
+                    "room_id": 21678744,
+                    "short_id": 0,
+                    "uid": 480631546,
+                    "is_hidden": false,
+                    "is_locked": false,
+                    "is_portrait": false,
+                    "live_status": 1,
+                    "hidden_till": 0,
+                    "lock_till": 0,
+                    "encrypted": false,
+                    "pwd_verified": true,
+                    "live_time": 1692709115,
+                    "room_shield": 1,
+                    "all_special_types": [50],
+                    "playurl_info": {
+                        "conf_json": "{\"cdn_rate\":10000,\"report_interval_sec\":150}",
+                        "playurl": {
+                            "cid": 21678744,
+                            "g_qn_desc": [{
+                                "qn": 30000,
+                                "desc": "杜比",
+                                "hdr_desc": "",
+                                "attr_desc": null
+                            }, {
+                                "qn": 20000,
+                                "desc": "4K",
+                                "hdr_desc": "",
+                                "attr_desc": null
+                            }, {
+                                "qn": 10000,
+                                "desc": "原画",
+                                "hdr_desc": "",
+                                "attr_desc": null
+                            }, {
+                                "qn": 400,
+                                "desc": "蓝光",
+                                "hdr_desc": "HDR",
+                                "attr_desc": null
+                            }, {
+                                "qn": 250,
+                                "desc": "超清",
+                                "hdr_desc": "HDR",
+                                "attr_desc": null
+                            }, {
+                                "qn": 150,
+                                "desc": "高清",
+                                "hdr_desc": "",
+                                "attr_desc": null
+                            }, {
+                                "qn": 80,
+                                "desc": "流畅",
+                                "hdr_desc": "",
+                                "attr_desc": null
+                            }],
+                            "stream": [{
+                                "protocol_name": "http_stream",
+                                "format": [{
+                                    "format_name": "flv",
+                                    "codec": [{
+                                        "codec_name": "avc",
+                                        "current_qn": 150,
+                                        "accept_qn": [10000, 150],
+                                        "base_url": "\u002Flive-bvc\u002F557135\u002Flive_480631546_7205294_1500.flv?",
+                                        "url_info": [{
+                                            "host": "https:\u002F\u002Fcn-hnld-ct-01-53.bilivideo.com",
+                                            "extra": "expires=1692719258&pt=web&deadline=1692719258&len=0&oi=3031112497&platform=web&qn=0&trid=1000a93badd646d34848a6531822e6a5105b&uipk=100&uipv=100&nbs=1&uparams=cdn,deadline,len,oi,platform,qn,trid,uipk,uipv,nbs&cdn=cn-gotcha01&upsig=a728ec39bfa497fe4342dbfcb81fd298&sk=558689aded471021b7465ccc3f484860&p2p_type=1&sl=1&free_type=0&mid=487408043&sid=cn-hnld-ct-01-53&chash=1&bmt=1&sche=ban&score=4&pp=rtmp&source=onetier&trace=1099&site=46be061006aeef98c50f93b8c60d409d&order=1",
+                                            "stream_ttl": 3600
+                                        }],
+                                        "hdr_qn": null,
+                                        "dolby_type": 0,
+                                        "attr_name": ""
+                                    }]
+                                }]
+                            }, {
+                                "protocol_name": "http_hls",
+                                "format": [{
+                                    "format_name": "ts",
+                                    "codec": [{
+                                        "codec_name": "avc",
+                                        "current_qn": 150,
+                                        "accept_qn": [10000, 150],
+                                        "base_url": "\u002Flive-bvc\u002F557135\u002Flive_480631546_7205294_1500.m3u8?",
+                                        "url_info": [{
+                                            "host": "https:\u002F\u002Fd1--cn-gotcha101.bilivideo.com",
+                                            "extra": "expires=1692719258&len=0&oi=3031112497&pt=web&qn=0&trid=1003a93badd646d34848a6531822e6a5105b&sigparams=cdn,expires,len,oi,pt,qn,trid&cdn=cn-gotcha01&sign=51a93a620802d137ed1b52a931c90406&sk=558689aded471021b7465ccc3f484860&p2p_type=1&sl=1&free_type=0&mid=487408043&pp=rtmp&source=onetier&trace=10&site=46be061006aeef98c50f93b8c60d409d&order=1",
+                                            "stream_ttl": 3600
+                                        }],
+                                        "hdr_qn": null,
+                                        "dolby_type": 0,
+                                        "attr_name": ""
+                                    }]
+                                }, {
+                                    "format_name": "fmp4",
+                                    "codec": [{
+                                        "codec_name": "avc",
+                                        "current_qn": 150,
+                                        "accept_qn": [10000, 150],
+                                        "base_url": "\u002Flive-bvc\u002F557135\u002Flive_480631546_7205294_1500\u002Findex.m3u8?",
+                                        "url_info": [{
+                                            "host": "https:\u002F\u002Fcn-hnld-ct-01-53.bilivideo.com",
+                                            "extra": "expires=1692719258&len=0&oi=3031112497&pt=web&qn=0&trid=1007a93badd646d34848a6531822e6a5105b&sigparams=cdn,expires,len,oi,pt,qn,trid&cdn=cn-gotcha01&sign=8c4ed98a797fd13d2ce054f7f35f7d30&sk=38bf81c90aefb4796252f7a59bff48a3&flvsk=558689aded471021b7465ccc3f484860&p2p_type=1&sl=1&free_type=0&mid=487408043&sid=cn-hnld-ct-01-53&chash=1&bmt=1&sche=ban&bvchls=1&score=4&pp=rtmp&source=onetier&trace=1099&site=46be061006aeef98c50f93b8c60d409d&order=1",
+                                            "stream_ttl": 3600
+                                        }, {
+                                            "host": "https:\u002F\u002Fc1--cn-gotcha208.bilivideo.com",
+                                            "extra": "expires=1692719258&len=0&oi=3031112497&pt=web&qn=0&trid=1007a93badd646d34848a6531822e6a5105b&sigparams=cdn,expires,len,oi,pt,qn,trid&cdn=cn-gotcha208&sign=772e59916491215d704e9024c6285724&sk=38bf81c90aefb4796252f7a59bff48a3&p2p_type=1&sl=1&free_type=0&mid=487408043&pp=rtmp&source=onetier&trace=10&site=46be061006aeef98c50f93b8c60d409d&order=2",
+                                            "stream_ttl": 3600
+                                        }],
+                                        "hdr_qn": null,
+                                        "dolby_type": 0,
+                                        "attr_name": ""
+                                    }]
+                                }]
+                            }],
+                            "p2p_data": {
+                                "p2p": true,
+                                "p2p_type": 1,
+                                "m_p2p": false,
+                                "m_servers": null
+                            },
+                            "dolby_qn": null
+                        }
+                    },
+                    "official_type": 0,
+                    "official_room_id": 0
+                }
+            },
+            "roomInfoRes": {
+                "code": 0,
+                "message": "0",
+                "ttl": 1,
+                "data": {
+                    "room_info": {
+                        "uid": 480631546,
+                        "room_id": 21678744,
+                        "short_id": 0,
+                        "title": "比你胆子大的女生",
+                        "cover": "http:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fuser_cover\u002F2676e9a16ecbae29730ac57cf87302fdd97574d6.jpg",
+                        "tags": "恐怖游戏,单机游戏,操作下饭,PS5,主机游戏",
+                        "background": "http:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Froom_bg\u002Fc1d37086d454a07ee88338fc92e6ee571cc00bf4.jpg",
+                        "description": "单机区小透明 | 超喜欢恐怖游戏 | 粉丝群：162900477 | 上舰长请关注后台消息",
+                        "live_status": 1,
+                        "live_start_time": 1692709115,
+                        "live_screen_type": 0,
+                        "lock_status": 0,
+                        "lock_time": 0,
+                        "hidden_status": 0,
+                        "hidden_time": 0,
+                        "area_id": 276,
+                        "area_name": "恐怖游戏",
+                        "parent_area_id": 6,
+                        "parent_area_name": "单机游戏",
+                        "keyframe": "http:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive-key-frame\u002Fkeyframe08222242000021678744pk18e3.jpg",
+                        "special_type": 0,
+                        "up_session": "393282342770887320",
+                        "pk_status": 0,
+                        "is_studio": false,
+                        "pendants": {
+                            "frame": {
+                                "name": "大乱斗乱斗高手",
+                                "value": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F3cddb16e2a5e035be127a9e245d613082456a4dc.png",
+                                "desc": ""
+                            }
+                        },
+                        "on_voice_join": 0,
+                        "online": 34038,
+                        "room_type": {
+                            "3-21": 0,
+                            "3-50": 1
+                        },
+                        "sub_session_key": "393282342770887320sub_time:1692709115",
+                        "live_id": 393282342770887300,
+                        "live_id_str": "393282342770887320",
+                        "official_room_id": 0,
+                        "official_room_info": null,
+                        "voice_background": ""
+                    },
+                    "anchor_info": {
+                        "base_info": {
+                            "uname": "奶盐小若",
+                            "face": "https:\u002F\u002Fi1.hdslb.com\u002Fbfs\u002Fface\u002Fd8279497c5f034dd54e02346d8681b6b5510a337.jpg",
+                            "gender": "女",
+                            "official_info": {
+                                "role": 0,
+                                "title": "bilibili直播高能主播",
+                                "desc": "",
+                                "is_nft": 0,
+                                "nft_dmark": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F9f176ff49d28c50e9c53ec1c3297bd1ee539b3d6.gif"
+                            }
+                        },
+                        "live_info": {
+                            "level": 30,
+                            "level_color": 10512625,
+                            "score": 13325164,
+                            "upgrade_score": 2288646,
+                            "current": [2870000, 11883810],
+                            "next": [3730000, 15613810],
+                            "rank": "3161"
+                        },
+                        "relation_info": {
+                            "attention": 17573
+                        },
+                        "medal_info": {
+                            "medal_name": "屑若包",
+                            "medal_id": 248808,
+                            "fansclub": 242
+                        },
+                        "gift_info": {
+                            "price": 0,
+                            "price_update_time": 0
+                        }
+                    },
+                    "news_info": {
+                        "uid": 480631546,
+                        "ctime": "2023-07-15 04:46:26",
+                        "content": "每天直播恐怖游戏喵~"
+                    },
+                    "rankdb_info": {
+                        "roomid": 21678744,
+                        "rank_desc": "小时总榜",
+                        "color": "#FB7299",
+                        "h5_url": "https:\u002F\u002Flive.bilibili.com\u002Fp\u002Fhtml\u002Flive-app-rankcurrent\u002Findex.html?is_live_half_webview=1&hybrid_half_ui=1,5,85p,70p,FFE293,0,30,100,10;2,2,320,100p,FFE293,0,30,100,0;4,2,320,100p,FFE293,0,30,100,0;6,5,65p,60p,FFE293,0,30,100,10;5,5,55p,60p,FFE293,0,30,100,10;3,5,85p,70p,FFE293,0,30,100,10;7,5,65p,60p,FFE293,0,30,100,10;&anchor_uid=480631546&rank_type=master_realtime_hour_room&area_hour=1&area_v2_id=276&area_v2_parent_id=6",
+                        "web_url": "https:\u002F\u002Flive.bilibili.com\u002Fblackboard\u002Froom-current-rank.html?rank_type=master_realtime_hour_room&area_hour=1&area_v2_id=276&area_v2_parent_id=6",
+                        "timestamp": 1692715598
+                    },
+                    "area_rank_info": {
+                        "areaRank": {
+                            "index": 0,
+                            "rank": "\u003E1000"
+                        },
+                        "liveRank": {
+                            "rank": "3161"
+                        }
+                    },
+                    "battle_rank_entry_info": null,
+                    "tab_info": {
+                        "list": [{
+                            "type": "seven-rank",
+                            "desc": "高能用户",
+                            "isFirst": 1,
+                            "isEvent": 0,
+                            "eventType": "",
+                            "listType": "",
+                            "apiPrefix": "",
+                            "rank_name": "room_7day"
+                        }, {
+                            "type": "guard",
+                            "desc": "大航海",
+                            "isFirst": 0,
+                            "isEvent": 0,
+                            "eventType": "",
+                            "listType": "top-list",
+                            "apiPrefix": "",
+                            "rank_name": ""
+                        }]
+                    },
+                    "activity_init_info": {
+                        "eventList": [],
+                        "weekInfo": {
+                            "bannerInfo": null,
+                            "giftName": null
+                        },
+                        "giftName": null,
+                        "lego": {
+                            "timestamp": 1692715598,
+                            "config": "[{\"name\":\"frame-mng\",\"url\":\"https:\\\u002F\\\u002Flive.bilibili.com\\\u002Fp\\\u002Fhtml\\\u002Flive-web-mng\\\u002Findex.html?roomid=#roomid#&arae_id=#area_id#&parent_area_id=#parent_area_id#&ruid=#ruid#\",\"startTime\":1559544736,\"endTime\":1877167950,\"type\":\"frame-mng\"},{\"name\":\"s10-fun\",\"target\":\"sidebar\",\"icon\":\"https:\\\u002F\\\u002Fi0.hdslb.com\\\u002Fbfs\\\u002Factivity-plat\\\u002Fstatic\\\u002F20200908\\\u002F3435f7521efc759ae1f90eae5629a8f0\\\u002FHpxrZ7SOT.png\",\"text\":\"\\u7545\\u73a9s10\",\"url\":\"https:\\\u002F\\\u002Flive.bilibili.com\\\u002Fs10\\\u002Ffun\\\u002Findex.html?room_id=#roomid#&width=376&height=600&source=sidebar\",\"color\":\"#2e6fc0\",\"startTime\":1600920000,\"endTime\":1604721600,\"parentAreaId\":2,\"areaId\":86},{\"name\":\"genshin-avatar\",\"target\":\"sidebar\",\"icon\":\"https:\\\u002F\\\u002Fi0.hdslb.com\\\u002Fbfs\\\u002Factivity-plat\\\u002Fstatic\\\u002F20210721\\\u002Ffa538c98e9e32dc98919db4f2527ad02\\\u002FqWxN1d0ACu.jpg\",\"text\":\"\\u539f\\u77f3\\u798f\\u5229\",\"url\":\"https:\\\u002F\\\u002Flive.bilibili.com\\\u002Factivity\\\u002Flive-activity-full\\\u002Fgenshin_avatar\\\u002Fmobile.html?no-jump=1&room_id=#roomid#&width=376&height=550#\\\u002F\",\"color\":\"#2e6fc0\",\"frameAllowNoBg\":\"1\",\"frameAllowDrag\":\"1\",\"startTime\":1627012800,\"endTime\":1630425540,\"parentAreaId\":3,\"areaId\":321}]"
+                        }
+                    },
+                    "voice_join_info": {
+                        "status": {
+                            "open": 0,
+                            "anchor_open": 0,
+                            "status": 0,
+                            "uid": 0,
+                            "user_name": "",
+                            "head_pic": "",
+                            "guard": 0,
+                            "start_at": 0,
+                            "current_time": 1692715598
+                        },
+                        "icons": {
+                            "icon_close": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fa176d879dffe8de1586a5eb54c2a08a0c7d31392.png",
+                            "icon_open": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F70f0844c9a12d29db1e586485954290144534be9.png",
+                            "icon_wait": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F1049bb88f1e7afd839cc1de80e13228ccd5807e8.png",
+                            "icon_starting": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F948433d1647a0704f8216f017c406224f9fff518.gif"
+                        },
+                        "web_share_link": "https:\u002F\u002Flive.bilibili.com\u002Fh5\u002F21678744"
+                    },
+                    "ad_banner_info": {
+                        "data": [{
+                            "id": 213757,
+                            "title": "命运2创作者激励计划",
+                            "location": "room_advertisement",
+                            "position": 3,
+                            "pic": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F14185458e63e7c6480fb882fa5e9eec7492ce9c8.jpg",
+                            "link": "https:\u002F\u002Fwww.bilibili.com\u002Fblackboard\u002Factivity-AU3W492kLT.html",
+                            "weight": 0,
+                            "room_id": 0,
+                            "up_id": 0,
+                            "parent_area_id": 0,
+                            "area_id": 0,
+                            "live_status": 0,
+                            "av_id": 0,
+                            "is_ad": false,
+                            "ad_transparent_content": null,
+                            "show_ad_icon": false
+                        }]
+                    },
+                    "skin_info": {
+                        "id": 0,
+                        "skin_name": "",
+                        "skin_config": "",
+                        "show_text": "",
+                        "skin_url": "",
+                        "start_time": 0,
+                        "end_time": 0,
+                        "current_time": 1692715598
+                    },
+                    "web_banner_info": {
+                        "id": 0,
+                        "title": "",
+                        "left": "",
+                        "right": "",
+                        "jump_url": "",
+                        "bg_color": "",
+                        "hover_color": "",
+                        "text_bg_color": "",
+                        "text_hover_color": "",
+                        "link_text": "",
+                        "link_color": "",
+                        "input_color": "",
+                        "input_text_color": "",
+                        "input_hover_color": "",
+                        "input_border_color": "",
+                        "input_search_color": ""
+                    },
+                    "lol_info": null,
+                    "pk_info": null,
+                    "battle_info": null,
+                    "silent_room_info": {
+                        "type": "",
+                        "level": 0,
+                        "second": 0,
+                        "expire_time": 0
+                    },
+                    "switch_info": {
+                        "close_guard": false,
+                        "close_gift": false,
+                        "close_online": false,
+                        "close_danmaku": false
+                    },
+                    "record_switch_info": null,
+                    "room_config_info": {
+                        "dm_text": "发个弹幕呗~"
+                    },
+                    "gift_memory_info": {
+                        "list": null
+                    },
+                    "new_switch_info": {
+                        "room-socket": 1,
+                        "room-prop-send": 1,
+                        "room-sailing": 1,
+                        "room-info-popularity": 1,
+                        "room-danmaku-editor": 1,
+                        "room-effect": 1,
+                        "room-fans_medal": 1,
+                        "room-report": 1,
+                        "room-feedback": 1,
+                        "room-player-watermark": 1,
+                        "room-recommend-live_off": 1,
+                        "room-activity": 1,
+                        "room-web_banner": 1,
+                        "room-silver_seeds-box": 1,
+                        "room-wishing_bottle": 1,
+                        "room-board": 1,
+                        "room-supplication": 1,
+                        "room-hour_rank": 1,
+                        "room-week_rank": 1,
+                        "room-anchor_rank": 1,
+                        "room-info-integral": 1,
+                        "room-super-chat": 1,
+                        "room-tab": 1,
+                        "room-hot-rank": 1,
+                        "fans-medal-progress": 1,
+                        "gift-bay-screen": 1,
+                        "room-enter": 1,
+                        "room-my-idol": 1,
+                        "room-topic": 1,
+                        "fans-club": 1,
+                        "room-popular-rank": 1,
+                        "mic_user_gift": 1,
+                        "new-room-area-rank": 1,
+                        "wealth_medal": 1,
+                        "bubble": 1,
+                        "title": 1
+                    },
+                    "super_chat_info": {
+                        "status": 1,
+                        "jump_url": "https:\u002F\u002Flive.bilibili.com\u002Fp\u002Fhtml\u002Flive-app-superchat2\u002Findex.html?is_live_half_webview=1&hybrid_half_ui=1,3,100p,70p,ffffff,0,30,100,12,0;2,2,375,100p,ffffff,0,30,100,0,0;3,3,100p,70p,ffffff,0,30,100,12,0;4,2,375,100p,ffffff,0,30,100,0,0;5,3,100p,60p,ffffff,0,30,100,12,0;6,3,100p,60p,ffffff,0,30,100,12,0;7,3,100p,60p,ffffff,0,30,100,12,0",
+                        "icon": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F0a9ebd72c76e9cbede9547386dd453475d4af6fe.png",
+                        "ranked_mark": 0,
+                        "message_list": []
+                    },
+                    "online_gold_rank_info_v2": {
+                        "list": [{
+                            "uid": 59465629,
+                            "face": "https:\u002F\u002Fi1.hdslb.com\u002Fbfs\u002Fface\u002F353d5d65c7550087c094ab3eb99bd7696135dada.jpg",
+                            "uname": "小丶雨哥",
+                            "score": "1410",
+                            "rank": 1,
+                            "guard_level": 3,
+                            "wealth_level": 17
+                        }, {
+                            "uid": 6767637,
+                            "face": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Fface\u002Fea5c21278c4841b8edcb7ea09e9e7eef0cc12b99.jpg",
+                            "uname": "才不哭呢丶哼",
+                            "score": "1408",
+                            "rank": 2,
+                            "guard_level": 3,
+                            "wealth_level": 31
+                        }, {
+                            "uid": 1896001812,
+                            "face": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Fface\u002F8119ca73665e9aef689639c1619e6e9cc78d1737.jpg",
+                            "uname": "奶盐小苦",
+                            "score": "1395",
+                            "rank": 3,
+                            "guard_level": 3,
+                            "wealth_level": 15
+                        }, {
+                            "uid": 1515751732,
+                            "face": "https:\u002F\u002Fi1.hdslb.com\u002Fbfs\u002Fface\u002F32872c7e30ec876ad13aa1e562b32a3a05688457.jpg",
+                            "uname": "是巴拉古",
+                            "score": "1392",
+                            "rank": 4,
+                            "guard_level": 3,
+                            "wealth_level": 56
+                        }, {
+                            "uid": 209253565,
+                            "face": "https:\u002F\u002Fi1.hdslb.com\u002Fbfs\u002Fface\u002F859ebb7d324a9d7adaa88dd9fddd36f7de849ed4.jpg",
+                            "uname": "美好空想",
+                            "score": "1391",
+                            "rank": 5,
+                            "guard_level": 3,
+                            "wealth_level": 40
+                        }, {
+                            "uid": 207378801,
+                            "face": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Fface\u002Fa3628e3b205b65fc7e7adbce0ad1f803b895e7ed.jpg",
+                            "uname": "一拳一个小若崽",
+                            "score": "274",
+                            "rank": 6,
+                            "guard_level": 3,
+                            "wealth_level": 39
+                        }, {
+                            "uid": 507765515,
+                            "face": "https:\u002F\u002Fi2.hdslb.com\u002Fbfs\u002Fface\u002Ffe8846df14ba8a3d118b896f5d167053f089662c.jpg",
+                            "uname": "奶盐小狸",
+                            "score": "240",
+                            "rank": 7,
+                            "guard_level": 3,
+                            "wealth_level": 24
+                        }]
+                    },
+                    "dm_brush_info": {
+                        "min_time": 700,
+                        "brush_count": 100,
+                        "slice_count": 2,
+                        "storage_time": 3000
+                    },
+                    "dm_emoticon_info": {
+                        "is_open_emoticon": 1,
+                        "is_shield_emoticon": 0
+                    },
+                    "dm_tag_info": {
+                        "dm_tag": 0,
+                        "platform": [],
+                        "extra": "",
+                        "dm_chronos_extra": "",
+                        "dm_mode": [],
+                        "dm_setting_switch": 0,
+                        "material_conf": null
+                    },
+                    "topic_info": {
+                        "topic_id": 0,
+                        "topic_name": ""
+                    },
+                    "game_info": {
+                        "game_status": 0
+                    },
+                    "watched_show": {
+                        "switch": true,
+                        "num": 639,
+                        "text_small": "639",
+                        "text_large": "639人看过",
+                        "icon": "",
+                        "icon_location": 0,
+                        "icon_web": ""
+                    },
+                    "topic_room_info": {
+                        "interactive_h5_url": "",
+                        "watermark": 1
+                    },
+                    "show_reserve_status": false,
+                    "second_create_info": null,
+                    "play_together_info": null,
+                    "cloud_game_info": {
+                        "is_gaming": 0
+                    },
+                    "like_info_v3": {
+                        "total_likes": 1151,
+                        "click_block": false,
+                        "count_block": false,
+                        "guild_emo_text": "试试双击点赞 让主播被更多人看到吧～",
+                        "guild_dm_text": "点赞30次可以帮主播冲刺热门榜哦～",
+                        "like_dm_text": "谢谢你的赞，每点赞30次有概率为主播增加曝光哦～",
+                        "hand_icons": ["https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fecc2c5a2efc1c40a1125bb0d648d891e0e8cbd3b.png", "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F391b45ed00617391b863f6441d5d040165c4d1b4.png", "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fad7c7adc9ee0c778cea161dea6c5a96c4ff7f845.png", "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fc6a4781558d84838cc4963fcf94792e54beabe15.png", "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F6920410aca21e3397f23ee7ae5ddbf8f1c625943.png", "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F7e671e053c365f91a0a0f4837ec92ac9581977ec.png"],
+                        "dm_icons": ["https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fecc2c5a2efc1c40a1125bb0d648d891e0e8cbd3b.png", "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F391b45ed00617391b863f6441d5d040165c4d1b4.png", "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fad7c7adc9ee0c778cea161dea6c5a96c4ff7f845.png", "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fc6a4781558d84838cc4963fcf94792e54beabe15.png", "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F6920410aca21e3397f23ee7ae5ddbf8f1c625943.png", "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F7e671e053c365f91a0a0f4837ec92ac9581977ec.png"],
+                        "eggshells_icon": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fea6454847e9b9d1b6be03f04f829620b4f0a5d46.svga",
+                        "count_show_time": 15,
+                        "process_icon": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F6d96e9de0cc5c80acf3537fe9a23d94da0ab5ff5.png",
+                        "process_color": "#4DFF6699",
+                        "report_click_limit": 10,
+                        "report_time_min": 5,
+                        "report_time_max": 10
+                    },
+                    "live_play_info": {
+                        "show_widget_banner": true,
+                        "show_left_entry": true
+                    },
+                    "multi_voice": {
+                        "switch_status": 2,
+                        "members": [],
+                        "mv_role": 0,
+                        "seat_type": 0,
+                        "invoking_time": 0,
+                        "version": 0,
+                        "pk": null,
+                        "biz_session_id": "",
+                        "mode_details": null,
+                        "hat_list": null
+                    },
+                    "popular_rank_info": {
+                        "rank": 0,
+                        "countdown": 803,
+                        "timestamp": 1692715598,
+                        "url": "https:\u002F\u002Flive.bilibili.com\u002Fp\u002Fhtml\u002Flive-app-hotrank\u002Findex.html?clientType=2&anchorId=480631546",
+                        "on_rank_name": "人气",
+                        "rank_name": "人气榜"
+                    },
+                    "new_area_rank_info": {
+                        "items": [{
+                            "conf_id": 21,
+                            "rank_name": "单机航海",
+                            "uid": 480631546,
+                            "rank": 0,
+                            "icon_url_blue": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002F18e2990a546d33368200f9058f3d9dbc4038eb5c.png",
+                            "icon_url_pink": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fa6c490c36e88c7b191a04883a5ec15aed187a8f7.png",
+                            "icon_url_grey": "https:\u002F\u002Fi0.hdslb.com\u002Fbfs\u002Flive\u002Fcb7444b1faf1d785df6265bfdc1fcfc993419b76.png",
+                            "jump_url_link": "https:\u002F\u002Flive.bilibili.com\u002Fp\u002Fhtml\u002Flive-app-hotrank\u002Findex.html?clientType=3&ruid=480631546&conf_id=21&is_live_half_webview=1&hybrid_rotate_d=1&is_cling_player=1&hybrid_half_ui=1,3,100p,70p,f4eefa,0,30,100,0,0;2,2,375,100p,f4eefa,0,30,100,0,0;3,3,100p,70p,f4eefa,0,30,100,0,0;4,2,375,100p,f4eefa,0,30,100,0,0;5,3,100p,70p,f4eefa,0,30,100,0,0;6,3,100p,70p,f4eefa,0,30,100,0,0;7,3,100p,70p,f4eefa,0,30,100,0,0;8,3,100p,70p,f4eefa,0,30,100,0,0#\u002Farea-rank",
+                            "jump_url_pc": "https:\u002F\u002Flive.bilibili.com\u002Fp\u002Fhtml\u002Flive-app-hotrank\u002Findex.html?clientType=4&ruid=480631546&conf_id=21&pc_ui=338,465,f4eefa,0#\u002Farea-rank",
+                            "jump_url_pink": "https:\u002F\u002Flive.bilibili.com\u002Fp\u002Fhtml\u002Flive-app-hotrank\u002Findex.html?clientType=1&ruid=480631546&conf_id=21&is_live_half_webview=1&hybrid_rotate_d=1&hybrid_half_ui=1,3,100p,70p,ffffff,0,30,100,12,0;2,2,375,100p,ffffff,0,30,100,0,0;3,3,100p,70p,ffffff,0,30,100,12,0;4,2,375,100p,ffffff,0,30,100,0,0;5,3,100p,70p,ffffff,0,30,100,0,0;6,3,100p,70p,ffffff,0,30,100,0,0;7,3,100p,70p,ffffff,0,30,100,0,0;8,3,100p,70p,ffffff,0,30,100,0,0#\u002Farea-rank",
+                            "jump_url_web": "https:\u002F\u002Flive.bilibili.com\u002Fp\u002Fhtml\u002Flive-app-hotrank\u002Findex.html?clientType=2&ruid=480631546&conf_id=21#\u002Farea-rank"
+                        }],
+                        "rotation_cycle_time_web": 10000
+                    },
+                    "gift_star": {
+                        "show": true,
+                        "display_widget_ab_group": 3
+                    },
+                    "progress_for_widget": {
+                        "gift_star_process": {
+                            "task_info": {
+                                "start_date": 20230821,
+                                "process_list": [{
+                                    "gift_id": 31036,
+                                    "gift_img": "https:\u002F\u002Fs1.hdslb.com\u002Fbfs\u002Flive\u002F8b40d0470890e7d573995383af8a8ae074d485d9.png",
+                                    "gift_name": "礼物星球",
+                                    "completed_num": 115,
+                                    "target_num": 200
+                                }, {
+                                    "gift_id": 33155,
+                                    "gift_img": "https:\u002F\u002Fs1.hdslb.com\u002Fbfs\u002Flive\u002F670a9af6f81457712e66b01a18d7997e9bdcb89e.png",
+                                    "gift_name": "礼物星球",
+                                    "completed_num": 27,
+                                    "target_num": 100
+                                }, {
+                                    "gift_id": 31591,
+                                    "gift_img": "https:\u002F\u002Fs1.hdslb.com\u002Fbfs\u002Flive\u002F239c1e0c584b47601347812536422a37a5e3b3b9.png",
+                                    "gift_name": "礼物星球",
+                                    "completed_num": 0,
+                                    "target_num": 1
+                                }],
+                                "finished": false,
+                                "ddl_timestamp": 1693152000,
+                                "version": 1692713657502,
+                                "reward_gift": 32269,
+                                "reward_gift_img": "https:\u002F\u002Fs1.hdslb.com\u002Fbfs\u002Flive\u002F52edb4ab7377ece34ac15b21154d13d188874b01.png",
+                                "reward_gift_name": "礼物星球"
+                            },
+                            "preload_timestamp": 1693151507,
+                            "preload": false,
+                            "preload_task_info": null,
+                            "widget_bg": "",
+                            "jump_schema": "https:\u002F\u002Flive.bilibili.com\u002Fp\u002Fhtml\u002Flive-app-gift-planet\u002Findex.html?roomId=21678744&ruid=480631546&app_common=open&plt=&pc_ui=375,580,2E345A,0&is_live_half_webview=1&hybrid_half_ui=1,3,100p,70p,0,0,30,100,12,0;2,2,375,100p,0,0,30,100,0,0;3,3,100p,70p,0,0,30,100,12,0;4,2,375,100p,0,0,30,100,0,0;5,3,100p,70p,0,0,30,100,12,0;6,3,100p,70p,0,0,30,100,12,0;7,3,100p,70p,0,0,30,100,12,0;8,2,320,480,0,0,30,100,0,0&display_widget_ab_group=3",
+                            "ab_group": 3
+                        },
+                        "wish_process": null
+                    },
+                    "revenue_demotion": {
+                        "global_gift_config_demotion": false
+                    },
+                    "revenue_material_md5": null,
+                    "block_info": {
+                        "block": false
+                    },
+                    "danmu_extra": {
+                        "screen_switch_off": false
+                    },
+                    "video_connection_info": null,
+                    "player_throttle_info": {
+                        "status": 1,
+                        "normal_sleep_time": 1800,
+                        "fullscreen_sleep_time": 3600,
+                        "tab_sleep_time": 1800,
+                        "prompt_time": 30
+                    },
+                    "guard_info": {
+                        "count": 53,
+                        "anchor_guard_achieve_level": 0
+                    },
+                    "hot_rank_info": null
+                }
+            },
+            "userLabInfo": {
+                "code": 0,
+                "message": "0",
+                "ttl": 1,
+                "data": {
+                    "configs": {},
+                    "uid": 487408043
+                }
+            },
+            "experimentalPlayerOptions": {}
+        }
+    </script>
+    <script>
+        addWaifu && addWaifu("uni")
+    </script>
+    <script src=//activity.hdslb.com/blackboard/static/e73ff3f7d8cf6b963d2447680209f2d3/skin-v2.min.js></script>
+    <script>
+        !function() {
+            if (void 0 !== window.roomBuffService) {
+                var o = window.__NEPTUNE_IS_MY_WAIFU__ || {}
+                    , e = !!o.roomInfoRes && 0 === o.roomInfoRes.code && !!o.roomInfoRes.data && o.roomInfoRes.data.skin_info;
+                window.roomBuffService.bootstrap({}, {
+                    enableDebug: !1
+                }),
+                e && e.id && window.roomBuffService.mount(e)
+            }
+        }()
+    </script>
+    <script>
+        function roomPlayerLoaded() {
+            window.roomPlayerIsLoaded = !0
+        }
+        function roomPlayerError() {
+            window.roomPlayerTriggerError = !0,
+                console.log("%c 播放器加载报错:", "color: #00ff00")
+        }
+        function handleRoomPlayerError(o) {
+            if (!o.filename)
+                return;
+            if ("room-player" === o.filename.replace(/(.*\/)*([^.]+).*/gi, "$2")) {
+                window.roomPlayerTriggerError = !0;
+                const {message: r, lineno: e, colno: n, error: l} = o;
+                window.__room__player__errror__info__ = {
+                    message: r,
+                    lineno: e,
+                    colno: n,
+                    error: l
+                },
+                    console.log(`%c 播放器报错: ${r}: ${e}, ${n}, ${l}`, "color: #00ffff")
+            }
+        }
+        window.addEventListener("error", handleRoomPlayerError, !1)
+    </script>
+    <script src=//s1.hdslb.com/bfs/blive-engineer/live-web-player/room-player.min.js onload=roomPlayerLoaded() onerror=roomPlayerError() crossorigin=anonymous></script>
+    <script>
+        __PLAYER_BOOTSTRAP_FUNC__ && __PLAYER_BOOTSTRAP_FUNC__()
+    </script>
+    <script>
+        addWaifu && addWaifu("rom")
+    </script>
+    <script src=//s1.hdslb.com/bfs/static/blive/blfe-live-room/static/js/vendors.94f5b7d271ebc428b727.js></script>
+    <script src=//s1.hdslb.com/bfs/static/blive/blfe-live-room/static/js/bilibili.db344bebf0d5c85732ad.js></script>
+    <script src=//s1.hdslb.com/bfs/static/blive/blfe-live-room/static/js/app.0fefc2049af4fabceab6.js></script>
+    <script>
+        addWaifu && addWaifu("ram")
+    </script>
+    <script defer=defer src=//activity.hdslb.com/blackboard/static/20220720/d0411babbbf77c49ca42a3320eb804ae/QO8kpv5ZKo.js></script>
+    <script defer=defer src=//s1.hdslb.com/bfs/static/jinkela/long/js/sentry/sentry-5.2.1.min.js></script>
+    <script>
+        "serviceWorker"in navigator && /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9.]+)/.test(navigator.userAgent) && window.addEventListener("load", (function() {
+                navigator.serviceWorker.register("/p/html/blive-user-guide/sw.js", {
+                    scope: "/"
+                }).then((function(e) {
+                        console.log("sw register success!")
+                    }
+                ), (function(e) {
+                        navigator.serviceWorker.getRegistrations().then((function(e) {
+                                for (let r of e)
+                                    r.unregister()
+                            }
+                        )),
+                            console.warn("sw register failed!", e)
+                    }
+                ))
+            }
+        ))
+    </script>
+    <script>
+        window.addEventListener("load", ()=>{
+                null != window.Sentry && null != window._BiliIntegration_ && window.Sentry.init({
+                    dsn: "https://dcb8e8a600734f60ae62acb516db176d@api.bilibili.com/x/traceback/74",
+                    debug: !1,
+                    release: "9ce713fddcd81fc9fd80ba6377291b16db66d77e",
+                    environment: "production",
+                    sampleRate: .01,
+                    integrations: [new _BiliIntegration_]
+                })
+            }
+        )
+    </script>
+    <!-- 客户端字体设置-->
+    <script src=//s1.hdslb.com/bfs/seed/jinkela/short/pc-client/bili-fonts.js></script>
+</div>
+</body>
+</html>

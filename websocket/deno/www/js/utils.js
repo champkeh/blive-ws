@@ -241,6 +241,10 @@ function onSendGiftMsg(rid, data) {
     Logger.warn(rid, "送礼物", `${info.name} ${info.action} ${info.giftName}x${info.num}`)
 }
 
+/**
+ * 获取 ws 地址
+ * @return {string}
+ */
 export function getWsEndpoint() {
     if (window.location.protocol === 'http:') {
         return `ws://${window.location.host}`

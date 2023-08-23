@@ -24,11 +24,10 @@ export async function handleHttpReq(req: Request): Promise<Response> {
 }
 
 /**
- * (private)
  * 静态文件是否存在
  * @param path 文件路径
  */
-export async function existFile(path: string): Promise<boolean> {
+async function existFile(path: string): Promise<boolean> {
     try {
         await Deno.stat(path)
         return true
@@ -41,7 +40,7 @@ export async function existFile(path: string): Promise<boolean> {
  * 处理静态文件请求
  * @param request
  */
-export async function handleStaticFileRequest(request: Request): Promise<Response> {
+async function handleStaticFileRequest(request: Request): Promise<Response> {
     let {pathname} = new URL(request.url)
     if (pathname === '/') {
         pathname = '/index.html'
@@ -56,7 +55,6 @@ export async function handleStaticFileRequest(request: Request): Promise<Respons
 }
 
 /**
- * (private)
  * 解析 mime-type
  * @param request
  */
@@ -80,7 +78,6 @@ function mimeType(request: Request) {
 }
 
 /**
- * (private)
  * 从扩展名解析 mime-type
  * @param request
  */

@@ -33,6 +33,7 @@ type UserDirective =
 interface UserEnterDirective {
     cmd: 'enter'
     rid: number
+    uid: number | undefined
     events: string[]
 }
 
@@ -40,6 +41,7 @@ interface UserEnterDirective {
 interface UserLeaveDirective {
     cmd: 'leave'
     rid: number
+    uid: number | undefined
 }
 
 // exit 指令
@@ -130,7 +132,7 @@ async function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
                 // 这里将新类型添加到监听事件列表中
                 userDirective.events.push('DANMU_MSG:4:0:2:2:2:0')
             }
-            await enterRoom(+userDirective.rid, userDirective.events, this)
+            await enterRoom(+userDirective.rid, userDirective.uid, userDirective.events, this)
         } else if (userDirective.cmd === 'leave') {
             // 离开房间
             leaveRoom(userDirective.rid, this)
@@ -143,10 +145,11 @@ async function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
 /**
  * 进入房间
  * @param rid
+ * @param uid
  * @param events
  * @param client
  */
-async function enterRoom(rid: number, events: string[], client: WebSocketClient) {
+async function enterRoom(rid: number, uid: number | undefined, events: string[], client: WebSocketClient) {
     if (!events.includes('authorized')) {
         events.push('authorized')
     }
@@ -168,7 +171,7 @@ async function enterRoom(rid: number, events: string[], client: WebSocketClient)
 
     // 新建房间对应的 B 站 Socket 对象
     const bliveSocket = new BliveSocket({
-        uid: 487408043,
+        uid: uid !== undefined ? +uid : undefined,
         rid,
         events,
         debug: false,

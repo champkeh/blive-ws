@@ -2,7 +2,7 @@
 
 ## 关于文件名
 
-socket 目录下的文件名格式为 `ModuleID.ModuleName.Hash.js`，对应`room-player.min.js`中相关模块的代码。
+socket 目录下的文件名格式为 `ModuleID.ModuleName.js`，对应`room-player.min.js`中相关模块的代码。
 
 ## 关于研究对象
 
@@ -35,9 +35,9 @@ socket 目录下的文件名格式为 `ModuleID.ModuleName.Hash.js`，对应`roo
 当前分析的代码的构建信息如下：
 ```json5
 {
-  version: "1.4.4", 
-  gitHash: "31c446ee",
-  build: "34",
+  version: "1.4.5", 
+  gitHash: "cbde3454",
+  build: "41",
   bundleType: "release",
 }
 ```

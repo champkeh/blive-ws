@@ -35,6 +35,7 @@ const app = createApp({
     data() {
         return {
             app: {
+                uid: '',
                 rid: '',
                 rooms: [],
                 ws: null,
@@ -100,6 +101,7 @@ const app = createApp({
                 this.app.connecting = false
                 this.app.rooms.push(data.rid)
                 this.app.rid = ''
+                this.app.uid = ''
             } else {
                 // 处理其他消息
                 handleMessage(data)
@@ -136,6 +138,7 @@ const app = createApp({
                 this.app.ws.send(JSON.stringify({
                     cmd: 'enter',
                     rid: rid,
+                    uid: this.app.uid || undefined,
                     events: ['DANMU_MSG', 'INTERACT_WORD', 'SEND_GIFT'],
                 }))
             })

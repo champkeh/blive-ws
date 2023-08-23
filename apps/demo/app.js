@@ -1,6 +1,6 @@
 import WebPlayerSocket from 'https://esm.sh/blive-ws?bundle'
 import {onSocketOpen, onSocketClose, onDanmuMsg, onSendGiftMsg, onInteractWordMsg} from './events.js'
-import {getDanmuInfo, getRoomPlayInfo} from '../../apis/utils.js'
+import {getDanmuInfo, getRoomPlayInfo} from '../../docs/utils.js'
 
 
 // 一些dom元素
