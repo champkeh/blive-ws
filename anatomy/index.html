@@ -20,15 +20,18 @@
     <meta name=renderer content=webkit>
     <meta http-equiv=Content-Security-Policy content=upgrade-insecure-requests>
     <title id=link-app-title>哔哩哔哩直播，二次元弹幕直播平台</title>
-    <meta name=description content=哔哩哔哩（bilibili）直播，在这里看见最年轻的生活方式，学习、游戏、电竞、宅舞、唱见、绘画、美食等等应有尽有，快来捕捉你最喜欢的up主最真实的一面吧！>
-    <meta name=keywords content=直播,B站,生放送,bilibili,哔哩哔哩,哔哩哔哩直播,B站直播,热门游戏直播,游戏直播,高清游戏直播,电子竞技直播,lol直播,cf直播,dota2直播,美女直播,弹幕,字幕,动漫,动漫音乐,游戏>
+    <meta name=description
+          content=哔哩哔哩（bilibili）直播，在这里看见最年轻的生活方式，学习、游戏、电竞、宅舞、唱见、绘画、美食等等应有尽有，快来捕捉你最喜欢的up主最真实的一面吧！>
+    <meta name=keywords
+          content=直播,B站,生放送,bilibili,哔哩哔哩,哔哩哔哩直播,B站直播,热门游戏直播,游戏直播,高清游戏直播,电子竞技直播,lol直播,cf直播,dota2直播,美女直播,弹幕,字幕,动漫,动漫音乐,游戏>
     <meta name=application-name content=哔哩哔哩直播>
     <meta name=format-detection content="telephone=no">
     <meta name=apple-mobile-web-app-capable content=yes>
     <meta name=apple-mobile-web-app-status-bar-style content=black>
     <meta name=theme-color content=#4393E2>
     <meta name=referrer content=no-referrer-when-downgrade>
-    <meta http-equiv=origin-trial content="Asgonbsvb0ufqVFRrwnMJgGf3HAtiwl++2S208XERSmTRBxebWHcsJTu9K4wtePhsFzqKF2Zf9F4FuaDogfx3woAAAB2eyJvcmlnaW4iOiJodHRwczovL2JpbGliaWxpLmNvbTo0NDMiLCJmZWF0dXJlIjoiVW5yZXN0cmljdGVkU2hhcmVkQXJyYXlCdWZmZXIiLCJleHBpcnkiOjE3MDk4NTU5OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+    <meta http-equiv=origin-trial
+          content="Asgonbsvb0ufqVFRrwnMJgGf3HAtiwl++2S208XERSmTRBxebWHcsJTu9K4wtePhsFzqKF2Zf9F4FuaDogfx3woAAAB2eyJvcmlnaW4iOiJodHRwczovL2JpbGliaWxpLmNvbTo0NDMiLCJmZWF0dXJlIjoiVW5yZXN0cmljdGVkU2hhcmVkQXJyYXlCdWZmZXIiLCJleHBpcnkiOjE3MDk4NTU5OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
     <meta name=spm_prefix content=444.8>
     <link rel=icon href=//www.bilibili.com/favicon.ico>
     <link rel=apple-touch-icon href=//www.bilibili.com/favicon.ico>
@@ -45,6 +48,7 @@
         function isIE() {
             return navigator.userAgent.toLowerCase().indexOf("trident") > -1
         }
+
         function lowVerEdge() {
             var e = navigator.userAgent.toLowerCase()
                 , n = e.indexOf("edge/")
@@ -52,616 +56,643 @@
             return n > 0 && parseInt(e.substring(n + 5, e.indexOf(".", n)), 10) < 79 && (i = !0),
                 i
         }
+
         (isIE() || lowVerEdge()) && (window.location.href = "https://link.bilibili.com/p/eden/browser-guide")
     </script>
     <script>
-        function addWaifu(a, n) {
+        function addWaifu(name, startTime) {
             try {
-                window.performance.mark(a, {
+                window.performance.mark(name, {
                     detail: {
                         component: "performanceTrack"
                     },
-                    startTime: void 0 !== n ? n : performance.now()
+                    startTime: startTime !== undefined ? startTime : performance.now()
                 })
             } catch (a) {
                 console.warn(a)
             }
         }
+
         addWaifu("neptune")
     </script>
     <script>
-        !function() {
+        !function () {
             "use strict";
-            var e, f, a, c, d, t, n, r = {}, b = {};
-            function o(e) {
-                var f = b[e];
-                if (void 0 !== f)
-                    return f.exports;
-                var a = b[e] = {
-                    id: e,
-                    loaded: !1,
+            let e, f, c, d, mods = {}, cache = {};
+
+            const getPrototypeOf = Object.getPrototypeOf
+                ? function (obj) {
+                    return Object.getPrototypeOf(obj)
+                }
+                : function (obj) {
+                    return obj.__proto__
+                }
+
+            function require(id) {
+                const cacheModule = cache[id]
+                if (cacheModule !== undefined) {
+                    return cacheModule.exports
+                }
+                const module = cache[id] = {
+                    id: id,
+                    loaded: false,
                     exports: {}
-                };
-                return r[e].call(a.exports, a, a.exports, o),
-                    a.loaded = !0,
-                    a.exports
+                }
+                mods[id].call(module.exports, module, module.exports, require)
+                module.loaded = true
+                return module.exports
             }
-            o.m = r,
-                e = [],
-                o.O = function(f, a, c, d) {
-                    if (!a) {
-                        var t = 1 / 0;
-                        for (b = 0; b < e.length; b++) {
-                            a = e[b][0],
-                                c = e[b][1],
-                                d = e[b][2];
-                            for (var n = !0, r = 0; r < a.length; r++)
-                                (!1 & d || t >= d) && Object.keys(o.O).every((function(e) {
-                                        return o.O[e](a[r])
-                                    }
-                                )) ? a.splice(r--, 1) : (n = !1,
-                                d < t && (t = d));
-                            n && (e.splice(b--, 1),
-                                f = c())
+
+            require.m = mods
+            e = []
+            require.O = function (f, a, c, d) {
+                if (!a) {
+                    var t = 1 / 0;
+                    for (b = 0; b < e.length; b++) {
+                        a = e[b][0],
+                            c = e[b][1],
+                            d = e[b][2];
+                        for (var n = !0, r = 0; r < a.length; r++)
+                            (!1 & d || t >= d) && Object.keys(require.O).every((function (e) {
+                                    return require.O[e](a[r])
+                                }
+                            )) ? a.splice(r--, 1) : (n = !1,
+                            d < t && (t = d));
+                        n && (e.splice(b--, 1),
+                            f = c())
+                    }
+                    return f
+                }
+                d = d || 0;
+                for (var b = e.length; b > 0 && e[b - 1][2] > d; b--)
+                    e[b] = e[b - 1];
+                e[b] = [a, c, d]
+            }
+            require.n = function (e) {
+                var f = e && e.__esModule ? function () {
+                            return e.default
                         }
-                        return f
-                    }
-                    d = d || 0;
-                    for (var b = e.length; b > 0 && e[b - 1][2] > d; b--)
-                        e[b] = e[b - 1];
-                    e[b] = [a, c, d]
-                }
-                ,
-                o.n = function(e) {
-                    var f = e && e.__esModule ? function() {
-                                return e.default
-                            }
-                            : function() {
-                                return e
-                            }
-                    ;
-                    return o.d(f, {
-                        a: f
-                    }),
-                        f
-                }
-                ,
-                a = Object.getPrototypeOf ? function(e) {
-                        return Object.getPrototypeOf(e)
-                    }
-                    : function(e) {
-                        return e.__proto__
-                    }
-                ,
-                o.t = function(e, c) {
-                    if (1 & c && (e = this(e)),
-                    8 & c)
-                        return e;
-                    if ("object" == typeof e && e) {
-                        if (4 & c && e.__esModule)
-                            return e;
-                        if (16 & c && "function" == typeof e.then)
+                        : function () {
                             return e
-                    }
-                    var d = Object.create(null);
-                    o.r(d);
-                    var t = {};
-                    f = f || [null, a({}), a([]), a(a)];
-                    for (var n = 2 & c && e; "object" == typeof n && !~f.indexOf(n); n = a(n))
-                        Object.getOwnPropertyNames(n).forEach((function(f) {
-                                t[f] = function() {
-                                    return e[f]
-                                }
-                            }
-                        ));
-                    return t.default = function() {
+                        }
+                ;
+                return require.d(f, {
+                    a: f
+                }),
+                    f
+            }
+            require.t = function (e, c) {
+                if (1 & c && (e = this(e)),
+                8 & c)
+                    return e;
+                if ("object" == typeof e && e) {
+                    if (4 & c && e.__esModule)
+                        return e;
+                    if (16 & c && "function" == typeof e.then)
                         return e
-                    }
-                        ,
-                        o.d(d, t),
-                        d
                 }
-                ,
-                o.d = function(e, f) {
-                    for (var a in f)
-                        o.o(f, a) && !o.o(e, a) && Object.defineProperty(e, a, {
-                            enumerable: !0,
-                            get: f[a]
-                        })
-                }
-                ,
-                o.f = {},
-                o.e = function(e) {
-                    return Promise.all(Object.keys(o.f).reduce((function(f, a) {
-                            return o.f[a](e, f),
-                                f
-                        }
-                    ), []))
-                }
-                ,
-                o.u = function(e) {
-                    return "static/js/" + e + "." + {
-                        4: "39ee8a26fab1035186f0",
-                        179: "70daddec2acaae2010c8",
-                        226: "27994a07984e62978691",
-                        342: "d59094e1be7377ce9275",
-                        379: "18ec6c042aeaf78b5f90",
-                        415: "8987675b233f417dde3d",
-                        457: "ad42e818e65200ab7ab6",
-                        619: "cd522d0514090e528151",
-                        732: "6ea704ad806313ff8a79",
-                        1057: "19120db8044777e9346b",
-                        1323: "9c3199e95f574d9c6cc3",
-                        1375: "bd9912be2b577025edb7",
-                        1426: "62ba9c201f9672f66fd5",
-                        1482: "da296bf5e1928d637395",
-                        1532: "573552fd3202915667ce",
-                        1543: "c0d77a142830a1eecfff",
-                        1584: "158defc2a2e6b9a8f7ed",
-                        1744: "3125b4eab8f0e35aec6b",
-                        1951: "f5094f2145a5be7edd08",
-                        2054: "399a50b2bd776b738087",
-                        2293: "6e4be6eddfdbde98ddc4",
-                        2312: "1533e9b32ed7bd0a4e28",
-                        2338: "9033089ce7398488e2dd",
-                        2500: "cd7a798f26824d58fa71",
-                        2795: "fb428e41272cafe0f1ce",
-                        2971: "5374a69ec9d545ef5a3c",
-                        3001: "8642040c38fee6adf7c6",
-                        3095: "007872aae637511dc2c1",
-                        3158: "2d38993300d08dc95e7b",
-                        3183: "4607c7aff284a3ae6c5d",
-                        3267: "0417c44dac82ff01633b",
-                        3276: "11047c6d5777f2b3a639",
-                        3405: "8983b3061380a228b452",
-                        3513: "acb4d943c53399f20226",
-                        3815: "691081863547821afa92",
-                        4405: "16869b7119831baf69a9",
-                        4407: "774e33863d34733f34ad",
-                        4492: "a69ca7b0a157177bd9ef",
-                        4536: "40a1819f5f387f3e2b4b",
-                        4719: "16c606e311f653f0de18",
-                        4759: "2650d82910e1717938a9",
-                        4846: "cd7c446383160d433200",
-                        4860: "8e460010005ed5439408",
-                        5058: "ac5a0f6122566a0ff8af",
-                        5228: "50a2764fec5d7a7ff263",
-                        5439: "52f01893263f60763009",
-                        5646: "3d2d75d7d8add9e04769",
-                        5650: "9453c5900c179e69e702",
-                        5699: "f19bb6586bd3f38b68d8",
-                        5775: "ee675935277b27f426ef",
-                        5844: "6b46aa4bfd4c65ab2ae1",
-                        5915: "53ff2a8e2f09ec444ccf",
-                        5942: "71fb637342292722da7c",
-                        6118: "99a6284051858e005edb",
-                        6139: "af5343badca88a7c77e4",
-                        6218: "03b12d0f9ca51332c753",
-                        6468: "4d60160ca2bafb3bd2ce",
-                        6532: "32be8a6b1a401d3fc864",
-                        6636: "5f0dd9ec09c444dcf6fd",
-                        6663: "7c7d1ae53ab461fb9d46",
-                        6741: "fc52e24266d9217b102d",
-                        6833: "b5f5571845979bc4e2b5",
-                        6880: "71edd7d7c1670a289c0f",
-                        7056: "986bde0647eaaad427d8",
-                        7217: "56eb95c61444e566610a",
-                        7219: "1d9edd1671850a0895b3",
-                        7347: "5e5522ebe14a91f3ad30",
-                        7430: "8c837c60195e26d9a9df",
-                        7598: "41cb134a52967fc17f97",
-                        7695: "713e214bf99a82a22055",
-                        7922: "6e14a4214338ef8d9422",
-                        7985: "4ee2950da89b88395c63",
-                        8137: "e65e9731b2f00ba9c43e",
-                        8305: "065c08e987fcf5c262b9",
-                        8510: "06c5d24a579e795c6940",
-                        8585: "cf4f82cc5ee3764b71e7",
-                        8594: "61efec9be0b2808b039c",
-                        8697: "37fa247f00bb37bf8034",
-                        8725: "2dc9f694c2208af54ee9",
-                        8843: "1b27331a081afeae6a2c",
-                        8888: "750da500d281b2a67503",
-                        8985: "afdfe71afdb95eb43f75",
-                        9029: "3dda8f743d2013a03795",
-                        9053: "5d81f613f7f202a20571",
-                        9698: "0b9ac80b82207d3432d6"
-                    }[e] + ".js"
-                }
-                ,
-                o.miniCssF = function(e) {
-                    return 2143 === e ? "static/css/app.418e2b2793c2834ed443.vip.css" : "static/css/" + e + "." + {
-                        4: "86f8817d28c30b928f27",
-                        179: "3d957303e7af5a305451",
-                        226: "8e321f0ff0849c28ce5a",
-                        342: "289cb2b55d89f512aab5",
-                        415: "676e2dd7b360933ccd4d",
-                        1057: "6e36adcaf62e15794115",
-                        1323: "f3e5002f7d8938d7532e",
-                        1375: "75279cb3169f2766b586",
-                        1426: "2ff1016922855aa2172f",
-                        1482: "b9684f8e593c6c9350aa",
-                        1532: "775fb5d54002b3c5089d",
-                        1543: "434fe14f235d552e638e",
-                        1584: "683f88ee17e544df0916",
-                        1744: "a37cc7c23347bcb53d86",
-                        1951: "30b961dc4266e04265ec",
-                        2054: "4434c5b417859ce75e3c",
-                        2293: "a8b07c811397474940dc",
-                        2312: "816c24e05003c83f6769",
-                        2338: "f8d6bbf02f6009759960",
-                        2500: "b48460dbaae63e476b3a",
-                        2971: "d7a48ddccae776097c7a",
-                        3001: "01a44d919eca3f200aad",
-                        3095: "9e43c0a0cc378ceb55f4",
-                        3183: "18982ec0c1d199b609ea",
-                        3267: "6449f31c05240627df52",
-                        3276: "382b69df8fccddbcc0e8",
-                        3405: "d7c796b4eaf991a96b8e",
-                        3513: "1dc57661215e8f735ac8",
-                        3815: "0d7b55ce4ae268662696",
-                        4405: "3530b81e198ae7a91ef4",
-                        4407: "75e0a798e43aa87fad52",
-                        4492: "86cda0a3002b7bde9750",
-                        4719: "62f0f7190876309461d7",
-                        4846: "6d7473b5b9786cde1069",
-                        5058: "5648b841e5716fcd5860",
-                        5228: "850d60604e79d77a7a7e",
-                        5650: "3af58f0f6965d700bb1a",
-                        5775: "a09b1f29f2893a248e4a",
-                        5844: "9945a3cf314ddf4a30d3",
-                        5915: "5e438938dc2109e0594a",
-                        5942: "1750ee50e0eea986d9ca",
-                        6118: "835257d550ad1817eb81",
-                        6139: "45972d9084f99dddfab3",
-                        6218: "fb728c8322ce172e4d0e",
-                        6468: "8065e5aa8e567b2ca2a7",
-                        6636: "5092f95bb29e1a7da39f",
-                        6663: "430c2082998279e06111",
-                        6880: "6ec07b9aa17e1b97387e",
-                        7056: "dc9c868149bfd6e8ee77",
-                        7217: "7f260e55d363220bca89",
-                        7430: "b11da6f44cf8233db53c",
-                        7598: "98f155504e7ea5b81201",
-                        7985: "1514bf52f036f5f1195b",
-                        8137: "94cfde205f9729ef51ec",
-                        8510: "c7c9e4e7c90418c5fe94",
-                        8585: "270c22c1270d2d128e3c",
-                        8594: "296d363b39476568d842",
-                        8725: "eebd184e0e6f2f263467",
-                        8843: "f4ded1f9dd61fd9ca909",
-                        8888: "7c322fc06b9347ed820c",
-                        8985: "1ac6f3a8d597c978d5ee",
-                        9029: "082b78e8c35c78be0fa2"
-                    }[e] + ".vip.css"
-                }
-                ,
-                o.g = function() {
-                    if ("object" == typeof globalThis)
-                        return globalThis;
-                    try {
-                        return this || new Function("return this")()
-                    } catch (e) {
-                        if ("object" == typeof window)
-                            return window
-                    }
-                }(),
-                o.o = function(e, f) {
-                    return Object.prototype.hasOwnProperty.call(e, f)
-                }
-                ,
-                c = {},
-                d = "live-room:",
-                o.l = function(e, f, a, t) {
-                    if (c[e])
-                        c[e].push(f);
-                    else {
-                        var n, r;
-                        if (void 0 !== a)
-                            for (var b = document.getElementsByTagName("script"), i = 0; i < b.length; i++) {
-                                var u = b[i];
-                                if (u.getAttribute("src") == e || u.getAttribute("data-webpack") == d + a) {
-                                    n = u;
-                                    break
-                                }
+                var d = Object.create(null);
+                require.r(d);
+                var t = {};
+                f = f || [null, getPrototypeOf({}), getPrototypeOf([]), getPrototypeOf(getPrototypeOf)];
+                for (var n = 2 & c && e; "object" == typeof n && !~f.indexOf(n); n = getPrototypeOf(n))
+                    Object.getOwnPropertyNames(n).forEach((function (f) {
+                            t[f] = function () {
+                                return e[f]
                             }
-                        n || (r = !0,
-                            (n = document.createElement("script")).charset = "utf-8",
-                            n.timeout = 120,
-                        o.nc && n.setAttribute("nonce", o.nc),
-                            n.setAttribute("data-webpack", d + a),
-                            n.src = e),
-                            c[e] = [f];
-                        var l = function(f, a) {
-                            n.onerror = n.onload = null,
-                                clearTimeout(s);
-                            var d = c[e];
-                            if (delete c[e],
-                            n.parentNode && n.parentNode.removeChild(n),
-                            d && d.forEach((function(e) {
-                                    return e(a)
-                                }
-                            )),
-                                f)
-                                return f(a)
                         }
-                            , s = setTimeout(l.bind(null, void 0, {
-                            type: "timeout",
-                            target: n
-                        }), 12e4);
-                        n.onerror = l.bind(null, n.onerror),
-                            n.onload = l.bind(null, n.onload),
-                        r && document.head.appendChild(n)
+                    ));
+                return t.default = function () {
+                    return e
+                }
+                    ,
+                    require.d(d, t),
+                    d
+            }
+            require.d = function (e, f) {
+                for (var a in f)
+                    require.o(f, a) && !require.o(e, a) && Object.defineProperty(e, a, {
+                        enumerable: !0,
+                        get: f[a]
+                    })
+            }
+            require.f = {}
+            require.e = function (e) {
+                return Promise.all(
+                    Object.keys(require.f)
+                        .reduce(((arr, key) => {
+                                require.f[key](e, arr)
+                                return arr
+                            }
+                        ), [])
+                )
+            }
+            require.u = function (e) {
+                return "static/js/" + e + "." + {
+                    4: "39ee8a26fab1035186f0",
+                    179: "70daddec2acaae2010c8",
+                    226: "27994a07984e62978691",
+                    342: "d59094e1be7377ce9275",
+                    379: "18ec6c042aeaf78b5f90",
+                    415: "8987675b233f417dde3d",
+                    457: "ad42e818e65200ab7ab6",
+                    619: "cd522d0514090e528151",
+                    732: "6ea704ad806313ff8a79",
+                    1057: "19120db8044777e9346b",
+                    1323: "9c3199e95f574d9c6cc3",
+                    1375: "bd9912be2b577025edb7",
+                    1426: "62ba9c201f9672f66fd5",
+                    1482: "da296bf5e1928d637395",
+                    1532: "573552fd3202915667ce",
+                    1543: "c0d77a142830a1eecfff",
+                    1584: "158defc2a2e6b9a8f7ed",
+                    1744: "3125b4eab8f0e35aec6b",
+                    1951: "f5094f2145a5be7edd08",
+                    2054: "399a50b2bd776b738087",
+                    2293: "6e4be6eddfdbde98ddc4",
+                    2312: "1533e9b32ed7bd0a4e28",
+                    2338: "9033089ce7398488e2dd",
+                    2500: "cd7a798f26824d58fa71",
+                    2795: "fb428e41272cafe0f1ce",
+                    2971: "5374a69ec9d545ef5a3c",
+                    3001: "8642040c38fee6adf7c6",
+                    3095: "007872aae637511dc2c1",
+                    3158: "2d38993300d08dc95e7b",
+                    3183: "4607c7aff284a3ae6c5d",
+                    3267: "0417c44dac82ff01633b",
+                    3276: "11047c6d5777f2b3a639",
+                    3405: "8983b3061380a228b452",
+                    3513: "acb4d943c53399f20226",
+                    3815: "691081863547821afa92",
+                    4405: "16869b7119831baf69a9",
+                    4407: "774e33863d34733f34ad",
+                    4492: "a69ca7b0a157177bd9ef",
+                    4536: "40a1819f5f387f3e2b4b",
+                    4719: "16c606e311f653f0de18",
+                    4759: "2650d82910e1717938a9",
+                    4846: "cd7c446383160d433200",
+                    4860: "8e460010005ed5439408",
+                    5058: "ac5a0f6122566a0ff8af",
+                    5228: "50a2764fec5d7a7ff263",
+                    5439: "52f01893263f60763009",
+                    5646: "3d2d75d7d8add9e04769",
+                    5650: "9453c5900c179e69e702",
+                    5699: "f19bb6586bd3f38b68d8",
+                    5775: "ee675935277b27f426ef",
+                    5844: "6b46aa4bfd4c65ab2ae1",
+                    5915: "53ff2a8e2f09ec444ccf",
+                    5942: "71fb637342292722da7c",
+                    6118: "99a6284051858e005edb",
+                    6139: "af5343badca88a7c77e4",
+                    6218: "03b12d0f9ca51332c753",
+                    6468: "4d60160ca2bafb3bd2ce",
+                    6532: "32be8a6b1a401d3fc864",
+                    6636: "5f0dd9ec09c444dcf6fd",
+                    6663: "7c7d1ae53ab461fb9d46",
+                    6741: "fc52e24266d9217b102d",
+                    6833: "b5f5571845979bc4e2b5",
+                    6880: "71edd7d7c1670a289c0f",
+                    7056: "986bde0647eaaad427d8",
+                    7217: "56eb95c61444e566610a",
+                    7219: "1d9edd1671850a0895b3",
+                    7347: "5e5522ebe14a91f3ad30",
+                    7430: "8c837c60195e26d9a9df",
+                    7598: "41cb134a52967fc17f97",
+                    7695: "713e214bf99a82a22055",
+                    7922: "6e14a4214338ef8d9422",
+                    7985: "4ee2950da89b88395c63",
+                    8137: "e65e9731b2f00ba9c43e",
+                    8305: "065c08e987fcf5c262b9",
+                    8510: "06c5d24a579e795c6940",
+                    8585: "cf4f82cc5ee3764b71e7",
+                    8594: "61efec9be0b2808b039c",
+                    8697: "37fa247f00bb37bf8034",
+                    8725: "2dc9f694c2208af54ee9",
+                    8843: "1b27331a081afeae6a2c",
+                    8888: "750da500d281b2a67503",
+                    8985: "afdfe71afdb95eb43f75",
+                    9029: "3dda8f743d2013a03795",
+                    9053: "5d81f613f7f202a20571",
+                    9698: "0b9ac80b82207d3432d6"
+                }[e] + ".js"
+            }
+            require.miniCssF = function (chunkId) {
+                const map = {
+                    4: "86f8817d28c30b928f27",
+                    179: "3d957303e7af5a305451",
+                    226: "8e321f0ff0849c28ce5a",
+                    342: "289cb2b55d89f512aab5",
+                    415: "676e2dd7b360933ccd4d",
+                    1057: "6e36adcaf62e15794115",
+                    1323: "f3e5002f7d8938d7532e",
+                    1375: "75279cb3169f2766b586",
+                    1426: "2ff1016922855aa2172f",
+                    1482: "b9684f8e593c6c9350aa",
+                    1532: "775fb5d54002b3c5089d",
+                    1543: "434fe14f235d552e638e",
+                    1584: "683f88ee17e544df0916",
+                    1744: "a37cc7c23347bcb53d86",
+                    1951: "30b961dc4266e04265ec",
+                    2054: "4434c5b417859ce75e3c",
+                    2293: "a8b07c811397474940dc",
+                    2312: "816c24e05003c83f6769",
+                    2338: "f8d6bbf02f6009759960",
+                    2500: "b48460dbaae63e476b3a",
+                    2971: "d7a48ddccae776097c7a",
+                    3001: "01a44d919eca3f200aad",
+                    3095: "9e43c0a0cc378ceb55f4",
+                    3183: "18982ec0c1d199b609ea",
+                    3267: "6449f31c05240627df52",
+                    3276: "382b69df8fccddbcc0e8",
+                    3405: "d7c796b4eaf991a96b8e",
+                    3513: "1dc57661215e8f735ac8",
+                    3815: "0d7b55ce4ae268662696",
+                    4405: "3530b81e198ae7a91ef4",
+                    4407: "75e0a798e43aa87fad52",
+                    4492: "86cda0a3002b7bde9750",
+                    4719: "62f0f7190876309461d7",
+                    4846: "6d7473b5b9786cde1069",
+                    5058: "5648b841e5716fcd5860",
+                    5228: "850d60604e79d77a7a7e",
+                    5650: "3af58f0f6965d700bb1a",
+                    5775: "a09b1f29f2893a248e4a",
+                    5844: "9945a3cf314ddf4a30d3",
+                    5915: "5e438938dc2109e0594a",
+                    5942: "1750ee50e0eea986d9ca",
+                    6118: "835257d550ad1817eb81",
+                    6139: "45972d9084f99dddfab3",
+                    6218: "fb728c8322ce172e4d0e",
+                    6468: "8065e5aa8e567b2ca2a7",
+                    6636: "5092f95bb29e1a7da39f",
+                    6663: "430c2082998279e06111",
+                    6880: "6ec07b9aa17e1b97387e",
+                    7056: "dc9c868149bfd6e8ee77",
+                    7217: "7f260e55d363220bca89",
+                    7430: "b11da6f44cf8233db53c",
+                    7598: "98f155504e7ea5b81201",
+                    7985: "1514bf52f036f5f1195b",
+                    8137: "94cfde205f9729ef51ec",
+                    8510: "c7c9e4e7c90418c5fe94",
+                    8585: "270c22c1270d2d128e3c",
+                    8594: "296d363b39476568d842",
+                    8725: "eebd184e0e6f2f263467",
+                    8843: "f4ded1f9dd61fd9ca909",
+                    8888: "7c322fc06b9347ed820c",
+                    8985: "1ac6f3a8d597c978d5ee",
+                    9029: "082b78e8c35c78be0fa2"
+                }
+                if (chunkId === 2143) {
+                    return "static/css/app.418e2b2793c2834ed443.vip.css"
+                } else {
+                    return "static/css/" + chunkId + "." + map[chunkId] + ".vip.css"
+                }
+            }
+            require.g = function () {
+                if ("object" == typeof globalThis)
+                    return globalThis;
+                try {
+                    return this || new Function("return this")()
+                } catch (e) {
+                    if ("object" == typeof window)
+                        return window
+                }
+            }()
+            require.o = function (e, f) {
+                return Object.prototype.hasOwnProperty.call(e, f)
+            }
+
+            c = {}
+            d = "live-room:"
+            require.l = function (e, f, a, t) {
+                if (c[e])
+                    c[e].push(f);
+                else {
+                    var n, r;
+                    if (void 0 !== a)
+                        for (var b = document.getElementsByTagName("script"), i = 0; i < b.length; i++) {
+                            var u = b[i];
+                            if (u.getAttribute("src") == e || u.getAttribute("data-webpack") == d + a) {
+                                n = u;
+                                break
+                            }
+                        }
+                    n || (r = !0,
+                        (n = document.createElement("script")).charset = "utf-8",
+                        n.timeout = 120,
+                    require.nc && n.setAttribute("nonce", require.nc),
+                        n.setAttribute("data-webpack", d + a),
+                        n.src = e),
+                        c[e] = [f];
+                    var l = function (f, a) {
+                        n.onerror = n.onload = null,
+                            clearTimeout(s);
+                        var d = c[e];
+                        if (delete c[e],
+                        n.parentNode && n.parentNode.removeChild(n),
+                        d && d.forEach((function (e) {
+                                return e(a)
+                            }
+                        )),
+                            f)
+                            return f(a)
+                    }
+                        , s = setTimeout(l.bind(null, void 0, {
+                        type: "timeout",
+                        target: n
+                    }), 12e4);
+                    n.onerror = l.bind(null, n.onerror),
+                        n.onload = l.bind(null, n.onload),
+                    r && document.head.appendChild(n)
+                }
+            }
+            require.r = function (e) {
+                "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
+                    value: "Module"
+                }),
+                    Object.defineProperty(e, "__esModule", {
+                        value: !0
+                    })
+            }
+            require.nmd = function (e) {
+                return e.paths = [],
+                e.children || (e.children = []),
+                    e
+            }
+
+            !function () {
+                require.S = {};
+                const e = {}
+                const f = {}
+                require.I = function (a, c) {
+                    c || (c = []);
+                    var d = f[a];
+                    if (d || (d = f[a] = {}),
+                        !(c.indexOf(d) >= 0)) {
+                        if (c.push(d),
+                            e[a])
+                            return e[a];
+                        require.o(require.S, a) || (require.S[a] = {}),
+                            require.S[a];
+                        var t = [];
+                        return e[a] = t.length ? Promise.all(t).then((function () {
+                                return e[a] = 1
+                            }
+                        )) : 1
                     }
                 }
-                ,
-                o.r = function(e) {
-                    "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
-                        value: "Module"
-                    }),
-                        Object.defineProperty(e, "__esModule", {
-                            value: !0
-                        })
-                }
-                ,
-                o.nmd = function(e) {
-                    return e.paths = [],
-                    e.children || (e.children = []),
-                        e
-                }
-                ,
-                function() {
-                    o.S = {};
-                    var e = {}
-                        , f = {};
-                    o.I = function(a, c) {
-                        c || (c = []);
-                        var d = f[a];
-                        if (d || (d = f[a] = {}),
-                            !(c.indexOf(d) >= 0)) {
-                            if (c.push(d),
-                                e[a])
-                                return e[a];
-                            o.o(o.S, a) || (o.S[a] = {}),
-                                o.S[a];
-                            var t = [];
-                            return e[a] = t.length ? Promise.all(t).then((function() {
-                                    return e[a] = 1
-                                }
-                            )) : 1
+            }()
+            require.p = "//s1.hdslb.com/bfs/static/blive/blfe-live-room/"
+
+            const loadCssChunk = function (chunkId) {
+                return new Promise((resolve, reject) => {
+                    const chunkPath = require.miniCssF(chunkId)
+                    const chunkFullPath = require.p + chunkPath
+
+                    let targetEle
+                    const linkEls = document.getElementsByTagName("link")
+                    for (const linkEl of linkEls) {
+                        const href = linkEl.getAttribute("data-href") || linkEl.getAttribute("href")
+                        if (linkEl.rel === "stylesheet" && (href === chunkPath || href === chunkFullPath)) {
+                            targetEle = linkEl
+                            break
                         }
                     }
-                }(),
-                o.p = "//s1.hdslb.com/bfs/static/blive/blfe-live-room/",
-                t = function(e) {
-                    return new Promise((function(f, a) {
-                            var c = o.miniCssF(e)
-                                , d = o.p + c;
-                            if (function(e, f) {
-                                for (var a = document.getElementsByTagName("link"), c = 0; c < a.length; c++) {
-                                    var d = (n = a[c]).getAttribute("data-href") || n.getAttribute("href");
-                                    if ("stylesheet" === n.rel && (d === e || d === f))
-                                        return n
-                                }
-                                var t = document.getElementsByTagName("style");
-                                for (c = 0; c < t.length; c++) {
-                                    var n;
-                                    if ((d = (n = t[c]).getAttribute("data-href")) === e || d === f)
-                                        return n
-                                }
-                            }(c, d))
-                                return f();
-                            !function(e, f, a, c) {
-                                var d = document.createElement("link");
-                                d.rel = "stylesheet",
-                                    d.type = "text/css",
-                                    d.onerror = d.onload = function(t) {
-                                        if (d.onerror = d.onload = null,
-                                        "load" === t.type)
-                                            a();
-                                        else {
-                                            var n = t && ("load" === t.type ? "missing" : t.type)
-                                                , r = t && t.target && t.target.href || f
-                                                , b = new Error("Loading CSS chunk " + e + " failed.\n(" + r + ")");
-                                            b.code = "CSS_CHUNK_LOAD_FAILED",
-                                                b.type = n,
-                                                b.request = r,
-                                                d.parentNode.removeChild(d),
-                                                c(b)
-                                        }
-                                    }
-                                    ,
-                                    d.href = f,
-                                    document.head.appendChild(d)
-                            }(e, d, f, a)
+
+                    const styleEls = document.getElementsByTagName("style")
+                    for (const styleEl of styleEls) {
+                        const href = styleEl.getAttribute("data-href")
+                        if (href === chunkPath || href === chunkFullPath) {
+                            targetEle = styleEl
+                            break
                         }
-                    ))
+                    }
+
+                    if (targetEle) {
+                        return resolve()
+                    }
+
+                    const linkEl = document.createElement("link")
+                    linkEl.rel = "stylesheet"
+                    linkEl.type = "text/css"
+                    linkEl.onerror = linkEl.onload = function (event) {
+                        linkEl.onerror = linkEl.onload = null
+                        if (event.type === "load")
+                            resolve()
+                        else {
+                            const href = event.target.href || chunkFullPath
+                            const error = new Error("Loading CSS chunk " + chunkId + " failed.\n(" + href + ")")
+                            error.code = "CSS_CHUNK_LOAD_FAILED"
+                            error.type = event.type
+                            error.request = href
+                            linkEl.parentNode.removeChild(linkEl)
+                            reject(error)
+                        }
+                    }
+
+                    linkEl.href = chunkFullPath
+                    document.head.appendChild(linkEl)
+                })
+            }
+            const n = {
+                6700: 0
+            }
+
+            require.f.miniCss = function (id, arr) {
+                const map = {
+                    4: 1,
+                    179: 1,
+                    226: 1,
+                    342: 1,
+                    415: 1,
+                    1057: 1,
+                    1323: 1,
+                    1375: 1,
+                    1426: 1,
+                    1482: 1,
+                    1532: 1,
+                    1543: 1,
+                    1584: 1,
+                    1744: 1,
+                    1951: 1,
+                    2054: 1,
+                    2293: 1,
+                    2312: 1,
+                    2338: 1,
+                    2500: 1,
+                    2971: 1,
+                    3001: 1,
+                    3095: 1,
+                    3183: 1,
+                    3267: 1,
+                    3276: 1,
+                    3405: 1,
+                    3513: 1,
+                    3815: 1,
+                    4405: 1,
+                    4407: 1,
+                    4492: 1,
+                    4719: 1,
+                    4846: 1,
+                    5058: 1,
+                    5228: 1,
+                    5650: 1,
+                    5775: 1,
+                    5844: 1,
+                    5915: 1,
+                    5942: 1,
+                    6118: 1,
+                    6139: 1,
+                    6218: 1,
+                    6468: 1,
+                    6636: 1,
+                    6663: 1,
+                    6880: 1,
+                    7056: 1,
+                    7217: 1,
+                    7430: 1,
+                    7598: 1,
+                    7985: 1,
+                    8137: 1,
+                    8510: 1,
+                    8585: 1,
+                    8594: 1,
+                    8725: 1,
+                    8843: 1,
+                    8888: 1,
+                    8985: 1,
+                    9029: 1
                 }
-                ,
-                n = {
+
+                if (n[id]) {
+                    arr.push(n[id])
+                } else if (n[id] !== 0 && map[id]) {
+                    n[id] = loadCssChunk(id).then(() => {
+                            n[id] = 0
+                        }, (err) => {
+                            delete n[id]
+                            throw err
+                        }
+                    )
+                    arr.push(n[id])
+                }
+            }
+
+            !function () {
+                let e = {
                     6700: 0
-                },
-                o.f.miniCss = function(e, f) {
-                    n[e] ? f.push(n[e]) : 0 !== n[e] && {
-                        4: 1,
-                        179: 1,
-                        226: 1,
-                        342: 1,
-                        415: 1,
-                        1057: 1,
-                        1323: 1,
-                        1375: 1,
-                        1426: 1,
-                        1482: 1,
-                        1532: 1,
-                        1543: 1,
-                        1584: 1,
-                        1744: 1,
-                        1951: 1,
-                        2054: 1,
-                        2293: 1,
-                        2312: 1,
-                        2338: 1,
-                        2500: 1,
-                        2971: 1,
-                        3001: 1,
-                        3095: 1,
-                        3183: 1,
-                        3267: 1,
-                        3276: 1,
-                        3405: 1,
-                        3513: 1,
-                        3815: 1,
-                        4405: 1,
-                        4407: 1,
-                        4492: 1,
-                        4719: 1,
-                        4846: 1,
-                        5058: 1,
-                        5228: 1,
-                        5650: 1,
-                        5775: 1,
-                        5844: 1,
-                        5915: 1,
-                        5942: 1,
-                        6118: 1,
-                        6139: 1,
-                        6218: 1,
-                        6468: 1,
-                        6636: 1,
-                        6663: 1,
-                        6880: 1,
-                        7056: 1,
-                        7217: 1,
-                        7430: 1,
-                        7598: 1,
-                        7985: 1,
-                        8137: 1,
-                        8510: 1,
-                        8585: 1,
-                        8594: 1,
-                        8725: 1,
-                        8843: 1,
-                        8888: 1,
-                        8985: 1,
-                        9029: 1
-                    }[e] && f.push(n[e] = t(e).then((function() {
-                            n[e] = 0
-                        }
-                    ), (function(f) {
-                            throw delete n[e],
-                                f
-                        }
-                    )))
                 }
-                ,
-                function() {
-                    var e = {
-                        6700: 0
-                    };
-                    o.f.j = function(f, a) {
-                        var c = o.o(e, f) ? e[f] : void 0;
-                        if (0 !== c)
-                            if (c)
-                                a.push(c[2]);
-                            else if (/^(5228|5844|6700)$/.test(f))
-                                e[f] = 0;
-                            else {
-                                var d = new Promise((function(a, d) {
-                                        c = e[f] = [a, d]
+                require.f.j = function (f, a) {
+                    var c = require.o(e, f) ? e[f] : void 0;
+                    if (0 !== c)
+                        if (c)
+                            a.push(c[2]);
+                        else if (/^(5228|5844|6700)$/.test(f))
+                            e[f] = 0;
+                        else {
+                            var d = new Promise((function (a, d) {
+                                    c = e[f] = [a, d]
+                                }
+                            ));
+                            a.push(c[2] = d);
+                            var t = require.p + require.u(f)
+                                , n = new Error;
+                            require.l(t, (function (a) {
+                                    if (require.o(e, f) && (0 !== (c = e[f]) && (e[f] = void 0),
+                                        c)) {
+                                        var d = a && ("load" === a.type ? "missing" : a.type)
+                                            , t = a && a.target && a.target.src;
+                                        n.message = "Loading chunk " + f + " failed.\n(" + d + ": " + t + ")",
+                                            n.name = "ChunkLoadError",
+                                            n.type = d,
+                                            n.request = t,
+                                            c[1](n)
                                     }
-                                ));
-                                a.push(c[2] = d);
-                                var t = o.p + o.u(f)
-                                    , n = new Error;
-                                o.l(t, (function(a) {
-                                        if (o.o(e, f) && (0 !== (c = e[f]) && (e[f] = void 0),
-                                            c)) {
-                                            var d = a && ("load" === a.type ? "missing" : a.type)
-                                                , t = a && a.target && a.target.src;
-                                            n.message = "Loading chunk " + f + " failed.\n(" + d + ": " + t + ")",
-                                                n.name = "ChunkLoadError",
-                                                n.type = d,
-                                                n.request = t,
-                                                c[1](n)
-                                        }
-                                    }
-                                ), "chunk-" + f, f)
-                            }
-                    }
-                        ,
-                        o.O.j = function(f) {
-                            return 0 === e[f]
+                                }
+                            ), "chunk-" + f, f)
                         }
-                    ;
-                    var f = function(f, a) {
-                        var c, d, t = a[0], n = a[1], r = a[2], b = 0;
-                        for (c in n)
-                            o.o(n, c) && (o.m[c] = n[c]);
-                        if (r)
-                            var i = r(o);
-                        for (f && f(a); b < t.length; b++)
-                            d = t[b],
-                            o.o(e, d) && e[d] && e[d][0](),
-                                e[t[b]] = 0;
-                        return o.O(i)
-                    }
-                        , a = self.webpackChunklive_room = self.webpackChunklive_room || [];
-                    a.forEach(f.bind(null, 0)),
-                        a.push = f.bind(null, a.push.bind(a))
-                }()
+                }
+
+                require.O.j = function (f) {
+                    return 0 === e[f]
+                }
+
+                let f = function (f, a) {
+                    var c, d, t = a[0], n = a[1], r = a[2], b = 0;
+                    for (c in n)
+                        require.o(n, c) && (require.m[c] = n[c]);
+                    if (r)
+                        var i = r(require);
+                    for (f && f(a); b < t.length; b++)
+                        d = t[b],
+                        require.o(e, d) && e[d] && e[d][0](),
+                            e[t[b]] = 0;
+                    return require.O(i)
+                }
+                let a = self.webpackChunklive_room = self.webpackChunklive_room || []
+                a.forEach(f.bind(null, 0))
+                a.push = f.bind(null, a.push.bind(a))
+            }()
         }()
     </script>
     <script>
-        (self.webpackChunklive_room = self.webpackChunklive_room || []).push([[4962], {
-            74967: function(n, t, i) {
-                "use strict";
-                var o = document.cookie;
-                !function(n, t, i) {
-                    if (!function(n) {
-                        return /^(https?):\/\/live.bilibili.com\/(.+\/)?([\d]+)/.test(n)
-                    }(n) || function(n) {
-                        var t = null
-                            , i = n.match(/nmr=[0-9]/);
+        self.webpackChunklive_room.push([
+            [4962],
+            {
+                74967: function (n, t, i) {
+                    const href = window.location.href
+                    const cookie = document.cookie
+                    const ua = window.navigator.userAgent
+
+                    const cond1 = !/^(https?):\/\/live.bilibili.com\/(.+\/)?([\d]+)/.test(href)
+                    const cond2 = function (cookie) {
+                        let t = null
+                        let i = cookie.match(/nmr=[0-9]/)
                         if (i)
                             try {
                                 t = parseInt(i[0].match(/[0-9]/)[0], 10)
-                            } catch (n) {}
+                            } catch (err) {
+                            }
                         return 1 === t
-                    }(t) || !function(n) {
+                    }(cookie)
+                    const cond3 = function (n) {
                         return /(iPad|iPhone|iPod|Windows Phone|Android)/i.test(n)
-                    }(i) && "#html5" !== location.hash || /h5/.test(n))
-                        return !1;
-                    var o = function(n) {
-                        return n.indexOf(".com/h5") > -1 ? n : n.replace(/\.com(\/blanc)?/i, ".com/h5")
-                    }(n);
-                    (window.top || window).location.href = o
-                }(window.location.href, o, window.navigator.userAgent)
-            }
-        }, function(n) {
-            "use strict";
-            n(n.s = 74967)
-        }
+                    }(ua)
+
+                    if (cond1 || cond2 || !cond3 && "#html5" !== location.hash || /h5/.test(href)) {
+                        return false
+                    } else {
+                        (window.top || window).location.href =
+                            href.indexOf(".com/h5") > -1
+                                ? href
+                                : href.replace(/\.com(\/blanc)?/i, ".com/h5")
+                    }
+                }
+            },
+            function (n) {
+                n(n.s = 74967)
+            },
         ])
     </script>
     <script>
-        !function() {
+        !function () {
             const i = Date.now()
-                , o = Math.floor(i / 1e3);
+            const o = Math.floor(i / 1000)
+
             window.BilibiliLive = {
                 INIT_TIME: i,
                 RND: o,
                 UID: 0,
                 ROOMID: 0,
                 ANCHOR_UID: 0
-            },
-                window.DANMU_RND = o
+            }
+            window.DANMU_RND = o
         }()
     </script>
     <script>
         addWaifu && addWaifu("noire")
     </script>
-    <link rel=stylesheet href=//s1.hdslb.com/bfs/static/blive/blfe-live-room/static/css/app.418e2b2793c2834ed443.vip.css>
+    <link rel=stylesheet
+          href=//s1.hdslb.com/bfs/static/blive/blfe-live-room/static/css/app.418e2b2793c2834ed443.vip.css>
     <script>
         addWaifu && addWaifu("blanc")
     </script>
@@ -681,11 +712,10 @@
             config: {
                 whiteScreen: {
                     elemArry: [".live-room-app", "#player-ctnr", ".head-info-section"],
-                    callback: o=>{
-                        console.log("白屏检测是否正常", o)
-                    }
-                    ,
-                    isSkeleton: !1
+                    callback: result => {
+                        console.log("白屏检测是否正常", result)
+                    },
+                    isSkeleton: false,
                 }
             }
         };
@@ -695,77 +725,102 @@
 <script src=//activity.hdslb.com/blackboard/static/e73ff3f7d8cf6b963d2447680209f2d3/navbar-v3.min.js></script>
 <script src=//s1.hdslb.com/bfs/static/jinkela/long/laputa-css/bili-theme.min.js></script>
 <script>
-    !function() {
-        function e() {
-            return -1 !== window.location.search.indexOf("liteVersion=true") && window.top !== window
+    function getLiteVersionStatus() {
+        return -1 !== window.location.search.indexOf("liteVersion=true") && window.top !== window
+    }
+
+    function getHeadInfoVmStatus() {
+        return getLiteVersionStatus() && -1 !== window.location.search.indexOf("hideHeadInfo=true")
+    }
+
+    function getRankListVmStatus() {
+        return getLiteVersionStatus() && -1 !== window.location.search.indexOf("hideRankList=true")
+    }
+
+    function getPcAppStatus() {
+        return getLiteVersionStatus() && "object" == typeof window.top.biliBridgePc
+    }
+
+    function isSupportWebp() {
+        try {
+            return 0 === document.createElement("canvas").toDataURL("image/webp", .5).indexOf("data:image/webp")
+        } catch (e) {
+            return false
         }
-        function t() {
-            return e() && -1 !== window.location.search.indexOf("hideHeadInfo=true")
-        }
-        function i() {
-            return e() && -1 !== window.location.search.indexOf("hideRankList=true")
-        }
-        function n() {
-            return e() && "object" == typeof window.top.biliBridgePc
-        }
-        function o() {
-            try {
-                return 0 === document.createElement("canvas").toDataURL("image/webp", .5).indexOf("data:image/webp")
-            } catch (e) {
-                return !1
-            }
-        }
-        function a(e, t) {
-            e.forEach((function(e) {
-                    if ("function" == typeof e.activeRule ? e.activeRule() : e.activeRule) {
-                        const i = e.container || t || document.body;
-                        if (e.className && i.classList.add(e.className),
-                            e.attributes)
-                            for (let t = 0, n = e.attributes.length; t < n; t++)
-                                i.setAttribute(e.attributes[t][0], e.attributes[t][1])
+    }
+
+    function setPropsToContainer(e, container) {
+        e.forEach(e => {
+                if (typeof e.activeRule === "function" ? e.activeRule() : e.activeRule) {
+                    const element = e.container || container || document.body
+                    if (e.className) {
+                        element.classList.add(e.className)
+                    }
+                    if (e.attributes) {
+                        for (let t = 0, n = e.attributes.length; t < n; t++) {
+                            element.setAttribute(e.attributes[t][0], e.attributes[t][1])
+                        }
                     }
                 }
-            ))
+            }
+        )
+    }
+
+    window.getLiteVersionStatus = getLiteVersionStatus
+    window.getHeadInfoVmStatus = getHeadInfoVmStatus
+    window.getRankListVmStatus = getRankListVmStatus
+    window.getPcAppStatus = getPcAppStatus
+    window.isSupportWebp = isSupportWebp
+    window.setPropsToContainer = setPropsToContainer
+
+    const c = getLiteVersionStatus()
+    if (c) {
+        try {
+            document.domain = "bilibili.com"
+            setPropsToContainer([
+                {
+                    activeRule: c,
+                    className: "lite-room"
+                },
+                {
+                    activeRule: getHeadInfoVmStatus,
+                    className: "head-info-hide"
+                },
+                {
+                    activeRule: getRankListVmStatus,
+                    className: "rank-list-hide"
+                },
+            ])
+            setPropsToContainer([
+                {
+                    activeRule: getPcAppStatus(),
+                    className: "pc-app",
+                    attributes: [["lab-style", "dark"]]
+                },
+            ], document.documentElement)
+
+            if (window.top.__NEPTUNE_IS_MY_WAIFU__) {
+                window.__NEPTUNE_IS_MY_WAIFU__ = JSON.parse(JSON.stringify(window.top.__NEPTUNE_IS_MY_WAIFU__))
+            }
+        } catch (e) {
+            console.warn("Do♂You♂Like♂Van♂游戏", e)
         }
-        window.getLiteVersionStatus = e,
-            window.getHeadInfoVmStatus = t,
-            window.getRankListVmStatus = i,
-            window.getPcAppStatus = n,
-            window.isSupportWebp = o,
-            window.setPropsToContainer = a;
-        const c = e();
-        !function() {
-            if (c)
-                try {
-                    document.domain = "bilibili.com",
-                        a([{
-                            activeRule: c,
-                            className: "lite-room"
-                        }, {
-                            activeRule: t,
-                            className: "head-info-hide"
-                        }, {
-                            activeRule: i,
-                            className: "rank-list-hide"
-                        }]),
-                        a([{
-                            activeRule: n(),
-                            className: "pc-app",
-                            attributes: [["lab-style", "dark"]]
-                        }], document.documentElement),
-                    window.top.__NEPTUNE_IS_MY_WAIFU__ && (window.__NEPTUNE_IS_MY_WAIFU__ = JSON.parse(JSON.stringify(window.top.__NEPTUNE_IS_MY_WAIFU__)))
-                } catch (e) {
-                    console.warn("Do♂You♂Like♂Van♂游戏", e)
-                }
-        }(),
-        window._ && (window.bililiveThemeV2 = Object.assign({}, window._),
-            delete window._),
-        window.bililiveThemeV2 && window.bililiveThemeV2.initThemeWithCSR(-1 !== document.documentElement.getAttribute("lab-style").indexOf("dark") ? "dark" : "light"),
-            a([{
-                activeRule: o,
-                className: "supportWebp"
-            }])
-    }()
+    }
+
+    if (window._) {
+        window.bililiveThemeV2 = Object.assign({}, window._)
+        delete window._
+    }
+
+    if (window.bililiveThemeV2) {
+        window.bililiveThemeV2.initThemeWithCSR(-1 !== document.documentElement.getAttribute("lab-style").indexOf("dark") ? "dark" : "light")
+    }
+    setPropsToContainer([
+        {
+            activeRule: isSupportWebp,
+            className: "supportWebp"
+        },
+    ])
 </script>
 <div class="live-room-app p-relative">
     <main class="app-content p-relative z-app-content">
@@ -773,13 +828,15 @@
             <section class="player-and-aside-area p-relative z-player-and-aside-area">
                 <div class=z-room-ssr id=room-ssr-vm></div>
                 <div class="player-ctnr left-container p-relative z-player-ctnr" id=player-ctnr>
-                    <div class="head-info-section live-skin-coloration-area p-relative border-box z-head-info bg-bright-filter" id=head-info-vm>
+                    <div class="head-info-section live-skin-coloration-area p-relative border-box z-head-info bg-bright-filter"
+                         id=head-info-vm>
                         <head-info></head-info>
                     </div>
                     <div class="player-section p-relative border-box none-select z-player-section">
                         <div class="live-player-ctnr w-100 h-100 p-absolute normal" id=live-player-ctnr>
                             <div class="h-100 p-relative">
-                                <button class="minimal-restore-btn dp-none p-absolute pointer ts-dot-2" id=minimal-restore-btn title=关闭悬浮播放器>
+                                <button class="minimal-restore-btn dp-none p-absolute pointer ts-dot-2"
+                                        id=minimal-restore-btn title=关闭悬浮播放器>
                                     <i class="icon icon-font icon-close"></i>
                                 </button>
                                 <div id=player-minimal-panel-vm>
@@ -795,65 +852,78 @@
                                 </div>
                                 <script>
                                     function __PLAYER_BOOTSTRAP_FUNC__() {
-                                        var o = function() {
+                                        const cleanup = function () {
                                             window.__PLAYER_BOOTSTRAP_FUNC__ = null
-                                        };
+                                        }
+
                                         try {
-                                            if (!window.Player)
-                                                return o();
-                                            var e = document.getElementById("live-player");
-                                            if (!e)
-                                                return o();
-                                            var r = window.__NEPTUNE_IS_MY_WAIFU__ || {}
-                                                , a = !!r.roomInitRes && 0 === r.roomInitRes.code && !!r.roomInitRes.data && r.roomInitRes.data.room_id;
-                                            if (!a)
-                                                return o();
-                                            var i = r.roomInitRes || {
+                                            if (!window.Player) {
+                                                return cleanup()
+                                            }
+                                            const e = document.getElementById("live-player")
+                                            if (!e) {
+                                                return cleanup()
+                                            }
+                                            const r = window.__NEPTUNE_IS_MY_WAIFU__ || {}
+                                            const roomId = r.roomInitRes && r.roomInitRes.code === 0 && r.roomInitRes.data && r.roomInitRes.data.room_id
+                                            if (!roomId) {
+                                                return cleanup()
+                                            }
+
+                                            let i = r.roomInitRes || {
                                                 code: -1
                                             }
-                                                , n = i.data || {};
-                                            if (!n.live_status || n.is_locked || n.encrypted && !n.pwd_verified)
-                                                return o();
-                                            var d = {
-                                                cid: a,
+                                            let n = i.data || {}
+                                            if (!n.live_status || n.is_locked || n.encrypted && !n.pwd_verified) {
+                                                return cleanup()
+                                            }
+
+                                            const options = {
+                                                cid: roomId,
                                                 initTime: performance.now(),
                                                 roomInitDataV2: i && i.data && i.data.playurl_info ? i : {
                                                     code: -1
                                                 },
                                                 rnd: window.DANMU_RND,
-                                                fnPromiseMode: !0,
+                                                fnPromiseMode: true,
                                                 protover: 2,
                                                 mask: {
-                                                    shouldOpenMask: !0
+                                                    shouldOpenMask: true,
                                                 },
                                                 ptype: 16,
-                                                backgroundFilter: !0,
+                                                backgroundFilter: true,
                                                 coreType: 2,
                                                 coreProtocol: 0
                                             }
-                                                , t = !!r.roomInfoRes && 0 === r.roomInfoRes.code && !!r.roomInfoRes.data && r.roomInfoRes.data.new_switch_info;
-                                            t && (d.UI = {
-                                                logo: !!Number(t["room-player-watermark"]),
-                                                feedback: !!Number(t["room-feedback"]),
-                                                recommend: !!Number(t["room-recommend-live_off"])
-                                            });
-                                            var _ = new window.Player(e,d);
+
+                                            const newSwitchInfo = r.roomInfoRes && r.roomInfoRes.code === 0 && r.roomInfoRes.data && r.roomInfoRes.data.new_switch_info
+                                            if (newSwitchInfo) {
+                                                options.UI = {
+                                                    logo: !!Number(newSwitchInfo["room-player-watermark"]),
+                                                    feedback: !!Number(newSwitchInfo["room-feedback"]),
+                                                    recommend: !!Number(newSwitchInfo["room-recommend-live_off"])
+                                                }
+                                            }
+
+                                            const _ = new window.Player(e, options)
                                             window.EmbedPlayer = {
                                                 instance: _
-                                            },
-                                                window.performance.timing.firstscreenfinish = (new Date).getTime(),
-                                            addWaifu && addWaifu("firstscreenfinish"),
-                                            addWaifu && addWaifu("misaka"),
-                                                _.on("firstLoadedMetaData", (function() {
-                                                        addWaifu && addWaifu("mikoto"),
-                                                        window.__PLAYER_GLOBAL_INSTANCE__ && (window.__PLAYER_GLOBAL_INIT_FLAG__ = "我不想再说一遍")
+                                            }
+                                            window.performance.timing.firstscreenfinish = (new Date).getTime()
+                                            addWaifu && addWaifu("firstscreenfinish")
+                                            addWaifu && addWaifu("misaka")
+                                            _.on("firstLoadedMetaData", () => {
+                                                    addWaifu && addWaifu("mikoto")
+                                                    if (window.__PLAYER_GLOBAL_INSTANCE__) {
+                                                        window.__PLAYER_GLOBAL_INIT_FLAG__ = "我不想再说一遍"
                                                     }
-                                                )),
-                                                window.__PLAYER_GLOBAL_INSTANCE__ = _
-                                        } catch (o) {
-                                            console.error("Player Bootstrap Error: ", o)
+                                                }
+                                            )
+                                            window.__PLAYER_GLOBAL_INSTANCE__ = _
+                                        } catch (e) {
+                                            console.error("Player Bootstrap Error: ", e)
                                         }
-                                        o()
+                                        cleanup()
                                     }
                                 </script>
                                 <script>
@@ -864,7 +934,8 @@
                         <div class="aside-area-toggle-btn dp-none p-absolute">
                             <div class="dp-table-cell w-100 v-middle">
                                 <div class="btn-ctnr p-relative">
-                                    <button class="restore-btn dp-none h-100 p-absolute bg-no-repeat pointer a-fade-in" id=aside-area-toggle-btn></button>
+                                    <button class="restore-btn dp-none h-100 p-absolute bg-no-repeat pointer a-fade-in"
+                                            id=aside-area-toggle-btn></button>
                                     <div class="btn-slider dp-none h-100 p-absolute a-fade-in"></div>
                                 </div>
                             </div>
@@ -880,7 +951,8 @@
                         </div>
                         <div class=over-hidden id=cloud-game></div>
                     </div>
-                    <div class="gift-control-section p-relative border-box z-gift-control-section bg-bright-filter" id=gift-control-vm>
+                    <div class="gift-control-section p-relative border-box z-gift-control-section bg-bright-filter"
+                         id=gift-control-vm>
                         <gift-control-panel></gift-control-panel>
                     </div>
                     <div id=fullscreen-gift-control-vm></div>
@@ -1680,43 +1752,51 @@
     </script>
     <script src=//activity.hdslb.com/blackboard/static/e73ff3f7d8cf6b963d2447680209f2d3/skin-v2.min.js></script>
     <script>
-        !function() {
-            if (void 0 !== window.roomBuffService) {
-                var o = window.__NEPTUNE_IS_MY_WAIFU__ || {}
-                    , e = !!o.roomInfoRes && 0 === o.roomInfoRes.code && !!o.roomInfoRes.data && o.roomInfoRes.data.skin_info;
+        !function () {
+            if (window.roomBuffService !== undefined) {
+                let o = window.__NEPTUNE_IS_MY_WAIFU__ || {}
+                const skinInfo = o.roomInfoRes && o.roomInfoRes.code === 0 && o.roomInfoRes.data && o.roomInfoRes.data.skin_info
+
                 window.roomBuffService.bootstrap({}, {
-                    enableDebug: !1
-                }),
-                e && e.id && window.roomBuffService.mount(e)
+                    enableDebug: false
+                })
+                if (skinInfo && skinInfo.id) {
+                    window.roomBuffService.mount(skinInfo)
+                }
             }
         }()
     </script>
     <script>
         function roomPlayerLoaded() {
-            window.roomPlayerIsLoaded = !0
+            window.roomPlayerIsLoaded = true
         }
+
         function roomPlayerError() {
-            window.roomPlayerTriggerError = !0,
-                console.log("%c 播放器加载报错:", "color: #00ff00")
+            window.roomPlayerTriggerError = true
+            console.log("%c 播放器加载报错:", "color: #00ff00")
         }
-        function handleRoomPlayerError(o) {
-            if (!o.filename)
-                return;
-            if ("room-player" === o.filename.replace(/(.*\/)*([^.]+).*/gi, "$2")) {
-                window.roomPlayerTriggerError = !0;
-                const {message: r, lineno: e, colno: n, error: l} = o;
+
+        function handleRoomPlayerError(evt) {
+            if (!evt.filename) {
+                return
+            }
+            if ("room-player" === evt.filename.replace(/(.*\/)*([^.]+).*/gi, "$2")) {
+                window.roomPlayerTriggerError = true
+                const {message, lineno, colno, error} = evt
                 window.__room__player__errror__info__ = {
-                    message: r,
-                    lineno: e,
-                    colno: n,
-                    error: l
-                },
-                    console.log(`%c 播放器报错: ${r}: ${e}, ${n}, ${l}`, "color: #00ffff")
+                    message,
+                    lineno,
+                    colno,
+                    error,
+                }
+                console.log(`%c 播放器报错: ${message}: ${lineno}, ${colno}, ${error}`, "color: #00ffff")
             }
         }
-        window.addEventListener("error", handleRoomPlayerError, !1)
+
+        window.addEventListener("error", handleRoomPlayerError, false)
     </script>
-    <script src=//s1.hdslb.com/bfs/blive-engineer/live-web-player/room-player.min.js onload=roomPlayerLoaded() onerror=roomPlayerError() crossorigin=anonymous></script>
+    <script src=//s1.hdslb.com/bfs/blive-engineer/live-web-player/room-player.min.js onload=roomPlayerLoaded()
+            onerror=roomPlayerError() crossorigin=anonymous></script>
     <script>
         __PLAYER_BOOTSTRAP_FUNC__ && __PLAYER_BOOTSTRAP_FUNC__()
     </script>
@@ -1729,37 +1809,42 @@
     <script>
         addWaifu && addWaifu("ram")
     </script>
-    <script defer=defer src=//activity.hdslb.com/blackboard/static/20220720/d0411babbbf77c49ca42a3320eb804ae/QO8kpv5ZKo.js></script>
+    <script defer=defer
+            src=//activity.hdslb.com/blackboard/static/20220720/d0411babbbf77c49ca42a3320eb804ae/QO8kpv5ZKo.js></script>
     <script defer=defer src=//s1.hdslb.com/bfs/static/jinkela/long/js/sentry/sentry-5.2.1.min.js></script>
     <script>
-        "serviceWorker"in navigator && /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9.]+)/.test(navigator.userAgent) && window.addEventListener("load", (function() {
-                navigator.serviceWorker.register("/p/html/blive-user-guide/sw.js", {
-                    scope: "/"
-                }).then((function(e) {
-                        console.log("sw register success!")
-                    }
-                ), (function(e) {
-                        navigator.serviceWorker.getRegistrations().then((function(e) {
-                                for (let r of e)
-                                    r.unregister()
-                            }
-                        )),
-                            console.warn("sw register failed!", e)
-                    }
-                ))
-            }
-        ))
+        if ("serviceWorker" in navigator && /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9.]+)/.test(navigator.userAgent)) {
+            window.addEventListener("load", () => {
+                    navigator.serviceWorker.register("/p/html/blive-user-guide/sw.js", {scope: "/"}).then(
+                        value => {
+                            console.log("sw register success!")
+                        },
+                        err => {
+                            navigator.serviceWorker.getRegistrations().then(
+                                rs => {
+                                    for (const r of rs)
+                                        r.unregister()
+                                }
+                            )
+                            console.warn("sw register failed!", err)
+                        }
+                    )
+                }
+            )
+        }
     </script>
     <script>
-        window.addEventListener("load", ()=>{
-                null != window.Sentry && null != window._BiliIntegration_ && window.Sentry.init({
-                    dsn: "https://dcb8e8a600734f60ae62acb516db176d@api.bilibili.com/x/traceback/74",
-                    debug: !1,
-                    release: "9ce713fddcd81fc9fd80ba6377291b16db66d77e",
-                    environment: "production",
-                    sampleRate: .01,
-                    integrations: [new _BiliIntegration_]
-                })
+        window.addEventListener("load", () => {
+                if (null != window.Sentry && null != window._BiliIntegration_) {
+                    window.Sentry.init({
+                        dsn: "https://dcb8e8a600734f60ae62acb516db176d@api.bilibili.com/x/traceback/74",
+                        debug: false,
+                        release: "9ce713fddcd81fc9fd80ba6377291b16db66d77e",
+                        environment: "production",
+                        sampleRate: 0.01,
+                        integrations: [new _BiliIntegration_],
+                    })
+                }
             }
         )
     </script>

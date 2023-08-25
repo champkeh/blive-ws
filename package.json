@@ -1,6 +1,6 @@
 {
   "name": "blive-ws",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "B站直播间 WebSocket 服务，可用于实时获取直播间弹幕",
   "keywords": [
     "danmaku",
@@ -12,12 +12,12 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "node apps/server.js",
-    "deno": "deno run --allow-read --allow-net websocket/deno/app.ts",
-    "demo": "deno run --allow-read --allow-net websocket/deno/demo.ts",
-    "dissect": "deno run --allow-read --allow-write anatomy/dissect.ts"
+    "start": "deno run --allow-read --allow-net src/deno/app.ts",
+    "test": "deno run --allow-read --allow-net test/index.ts",
+    "parse": "node anatomy/parser.js"
   },
   "devDependencies": {
+    "acorn": "^8.10.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "http-proxy-middleware": "^2.0.6",

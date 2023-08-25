@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>B站直播间弹幕采集演示</title>
+    <link rel="preconnect" href="https://esm.sh">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div id="init__loading__placeholder">
+    <div class="loading-grid">
+        <div class="loading loading1"></div>
+        <div class="loading loading2"></div>
+        <div class="loading loading3"></div>
+        <div class="loading loading4"></div>
+        <div class="loading loading5"></div>
+        <div class="loading loading6"></div>
+        <div class="loading loading7"></div>
+        <div class="loading loading8"></div>
+        <div class="loading loading9"></div>
+    </div>
+    <div class="loading-title">加载中, 请耐心等待</div>
+</div>
+<div id="app">
+    <section class="section-app">
+        <header>
+            <h1>B站直播间弹幕采集演示</h1>
+        </header>
+        <main>
+            <form @submit="onSubmit">
+                <label class="required">
+                    <span>直播间地址：</span>
+                    <input v-model="app.rid" type="text" :disabled="app.connecting" placeholder="请输入直播间地址或直播间号码" required autocomplete="off">
+                </label>
+                <button :disabled="app.connecting">{{app.connecting ? '连接中...' : '连接直播间弹幕系统'}}</button>
+            </form>
+            <article class="rooms">
+                <h3>当前连接的房间列表：</h3>
+                <ul>
+                    <li v-for="room in app.rooms" :key="room">
+                        <span>{{room}}</span>
+                        <a href="javascript:void(0)" @click="disconnectLiveRoom(room)">断开</a>
+                    </li>
+                </ul>
+            </article>
+        </main>
+        <footer>
+            <p class="notice">注意: 请打开控制台查看弹幕数据</p>
+        </footer>
+    </section>
+    <section class="section-command">
+        <p>
+            <label>
+                <input type="checkbox" v-model="command.show">
+                构造命令
+            </label>
+        </p>
+
+        <!--构造命令面板-->
+        <template v-if="command.show">
+            <label>
+                <select v-model="command.cmd">
+                    <option value="" disabled>请选择命令</option>
+                    <option v-for="command in command.commands" :key="command" :value="command">{{command}}</option>
+                </select>
+            </label>
+            <label>
+                <input type="text" v-model="command.rid" placeholder="房间号">
+            </label>
+            <label>
+                <select multiple v-model="command.evt">
+                    <option v-for="event in command.events" :key="event" :value="event">{{event}}</option>
+                </select>
+            </label>
+            <button @click="generateCommand">生成指令</button>
+            <div class="result">
+                <label>
+                    <textarea rows="10" v-model="command.text"></textarea>
+                </label>
+                <button @click="send">发送</button>
+            </div>
+        </template>
+    </section>
+    <div class="notify" v-show="app.showNotify">WebSocket 中断，可能是因为服务在重新部署，请稍后重试。</div>
+</div>
+<script src="https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
