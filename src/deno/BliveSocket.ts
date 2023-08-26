@@ -271,32 +271,34 @@ export default class BliveSocket extends EventTarget {
 
         this.emit('close')
 
-        // 重试其他线路
-        if (this.checkRetryState()) {
-            setTimeout(() => {
-                console.warn("Danmaku Websocket Retry .", this.state.retryCount)
-                this.state.index += 1
-                if (this.state.retryCount > this.options.retryThreadCount) {
-                    setTimeout(() => {
-                        this.initialize(this.state.urlList[0])
-                    }, 1e3 * this.options.retryRoundInterval)
-                } else if (0 !== t && this.state.index > t - 1) {
-                    this.state.index = 0
-                    this.state.listConnectFinishedCount += 1
-                    if (this.state.listConnectFinishedCount === 1) {
-                        callFunction(this.callbackQueueList.onListConnectErrorQueue)
-                    }
-                    setTimeout(() => {
+        if (this.options.retry) {
+            // 重试其他线路
+            if (this.checkRetryState()) {
+                setTimeout(() => {
+                    console.warn("Danmaku Websocket Retry .", this.state.retryCount)
+                    this.state.index += 1
+                    if (this.state.retryCount > this.options.retryThreadCount) {
+                        setTimeout(() => {
+                            this.initialize(this.state.urlList[0])
+                        }, 1e3 * this.options.retryRoundInterval)
+                    } else if (0 !== t && this.state.index > t - 1) {
+                        this.state.index = 0
+                        this.state.listConnectFinishedCount += 1
+                        if (this.state.listConnectFinishedCount === 1) {
+                            callFunction(this.callbackQueueList.onListConnectErrorQueue)
+                        }
+                        setTimeout(() => {
+                            this.initialize(this.state.urlList[this.state.index])
+                        }, 1e3 * this.options.retryRoundInterval)
+                    } else {
                         this.initialize(this.state.urlList[this.state.index])
-                    }, 1e3 * this.options.retryRoundInterval)
-                } else {
-                    this.initialize(this.state.urlList[this.state.index])
-                }
-            }, this.options.retryInterval)
-        } else {
-            // 线路已重试完
-            console.warn("Danmaku Websocket Retry Failed.")
-            callFunction(this.callbackQueueList.onRetryFallbackQueue)
+                    }
+                }, this.options.retryInterval)
+            } else {
+                // 线路已重试完
+                console.warn("Danmaku Websocket Retry Failed.")
+                callFunction(this.callbackQueueList.onRetryFallbackQueue)
+            }
         }
 
         return this
