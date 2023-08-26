@@ -78,46 +78,47 @@ export async function getStatusInfoByUids(uids: number[]) {
 }
 
 
+// 获取直播间信息参数
 interface GetRoomPlayInfoOptions {
-    // 直播协议
+    // 直播协议 (多个以逗号分隔)
     // 0：http_stream
     // 1：http_hls
-    protocol: number[]
+    protocol: string
 
     // 格式
     // 0：flv
     // 1：ts
     // 2：fmp4
-    format: number[]
+    format: string
 
     // 编码格式
     // 0：AVC
     // 1：HEVC
-    codec: number[]
+    codec: string
 
     // 清晰度
     // 流畅 | 高清 | 超清 | 蓝光 | 原画 | 4K | 杜比
     qn: 80 | 150 | 250 | 400 | 10_000 | 20_000 | 30_000
 
     // 平台
-    platform?: string
+    platform: string
 
-    ptype?: number
-    dolby?: number
-    panorama?: number
-    no_playurl?: number
-    mask?: number
+    // 不拉取直播流数据
+    // 0: 不拉取
+    // 大于0: 拉取
+    no_playurl: number
+
+    mask: number
 }
 
 const DEFAULT_ROOM_PLAY_INFO_OPTIONS: GetRoomPlayInfoOptions = {
-    protocol: [0, 1],
-    format: [0, 1, 2],
-    codec: [0, 1],
+    protocol: '0,1',
+    format: '0,1,2',
+    codec: '0,1',
     qn: 150,
     platform: 'web',
-    ptype: 8,
-    dolby: 5,
-    panorama: 1,
+    no_playurl: 0,
+    mask: 1,
 }
 
 /**
@@ -127,12 +128,14 @@ const DEFAULT_ROOM_PLAY_INFO_OPTIONS: GetRoomPlayInfoOptions = {
  * @param rid 直播间id
  * @param options
  */
-export async function getRoomPlayInfo(rid: number, options: GetRoomPlayInfoOptions = DEFAULT_ROOM_PLAY_INFO_OPTIONS) {
+export async function getRoomPlayInfo(rid: number, options: Partial<GetRoomPlayInfoOptions> = {}) {
+    const opts = {
+        ...DEFAULT_ROOM_PLAY_INFO_OPTIONS,
+        ...options,
+    }
     const resp = await get('https://api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo', {
         room_id: rid,
-        protocol: options.protocol.join(','),
-        format: options.format.join(','),
-        codec: options.codec.join(','),
+        ...opts,
     })
     return await resp.json()
 }

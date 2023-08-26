@@ -12,21 +12,23 @@ interface GetPlayUrlOptions {
     // 直播流格式
     // h5：hls方式
     // web：http-flv方式
-    platform?: 'h5' | 'web'
+    platform: 'h5' | 'web'
 
     // 画质,qn与quality任选其一
     // 2：流畅
     // 3：高清
     // 4：原画
-    quality?: 2 | 3 | 4
+    quality: 2 | 3 | 4
 
     // 画质,qn与quality任选其一
     // 流畅 | 高清 | 超清 | 蓝光 | 原画 | 4K | 杜比
-    qn?: 80 | 150 | 250 | 400 | 10_000 | 20_000 | 30_000
+    qn: 80 | 150 | 250 | 400 | 10_000 | 20_000 | 30_000
 }
 
 const DEFAULT_PLAY_URL_OPTIONS: GetPlayUrlOptions = {
     platform: 'web',
+    quality: 2,
+    qn: 80,
 }
 
 /**
@@ -36,10 +38,14 @@ const DEFAULT_PLAY_URL_OPTIONS: GetPlayUrlOptions = {
  * @param rid 直播间id (支持短id)
  * @param options
  */
-export async function getPlayUrl(rid: number, options = DEFAULT_PLAY_URL_OPTIONS) {
+export async function getPlayUrl(rid: number, options: Partial<GetPlayUrlOptions> = {}) {
+    const opts = {
+        ...DEFAULT_PLAY_URL_OPTIONS,
+        ...options,
+    }
     const resp = await get('https://api.live.bilibili.com/room/v1/Room/playUrl', {
         cid: rid,
-        ...options,
+        ...opts,
     })
     return await resp.json()
 }
