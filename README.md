@@ -197,9 +197,16 @@ ws.onmessage = (event) => {
 
 ## 类似项目
 
-- [Bilibili-Live-API](https://github.com/lovelyyoshino/Bilibili-Live-API)
+- [B站API收集](https://github.com/SocialSisterYi/bilibili-API-collect)
+- [B站直播API收集](https://github.com/lovelyyoshino/Bilibili-Live-API)
 - [bilibili-live-ws](https://github.com/simon300000/bilibili-live-ws)
 - and more（就不一一列举了）
+
+
+## TODO
+
+- [ ] 添加稳定性测试
+
 
 ## LICENSE
 
