@@ -20,10 +20,17 @@ const socket = new WebSocket('wss://blive.deno.dev')
 
 socket.addEventListener('open', () => {
     // 进入房间
-    socket.send(JSON.stringify({cmd: 'enter', rid: '123', events: ['DANMU_MSG']}))
+    socket.send(JSON.stringify({
+        cmd: 'enter',
+        rid: 123,
+        events: ['DANMU_MSG'],
+    }))
 
     // 离开房间
-    socket.send(JSON.stringify({cmd: 'leave', rid: '123'}))
+    socket.send(JSON.stringify({
+        cmd: 'leave',
+        rid: 123,
+    }))
 })
 
 socket.addEventListener('message', ({data}) => {
@@ -40,10 +47,17 @@ const socket = new WebSocket('wss://blive.deno.dev')
 
 socket.on('open', () => {
     // 进入房间
-    socket.send(JSON.stringify({cmd: 'enter', rid: '123', events: ['DANMU_MSG']}))
+    socket.send(JSON.stringify({
+        cmd: 'enter',
+        rid: 123,
+        events: ['DANMU_MSG'],
+    }))
 
     // 离开房间
-    socket.send(JSON.stringify({cmd: 'leave', rid: '123'}))
+    socket.send(JSON.stringify({
+        cmd: 'leave',
+        rid: 123,
+    }))
 });
 
 socket.on('message', (data) => {
