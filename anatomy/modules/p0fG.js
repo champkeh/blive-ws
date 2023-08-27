@@ -1,0 +1,8 @@
+/**
+ * id: p0fG
+ * path: ./qvb-fetcher
+ */
+
+function(require,module,exports) {
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=require("@bilibili-live/web-player-common"),t=function(){function t(e,t,o){this._element=null,this._loader=null,this._responsed=!1,this._onResponse=e,this._onData=t,this._onError=o,this._onStateChangeBinder=this._onStateChange.bind(this),this.QVBP2P=window.QVBP2P}return t.prototype.destroy=function(){null!=this._loader&&(this._loader.destroy(),this._loader=null),this._responsed=!1},Object.defineProperty(t.prototype,"videoElement",{get:function(){return this._element},set:function(e){this._element=e},enumerable:!1,configurable:!0}),t.prototype.fetchAsStream=function(e){null!=this._element&&(null!=this._loader&&this._loader.close(),this._loader=new this.QVBP2P({debug:!1}),this._loader.listen(this.QVBP2P.ComEvents.STATE_CHANGE,this._onStateChangeBinder),this._loader.loadSource({src:e}),this._loader.setMediaElement(this._element))},t.prototype._onStateChange=function(t,o){switch(o.code){case this.QVBP2P.ComCodes.RECEIVE_BUFFER:this._responsed||(this._responsed=!0,this._onResponse(200,"video/x-flv")),null!=o.payload?this._onData(new Uint8Array(o.payload)):e.logger.warn("QVBP2P no payload");break;case this.QVBP2P.ComCodes.ROLLBACK:e.logger.error("TX P2P error: "+t),"function"==typeof this._onError&&this._onError(11001,t)}},t.isSupported=function(){var e;return null===(e=window.QVBP2P)||void 0===e?void 0:e.isSupported()},t}();exports.default=t;
+}

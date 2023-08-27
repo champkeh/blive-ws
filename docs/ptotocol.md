@@ -2,9 +2,13 @@
 
 > 以下内容来自于对B站官方脚本的分析，脚本地址:  
 > https://s1.hdslb.com/bfs/blive-engineer/live-web-player/room-player.min.js
->
-> 脚本最后更新时间: 2023-08-22 11:54:39 (Last-Modified)  
+> ```yaml
+> Content-Md5: 8GGLCMnvDunJ3Uh4NtuPvw==
+> ETag: f0618b08c9ef0ee9c9dd487836db8fbf
+> Last-Modified: Tue, 22 Aug 2023 03:54:39 GMT
 > 脚本版本: 1.4.5.41
+> ```
+
 
 首先根据房间号调用 HTTP 接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`、`host_list`等建立 websocket 连接所需的基本参数。
 

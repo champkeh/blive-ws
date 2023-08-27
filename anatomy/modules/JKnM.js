@@ -1,0 +1,8 @@
+/**
+ * id: JKnM
+ * path: ./logger
+ */
+
+function(require,module,exports) {
+"use strict";function n(t){return(n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(n){return typeof n}:function(n){return n&&"function"==typeof Symbol&&n.constructor===Symbol&&n!==Symbol.prototype?"symbol":typeof n})(t)}var t=this&&this.__assign||function(){return(t=Object.assign||function(n){for(var t,o=1,e=arguments.length;o<e;o++)for(var r in t=arguments[o])Object.prototype.hasOwnProperty.call(t,r)&&(n[r]=t[r]);return n}).apply(this,arguments)};Object.defineProperty(exports,"__esModule",{value:!0}),exports.Level=void 0;var o,e=require("./common");!function(n){n[n.Debug=0]="Debug",n[n.Info=1]="Info",n[n.Warn=2]="Warn",n[n.Error=3]="Error"}(o=exports.Level||(exports.Level={}));var r={printToConsole:!1,debug:f,info:s,warn:a,error:l,dump:y,history:p,watch:b,stringify:v,clear:g},i=[],u=new Set;function c(e,c){var f={content:"object"===n(e)?JSON.stringify(e,function(n,t){return t instanceof Error?t.toString():t}):e,level:c,ts:Date.now()};if(i.push(f),r.printToConsole){var s=o[c].toLowerCase();console[s](e)}setTimeout(function(){u.forEach(function(n){return n(t({},f))})},1)}function f(n){c(n,o.Debug)}function s(n){c(n,o.Info)}function a(n){c(n,o.Warn)}function l(n){e.wpd.Log2Console&&console.error(n),c(n,o.Error)}function p(){return i.slice(0)}function y(){return i.map(function(n){return v(n)}).join("\n")}function g(){i=[]}function b(n){return u.add(n),function(){u.delete(n)}}function v(n,t){var e=Object.assign({tag:!0,time:!0},t),r=new Date(n.ts),i=o[n.level]+" ",u=r.getHours()+":"+r.getMinutes()+":"+r.getSeconds()+"."+r.getMilliseconds();return""+(e.tag?i:"")+(e.time?u:"")+"> "+n.content}exports.default=r;
+}

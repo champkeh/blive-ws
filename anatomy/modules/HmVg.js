@@ -1,0 +1,8 @@
+/**
+ * id: HmVg
+ * path: ./timing
+ */
+
+function(require,module,exports) {
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.getNavigationEntryFromPerformanceTiming=t,exports.getPerformanceTiming=n,exports.performTempalte=void 0;var e=["startTime","unloadEventStart","unloadEventEnd","redirectStart","redirectEnd","fetchStart","domainLookupStart","domainLookupEnd","connectStart","connectEnd","secureConnectionStart","requestStart","responseStart","responseEnd","domInteractive","domContentLoadedEventStart","domContentLoadedEventEnd","domComplete","loadEventStart","loadEventEnd","duration","redirectCount","decodedBodySize","encodedBodySize","transferSize"];function t(){try{var e=performance.timing,t=performance.navigation.type===performance.navigation.TYPE_BACK_FORWARD?"back_forward":performance.navigation.type===performance.navigation.TYPE_NAVIGATE?"navigate":performance.navigation.type===performance.navigation.TYPE_RELOAD?"reload":"prerender",n={entryType:"navigation",startTime:0,duration:e.loadEventEnd-e.navigationStart,redirectCount:performance.navigation.redirectCount,type:t};for(var r in e)"navigationStart"!==r&&"toJSON"!==r&&(n[r]=Math.max(e[r]-e.navigationStart,0));return n}catch(a){return{}}}function n(){var n;try{var r=null!==(n=null===performance||void 0===performance?void 0:performance.getEntriesByType("navigation")[0])&&void 0!==n?n:t(),a={};return e.forEach(function(e){var t;a[e]=Math.max(null!==(t=r[e])&&void 0!==t?t:0,0)}),a}catch(o){return{}}}exports.performTempalte=e;
+}

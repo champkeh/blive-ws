@@ -1,8 +1,9 @@
 const acorn = require('acorn')
 const path = require('path')
 const fs = require('fs')
+const fse = require('fs-extra')
 
-const source = fs.readFileSync(path.resolve(__dirname, '../raw/room-player-2023-08-22T03:54:39.min.js'), {
+const source = fs.readFileSync(path.resolve(__dirname, '../raw/room-player-2023-08-28.min.js'), {
     encoding: 'utf-8'
 })
 
@@ -59,14 +60,41 @@ for (const {key, value} of firstArgNode.properties) {
         },
     }
 }
-for (const mod of Object.values(graph)) {
-    if (mod.id in map) {
-        mod.path = map[mod.id]
+for (const module of Object.values(graph)) {
+    if (module.id in map) {
+        module.path = map[module.id]
     }
 }
 
 console.log(graph)
 console.log(map)
 
-const re = /[-_\s]([a-z\d])(\w*)/g
-re.test('')
+// 拆分模块文件
+function writeGraph(graph) {
+    fse.emptyDirSync(path.resolve(__dirname, 'modules'))
+
+    for (const module of Object.values(graph)) {
+        writeModule(module)
+    }
+}
+function writeModule(module) {
+    const fileContent = `${generateFileComment(module)}
+${getNodeSource(module.impl)}`
+    fs.writeFileSync(path.resolve(__dirname, `modules/${module.id}.js`), fileContent, {
+        encoding: 'utf-8',
+    })
+}
+
+function generateFileComment(module) {
+    let comment = '/**\n'
+    if (module.id) {
+        comment += ` * id: ${module.id}\n`
+    }
+    if (module.path) {
+        comment += ` * path: ${module.path}\n`
+    }
+    comment += ' */\n'
+    return comment
+}
+
+writeGraph(graph)
