@@ -3,6 +3,6 @@
  * path: ./event-bus
  */
 
-function(require,module,exports) {
+(function(require,module,exports) {
 "use strict";var t,e=this&&this.__classPrivateFieldGet||function(t,e){if(!e.has(t))throw new TypeError("attempted to get private field on non-instance");return e.get(t)},n=this&&this.__classPrivateFieldSet||function(t,e,n){if(!e.has(t))throw new TypeError("attempted to set private field on non-instance");return e.set(t,n),n},r=this&&this.__spreadArray||function(t,e){for(var n=0,r=e.length,o=t.length;n<r;n++,o++)t[o]=e[n];return t};Object.defineProperty(exports,"__esModule",{value:!0}),exports.EventBus=void 0;var o=function(){function o(){var n=this;t.set(this,new Map),this.on=function(r,o){var i,a=null!==(i=e(n,t).get(r))&&void 0!==i?i:new Set;return a.add(o),e(n,t).has(r)||e(n,t).set(r,a),function(){a.delete(o),0===a.size&&e(n,t).delete(r)}},this.emit=function(r){for(var o=[],i=1;i<arguments.length;i++)o[i-1]=arguments[i];var a=e(n,t).get(r);null!=a&&a.forEach(function(t){return t.apply(void 0,o)})}}return o.forwardEvent=function(t,e,n){var o=n.map(function(n){var o=Array.isArray(n)?n:[n,n],i=o[0],a=o[1];return t.on(i,function(){for(var t=[],n=0;n<arguments.length;n++)t[n]=arguments[n];return e.emit.apply(e,r([a],t))})});return function(){o.forEach(function(t){return t()})}},o.prototype.getHandlers=function(n){var r;return null!==(r=e(this,t).get(n))&&void 0!==r?r:new Set},o.prototype.once=function(t,e){var n=this.on(t,function(){for(var t=[],r=0;r<arguments.length;r++)t[r]=arguments[r];n(),e.apply(void 0,t)});return n},o.prototype.destroy=function(){n(this,t,new Map)},o}();exports.EventBus=o,t=new WeakMap;
-}
+})()

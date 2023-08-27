@@ -78,9 +78,10 @@ function writeGraph(graph) {
     }
 }
 function writeModule(module) {
-    const fileContent = `${generateFileComment(module)}
-${getNodeSource(module.impl)}`
-    fs.writeFileSync(path.resolve(__dirname, `modules/${module.id}.js`), fileContent, {
+    const fileName = `modules/${module.id}${module.path ? '' : '-entrypoint'}.js`
+    const fileContent = `${generateFileComment(module)}\n(${getNodeSource(module.impl)})()`
+
+    fs.writeFileSync(path.resolve(__dirname, fileName), fileContent, {
         encoding: 'utf-8',
     })
 }
