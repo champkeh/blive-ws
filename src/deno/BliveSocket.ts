@@ -1,4 +1,4 @@
-import {decompress} from "https://deno.land/x/brotli@v0.1.4/mod.ts"
+import {brotli} from "./deps.ts"
 import {callFunction, mergeArrayBuffer} from './utils.ts'
 import {wsBinaryHeaderList, WSBinaryHeader, WS_CODE} from './const.ts'
 import {
@@ -371,7 +371,7 @@ export default class BliveSocket extends EventTarget {
                         u = 0 !== c.length ? JSON.parse(c) : null
                     } else if (data.ver === WS_CODE.WS_BODY_PROTOCOL_VERSION_BROTLI) {
                         const l = buf.slice(i + a, i + s)
-                        const h = decompress(new Uint8Array(l))
+                        const h = brotli.decompress(new Uint8Array(l))
                         u = this.convertToObject(h.buffer).body
                     }
                     u && (data.body as unknown[]).push(u)

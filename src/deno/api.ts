@@ -1,5 +1,4 @@
-import {getListByArea, getUserRecommend} from '../src/apis/live/room.ts'
-import {handleMessage} from '../src/common/message-parser.ts'
+import {getListByArea, getUserRecommend} from '../apis/live/room.ts'
 
 /**
  * 直播间类型
@@ -7,9 +6,9 @@ import {handleMessage} from '../src/common/message-parser.ts'
  * online 人气
  * livetime 最新开播
  */
-type RoomType = 'recommend' | 'online' | 'livetime'
+export type RoomType = 'recommend' | 'online' | 'livetime'
 
-interface RoomInfo {
+export interface RoomInfo {
     roomid: number
     uid: number
     title: string
@@ -25,7 +24,7 @@ interface RoomInfo {
  * @param type 直播间类型
  * @param count 数量
  */
-async function fetchRoomList(type: RoomType, count = 30): Promise<[RoomInfo[], boolean]> {
+export async function fetchRoomList(type: RoomType, count = 30): Promise<[RoomInfo[], boolean]> {
     const result: RoomInfo[] = []
     let hasMore = false
 
@@ -55,6 +54,9 @@ async function fetchRoomList(type: RoomType, count = 30): Promise<[RoomInfo[], b
             case "livetime":
                 resp = await getListByArea('livetime', page, count)
                 break
+            default:
+                resp.message = `不支持的type参数(${type})`
+                break
         }
 
         if (resp.code === 0) {
@@ -74,47 +76,9 @@ async function fetchRoomList(type: RoomType, count = 30): Promise<[RoomInfo[], b
             console.log(result.length)
             console.log(hasMore ? '还有更多~~' : '没有了~~')
         } else {
-            console.log(resp)
             throw Error(resp.message)
         }
     }
 
     return [result, hasMore]
 }
-
-const [roomList, hasMore] = await fetchRoomList('online', 3)
-console.log(roomList)
-console.log('总共: ', roomList.length)
-console.log(hasMore ? '还有更多~~' : '没有了~~')
-
-
-function enterRoom(rid: number) {
-    // 连接到代理服务器
-    const socket = new WebSocket('wss://blive.deno.dev')
-    socket.addEventListener('open', () => {
-        socket.send(JSON.stringify({
-            cmd: 'enter',
-            rid,
-            events: ['DANMU_MSG'],
-        }))
-    })
-    socket.addEventListener('message', (event) => {
-        try {
-            // 接收到的消息，格式为 { rid: 房间号, payload: {} }
-            const data = JSON.parse(event.data)
-            if (data.payload.event === 'authorized') {
-                // authorized 是连接成功收到的第一条消息
-            } else {
-                // 要监听的弹幕数据
-                // 在这里写你的业务逻辑
-                handleMessage(data)
-            }
-        } catch (e) {
-            // 忽略心跳数据
-        }
-    })
-}
-
-roomList.forEach(room => {
-    enterRoom(room.roomid)
-})

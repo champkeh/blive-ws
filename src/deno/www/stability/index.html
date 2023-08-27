@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>稳定性测试</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="app">
+<h1>稳定性测试</h1>
+<form class="form" @submit.prevent>
+    <label>
+        <span>设置监听房间数：</span>
+        <input name="count" type="number" v-model="count" required placeholder="请输入测试房间数" min="1" max="200">
+        <select name="type" v-model="type">
+            <option value="recommend">推荐直播</option>
+            <option value="online">人气直播</option>
+            <option value="livetime">最新开播</option>
+        </select>
+    </label>
+
+    <div class="actions">
+        <button @click="pullRoomData" :class="{loading: pullLoading}" :disabled="pullLoading">拉取直播间数据</button>
+        <button v-if="!running" @click="start">开始测试</button>
+        <button v-else @click="stop">停止测试</button>
+    </div>
+</form>
+<div class="container">
+    <div
+            class="room"
+            v-for="room in rooms"
+            :key="room.roomid"
+            :title="room.roomid"
+    >
+        <span>{{room.danmuCount}}</span>
+    </div>
+</div>
+
+<script src="https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

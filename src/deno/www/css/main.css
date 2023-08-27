@@ -30,13 +30,20 @@ label {
 }
 
 .section-app > footer {
+    display: flex;
+    justify-content: space-between;
     border-top: 1px solid #dcdcdc;
     padding: 10px 20px;
 }
 
-.section-app > footer > .notice {
-    font-size: 14px;
-    color: red;
+.section-app > footer {
+    & > .notice {
+        font-size: 14px;
+        color: red;
+    }
+    & > a {
+        font-size: 14px;
+    }
 }
 
 .section-app > main {

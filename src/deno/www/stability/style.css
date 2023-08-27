@@ -1,0 +1,115 @@
+:root {
+    --color-calendar-graph-day-bg: #ebedf0;
+    --color-calendar-graph-day-border: rgb(27 31 35 / 6%);
+}
+
+html, body {
+    margin: 0;
+}
+
+body {
+    width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.form {
+    & > label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+
+        & > span {
+            font-size: 18px;
+        }
+    }
+
+    & input {
+        min-width: 15em;
+        padding: .5em;
+        font-size: 16px;
+    }
+
+    & select {
+        padding: .5em;
+        font-size: 16px;
+        margin-left: .5em;
+    }
+
+    & .actions {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+
+        & > button {
+            position: relative;
+            font-size: 16px;
+        }
+    }
+}
+
+.container {
+    margin: 40px auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    width: 795px;
+}
+
+.room {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    fill: var(--color-calendar-graph-day-bg);
+    shape-rendering: geometricPrecision;
+    background-color: var(--color-calendar-graph-day-bg);
+    border-radius: 2px;
+    outline: 1px solid var(--color-calendar-graph-day-border);
+    outline-offset: -1px;
+
+    & > span {
+        font-size: 16px;
+    }
+
+    &[data-rate='0.1'] {
+        --color-calendar-graph-day-bg: rgba(48, 161, 78, 10%);
+    }
+
+    &[data-rate='0.2'] {
+        --color-calendar-graph-day-bg: rgba(48, 161, 78, 20%);
+    }
+
+    &[data-rate='0.3'] {
+        --color-calendar-graph-day-bg: rgba(48, 161, 78, 30%);
+    }
+
+    &[data-rate='0.4'] {
+        --color-calendar-graph-day-bg: rgba(48, 161, 78, 40%);
+    }
+
+    &[data-rate='0.5'] {
+        --color-calendar-graph-day-bg: rgba(48, 161, 78, 50%);
+    }
+
+    &[data-rate='0.6'] {
+        --color-calendar-graph-day-bg: rgba(48, 161, 78, 60%);
+    }
+
+    &[data-rate='0.7'] {
+        --color-calendar-graph-day-bg: rgba(48, 161, 78, 70%);
+    }
+
+    &[data-rate='0.8'] {
+        --color-calendar-graph-day-bg: rgba(48, 161, 78, 80%);
+    }
+    &[data-rate='0.9'] {
+        --color-calendar-graph-day-bg: rgba(48, 161, 78, 90%);
+    }
+}

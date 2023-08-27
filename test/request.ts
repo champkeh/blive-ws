@@ -20,3 +20,5 @@ const info = await getRoomPlayInfo(1440094, {no_playurl: 1})
 // const info = await getUserRecommend(1, 1)
 // const info = await getListByArea('online', 1, 10)
 console.log(info)
+
+import {} from 'lodash'
