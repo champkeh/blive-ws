@@ -11,7 +11,7 @@ import {getUserRecommend, getListByArea} from '../src/apis/live/room.ts'
 // const info = await getRoomInit(5440)
 // const info = await getMasterInfo(1)
 // const info = await getStatusInfoByUids([1, 2])
-const info = await getRoomPlayInfo(1440094, {no_playurl: 1})
+// const info = await getRoomPlayInfo(1440094, {no_playurl: 1})
 // const info = await getAreaList()
 // const info = await getPlayUrl(1, {platform: 'h5'})
 // const info = await getMyMedals()
@@ -19,6 +19,4 @@ const info = await getRoomPlayInfo(1440094, {no_playurl: 1})
 // const info = await getDanmuInfo(1)
 // const info = await getUserRecommend(1, 1)
 // const info = await getListByArea('online', 1, 10)
-console.log(info)
-
-import {} from 'lodash'
+// console.log(info)

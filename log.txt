@@ -1,0 +1,932 @@
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":21144080,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":7734200,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30515368,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":3044248,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":23141761,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":34348,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30268619,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30453779,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":27128887,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":27935883,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":47867,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":46936,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":11058609,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":6750632,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30348443,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":21696950,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":23982773,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30236495,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":12566538,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30735766,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30639425,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":25908077,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":1440094,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":22907643,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":27500051,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30161176,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":26802933,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":27472816,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":4245963,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":4350043,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":12384934,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":5194110,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":1010,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30730038,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":22439496,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":22632424,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":27383404,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":6136246,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":24628669,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":948391,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":22038066,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":92613,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":21756924,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":14709735,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30526851,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":80397,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":23716652,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":23808183,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":26751600,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":41682,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":27001704,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":13233348,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":26276187,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":24492935,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30758328,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":22992234,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":8181609,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":24410732,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":13308358,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":5367,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":27100075,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":22722289,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":21475721,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":22666872,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":48901,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":24815128,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":23053924,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":8432038,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":6096013,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":182607,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30759352,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":43241,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":732602,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":5383510,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":813364,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":5096,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":22885073,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":5433500,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":23698286,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":25955192,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":23138275,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":27338061,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":21622811,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":24393,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":82178,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":27341683,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30098402,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":25206807,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":81414,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":81004,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":12384934,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":5194110,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":1010,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":30730038,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":22439496,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":22632424,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":27383404,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":6136246,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":24628669,"events":["DANMU_MSG"]}
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"enter","rid":948391,"events":["DANMU_MSG"]}
+initialize to wss://tx-gz-live-comet-08.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-12.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-07.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-12.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-14.chat.bilibili.com:443/sub
+initialize to wss://ali-bj-live-comet-07.chat.bilibili.com:443/sub
+initialize to wss://ali-sh-live-comet-09.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-13.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-06.chat.bilibili.com:443/sub
+initialize to wss://ali-bj-live-comet-09.chat.bilibili.com:443/sub
+initialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-07.chat.bilibili.com:443/sub
+initialize to wss://hw-gz-live-comet-01.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-05.chat.bilibili.com:443/sub
+initialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-09.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-11.chat.bilibili.com:443/sub
+initialize to wss://ali-bj-live-comet-09.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-11.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-02.chat.bilibili.com:443/sub
+initialize to wss://ali-bj-live-comet-07.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-12.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-06.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-07.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-01.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-01.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-01.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-10.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-11.chat.bilibili.com:443/sub
+initialize to wss://ali-gz-live-comet-03.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-03.chat.bilibili.com:443/sub
+🚀open(22907643)
+🚀open(34348)
+🚀open(21144080)
+🚀open(11058609)
+💢error(34348) {error: undefined, message: Unexpected EOF}
+🚫close(34348) {code: 0, reason: }
+💢error(22907643) {error: undefined, message: Unexpected EOF}
+🚫close(22907643) {code: 0, reason: }
+💢error(21144080) {error: undefined, message: Unexpected EOF}
+🚫close(21144080) {code: 0, reason: }
+🚀open(22632424)
+💢error(11058609) {error: undefined, message: Unexpected EOF}
+🚫close(11058609) {code: 0, reason: }
+💢error(22632424) {error: undefined, message: Unexpected EOF}
+🚫close(22632424) {code: 0, reason: }
+🚀open(12566538)
+🚀open(23141761)
+🚀open(1010)
+🚀open(30268619)
+💢error(23141761) {error: undefined, message: Unexpected EOF}
+🚫close(23141761) {code: 0, reason: }
+🚀open(30515368)
+🚀open(8432038)
+🚀open(30758328)
+💢error(12566538) {error: undefined, message: Unexpected EOF}
+🚫close(12566538) {code: 0, reason: }
+🚀open(7734200)
+💢error(8432038) {error: undefined, message: Unexpected EOF}
+🚫close(8432038) {code: 0, reason: }
+💢error(30758328) {error: undefined, message: Unexpected EOF}
+🚫close(30758328) {code: 0, reason: }
+💢error(30515368) {error: undefined, message: Unexpected EOF}
+🚫close(30515368) {code: 0, reason: }
+🚀open(4350043)
+🚀open(47867)
+💢error(1010) {error: undefined, message: Unexpected EOF}
+🚫close(1010) {code: 0, reason: }
+💢error(30268619) {error: undefined, message: Unexpected EOF}
+🚫close(30268619) {code: 0, reason: }
+💢error(7734200) {error: undefined, message: Unexpected EOF}
+🚫close(7734200) {code: 0, reason: }
+💢error(4350043) {error: undefined, message: Unexpected EOF}
+🚫close(4350043) {code: 0, reason: }
+🚀open(6136246)
+🚀open(5367)
+🚀open(6750632)
+💢error(6136246) {error: undefined, message: Unexpected EOF}
+🚫close(6136246) {code: 0, reason: }
+💢error(5367) {error: undefined, message: Unexpected EOF}
+🚫close(5367) {code: 0, reason: }
+💢error(6750632) {error: undefined, message: Unexpected EOF}
+🚫close(6750632) {code: 0, reason: }
+initialize to wss://tx-gz-live-comet-02.chat.bilibili.com:443/sub
+initialize to wss://hw-sh-live-comet-05.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-11.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-05.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-02.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-05.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-07.chat.bilibili.com:443/sub
+initialize to wss://hw-sh-live-comet-03.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-02.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-01.chat.bilibili.com:443/sub
+initialize to wss://ali-gz-live-comet-02.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-12.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-13.chat.bilibili.com:443/sub
+🚀open(3044248)
+🚀open(22439496)
+🚀open(48901)
+🚀open(81004)
+🚀open(12384934)
+💢error(48901) {error: undefined, message: Unexpected EOF}
+🚫close(48901) {code: 0, reason: }
+💢error(81004) {error: undefined, message: Unexpected EOF}
+🚫close(81004) {code: 0, reason: }
+💢error(12384934) {error: undefined, message: Unexpected EOF}
+🚫close(12384934) {code: 0, reason: }
+🚀open(22666872)
+🚀open(46936)
+🚀open(5383510)
+🚀open(14709735)
+💢error(22666872) {error: undefined, message: Unexpected EOF}
+🚫close(22666872) {code: 0, reason: }
+🚀open(26751600)
+💢error(46936) {error: undefined, message: Unexpected EOF}
+🚫close(46936) {code: 0, reason: }
+💢error(5383510) {error: undefined, message: Unexpected EOF}
+🚫close(5383510) {code: 0, reason: }
+💢error(14709735) {error: undefined, message: Unexpected EOF}
+🚫close(14709735) {code: 0, reason: }
+🚀open(24393)
+🚀open(13308358)
+💢error(26751600) {error: undefined, message: Unexpected EOF}
+🚫close(26751600) {code: 0, reason: }
+🚀open(41682)
+🚀open(25955192)
+initialize to wss://tx-gz-live-comet-10.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-14.chat.bilibili.com:443/sub
+🚀open(24492935)
+🚀open(948391)
+🚀open(732602)
+🚀open(23808183)
+💢error(13308358) {error: undefined, message: Unexpected EOF}
+🚫close(13308358) {code: 0, reason: }
+💢error(24393) {error: undefined, message: Unexpected EOF}
+🚫close(24393) {code: 0, reason: }
+💢error(24492935) {error: undefined, message: Unexpected EOF}
+🚫close(24492935) {code: 0, reason: }
+💢error(41682) {error: undefined, message: Unexpected EOF}
+🚫close(41682) {code: 0, reason: }
+💢error(25955192) {error: undefined, message: Unexpected EOF}
+🚫close(25955192) {code: 0, reason: }
+🚀open(5096)
+💢error(948391) {error: undefined, message: Unexpected EOF}
+🚫close(948391) {code: 0, reason: }
+🚀open(22038066)
+💢error(732602) {error: undefined, message: Unexpected EOF}
+🚫close(732602) {code: 0, reason: }
+💢error(23808183) {error: undefined, message: Unexpected EOF}
+🚫close(23808183) {code: 0, reason: }
+💢error(22038066) {error: undefined, message: Unexpected EOF}
+🚫close(22038066) {code: 0, reason: }
+💢error(5096) {error: undefined, message: Unexpected EOF}
+🚫close(5096) {code: 0, reason: }
+🚀open(27128887)
+💢error(27128887) {error: undefined, message: Unexpected EOF}
+🚫close(27128887) {code: 0, reason: }
+🚀open(21696950)
+initialize to wss://tx-gz-live-comet-10.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-02.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-10.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-03.chat.bilibili.com:443/sub
+initialize to wss://ali-gz-live-comet-03.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-11.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-03.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-08.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-10.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-11.chat.bilibili.com:443/sub
+initialize to wss://hw-sh-live-comet-05.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-04.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-11.chat.bilibili.com:443/sub
+🚀open(6096013)
+🚀open(22722289)
+🚀open(1440094)
+🚀open(43241)
+💢error(22722289) {error: undefined, message: Unexpected EOF}
+🚫close(22722289) {code: 0, reason: }
+💢error(6096013) {error: undefined, message: Unexpected EOF}
+🚫close(6096013) {code: 0, reason: }
+🚀open(30730038)
+🚀open(30161176)
+🚀open(4245963)
+💢error(30730038) {error: undefined, message: Unexpected EOF}
+🚫close(30730038) {code: 0, reason: }
+💢error(30161176) {error: undefined, message: Unexpected EOF}
+🚫close(30161176) {code: 0, reason: }
+💢error(1440094) {error: undefined, message: Unexpected EOF}
+🚫close(1440094) {code: 0, reason: }
+🚀open(5433500)
+💢error(43241) {error: undefined, message: Unexpected EOF}
+🚫close(43241) {code: 0, reason: }
+🚀open(21622811)
+🚀open(80397)
+initialize to wss://tx-sh-live-comet-12.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-11.chat.bilibili.com:443/sub
+🚀open(5194110)
+🚀open(27100075)
+🚀open(82178)
+🚀open(21475721)
+💢error(21622811) {error: undefined, message: Unexpected EOF}
+🚫close(21622811) {code: 0, reason: }
+💢error(80397) {error: undefined, message: Unexpected EOF}
+🚫close(80397) {code: 0, reason: }
+💢error(5194110) {error: undefined, message: Unexpected EOF}
+🚫close(5194110) {code: 0, reason: }
+💢error(27100075) {error: undefined, message: Unexpected EOF}
+🚫close(27100075) {code: 0, reason: }
+💢error(82178) {error: undefined, message: Unexpected EOF}
+🚫close(82178) {code: 0, reason: }
+💢error(21475721) {error: undefined, message: Unexpected EOF}
+🚫close(21475721) {code: 0, reason: }
+🚀open(25908077)
+🚀open(30735766)
+🚀open(26276187)
+🚀open(25206807)
+💢error(25908077) {error: undefined, message: Unexpected EOF}
+🚫close(25908077) {code: 0, reason: }
+🚀open(27500051)
+💢error(26276187) {error: undefined, message: Unexpected EOF}
+🚫close(26276187) {code: 0, reason: }
+💢error(30735766) {error: undefined, message: Unexpected EOF}
+🚫close(30735766) {code: 0, reason: }
+💢error(25206807) {error: undefined, message: Unexpected EOF}
+🚫close(25206807) {code: 0, reason: }
+initialize to wss://tx-bj-live-comet-05.chat.bilibili.com:443/sub
+initialize to wss://hw-sh-live-comet-03.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-06.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-06.chat.bilibili.com:443/sub
+initialize to wss://ali-sh-live-comet-07.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-11.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-12.chat.bilibili.com:443/sub
+initialize to wss://ali-sh-live-comet-08.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-07.chat.bilibili.com:443/sub
+💢error(27500051) {error: undefined, message: Unexpected EOF}
+🚫close(27500051) {code: 0, reason: }
+initialize to wss://tx-gz-live-comet-09.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-03.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-14.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-01.chat.bilibili.com:443/sub
+🚀open(8181609)
+🚀open(92613)
+🚀open(30236495)
+🚀open(813364)
+💢error(30236495) {error: undefined, message: Unexpected EOF}
+🚫close(30236495) {code: 0, reason: }
+🚀open(30759352)
+💢error(30759352) {error: undefined, message: Unexpected EOF}
+🚫close(30759352) {code: 0, reason: }
+💢error(8181609) {error: undefined, message: Unexpected EOF}
+🚫close(8181609) {code: 0, reason: }
+💢error(92613) {error: undefined, message: Unexpected EOF}
+🚫close(92613) {code: 0, reason: }
+🚀open(22992234)
+initialize to wss://tx-gz-live-comet-09.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-01.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-01.chat.bilibili.com:443/sub
+🚀open(24628669)
+🚀open(23138275)
+🚀open(30348443)
+🚀open(27001704)
+💢error(22992234) {error: undefined, message: Unexpected EOF}
+🚫close(22992234) {code: 0, reason: }
+🚀open(27383404)
+💢error(24628669) {error: undefined, message: Unexpected EOF}
+🚫close(24628669) {code: 0, reason: }
+💢error(23138275) {error: undefined, message: Unexpected EOF}
+🚫close(23138275) {code: 0, reason: }
+💢error(30348443) {error: undefined, message: Unexpected EOF}
+🚫close(30348443) {code: 0, reason: }
+💢error(27001704) {error: undefined, message: Unexpected EOF}
+🚫close(27001704) {code: 0, reason: }
+💢error(27383404) {error: undefined, message: Unexpected EOF}
+🚫close(27383404) {code: 0, reason: }
+initialize to wss://ali-bj-live-comet-07.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-06.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-04.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-02.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-04.chat.bilibili.com:443/sub
+initialize to wss://ali-sh-live-comet-07.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-10.chat.bilibili.com:443/sub
+initialize to wss://tx-gz-live-comet-01.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-06.chat.bilibili.com:443/sub
+initialize to wss://tx-sh-live-comet-12.chat.bilibili.com:443/sub
+initialize to wss://hw-sh-live-comet-01.chat.bilibili.com:443/sub
+initialize to wss://tx-bj-live-comet-12.chat.bilibili.com:443/sub
+initialize to wss://ali-bj-live-comet-09.chat.bilibili.com:443/sub
+🚀open(13233348)
+🚀open(27338061)
+🚀open(21756924)
+🚀open(22885073)
+💢error(13233348) {error: undefined, message: Unexpected EOF}
+🚫close(13233348) {code: 0, reason: }
+💢error(27338061) {error: undefined, message: Unexpected EOF}
+🚫close(27338061) {code: 0, reason: }
+🚀open(30639425)
+🚀open(23053924)
+🚀open(182607)
+💢error(22885073) {error: undefined, message: Unexpected EOF}
+🚫close(22885073) {code: 0, reason: }
+🚀open(30098402)
+🚀open(30526851)
+💢error(21756924) {error: undefined, message: Unexpected EOF}
+🚫close(21756924) {code: 0, reason: }
+💢error(30639425) {error: undefined, message: Unexpected EOF}
+🚫close(30639425) {code: 0, reason: }
+💢error(23053924) {error: undefined, message: Unexpected EOF}
+🚫close(23053924) {code: 0, reason: }
+💢error(182607) {error: undefined, message: Unexpected EOF}
+🚫close(182607) {code: 0, reason: }
+💢error(30098402) {error: undefined, message: Unexpected EOF}
+🚫close(30098402) {code: 0, reason: }
+🚀open(27472816)
+💢error(27472816) {error: undefined, message: Unexpected EOF}
+🚫close(27472816) {code: 0, reason: }
+💢error(30526851) {error: undefined, message: Unexpected EOF}
+🚫close(30526851) {code: 0, reason: }
+🚀open(24410732)
+🚀open(23698286)
+🚀open(30453779)
+🚀open(81414)
+🚀open(24815128)
+🚀open(23716652)
+🚀open(26802933)
+💢error(24410732) {error: undefined, message: Unexpected EOF}
+🚫close(24410732) {code: 0, reason: }
+💢error(23698286) {error: undefined, message: Unexpected EOF}
+🚫close(23698286) {code: 0, reason: }
+💢error(81414) {error: undefined, message: Unexpected EOF}
+🚫close(81414) {code: 0, reason: }
+💢error(24815128) {error: undefined, message: Unexpected EOF}
+🚫close(24815128) {code: 0, reason: }
+💢error(26802933) {error: undefined, message: Unexpected EOF}
+🚫close(26802933) {code: 0, reason: }
+💢error(23716652) {error: undefined, message: Unexpected EOF}
+🚫close(23716652) {code: 0, reason: }
+💢error(30453779) {error: undefined, message: Unexpected EOF}
+🚫close(30453779) {code: 0, reason: }
+🚀open(23982773)
+💢error(23982773) {error: undefined, message: Unexpected EOF}
+🚫close(23982773) {code: 0, reason: }
+🚀open(27341683)
+🚀open(27935883)
+💢error(27935883) {error: undefined, message: Unexpected EOF}
+🚫close(27935883) {code: 0, reason: }
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-07.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-03.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-03.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-05.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-bj-live-comet-07.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-04.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-07.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-04.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-08.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-08.chat.bilibili.com:443/sub
+🚀open(21144080)
+🚀open(22907643)
+🚀open(11058609)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-01.chat.bilibili.com:443/sub
+💢error(22907643) {error: undefined, message: Unexpected EOF}
+🚫close(22907643) {code: 0, reason: }
+🚀open(22632424)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-bj-live-comet-07.chat.bilibili.com:443/sub
+🚀open(30268619)
+🚀open(30758328)
+🚀open(34348)
+🚀open(1010)
+💢error(30268619) {error: undefined, message: Unexpected EOF}
+🚫close(30268619) {code: 0, reason: }
+💢error(30758328) {error: undefined, message: Unexpected EOF}
+🚫close(30758328) {code: 0, reason: }
+💢error(1010) {error: undefined, message: Unexpected EOF}
+🚫close(1010) {code: 0, reason: }
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-09.chat.bilibili.com:443/sub
+🚀open(7734200)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-bj-live-comet-06.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-bj-live-comet-06.chat.bilibili.com:443/sub
+🚀open(23141761)
+🚀open(8432038)
+💢error(23141761) {error: undefined, message: Unexpected EOF}
+🚫close(23141761) {code: 0, reason: }
+🚀open(6136246)
+💢error(6136246) {error: undefined, message: Unexpected EOF}
+🚫close(6136246) {code: 0, reason: }
+🚀open(12566538)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-02.chat.bilibili.com:443/sub
+🚀open(30515368)
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-bj-live-comet-07.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-07.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-04.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-04.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-gz-live-comet-02.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-07.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-03.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-gz-live-comet-02.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-07.chat.bilibili.com:443/sub
+🚀open(12384934)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-02.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-gz-live-comet-03.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-02.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-02.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-08.chat.bilibili.com:443/sub
+💢error(12384934) {error: undefined, message: Unexpected EOF}
+🚫close(12384934) {code: 0, reason: }
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-02.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+🚀open(14709735)
+💢error(14709735) {error: undefined, message: Unexpected EOF}
+🚫close(14709735) {code: 0, reason: }
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-04.chat.bilibili.com:443/sub
+🚀open(4350043)
+🚀open(24492935)
+🚀open(81004)
+🚀open(23808183)
+💢error(24492935) {error: undefined, message: Unexpected EOF}
+🚫close(24492935) {code: 0, reason: }
+💢error(23808183) {error: undefined, message: Unexpected EOF}
+🚫close(23808183) {code: 0, reason: }
+💢error(81004) {error: undefined, message: Unexpected EOF}
+🚫close(81004) {code: 0, reason: }
+🚀open(5383510)
+🚀open(27128887)
+💢error(5383510) {error: undefined, message: Unexpected EOF}
+🚫close(5383510) {code: 0, reason: }
+🚀open(13308358)
+🚀open(24393)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-01.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+🚀open(25955192)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-02.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-bj-live-comet-07.chat.bilibili.com:443/sub
+🚀open(5096)
+💢error(13308358) {error: undefined, message: Unexpected EOF}
+🚫close(13308358) {code: 0, reason: }
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-01.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-02.chat.bilibili.com:443/sub
+🚀open(6750632)
+🚀open(5367)
+💢error(25955192) {error: undefined, message: Unexpected EOF}
+🚫close(25955192) {code: 0, reason: }
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-bj-live-comet-08.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-07.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-03.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-02.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-bj-live-comet-07.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-04.chat.bilibili.com:443/sub
+🚀open(732602)
+🚀open(26751600)
+🚀open(48901)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-bj-live-comet-06.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-04.chat.bilibili.com:443/sub
+🚀open(41682)
+🚀open(6096013)
+🚀open(30161176)
+🚀open(22722289)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+🚀open(5194110)
+🚀open(22666872)
+🚀open(1440094)
+🚀open(46936)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+💢error(30161176) {error: undefined, message: Unexpected EOF}
+🚫close(30161176) {code: 0, reason: }
+🚀open(80397)
+💢error(80397) {error: undefined, message: Unexpected EOF}
+🚫close(80397) {code: 0, reason: }
+🚀open(82178)
+🚀open(21622811)
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-09.chat.bilibili.com:443/sub
+🚀open(25908077)
+🚀open(21475721)
+💢error(82178) {error: undefined, message: Unexpected EOF}
+🚫close(82178) {code: 0, reason: }
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-gz-live-comet-02.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-bj-live-comet-09.chat.bilibili.com:443/sub
+🚀open(27100075)
+💢error(21622811) {error: undefined, message: Unexpected EOF}
+🚫close(21622811) {code: 0, reason: }
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-bj-live-comet-08.chat.bilibili.com:443/sub
+🚀open(30730038)
+🚀open(22038066)
+🚀open(43241)
+🚀open(948391)
+🚀open(26276187)
+🚀open(30735766)
+🚀open(25206807)
+🚀open(27500051)
+🚀open(30236495)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-01.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-bj-live-comet-07.chat.bilibili.com:443/sub
+💢error(30236495) {error: undefined, message: Unexpected EOF}
+🚫close(30236495) {code: 0, reason: }
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-09.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-04.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-08.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-bj-live-comet-09.chat.bilibili.com:443/sub
+🚀open(22992234)
+🚀open(92613)
+🚀open(30759352)
+🚀open(8181609)
+🚀open(23138275)
+💢error(23138275) {error: undefined, message: Unexpected EOF}
+🚫close(23138275) {code: 0, reason: }
+🚀open(27001704)
+💢error(27001704) {error: undefined, message: Unexpected EOF}
+🚫close(27001704) {code: 0, reason: }
+💢error(92613) {error: undefined, message: Unexpected EOF}
+🚫close(92613) {code: 0, reason: }
+💢error(30759352) {error: undefined, message: Unexpected EOF}
+🚫close(30759352) {code: 0, reason: }
+💢error(8181609) {error: undefined, message: Unexpected EOF}
+🚫close(8181609) {code: 0, reason: }
+🚀open(24628669)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-04.chat.bilibili.com:443/sub
+🚀open(30348443)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-01.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-bj-live-comet-08.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-bj-live-comet-08.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-04.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-bj-live-comet-09.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-01.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-03.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-bj-live-comet-05.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-04.chat.bilibili.com:443/sub
+🚀open(30639425)
+🚀open(27472816)
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-03.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-gz-live-comet-05.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-gz-live-comet-03.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-sh-live-comet-08.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-bj-live-comet-05.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 1
+reinitialize to wss://hw-sh-live-comet-02.chat.bilibili.com:443/sub
+🚀open(13233348)
+🚀open(27338061)
+🚀open(22885073)
+🚀open(23698286)
+🚀open(23053924)
+🚀open(27383404)
+🚀open(182607)
+🚀open(30098402)
+🚀open(21756924)
+🚀open(30453779)
+🚀open(26802933)
+💢error(22885073) {error: undefined, message: Unexpected EOF}
+🚫close(22885073) {code: 0, reason: }
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-bj-live-comet-07.chat.bilibili.com:443/sub
+💢error(26802933) {error: undefined, message: Unexpected EOF}
+🚫close(26802933) {code: 0, reason: }
+💢error(21756924) {error: undefined, message: Unexpected EOF}
+🚫close(21756924) {code: 0, reason: }
+🚀open(24410732)
+🚀open(81414)
+🚀open(24815128)
+Danmaku Websocket Retry . 1
+reinitialize to wss://ali-gz-live-comet-03.chat.bilibili.com:443/sub
+💢error(24815128) {error: undefined, message: Unexpected EOF}
+🚫close(24815128) {code: 0, reason: }
+🚀open(23982773)
+💢error(23982773) {error: undefined, message: Unexpected EOF}
+🚫close(23982773) {code: 0, reason: }
+🚀open(30526851)
+🚀open(23716652)
+🚀open(27935883)
+💢error(27935883) {error: undefined, message: Unexpected EOF}
+🚫close(27935883) {code: 0, reason: }
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(30758328)
+🚀open(30268619)
+🚀open(6136246)
+🚀open(22907643)
+🚀open(23141761)
+🚀open(1010)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(12384934)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(14709735)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(24492935)
+🚀open(23808183)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(81004)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(5383510)
+🚀open(13308358)
+🚀open(25955192)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(30161176)
+🚀open(80397)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(82178)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(21622811)
+🚀open(30236495)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(23138275)
+🚀open(92613)
+🚀open(27001704)
+🚀open(30759352)
+🚀open(8181609)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(26802933)
+🚀open(22885073)
+🚀open(21756924)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(24815128)
+🚀open(23982773)
+Danmaku Websocket Retry . 2
+reinitialize to wss://broadcastlv.chat.bilibili.com:443/sub
+🚀open(27935883)
+💬CLIENT 760134e6-958e-4b49-afdd-c03f0295c1a6 >> {"cmd":"exit"}
+Disconnected from client: 760134e6-958e-4b49-afdd-c03f0295c1a6, code: 1005 reason: No Status Rcvd
+🚫close(21144080) {code: 1005, reason: }
+🚫close(23141761) {code: 1005, reason: }
+🚫close(30515368) {code: 1005, reason: }
+🚫close(11058609) {code: 1005, reason: }
+🚫close(6136246) {code: 1005, reason: }
+🚫close(12566538) {code: 1005, reason: }
+🚫close(7734200) {code: 1005, reason: }
+🚫close(22632424) {code: 1005, reason: }
+🚫close(14709735) {code: 1005, reason: }
+🚫close(22907643) {code: 1005, reason: }
+🚫close(13308358) {code: 1005, reason: }
+🚫close(25955192) {code: 1005, reason: }
+🚫close(1010) {code: 1005, reason: }
+🚫close(30268619) {code: 1005, reason: }
+🚫close(81004) {code: 1005, reason: }
+🚫close(5383510) {code: 1005, reason: }
+🚫close(30758328) {code: 1005, reason: }
+🚫close(12384934) {code: 1005, reason: }
+🚫close(43241) {code: 1005, reason: }
+🚫close(22038066) {code: 1005, reason: }
+🚫close(21696950) {code: 1005, reason: }
+🚫close(5194110) {code: 1005, reason: }
+🚫close(23808183) {code: 1005, reason: }
+🚫close(4245963) {code: 1005, reason: }
+🚫close(27128887) {code: 1005, reason: }
+🚫close(80397) {code: 1005, reason: }
+🚫close(24492935) {code: 1005, reason: }
+🚫close(948391) {code: 1005, reason: }
+🚫close(30161176) {code: 1005, reason: }
+🚫close(30730038) {code: 1005, reason: }
+🚫close(21622811) {code: 1005, reason: }
+🚫close(27100075) {code: 1005, reason: }
+🚫close(5433500) {code: 1005, reason: }
+🚫close(92613) {code: 1005, reason: }
+🚫close(82178) {code: 1005, reason: }
+🚫close(813364) {code: 1005, reason: }
+🚫close(30236495) {code: 1005, reason: }
+🚫close(30759352) {code: 1005, reason: }
+🚫close(22992234) {code: 1005, reason: }
+🚫close(8181609) {code: 1005, reason: }
+🚫close(22885073) {code: 1005, reason: }
+🚫close(21756924) {code: 1005, reason: }
+🚫close(27472816) {code: 1005, reason: }
+🚫close(23698286) {code: 1005, reason: }
+🚫close(27341683) {code: 1005, reason: }
+🚫close(27001704) {code: 1005, reason: }
+🚫close(26802933) {code: 1005, reason: }
+🚫close(23138275) {code: 1005, reason: }
+🚫close(30453779) {code: 1005, reason: }
+🚫close(23982773) {code: 1005, reason: }
+🚫close(30639425) {code: 1005, reason: }
+🚫close(27935883) {code: 1005, reason: }
+🚫close(24815128) {code: 1005, reason: }
+🚫close(4350043) {code: 1005, reason: }
+🚫close(34348) {code: 1005, reason: }
+🚫close(6750632) {code: 1005, reason: }
+🚫close(5367) {code: 1005, reason: }
+🚫close(41682) {code: 1005, reason: }
+🚫close(30526851) {code: 1005, reason: }
+🚫close(3044248) {code: 1005, reason: }
+🚫close(8432038) {code: 1005, reason: }
+🚫close(22439496) {code: 1005, reason: }
+🚫close(22722289) {code: 1005, reason: }
+🚫close(47867) {code: 1005, reason: }
+🚫close(25908077) {code: 1005, reason: }
+🚫close(26751600) {code: 1005, reason: }
+🚫close(46936) {code: 1005, reason: }
+🚫close(732602) {code: 1005, reason: }
+🚫close(24393) {code: 1005, reason: }
+🚫close(5096) {code: 1005, reason: }
+🚫close(1440094) {code: 1005, reason: }
+🚫close(22666872) {code: 1005, reason: }
+🚫close(23716652) {code: 1005, reason: }
+🚫close(30735766) {code: 1005, reason: }
+🚫close(25206807) {code: 1005, reason: }
+🚫close(48901) {code: 1005, reason: }
+🚫close(21475721) {code: 1005, reason: }
+🚫close(27383404) {code: 1005, reason: }
+🚫close(6096013) {code: 1005, reason: }
+🚫close(13233348) {code: 1005, reason: }
+🚫close(24628669) {code: 1005, reason: }
+🚫close(81414) {code: 1005, reason: }
+🚫close(26276187) {code: 1005, reason: }
+🚫close(27500051) {code: 1005, reason: }
+🚫close(30348443) {code: 1005, reason: }
+🚫close(182607) {code: 1005, reason: }
+🚫close(24410732) {code: 1005, reason: }
+🚫close(30098402) {code: 1005, reason: }
+🚫close(27338061) {code: 1005, reason: }
+🚫close(23053924) {code: 1005, reason: }

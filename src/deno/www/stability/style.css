@@ -1,14 +1,13 @@
 :root {
-    --color-calendar-graph-day-bg: #ebedf0;
     --color-calendar-graph-day-border: rgb(27 31 35 / 6%);
 }
 
-html, body {
+html, body, p {
     margin: 0;
 }
 
 body {
-    width: 800px;
+    width: 820px;
     margin: 0 auto;
 }
 
@@ -58,7 +57,7 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    width: 795px;
+    width: 820px;
 }
 
 .room {
@@ -78,38 +77,49 @@ h1 {
         font-size: 16px;
     }
 
-    &[data-rate='0.1'] {
-        --color-calendar-graph-day-bg: rgba(48, 161, 78, 10%);
+    &.dead {
+        --color-calendar-graph-day-bg: rgba(252, 0, 0, 0.8);
     }
+    &.low {
+        --color-calendar-graph-day-bg: rgba(232, 238, 72, 0.8);
+    }
+    &.mid {
+        --color-calendar-graph-day-bg: rgba(164, 199, 80, 0.8);
+    }
+    &.high {
+        --color-calendar-graph-day-bg: rgb(64, 184, 32, 0.8);
+    }
+}
 
-    &[data-rate='0.2'] {
-        --color-calendar-graph-day-bg: rgba(48, 161, 78, 20%);
-    }
+.statics {
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 20px;
+    background: cornsilk;
 
-    &[data-rate='0.3'] {
-        --color-calendar-graph-day-bg: rgba(48, 161, 78, 30%);
+    & > p {
+        width: 6em;
     }
+}
 
-    &[data-rate='0.4'] {
-        --color-calendar-graph-day-bg: rgba(48, 161, 78, 40%);
-    }
+.memory-usage {
+    position: fixed;
+    bottom: 30px;
+    right: 10px;
+    padding: 0;
 
-    &[data-rate='0.5'] {
-        --color-calendar-graph-day-bg: rgba(48, 161, 78, 50%);
-    }
+    & > p {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 140px;
+        border-bottom: 1px solid #d5d5d5;
+        height: 30px;
+        padding: 0 1em;
 
-    &[data-rate='0.6'] {
-        --color-calendar-graph-day-bg: rgba(48, 161, 78, 60%);
-    }
-
-    &[data-rate='0.7'] {
-        --color-calendar-graph-day-bg: rgba(48, 161, 78, 70%);
-    }
-
-    &[data-rate='0.8'] {
-        --color-calendar-graph-day-bg: rgba(48, 161, 78, 80%);
-    }
-    &[data-rate='0.9'] {
-        --color-calendar-graph-day-bg: rgba(48, 161, 78, 90%);
+        &:last-child {
+            border-bottom: none;
+        }
     }
 }

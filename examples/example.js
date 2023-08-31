@@ -42,7 +42,7 @@ socket.addEventListener('message', (event) => {
     try {
         // 接收到的消息，格式为 { rid: 房间号, payload: {} }
         const data = JSON.parse(event.data)
-        if (data.payload.event === 'authorized') {
+        if (data.payload.cmd === 'authorized') {
             // authorized 是连接成功收到的第一条消息
         } else {
             // 要监听的弹幕数据

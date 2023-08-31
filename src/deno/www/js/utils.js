@@ -1,7 +1,7 @@
 export function handleMessage(data) {
     try {
-        const msg_type = data.payload.cmd
-        switch (msg_type) {
+        const cmd = data.payload.cmd
+        switch (cmd) {
             case 'DANMU_MSG':
                 onDanmuMsg(data.rid, data.payload)
                 break
@@ -85,11 +85,11 @@ function now() {
 /**
  * 监听【普通弹幕】: DANMU_MSG
  * @param rid
- * @param data
+ * @param payload
  */
-function onDanmuMsg(rid, data) {
+function onDanmuMsg(rid, payload) {
     // 示例如下：
-    // data.info = [
+    // payload.info = [
     //     [],
     //     '主播好可爱啊',
     //     [346319245, "crazywang1", 0, 0, 0, 10000, 1, ""],
@@ -97,9 +97,9 @@ function onDanmuMsg(rid, data) {
     // ]
 
     const info = {
-        uid: data.info[2][0],
-        uname: data.info[2][1],
-        text: data.info[1],
+        uid: payload.info[2][0],
+        uname: payload.info[2][1],
+        text: payload.info[1],
     }
     Logger.printDanmaku(rid, info)
 }
@@ -107,11 +107,11 @@ function onDanmuMsg(rid, data) {
 /**
  * 监听【直播间互动文字】: INTERACT_WORD
  * @param rid
- * @param data
+ * @param payload
  */
-function onInteractWordMsg(rid, data) {
+function onInteractWordMsg(rid, payload) {
     // 示例如下：
-    // data.data = {
+    // payload.data = {
     //     contribution: {
     //         grade: 0,
     //     },
@@ -147,8 +147,8 @@ function onInteractWordMsg(rid, data) {
     // }
 
     const user = {
-        uid: data.data.uid,
-        name: data.data.uname,
+        uid: payload.data.uid,
+        name: payload.data.uname,
     }
     Logger.info(rid, "互动",`${user.name}(${user.uid})进入直播间`)
 }
@@ -156,11 +156,11 @@ function onInteractWordMsg(rid, data) {
 /**
  * 监听【送礼物】: SEND_GIFT
  * @param rid
- * @param data
+ * @param payload
  */
-function onSendGiftMsg(rid, data) {
+function onSendGiftMsg(rid, payload) {
     // 示例如下：
-    // data.data = {
+    // payload.data = {
     //     action: "投喂",
     //     batch_combo_id: "",
     //     batch_combo_send: null,
@@ -231,12 +231,12 @@ function onSendGiftMsg(rid, data) {
     // }
 
     const info = {
-        uid: data.data.uid,
-        name: data.data.uname,
-        giftName: data.data.giftName,
-        num: data.data.num,
-        price: data.data.price,
-        action: data.data.action,
+        uid: payload.data.uid,
+        name: payload.data.uname,
+        giftName: payload.data.giftName,
+        num: payload.data.num,
+        price: payload.data.price,
+        action: payload.data.action,
     }
     Logger.warn(rid, "送礼物", `${info.name} ${info.action} ${info.giftName}x${info.num}`)
 }

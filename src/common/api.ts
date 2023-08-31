@@ -1,5 +1,6 @@
 const api_endpoint = 'https://api.live.bilibili.com'
 const space_endpoint = 'https://space.bilibili.com'
+import {getRoomPlayInfo} from '../apis/live/info.ts'
 
 /**
  * 根据uid获取头像 (爬虫实现)
@@ -31,22 +32,12 @@ export function getDanmuInfo(rid: number) {
 }
 
 /**
- * 获取直播间信息
- * @param rid 直播间id，支持短id
- * @return {Promise<any>}
- */
-export function getRoomInfo(rid: number) {
-    return fetch(`${api_endpoint}/xlive/web-room/v2/index/getRoomPlayInfo?room_id=${rid}&no_playurl=0&mask=1&qn=0&platform=web&protocol=0,1&format=0,1,2&codec=0,1&dolby=5&panorama=1`)
-        .then(resp => resp.json())
-}
-
-/**
  * 获取真实房间号
  * @param rid
  */
 export function getRealRoomId(rid: number): Promise<number> {
     return new Promise((resolve, reject) => {
-        getRoomInfo(rid).then(resp => {
+        getRoomPlayInfo(rid).then(resp => {
             if (resp && resp.code === 0) {
                 resolve(resp.data.room_id)
             } else {

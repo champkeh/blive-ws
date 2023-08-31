@@ -1,126 +1,107 @@
-import {brotli} from "./deps.ts"
-import {callFunction, mergeArrayBuffer} from './utils.ts'
-import {wsBinaryHeaderList, WSBinaryHeader, WS_CODE} from './const.ts'
+import {convertToArrayBuffer, parseArrayBuffer, fetchHostList} from './utils.ts'
+import {WS_CONST} from './const.ts'
 import {
     BliveSocketState,
-    CallbackFn,
-    BliveSocketCallbackQueueList,
     BliveSocketOptions,
-    DataPacket,
-    Options,
-    WSHost,
-    MessageData,
-    MessageBody,
+    HeartbeatReplayMessageBody,
+    NormalMessageBody,
+    AuthorizeReplyMessageBody,
 } from './types.d.ts'
-import {getDanmuInfo} from '../common/api.ts'
 
 /**
  * B站 websocket 连接默认选项
  */
-const defaultBliveSocketOptions = {
-    debug: false, // 调试模式
-    rid: 0, // 房间id
-    uid: 0, // 用户id
-    retry: true, // 断开自动重连
+const DEFAULT_BLIVE_SOCKET_OPTIONS: BliveSocketOptions = {
+    debug: !!Deno.env.get('DEBUG'),
+    buvid: Deno.env.get('BUVID') || undefined,
+
+    urlList: [],
+    rid: 0,
+    aid: 0,
+    uid: 0,
+    from: -1,
+    connectTimeout: 5e3,
+    retryConnectTimeout: 10e3,
+    heartBeatInterval: 30,
+    retry: true,
     retryMaxCount: 0,
-    retryInterval: 5e3, // 重试间隔
+    retryInterval: 5,
     retryThreadCount: 10,
-    connectTimeout: 5e3, // 连接超时时间
-    retryConnectCount: 3, // 重连次数
-    retryConnectTimeout: 1e4, // 重连超时时间
+    retryConnectCount: 3,
     retryRoundInterval: Math.floor(2 * Math.random()) + 3,
-    heartBeatInterval: 30, // 心跳包间隔
-    events: []
 }
 
+/**
+ * 触发的事件如下：
+ *   initialized: 初始化事件(只会触发一次)
+ *   fallback: 初始化过程报错时
+ *   open: 与B站弹幕服务连接成功时
+ *   close: 与B站弹幕服务连接断开时
+ *   error: 与B站弹幕服务连接出错时
+ *   authorized: 认证成功时
+ *   receive_auth_res: 认证失败时
+ *   heart_beat_reply: 心跳应答时
+ *   list_connect_error: 轮训完一轮线路时
+ *   retry_fallback: 线路重试完时
+ *   [cmd]: 各种B站消息的cmd
+ */
 export default class BliveSocket extends EventTarget {
     private readonly options: BliveSocketOptions
-    private wsBinaryHeaderList: WSBinaryHeader[]
-    private state: BliveSocketState
-    private readonly callbackQueueList: BliveSocketCallbackQueueList
+    private readonly state: BliveSocketState
     private HEART_BEAT_INTERVAL: number
     private CONNECT_TIMEOUT: number
     private ws!: WebSocket
-    private encoder: TextEncoder
-    private decoder: TextDecoder
 
 
-    constructor(options: Options) {
+    constructor(userOptions: Partial<BliveSocketOptions> = {}) {
         super()
 
         this.options = {
-            ...defaultBliveSocketOptions,
-            ...options,
+            ...DEFAULT_BLIVE_SOCKET_OPTIONS,
+            ...userOptions,
         }
-        this.wsBinaryHeaderList = wsBinaryHeaderList
         this.state = {
-            retryCount: 0,
-            listConnectFinishedCount: 0,
+            retryCount: 0, // 当前重试次数
+            listConnectFinishedCount: 0, // 当前 urlList 的轮训次数
             index: 0,
-
-            // 连接超时次数
-            connectTimeoutTimes: 0,
+            connectTimeoutTimes: 0, // 连接成功之前的连接超时次数，连接成功后重置为0
+            url: '',
             token: '',
-            urlList: []
-        }
-        this.callbackQueueList = {
-            onInitializedQueue: [],
-            onOpenQueue: [],
-            onCloseQueue: [],
-            onErrorQueue: [],
-            onReceivedMessageQueue: [],
-            onHeartBeatReplyQueue: [],
-            onRetryFallbackQueue: [],
-            onListConnectErrorQueue: [],
-            onReceiveAuthResQueue: [],
         }
         // 心跳定时器
         this.HEART_BEAT_INTERVAL = 0
         // 连接超时定时器
         this.CONNECT_TIMEOUT = 0
-        this.encoder = new TextEncoder()
-        this.decoder = new TextDecoder()
 
-        this.fetchHostList(this.options.rid).then(() => {
-            this.mixinCallback().initialize(this.state.urlList[0])
+        fetchHostList(this.options.rid).then(([urlList, token]) => {
+            this.options.urlList = urlList
+            this.options.retryMaxCount = urlList.length
+            this.state.token = token
+
+            if (this.options.debug) {
+                console.debug(`[ws] 🌿获取B站弹幕服务线路如下:`)
+                urlList.forEach(url => {
+                    console.debug(url)
+                })
+            }
+
+            this.initialize(urlList[0])
         }).catch(e => {
-            console.log(e)
+            console.error(e)
         })
     }
 
+
     /**
-     * 获取线路列表及token
-     * @param rid 房间号
+     * 初始化 ws 连接
+     * @param url
+     * @param isRetry 是否是重试
      * @private
      */
-    private async fetchHostList(rid: number) {
-        const danmuInfo = await getDanmuInfo(rid)
-        if (danmuInfo.code !== 0) {
-            throw new Error(`获取线路失败: ${danmuInfo.message}`)
-        }
-        this.state.urlList = danmuInfo.data.host_list.map((h: WSHost) => `wss://${h.host}:${h.wss_port}/sub`)
-        this.state.token = danmuInfo.data.token
-
-        if (this.state.urlList.length === 0 || !this.state.token) {
-            throw new Error(`获取连接参数失败: 线路为空或token不存在`)
-        }
-
-        // 尝试将所有线路都进行重试
-        this.options.retryMaxCount = this.state.urlList.length - 1
-
-        if (this.options.debug) {
-            console.log(`获取B站弹幕服务线路如下:`)
-            this.state.urlList.forEach(url => {
-                console.log(url)
-            })
-            console.log()
-        }
-
-        return this
-    }
-
-    private initialize(url: string) {
+    private initialize(url: string, isRetry = false) {
         try {
+            console.debug(`[ws] ${isRetry ? 're' : ''}initialize to ${url}`)
+            this.state.url = url
             this.ws = new WebSocket(url)
             this.ws.binaryType = "arraybuffer"
             this.ws.onopen = this.onOpen.bind(this)
@@ -129,57 +110,79 @@ export default class BliveSocket extends EventTarget {
             this.ws.onerror = this.onError.bind(this)
 
             // 执行 onInitialized 钩子，执行一遍之后进行清空，避免在断开重连时重复执行这些钩子
-            callFunction(this.callbackQueueList.onInitializedQueue)
-            this.callbackQueueList.onInitializedQueue = []
+            if (!isRetry) {
+                this.emit('initialized')
+            }
 
+            // 设置连接超时
             const timeout = this.state.connectTimeoutTimes >= 3 ? this.options.retryConnectTimeout : this.options.connectTimeout
             this.CONNECT_TIMEOUT = setTimeout(() => {
-                // 连接超时
                 this.state.connectTimeoutTimes += 1
-                console.warn("connect timeout " + this.state.connectTimeoutTimes)
+                console.warn(`[ws] 💢Connect ${url} timeout . ${this.state.connectTimeoutTimes}`)
+
+                // 超时了，关闭当前连接进行重试
                 this.ws.close()
             }, timeout)
         } catch (e) {
+            this.emit('fallback')
             console.error(e)
         }
         return this
     }
 
-    private onOpen() {
-        console.log('open')
-        // 执行 onOpenQueue 钩子
-        callFunction(this.callbackQueueList.onOpenQueue)
+    private onOpen(event: Event) {
+        if (this.options.debug) {
+            console.debug('[ws] onOpen')
+            console.debug(this.state)
+        }
 
-        this.emit('open')
-
+        // 连接成功，取消超时机制
         this.state.connectTimeoutTimes = 0
         this.CONNECT_TIMEOUT && clearTimeout(this.CONNECT_TIMEOUT)
+
+        // 触发订阅者的 open 钩子
+        this.emit('open', event, true)
+
+        // 发送认证包
         this.userAuthentication()
         return this
     }
 
+    /**
+     * 发送认证包
+     * @private
+     */
     private userAuthentication() {
         const options = this.options
 
-        const params = {
+        const originAuthInfo = {
             uid: options.uid,
             roomid: options.rid,
             protover: 3,
+            buvid: options.buvid,
+
             platform: 'web',
             type: 2,
             key: this.state.token,
         }
 
-        const encodedParams = this.convertToArrayBuffer(JSON.stringify(params), WS_CODE.WS_OP_USER_AUTHENTICATION)
+        const encodedAuthInfo = convertToArrayBuffer(JSON.stringify(originAuthInfo), WS_CONST.WS_OP_USER_AUTHENTICATION)
         setTimeout(() => {
-            this.ws.send(encodedParams)
+            if (this.options.debug) {
+                console.debug(`[ws] 🌿发送用户认证包: `, originAuthInfo)
+            }
+            this.ws.send(encodedAuthInfo)
         }, 0)
     }
 
+    /**
+     * 认证通过，开启心跳
+     * @private
+     */
     private heartBeat() {
         clearTimeout(this.HEART_BEAT_INTERVAL)
 
-        const data = this.convertToArrayBuffer({}, WS_CODE.WS_OP_HEARTBEAT)
+        const data = convertToArrayBuffer('', WS_CONST.WS_OP_HEARTBEAT)
         this.ws.send(data)
 
         this.HEART_BEAT_INTERVAL = setTimeout(() => {
@@ -187,129 +190,130 @@ export default class BliveSocket extends EventTarget {
         }, 1000 * this.options.heartBeatInterval)
     }
 
-    private onMessage(msg: MessageEvent) {
-        try {
-            const data = this.convertToObject(msg.data)
 
-            if (Array.isArray(data)) {
-                data.forEach((data) => {
-                    this.onMessage(data)
-                })
-            } else if (data instanceof Object) {
-                if (this.options.debug) {
-                    console.log('message: ', data)
-                }
-                switch (data.op) {
-                    // 心跳应答包: 3
-                    case WS_CODE.WS_OP_HEARTBEAT_REPLY:
-                        this.onHeartBeatReply(data.body)
+    private onMessage(event: MessageEvent) {
+        if (this.options.debug) {
+            console.debug('[ws] onMessage')
+        }
+
+        try {
+            const packets = parseArrayBuffer(event.data)
+
+            for (const packet of packets) {
+
+                switch (packet.op) {
+                    // 心跳应答: 3
+                    case WS_CONST.WS_OP_HEARTBEAT_REPLY:
+                        this.onHeartBeatReply((packet.body as HeartbeatReplayMessageBody).count)
                         break
 
                     // 普通消息: 5
-                    case WS_CODE.WS_OP_MESSAGE:
-                        this.onMessageReply(data.body as MessageData | MessageData[])
+                    case WS_CONST.WS_OP_MESSAGE:
+                        this.onMessageReply(packet.body as NormalMessageBody)
                         break
 
-                    // 连接成功: 8
-                    case WS_CODE.WS_OP_CONNECT_SUCCESS:
-                        if ((data.body as unknown[]).length !== 0 && (data.body as unknown[])[0]) {
-                            switch (((data.body as unknown) as { code: number }[])[0].code) {
-                                // 认证成功: 0
-                                case WS_CODE.WS_AUTH_OK:
-                                    this.emit('authorized')
-                                    this.heartBeat()
-                                    break
+                    // 认证结果: 8
+                    case WS_CONST.WS_OP_CONNECT_SUCCESS:
+                        switch ((packet.body as AuthorizeReplyMessageBody).code) {
+                            // 认证成功: 0
+                            case WS_CONST.WS_AUTH_OK:
+                                this.emit('authorized')
+                                this.heartBeat()
+                                break
 
-                                // 认证失败: -101
-                                case WS_CODE.WS_AUTH_TOKEN_ERROR:
-                                    this.options.retry = false
-                                    if (typeof this.options.onReceiveAuthRes === 'function') {
-                                        this.options.onReceiveAuthRes(data.body)
-                                    }
-                                    break
-                                default:
-                                    this.onClose()
-                            }
-                        } else {
-                            this.emit('authorized')
-                            this.heartBeat()
+                            // 认证失败: -101
+                            case WS_CONST.WS_AUTH_TOKEN_ERROR:
+                                this.options.retry = false
+                                this.emit('receive_auth_res', packet.body)
+                                break
+                            default:
+                                console.warn('[ws] 💢认证结果未知', (packet.body as AuthorizeReplyMessageBody).code)
+                                this.onClose(new CloseEvent('close', {
+                                    code: 4000,
+                                    reason: '认证结果未知',
+                                }))
                         }
                 }
             }
+
         } catch (e) {
-            console.error("WebSocket Error: ", e)
+            console.error("[ws] 解析 packet 失败", e)
         }
         return this
     }
 
-    private onMessageReply(data: MessageData | MessageData[]) {
-        try {
-            if (Array.isArray(data)) {
-                data.forEach(data => {
-                    this.onMessageReply(data)
-                })
-            } else if (data.cmd) {
-                this.emit(data.cmd, {detail: data})
-            }
-        } catch (e) {
-            console.error("On Message Resolve Error: ", e)
+    /**
+     * 收到普通消息包 (op = 5)
+     * @param data
+     * @private
+     */
+    private onMessageReply(data: NormalMessageBody) {
+        this.emit(data.cmd, data)
+    }
+
+    /**
+     * 收到心跳应答包 (op = 3)
+     * @param count
+     * @private
+     */
+    private onHeartBeatReply(count: number) {
+        this.emit('heart_beat_reply', count)
+    }
+
+    private onClose(event: CloseEvent) {
+        if (this.options.debug) {
+            console.debug('[ws] onClose')
+            console.debug(this.state)
         }
-    }
 
-    private onHeartBeatReply(data: unknown) {
-        callFunction(this.callbackQueueList.onHeartBeatReplyQueue, data)
-        this.emit('heart_beat_reply')
-    }
-
-    private onClose() {
-        console.log('close')
-        const t = this.state.urlList.length
-
-        // 执行 onClose 钩子
-        callFunction(this.callbackQueueList.onCloseQueue)
         clearTimeout(this.HEART_BEAT_INTERVAL)
 
-        this.emit('close')
+        this.emit('close', event, true)
 
         if (this.options.retry) {
-            // 重试其他线路
             if (this.checkRetryState()) {
                 setTimeout(() => {
-                    console.warn("Danmaku Websocket Retry .", this.state.retryCount)
+                    console.warn("[ws] Danmaku Websocket Retry .", this.state.retryCount)
                     this.state.index += 1
-                    if (this.state.retryCount > this.options.retryThreadCount) {
+                    const urlListLen = this.options.urlList.length
+                    if (urlListLen === 0 || this.state.retryCount > this.options.retryThreadCount) {
                         setTimeout(() => {
-                            this.initialize(this.state.urlList[0])
+                            this.initialize(this.options.urlList[0], true)
                         }, 1e3 * this.options.retryRoundInterval)
-                    } else if (0 !== t && this.state.index > t - 1) {
+                    } else if (0 !== urlListLen && this.state.index > urlListLen - 1) {
                         this.state.index = 0
                         this.state.listConnectFinishedCount += 1
+
                         if (this.state.listConnectFinishedCount === 1) {
-                            callFunction(this.callbackQueueList.onListConnectErrorQueue)
+                            this.emit('list_connect_error')
                         }
+
                         setTimeout(() => {
-                            this.initialize(this.state.urlList[this.state.index])
+                            this.initialize(this.options.urlList[this.state.index], true)
                         }, 1e3 * this.options.retryRoundInterval)
                     } else {
-                        this.initialize(this.state.urlList[this.state.index])
+                        this.initialize(this.options.urlList[this.state.index], true)
                     }
-                }, this.options.retryInterval)
+                }, 1e3 * this.options.retryInterval)
             } else {
                 // 线路已重试完
-                console.warn("Danmaku Websocket Retry Failed.")
-                callFunction(this.callbackQueueList.onRetryFallbackQueue)
+                console.warn("[ws] Danmaku Websocket Retry Failed.")
+
+                this.emit('retry_fallback', this.state)
             }
         }
 
         return this
     }
 
-    private onError(err: Event | ErrorEvent) {
-        console.error(`连接B站弹幕服务 ${(err.target as WebSocket).url} 失败`)
-        console.error(`原因: ${(err as ErrorEvent).message}`)
-        callFunction(this.callbackQueueList.onErrorQueue, err)
+    private onError(error: Event | ErrorEvent) {
+        if (this.options.debug) {
+            console.debug('[ws] onError')
+            console.debug(this.state)
+        }
 
-        this.emit('error', err)
+        this.emit('error', error, true)
+
         return this
     }
 
@@ -321,124 +325,77 @@ export default class BliveSocket extends EventTarget {
         this.ws = (null as unknown as WebSocket)
     }
 
-    private convertToArrayBuffer(payload: string | unknown, op: number) {
-        const header = new ArrayBuffer(WS_CODE.WS_PACKAGE_HEADER_TOTAL_LENGTH)
-        const dataView = new DataView(header, WS_CODE.WS_PACKAGE_OFFSET)
-        const body = this.encoder.encode(payload as string)
-
-        dataView.setInt32(WS_CODE.WS_PACKAGE_OFFSET, WS_CODE.WS_PACKAGE_HEADER_TOTAL_LENGTH + body.byteLength)
-        this.wsBinaryHeaderList[2].value = op
-        this.wsBinaryHeaderList.forEach(head => {
-            if (head.bytes === 4) {
-                dataView.setInt32(head.offset, head.value)
-            } else if (head.bytes === 2) {
-                dataView.setInt16(head.offset, head.value)
-            }
-        })
-        return mergeArrayBuffer(header, body)
-    }
-
-    private convertToObject(buf: ArrayBuffer) {
-        const dataView = new DataView(buf)
-        const data: DataPacket = {
-            body: [],
-        }
-
-        data.packetLen = dataView.getInt32(WS_CODE.WS_PACKAGE_OFFSET)
-        this.wsBinaryHeaderList.forEach(head => {
-            if (head.bytes === 4) {
-                data[head.key] = dataView.getInt32(head.offset)
-            } else if (head.bytes === 2) {
-                data[head.key] = dataView.getInt16(head.offset)
-            }
-        })
-
-        if (!data.op || WS_CODE.WS_OP_MESSAGE !== data.op && data.op !== WS_CODE.WS_OP_CONNECT_SUCCESS) {
-            if (data.op === WS_CODE.WS_OP_HEARTBEAT_REPLY) {
-                data.body = {
-                    count: dataView.getInt32(WS_CODE.WS_PACKAGE_HEADER_TOTAL_LENGTH)
-                }
-            }
-        } else {
-            let a = 0
-            let u: MessageBody | null = null
-            for (let i = WS_CODE.WS_PACKAGE_OFFSET, s = data.packetLen; i < buf.byteLength; i += s) {
-                s = dataView.getInt32(i)
-                a = dataView.getInt16(i + WS_CODE.WS_HEADER_OFFSET)
-                try {
-                    if (data.ver === WS_CODE.WS_BODY_PROTOCOL_VERSION_NORMAL) {
-                        const c = this.decoder.decode(buf.slice(i + a, i + s))
-                        u = 0 !== c.length ? JSON.parse(c) : null
-                    } else if (data.ver === WS_CODE.WS_BODY_PROTOCOL_VERSION_BROTLI) {
-                        const l = buf.slice(i + a, i + s)
-                        const h = brotli.decompress(new Uint8Array(l))
-                        u = this.convertToObject(h.buffer).body
-                    }
-                    u && (data.body as unknown[]).push(u)
-                } catch (err) {
-                    console.log("decode body error:", new Uint8Array(buf), data, err)
-                }
-            }
-        }
-
-        return data
-    }
-
-    private send(data: string) {
-        this.ws && this.ws.send(data)
-    }
-
-    private addCallback(fn: CallbackFn | undefined, queue: CallbackFn[]) {
-        if (typeof fn === 'function' && Array.isArray(queue)) {
-            queue.push(fn)
-        }
-        return this
-    }
 
     /**
-     * 绑定回调函数钩子
+     * 获取当前连接状态
      * @private
      */
-    private mixinCallback() {
-        const options = this.options
-        const cbQueueList = this.callbackQueueList
-
-        this
-            .addCallback(options.onReceivedMessage, cbQueueList.onReceivedMessageQueue)
-            .addCallback(options.onHeartBeatReply, cbQueueList.onHeartBeatReplyQueue)
-            .addCallback(options.onInitialized, cbQueueList.onInitializedQueue)
-            .addCallback(options.onOpen, cbQueueList.onOpenQueue)
-            .addCallback(options.onClose, cbQueueList.onCloseQueue)
-            .addCallback(options.onError, cbQueueList.onErrorQueue)
-            .addCallback(options.onRetryFallback, cbQueueList.onRetryFallbackQueue)
-            .addCallback(options.onListConnectError, cbQueueList.onListConnectErrorQueue)
-            .addCallback(options.onReceiveAuthRes, cbQueueList.onReceiveAuthResQueue)
-
-        return this
+    getState() {
+        return {...this.state}
     }
 
     /**
-     * 检查是否有可用的线路
+     * 检查是否能够重试
      * @private
      */
     private checkRetryState() {
-        let hasAvailableHost = false
-        if (this.state.retryCount < this.options.retryMaxCount) {
+        if (this.options.retryMaxCount === 0 || this.state.retryCount < this.options.retryMaxCount) {
             this.state.retryCount += 1
-            hasAvailableHost = true
+            return true
         }
-        return hasAvailableHost
+        return false
     }
 
     /**
      * 发射事件
      * @param type 事件名
      * @param payload 数据
+     * @param isNativeEvent payload是否为原生事件
      */
-    emit(type: string, payload?: unknown) {
-        // console.log(event)
-        if (this.options.events.includes(type)) {
-            this.dispatchEvent(new CustomEvent(type, payload as CustomEventInit))
+    emit(type: string, payload?: Event | any, isNativeEvent = false) {
+        if (this.options.debug) {
+            console.debug(`🔔[emit]: ${type}`)
         }
+
+        let event
+        if (isNativeEvent) {
+            const nativeEvent = payload as Event
+            const commonInit = {
+                bubbles: nativeEvent.bubbles,
+                cancelable: nativeEvent.cancelable,
+                composed: nativeEvent.composed,
+            }
+
+            switch (nativeEvent.type) {
+                case 'open':
+                    event = new Event('open', commonInit)
+                    break
+                case 'close':
+                    event = new CloseEvent('close', {
+                        ...commonInit,
+                        wasClean: (nativeEvent as CloseEvent).wasClean,
+                        code: (nativeEvent as CloseEvent).code,
+                        reason: (nativeEvent as CloseEvent).reason,
+                    })
+                    break
+                case 'error':
+                    event = new ErrorEvent('error', {
+                        ...commonInit,
+                        message: (nativeEvent as ErrorEvent).message,
+                        filename: (nativeEvent as ErrorEvent).filename,
+                        lineno: (nativeEvent as ErrorEvent).lineno,
+                        colno: (nativeEvent as ErrorEvent).colno,
+                        error: (nativeEvent as ErrorEvent).error,
+                    })
+                    break
+                default:
+                    console.warn('[ws] 未知事件类型: ', nativeEvent.type)
+                    event = new Event(nativeEvent.type)
+                    break
+            }
+        } else {
+            event = new CustomEvent(type, {detail: payload})
+        }
+        this.dispatchEvent(event)
     }
 }

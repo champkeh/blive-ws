@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSE</title>
+</head>
+<body>
+<button onclick="pull()">拉取数据</button>
+
+<script>
+    function pull() {
+        const url = new URL('/api/sse', location.origin)
+        const evtSource = new EventSource(url.toString())
+
+        evtSource.addEventListener('message', (event) => {
+            console.log(JSON.stringify(event.data))
+        }, false)
+    }
+</script>
+</body>
+</html>

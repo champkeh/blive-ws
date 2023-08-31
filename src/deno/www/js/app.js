@@ -96,7 +96,7 @@ const app = createApp({
                 this.app.connecting = false
                 return
             }
-            if (data.payload.event === 'authorized') {
+            if (data.payload.cmd === 'authorized') {
                 this.app.connecting = false
                 this.app.rooms.push(data.rid)
                 this.app.rid = ''

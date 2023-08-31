@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>style</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --color-calendar-graph-day-border: rgb(27 31 35 / 6%);
+        }
+
+        .container {
+            margin: 40px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            width: 820px;
+        }
+        .room {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            fill: var(--color-calendar-graph-day-bg);
+            shape-rendering: geometricPrecision;
+            background-color: var(--color-calendar-graph-day-bg);
+            border-radius: 2px;
+            outline: 1px solid var(--color-calendar-graph-day-border);
+            outline-offset: -1px;
+
+            &.dead {
+                --color-calendar-graph-day-bg: rgba(252, 0, 0, 0.8);
+            }
+            &.low {
+                --color-calendar-graph-day-bg: rgba(232, 238, 72, 0.8);
+            }
+            &.mid {
+                --color-calendar-graph-day-bg: rgba(164, 199, 80, 0.8);
+            }
+            &.high {
+                --color-calendar-graph-day-bg: rgb(64, 184, 32, 0.8);
+            }
+        }
+
+        .memory-usage {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="room low"><span>1</span></div>
+    <div class="room low"><span>2</span></div>
+    <div class="room high"><span>130</span></div>
+    <div class="room dead"><span>0</span></div>
+    <div class="room dead"><span>0</span></div>
+    <div class="room high"><span>2300</span></div>
+    <div class="room dead"><span>0</span></div>
+    <div class="room mid"><span>20</span></div>
+    <div class="room mid"><span>20</span></div>
+    <div class="room high"><span>300</span></div>
+    <div class="room high"><span>1300</span></div>
+    <div class="room dead"><span>0</span></div>
+    <div class="room mid"><span>20</span></div>
+    <div class="room mid"><span>20</span></div>
+    <div class="room mid"><span>20</span></div>
+    <div class="room mid"><span>20</span></div>
+    <div class="room high"><span>200</span></div>
+    <div class="room mid"><span>20</span></div>
+    <div class="room low"><span>3</span></div>
+</div>
+<fieldset class="memory-usage">
+    <legend>标题</legend>
+    <div>
+        <label>
+            rss
+        </label>
+    </div>
+    <div>
+        <label>
+            used
+        </label>
+    </div>
+</fieldset>
+</body>
+</html>

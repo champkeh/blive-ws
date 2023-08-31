@@ -12,9 +12,13 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "deno run --allow-read --allow-net src/deno/app.ts",
-    "test": "deno run --allow-read --allow-net test/index.ts",
-    "parse": "node anatomy/parser.js"
+    "dev": "DEBUG=1 yarn start",
+    "start": "deno run -A src/deno/app.ts",
+    "parse": "node anatomy/parser.js",
+    "parse:msg": "node anatomy/message-parser.js",
+    "test:write": "deno run -A test/persistence/write.ts",
+    "test:read": "deno run -A test/persistence/read.ts",
+    "test:msg": "deno run -A test/message/danmu.ts"
   },
   "devDependencies": {
     "acorn": "^8.10.0",

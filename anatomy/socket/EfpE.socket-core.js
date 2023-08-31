@@ -204,9 +204,9 @@
                             retryconnectTimeout: 1e4,
                             retryRoundInterval: Math.floor(2 * Math.random()) + 3,
                             customAuthParam: [],
+                            heartBeatInterval: 30,
                             fallback: function () {
                             },
-                            heartBeatInterval: 30,
                             onReceivedMessage: function () {
                             },
                             onReceiveAuthRes: function () {

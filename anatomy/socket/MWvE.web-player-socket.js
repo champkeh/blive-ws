@@ -243,9 +243,7 @@ exports.default = class WebPlayerSocket {
                                     ack(t)
                                 }
 
-                                [].concat(e).forEach(function (e) {
-                                    _this.emit("message", e)
-                                })
+                                _this.emit("message", e)
                             },
                             onHeartBeatReply: function (e) {
                                 _this.emit("heartbeat", e)

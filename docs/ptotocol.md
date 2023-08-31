@@ -6,8 +6,16 @@
 > Content-Md5: 8GGLCMnvDunJ3Uh4NtuPvw==
 > ETag: f0618b08c9ef0ee9c9dd487836db8fbf
 > Last-Modified: Tue, 22 Aug 2023 03:54:39 GMT
-> 脚本版本: 1.4.5.41
 > ```
+> 
+> ```json5
+> {
+>   version: "1.4.5",
+>   gitHash: "cbde3454",
+>   build: "41",
+>   bundleType: "release",
+> }
+>```
 
 
 首先根据房间号调用 HTTP 接口 `https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=${房间id}&type=0` 获取 `token`、`host_list`等建立 websocket 连接所需的基本参数。

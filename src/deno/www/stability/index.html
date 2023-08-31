@@ -31,10 +31,40 @@
             v-for="room in rooms"
             :key="room.roomid"
             :title="room.roomid"
+            :class="{
+            dead: room.danmuCount === 0,
+            low: room.danmuCount > 0 && room.danmuCount <= 10,
+            mid: room.danmuCount > 10 && room.danmuCount <= 100,
+            high: room.danmuCount > 100,
+            }"
     >
         <span>{{room.danmuCount}}</span>
     </div>
 </div>
+<aside v-if="statics" class="statics">
+    <p>直播间: {{statics.roomNum}}</p>
+    <p>客户端: {{statics.clientNum}}</p>
+</aside>
+
+<fieldset v-if="statics" class="memory-usage">
+    <legend>内存</legend>
+    <p>
+        <span>rss: </span>
+        <span>{{formatByte(statics.mem.rss)}}</span>
+    </p>
+    <p>
+        <span>heapTotal:</span>
+        <span>{{formatByte(statics.mem.heapTotal)}}</span>
+    </p>
+    <p>
+        <span>heapUsed:</span>
+        <span>{{formatByte(statics.mem.heapUsed)}}</span>
+    </p>
+    <p>
+        <span>external:</span>
+        <span>{{formatByte(statics.mem.external)}}</span>
+    </p>
+</fieldset>
 
 <script src="https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
 <script type="module" src="app.js"></script>

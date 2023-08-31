@@ -1,75 +1,67 @@
-export type CallbackFn = (...params: unknown[]) => void
-
-export interface BliveSocketCallbackQueueList {
-    onInitializedQueue: CallbackFn[]
-    onHeartBeatReplyQueue: CallbackFn[]
-    onListConnectErrorQueue: CallbackFn[]
-    onReceivedMessageQueue: CallbackFn[]
-    onErrorQueue: CallbackFn[]
-    onReceiveAuthResQueue: CallbackFn[]
-    onOpenQueue: CallbackFn[]
-    onRetryFallbackQueue: CallbackFn[]
-    onCloseQueue: CallbackFn[]
-}
-
 export interface BliveSocketState {
+    // 重试次数
     retryCount: number
-    listConnectFinishedCount: number
-    index: number
-    connectTimeoutTimes: number
-    token: string
-    urlList: string[]
-}
 
-export interface DataPacket {
-    packetLen?: number
-    headerLen?: number
-    ver?: number
-    op?: number
-    seq?: number
-    body: MessageBody
+    //
+    listConnectFinishedCount: number
+
+    // 当前 ws 索引 (urlList中的下标)
+    index: number
+
+    // 连接超时次数
+    connectTimeoutTimes: number
+
+    // 当前 ws 地址
+    url: string
+
+    token: string
 }
 
 export interface BliveSocketOptions {
+    // 调试模式
     debug: boolean
+
+    buvid: string | undefined
+
+    urlList: string[]
+
+    // 直播间id
     rid: number
+
+    aid: number
+
+    // 用户id
     uid: number
-    retry: boolean
-    retryMaxCount: number
-    retryConnectTimeout: number
+
+    from: number
+
+    // 连接超时时间，默认5秒。
+    // 5秒内如果没有连接成功，则自动关闭当前连接 (可能会触发自动重连)。
     connectTimeout: number
+
+    // 心跳间隔
     heartBeatInterval: number
+
+    // 断开后是否自动重连
+    retry: boolean
+
+    // 最大重试次数，默认为线路数。
+    retryMaxCount: number
+
+    // 重连遍历次数
+    retryConnectCount: number
+
+    // 重试时的连接超时时间，默认10秒。
+    retryConnectTimeout: number
+
+    // 重试阈值次数
     retryThreadCount: number
+
+    // 重连遍历间隔
     retryRoundInterval: number
+
+    // 重连间隔
     retryInterval: number
-
-    onReceivedMessage?: CallbackFn
-    onHeartBeatReply?: CallbackFn
-    onInitialized?: CallbackFn
-    onOpen?: CallbackFn
-    onClose?: CallbackFn
-    onError?: CallbackFn
-    onRetryFallback?: CallbackFn
-    onListConnectError?: CallbackFn
-    onReceiveAuthRes?: CallbackFn
-
-    events: string[]
-}
-
-export interface Options {
-    debug?: boolean
-    rid: number
-    uid?: number
-    retry?: boolean
-    retryMaxCount?: number
-    retryConnectTimeout?: number
-    connectTimeout?: number
-    heartBeatInterval?: number
-    retryThreadCount?: number
-    retryRoundInterval?: number
-    retryInterval?: number
-
-    events?: string[]
 }
 
 export interface WSHost {
@@ -79,12 +71,31 @@ export interface WSHost {
     ws_port: number
 }
 
-export type MessageBody = CountMessageData | MessageData | MessageData[]
-export interface MessageData {
-    cmd: string
+export type MessageBody =
+    | AuthorizeReplyMessageBody
+    | HeartbeatReplayMessageBody
+    | NormalMessageBody
+
+// 认证回复包的消息体(op=8)
+export interface AuthorizeReplyMessageBody {
+    code: number
 }
-export interface CountMessageData {
+// 心跳回复包的消息体(op=3)
+export interface HeartbeatReplayMessageBody {
     count: number
 }
+// 普通消息体(op=5)
+export interface NormalMessageBody {
+    cmd: string
+}
 
-export type EventType = 'open' | 'close' | 'error' | 'authorized' | 'message' | 'heart_beat_reply'
+interface ParsedPacket {
+    packetSize: number
+    headerSize: number
+    protoVer: number
+    op: number
+    seq: number
+    body: MessageBody
+}
+
+// export type EventType = 'open' | 'close' | 'error' | 'authorized' | 'message' | 'heart_beat_reply'

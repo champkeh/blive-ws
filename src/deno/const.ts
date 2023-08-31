@@ -1,17 +1,27 @@
-export const WS_CODE = {
-    // 心跳包
+/**
+ * 上行的包有:
+ *   2: 心跳包
+ *   7: 用户认证包
+ * 下行的包有:
+ *   3: 心跳应答包
+ *   5: 普通消息包
+ *   8: 用户认证应答包
+ */
+
+export const WS_CONST = {
+    // 心跳包，上行
     WS_OP_HEARTBEAT: 2,
 
-    // 心跳应答包
+    // 心跳应答包，下行
     WS_OP_HEARTBEAT_REPLY: 3,
 
-    // 消息包
+    // 消息包，下行
     WS_OP_MESSAGE: 5,
 
-    // 用户认证包
+    // 用户认证包，上行
     WS_OP_USER_AUTHENTICATION: 7,
 
-    // 连接成功通知包
+    // 用户认证应答包，下行
     WS_OP_CONNECT_SUCCESS: 8,
 
     // 包头大小
@@ -32,10 +42,16 @@ export const WS_CODE = {
     // 序列号偏移
     WS_SEQUENCE_OFFSET: 12,
 
-    // 普通消息体(json格式)
-    WS_BODY_PROTOCOL_VERSION_NORMAL: 0,
+    // 无压缩
+    WS_BODY_PROTOCOL_VERSION_NORMAL0: 0,
 
-    // BROTLI消息体(采用Brotli编码的)
+    // 无压缩
+    WS_BODY_PROTOCOL_VERSION_NORMAL1: 1,
+
+    // GZIP 压缩
+    WS_BODY_PROTOCOL_VERSION_GZIP: 2,
+
+    // BROTLI 压缩
     WS_BODY_PROTOCOL_VERSION_BROTLI: 3,
 
     // 消息头默认版本
@@ -51,7 +67,7 @@ export const WS_CODE = {
     WS_AUTH_OK: 0,
 
     // 认证token错误
-    WS_AUTH_TOKEN_ERROR: -101
+    WS_AUTH_TOKEN_ERROR: -101,
 }
 
 export interface WSBinaryHeader {
@@ -67,37 +83,39 @@ export const wsBinaryHeaderList: WSBinaryHeader[] = [
         name: "Header Length",
         key: "headerLen",
         bytes: 2,
-        offset: 4,
-        value: 16
+        offset: WS_CONST.WS_HEADER_OFFSET,
+        value: WS_CONST.WS_PACKAGE_HEADER_TOTAL_LENGTH,
     },
     {
         name: "Protocol Version",
         key: "ver",
         bytes: 2,
-        offset: 6,
-        value: 1
+        offset: WS_CONST.WS_VERSION_OFFSET,
+        value: WS_CONST.WS_HEADER_DEFAULT_VERSION,
     },
     {
         name: "Operation",
         key: "op",
         bytes: 4,
-        offset: 8,
-        value: 1
+        offset: WS_CONST.WS_OPERATION_OFFSET,
+        value: WS_CONST.WS_HEADER_DEFAULT_OPERATION,
     },
     {
         name: "Sequence Id",
         key: "seq",
         bytes: 4,
-        offset: 12,
-        value: 1
+        offset: WS_CONST.WS_SEQUENCE_OFFSET,
+        value: WS_CONST.WS_HEADER_DEFAULT_SEQUENCE,
     }
 ]
 
-export const SocketMsgType = {
+export const SocketCmdType = {
     /**
      * 弹幕消息
      */
     Danmaku: "DANMU_MSG",
+
+    _Danmaku: "DANMU_MSG:4:0:2:2:2:0",
 
     /**
      * 聚合弹幕
