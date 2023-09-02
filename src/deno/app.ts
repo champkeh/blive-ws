@@ -1,9 +1,11 @@
 import {fs} from './deps.ts'
-import {initClient} from './client.ts'
+import {initClient, initializeTaskLoop} from './client.ts'
 import {handleApi} from "./www/apis/index.ts"
 
 
 const API_ROUTE_PATTERN = new URLPattern({pathname: '/api/:endpoint'})
+
+initializeTaskLoop()
 
 Deno.serve((req: Request) => {
     if ((req.headers.get('upgrade') || '').toLowerCase() === 'websocket') {

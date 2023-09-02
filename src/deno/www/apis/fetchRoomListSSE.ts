@@ -20,7 +20,9 @@ interface RoomInfo {
     area_name: string
     watched: number
 }
+
 type EventType = 'message' | 'close' | 'error'
+
 interface MessageData {
     roomList: RoomInfo[]
     hasMore: boolean
@@ -39,33 +41,22 @@ export function fetchRoomListSSE(req: Request): Response {
     // 限制 count 的最大值
     count = count > maxRoomConnection ? maxRoomConnection : count
 
+    const _set = new Set<number>()
+
     const body = new ReadableStream({
         start: async (controller) => {
-            const pages = []
-            while (count > 0) {
-                if (count > 30) {
-                    pages.push(30)
-                    count -= 30
-                } else {
-                    pages.push(count)
-                    count -= count
-                }
-            }
-
-            for (let i = 0; i < pages.length; i++) {
+            for (let page = 1; _set.size < count; page++) {
                 let resp: Record<string, any> = {}
-                const page = i + 1
-                const count = pages[i]
 
                 switch (type) {
                     case "recommend":
-                        resp = await getUserRecommend(page, count)
+                        resp = await getUserRecommend(page, 30)
                         break
                     case "online":
-                        resp = await getListByArea('online', page, count)
+                        resp = await getListByArea('online', page, 30)
                         break
                     case "livetime":
-                        resp = await getListByArea('livetime', page, count)
+                        resp = await getListByArea('livetime', page, 30)
                         break
                     default:
                         resp.message = `不支持的type参数(${type})`
@@ -73,16 +64,28 @@ export function fetchRoomListSSE(req: Request): Response {
                 }
 
                 if (resp.code === 0) {
-                    const list = resp.data.list.map((_: any) => ({
-                        roomid: _.roomid,
-                        uid: _.uid,
-                        title: _.title,
-                        uname: _.uname,
-                        online: _.online,
-                        parent_name: _.parent_name,
-                        area_name: _.area_name,
-                        watched: _.watched_show.num,
-                    }))
+                    // 本次获取到的新的数据
+                    const list = resp.data.list
+                        .map((_: any) => ({
+                            roomid: _.roomid,
+                            uid: _.uid,
+                            title: _.title,
+                            uname: _.uname,
+                            online: _.online,
+                            parent_name: _.parent_name,
+                            area_name: _.area_name,
+                            watched: _.watched_show.num,
+                        }))
+                        .filter((room: any) => !_set.has(room.roomid))
+
+
+                    for (let i = 0; i < list.length; i++) {
+                        _set.add(list[i].roomid)
+                        if (_set.size === count) {
+                            list.length = i+1 // 删除多余的数据
+                            break
+                        }
+                    }
 
                     const data = {
                         roomList: list,
@@ -104,6 +107,7 @@ export function fetchRoomListSSE(req: Request): Response {
     return new Response(body, {
         headers: {
             "Content-Type": "text/event-stream",
+            "Access-Control-Allow-Origin": "*",
         }
     })
 }

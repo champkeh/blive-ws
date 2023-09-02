@@ -105,3 +105,5 @@ dist
 
 # editor directory
 .idea
+
+log.txt

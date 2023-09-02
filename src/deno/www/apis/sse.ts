@@ -30,6 +30,7 @@ export function sse(_: Request): Response {
     return new Response(body, {
         headers: {
             "Content-Type": "text/event-stream",
+            "Access-Control-Allow-Origin": "*",
         }
     })
 }

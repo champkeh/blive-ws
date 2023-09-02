@@ -1,6 +1,7 @@
 import BliveSocket from "./BliveSocket.ts"
 import {CloseReason, SocketCmdType} from "./const.ts"
 import {getRealRoomId} from "../common/api.ts"
+import {sleep} from "./utils.ts";
 
 /**
  * 数据流转图示:
@@ -127,6 +128,7 @@ type UserDirective =
     | UserExitDirective
     | UserInspectDirective
 
+type Task = () => any
 
 /**
  * 所有打开的直播间，key是真实roomid
@@ -138,6 +140,17 @@ const rooms: Map<number, RoomEntity> = new Map()
  */
 const RoomIdMap: Map<number, number> = new Map()
 
+const taskQueue: Task[] = []
+
+export async function initializeTaskLoop() {
+    while (true) {
+        const task = taskQueue.shift()
+        if (typeof task === 'function') {
+            task()
+        }
+        await sleep(200)
+    }
+}
 
 /**
  * 初始化客户端实例
@@ -235,17 +248,8 @@ async function enterRoom(rid: number, uid: number, events: string[], client: Web
     }
 
     // 获取真实房间号，确认直播间是存在的
-    let realId: number
-    try {
-        realId = RoomIdMap.get(rid) || (await getRealRoomId(rid))
-        RoomIdMap.set(rid, realId)
-        if (realId !== rid) {
-            console.debug(`房间真实id: ${rid} => ${realId}`)
-        }
-    } catch (e) {
-        client.socket.send(JSON.stringify({rid, error: e.message}))
-        // 断开与客户端的连接
-        destroyClient(client)
+    const realId = await getAndCacheRealRoomId(rid, client)
+    if (!realId) {
         return
     }
 
@@ -260,23 +264,32 @@ async function enterRoom(rid: number, uid: number, events: string[], client: Web
 
     if (rooms.has(realId)) {
         rooms.get(realId)!.clients.add(client)
-    } else {
-        // 初始化直播间
-        // 连接 B 站弹幕服务器
-        const bliveSocket = new BliveSocket({
-            rid: realId, // 必须传真实的 roomid
-            uid,
-        })
-        // 实例化 room
-        const room: RoomEntity = {
-            rid,
-            roomid: realId,
-            bliveSocket: bliveSocket,
-            clients: new Set([client]),
-        }
-        rooms.set(realId, room)
 
-        setupBliveSocketEventHandler(room)
+        // 这里需要手动发送 authorized 事件
+        client.socket.send(JSON.stringify({
+            rid: rid,
+            payload: {cmd: 'authorized'},
+        }))
+    } else {
+        const task = () => {
+            // 初始化直播间
+            // 连接 B 站弹幕服务器
+            const bliveSocket = new BliveSocket({
+                rid: realId, // 必须传真实的 roomid
+                uid,
+            })
+            // 实例化 room
+            const room: RoomEntity = {
+                rid,
+                roomid: realId,
+                bliveSocket: bliveSocket,
+                clients: new Set([client]),
+            }
+            rooms.set(realId, room)
+
+            setupBliveSocketEventHandler(room)
+        }
+        taskQueue.push(task)
     }
 }
 
@@ -335,17 +348,8 @@ function setupBliveSocketEventHandler(room: RoomEntity) {
  */
 async function leaveRoom(rid: number, client: WebSocketClient) {
     // 获取真实房间号，确认直播间是存在的
-    let realId: number
-    try {
-        realId = RoomIdMap.get(rid) || (await getRealRoomId(rid))
-        RoomIdMap.set(rid, realId)
-        if (realId !== rid) {
-            console.debug(`房间真实id: ${rid} => ${realId}`)
-        }
-    } catch (e) {
-        client.socket.send(JSON.stringify({rid, error: e.message}))
-        // 断开与客户端的连接
-        destroyClient(client)
+    const realId = await getAndCacheRealRoomId(rid, client)
+    if (!realId) {
         return
     }
 
@@ -435,5 +439,23 @@ function destroyClientFromRoom(client: WebSocketClient, room: RoomEntity) {
                 destroyRoom(room)
             }
         }, 20 * 1000)
+    }
+}
+
+async function getAndCacheRealRoomId(rid: number, client: WebSocketClient) {
+    // 获取真实房间号，确认直播间是存在的
+    let realId: number
+    try {
+        realId = RoomIdMap.get(rid) || (await getRealRoomId(rid))
+        RoomIdMap.set(rid, realId)
+        if (realId !== rid) {
+            console.debug(`房间真实id: ${rid} => ${realId}`)
+        }
+        return realId
+    } catch (e) {
+        client.socket.send(JSON.stringify({rid, error: e.message}))
+        // 断开与客户端的连接
+        destroyClient(client)
+        return
     }
 }
