@@ -1,6 +1,6 @@
 import BliveSocket from "./BliveSocket.ts"
 import {CloseReason, SocketCmdType} from "./const.ts"
-import {getRealRoomId} from "../common/api.ts"
+import {getRealRoomId} from "../apis/live/info.ts"
 import {sleep} from "./utils.ts";
 
 /**

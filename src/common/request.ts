@@ -26,10 +26,11 @@ export function get(url: string, query: Record<string, string | number> = {}, co
     })
 }
 
-function post(url: string, data: Record<string, any> = {}, format = 'json') {
+function post(url: string, data: Record<string, any> = {}, format = 'json', header: Record<string, string> = {}) {
     let body
     const headers: Record<string, string> | undefined = {
         'User-Agent': UserAgent,
+        ...header,
     }
 
     if (format === 'query' && Object.keys(data).length) {
@@ -38,6 +39,12 @@ function post(url: string, data: Record<string, any> = {}, format = 'json') {
     } else if (format === 'json') {
         body = JSON.stringify(data)
         headers['Content-Type'] = 'application/json'
+    } else if (format === 'form-data') {
+        const formData = new FormData()
+        Object.keys(data).forEach(key => {
+            formData.append(key, data[key])
+        })
+        body = formData
     }
     return fetch(url, {
         method: 'POST',
@@ -53,4 +60,8 @@ export function postJSON(url: string, data: Record<string, any> = {}) {
 
 export function postQuery(url: string, data: Record<string, string | number | boolean> = {}) {
     return post(url, data, 'query')
+}
+
+export function postFormData(url: string, data: Record<string, string | number | boolean> = {}, headers: Record<string, string> = {}) {
+    return post(url, data, 'form-data', headers)
 }

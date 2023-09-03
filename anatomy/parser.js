@@ -3,7 +3,7 @@ const path = require('path')
 const fs = require('fs')
 const fse = require('fs-extra')
 
-const source = fs.readFileSync(path.resolve(__dirname, '../raw/room-player-2023-08-28.min.js'), {
+const source = fs.readFileSync(path.resolve(__dirname, '../raw/room-player-2023-09-03.min.js'), {
     encoding: 'utf-8'
 })
 

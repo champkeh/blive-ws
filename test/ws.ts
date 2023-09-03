@@ -4,55 +4,56 @@
 import {convertToArrayBuffer, parseArrayBuffer} from "../src/deno/utils.ts"
 import type {AuthorizeReplyMessageBody} from "../src/deno/types.d.ts"
 
-const ws = new WebSocket('wss://broadcastlv.chat.bilibili.com:443/sub')
+const roomid = 7734200
+const url = 'wss://hw-gz-live-comet-04.chat.bilibili.com:443/sub'
+// const uid = 487408043
+const uid = 0
+const key = 'IJVDhUcepBZgu3Q7CjAq4HrySe9HxlL7RZ0J48ixfnhvI9NShhawgLgdRUsb32HjHc7ueOd6ADPRl842EKIdwuQ71hjYc8PsKUCyev4FA5wbQVtEl9-mqkxZHUdBdwIYNC6RN3jsVVfEDNb-k6M='
+
+
+export const ws = new WebSocket(url)
 ws.binaryType = "arraybuffer"
 
-const uid = 1
-const roomid = 545068
-const key = 'GFZT2rJtAJ2Vo8zvLdXPKlwqhBcv6bwH2k1VxuSt3yfQFIm7aYdkFbmQgoeGn0qOqkFnauqUHu8dQQwTA57Eh4wbc4UciILqtYofmNHGnkYfpO238xMYopnplhCwtAM0Q3Nl7nPCLi3Ce98EpXbwUnzS'
-
+// 心跳定时器
+let HEART_BEAT_INTERVAL: number | undefined = undefined
 
 ws.addEventListener('open', () => {
     console.log('🚀open')
 
-    const authInfo = {
+    const auth = {
         uid: uid,
         roomid: roomid,
         protover: 3,
-        // buvid: '436FFD97-CB81-950D-751A-BA545BEACB0E82715infoc',
+        buvid: '5ED90EDA-4A24-4DE7-BD64-D232739F18EE167622infoc',
         platform: 'web',
         type: 2,
         key: key,
     }
+    console.log('发送认证包: ', auth)
 
     // 发送认证包
-    ws.send(convertToArrayBuffer(JSON.stringify(authInfo), 7))
+    ws.send(convertToArrayBuffer(JSON.stringify(auth), 7))
 })
-
 ws.addEventListener('close', (event: CloseEvent) => {
     console.log('🚫close: ', event.reason)
-    if (timer !== undefined) {
-        clearInterval(timer)
+    if (HEART_BEAT_INTERVAL !== undefined) {
+        clearInterval(HEART_BEAT_INTERVAL)
     }
 })
-
 ws.addEventListener('error', (event: Event | ErrorEvent) => {
     console.log('💢error: ', (event as ErrorEvent).message)
 })
-
-let timer: number | undefined = undefined
 ws.addEventListener('message', (event: MessageEvent) => {
     const packets = parseArrayBuffer(event.data)
     packets.forEach(packet => {
         if (packet.op === 8 && (packet.body as AuthorizeReplyMessageBody).code === 0) {
             // 认证成功
+            console.log('🚀authorized')
             ws.send(convertToArrayBuffer('', 2))
-            timer = setInterval(() => {
+            HEART_BEAT_INTERVAL = setInterval(() => {
                 // 发送心跳包
                 ws.send(convertToArrayBuffer('', 2))
             }, 30 * 1000)
         }
     })
 })
-
-export default ws

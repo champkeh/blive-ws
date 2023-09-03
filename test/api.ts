@@ -20,3 +20,14 @@ import {getUserRecommend, getListByArea} from '../src/apis/live/room.ts'
 // const info = await getUserRecommend(1, 1)
 // const info = await getListByArea('online', 1, 10)
 // console.log(info)
+
+const roomid = 7734200
+
+const resp = await getDanmuInfo(roomid)
+const key = resp.data.token
+const hostList = resp.data.host_list.map((host: any) => {
+    return `wss://${host.host}:${host.wss_port}/sub`
+})
+
+console.log('key: ', key)
+console.log('hosts: ', hostList)

@@ -139,3 +139,19 @@ export async function getRoomPlayInfo(rid: number, options: Partial<GetRoomPlayI
     })
     return await resp.json()
 }
+
+/**
+ * 获取真实房间号
+ * @param rid
+ */
+export function getRealRoomId(rid: number): Promise<number> {
+    return new Promise((resolve, reject) => {
+        getRoomPlayInfo(rid).then(resp => {
+            if (resp && resp.code === 0) {
+                resolve(resp.data.room_id)
+            } else {
+                reject(new Error('获取真实rid失败: ' + resp.message))
+            }
+        }).catch(reject)
+    })
+}

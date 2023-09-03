@@ -1,6 +1,22 @@
-import ws from "../ws.ts"
+import {ws} from "../ws.ts"
 import {parseArrayBuffer} from "../../src/deno/utils.ts"
-import type {NormalMessageBody} from "../../src/deno/types.d.ts"
+
+
+function handleMessage(body: any) {
+    const time = new Intl.DateTimeFormat('zh-CN', {dateStyle: 'short', timeStyle: 'medium', timeZone: 'Asia/Shanghai'}).format(new Date())
+    let info = {uname: '', uid: '', text: ''}
+
+    switch (body.cmd) {
+        case 'DANMU_MSG':
+            info = {
+                uid: body.info[2][0],
+                uname: body.info[2][1],
+                text: body.info[1],
+            }
+            console.log(`[${time}] ${info.uname}(${info.uid}): ${info.text}`)
+            break
+    }
+}
 
 ws.addEventListener('message', (event: MessageEvent) => {
     const packets = parseArrayBuffer(event.data)
@@ -13,7 +29,8 @@ ws.addEventListener('message', (event: MessageEvent) => {
                 console.log('心跳应答包: ', packet.body)
                 break
             case 5:
-                console.log('普通消息包: ', (packet.body as NormalMessageBody).cmd)
+                // console.log('普通消息包: ', (packet.body as NormalMessageBody).cmd)
+                handleMessage(packet.body)
                 break
         }
     }

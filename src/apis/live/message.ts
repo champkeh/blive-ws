@@ -14,6 +14,7 @@ import {get} from '../../common/request.ts'
 export async function getDanmuInfo(rid: string | number) {
     const resp = await get('https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo', {
         id: rid,
+        type: 0,
     })
     return resp.json()
 }
