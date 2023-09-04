@@ -1,9 +1,8 @@
 import {ws} from "../ws.ts"
-import {parseArrayBuffer} from "../../src/deno/utils.ts"
+import {parseArrayBuffer, now} from "../../src/deno/utils.ts"
 
 
 function handleMessage(body: any) {
-    const time = new Intl.DateTimeFormat('zh-CN', {dateStyle: 'short', timeStyle: 'medium', timeZone: 'Asia/Shanghai'}).format(new Date())
     let info = {uname: '', uid: '', text: ''}
 
     switch (body.cmd) {
@@ -13,7 +12,7 @@ function handleMessage(body: any) {
                 uname: body.info[2][1],
                 text: body.info[1],
             }
-            console.log(`[${time}] ${info.uname}(${info.uid}): ${info.text}`)
+            console.log(`[${now()}] ${info.uname}(${info.uid}): ${info.text}`)
             break
     }
 }

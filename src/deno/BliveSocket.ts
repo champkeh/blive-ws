@@ -1,5 +1,5 @@
-import {convertToArrayBuffer, parseArrayBuffer, fetchHostList} from './utils.ts'
-import {WS_CONST} from './const.ts'
+import {convertToArrayBuffer, parseArrayBuffer, fetchHostList, now} from './utils.ts'
+import {WS_CONST, config} from './const.ts'
 import {
     BliveSocketState,
     BliveSocketOptions,
@@ -13,23 +13,39 @@ import {
  */
 const DEFAULT_BLIVE_SOCKET_OPTIONS: BliveSocketOptions = {
     debug: !!Deno.env.get('DEBUG'),
-    buvid: Deno.env.get('BUVID') || undefined,
 
     urlList: [],
-    rid: 0,
-    aid: 0,
+    roomid: 0,
     uid: 0,
-    from: -1,
-    connectTimeout: 5e3,
-    retryConnectTimeout: 10e3,
-    heartBeatInterval: 30,
     retry: true,
     retryMaxCount: 0,
     retryInterval: 5,
     retryThreadCount: 10,
-    retryConnectCount: 3,
     retryRoundInterval: Math.floor(2 * Math.random()) + 3,
 }
+
+const SkipEmitType = [
+    'WATCHED_CHANGE',
+    'LIKE_INFO_V3_CLICK',
+    'LIKE_INFO_V3_UPDATE',
+    'PLAY_TAG',
+    'ROOM_REAL_TIME_MESSAGE_UPDATE',
+    'heart_beat_reply',
+    'SEND_GIFT',
+    'STOP_LIVE_ROOM_LIST',
+    'LIVE_OPEN_PLATFORM_GAME',
+    'LIVE_INTERACTIVE_GAME',
+    'ONLINE_RANK_V2',
+    'ONLINE_RANK_COUNT',
+    'INTERACT_WORD',
+    'WIDGET_BANNER',
+    'ENTRY_EFFECT',
+    'MULTI_VOICE_OPERATIN',
+    'POPULARITY_RED_POCKET_WINNER_LIST',
+    'ONLINE_RANK_TOP3',
+    'SUPER_CHAT_MESSAGE',
+    'LOG_IN_NOTICE',
+]
 
 /**
  * 触发的事件如下：
@@ -61,10 +77,10 @@ export default class BliveSocket extends EventTarget {
             ...userOptions,
         }
         this.state = {
-            retryCount: 0, // 当前重试次数
+            retryCount: 0, // 当前实例的重试次数
             listConnectFinishedCount: 0, // 当前 urlList 的轮训次数
             index: 0,
-            connectTimeoutTimes: 0, // 连接成功之前的连接超时次数，连接成功后重置为0
+            connectTimeoutTimes: 0, // 连接成功后重置为0
             url: '',
             token: '',
         }
@@ -73,16 +89,17 @@ export default class BliveSocket extends EventTarget {
         // 连接超时定时器
         this.CONNECT_TIMEOUT = 0
 
-        fetchHostList(this.options.rid).then(([urlList, token]) => {
+        fetchHostList(this.options.roomid).then(([urlList, token]) => {
             this.options.urlList = urlList
             this.options.retryMaxCount = urlList.length
             this.state.token = token
 
             if (this.options.debug) {
-                console.debug(`[ws] 🌿获取B站弹幕服务线路如下:`)
+                console.debug(`🌿获取B站弹幕服务线路如下:`)
                 urlList.forEach(url => {
                     console.debug(url)
                 })
+                console.debug(token)
             }
 
             this.initialize(urlList[0])
@@ -109,20 +126,16 @@ export default class BliveSocket extends EventTarget {
             this.ws.onclose = this.onClose.bind(this)
             this.ws.onerror = this.onError.bind(this)
 
-            // 执行 onInitialized 钩子，执行一遍之后进行清空，避免在断开重连时重复执行这些钩子
-            if (!isRetry) {
-                this.emit('initialized')
-            }
-
             // 设置连接超时
-            const timeout = this.state.connectTimeoutTimes >= 3 ? this.options.retryConnectTimeout : this.options.connectTimeout
+            // 前3次连接的超时时间为5秒，当超过3次仍然连接失败时，超时时间延长至10秒
+            const timeout = this.state.connectTimeoutTimes >= 3 ? 10 : 5
             this.CONNECT_TIMEOUT = setTimeout(() => {
                 this.state.connectTimeoutTimes += 1
                 console.warn(`[ws] 💢Connect ${url} timeout . ${this.state.connectTimeoutTimes}`)
 
                 // 超时了，关闭当前连接进行重试
                 this.ws.close()
-            }, timeout)
+            }, timeout * 1000)
         } catch (e) {
             this.emit('fallback')
             console.error(e)
@@ -130,21 +143,17 @@ export default class BliveSocket extends EventTarget {
         return this
     }
 
-    private onOpen(event: Event) {
+    private onOpen() {
         if (this.options.debug) {
-            console.debug('[ws] onOpen')
-            console.debug(this.state)
+            console.debug(`🚀[${now()} ws:open(${this.options.roomid})]`)
         }
 
         // 连接成功，取消超时机制
         this.state.connectTimeoutTimes = 0
         this.CONNECT_TIMEOUT && clearTimeout(this.CONNECT_TIMEOUT)
 
-        // 触发订阅者的 open 钩子
-        this.emit('open', event, true)
-
         // 发送认证包
-        this.userAuthentication()
+        this.sendAuthPacket()
         return this
     }
 
@@ -152,27 +161,20 @@ export default class BliveSocket extends EventTarget {
      * 发送认证包
      * @private
      */
-    private userAuthentication() {
-        const options = this.options
-
-        const originAuthInfo = {
-            uid: options.uid,
-            roomid: options.rid,
+    private sendAuthPacket() {
+        const auth = {
+            uid: this.options.uid,
+            roomid: this.options.roomid,
             protover: 3,
-            buvid: options.buvid,
-
+            buvid: config.buvid,
             platform: 'web',
             type: 2,
             key: this.state.token,
         }
-
-        const encodedAuthInfo = convertToArrayBuffer(JSON.stringify(originAuthInfo), WS_CONST.WS_OP_USER_AUTHENTICATION)
-        setTimeout(() => {
-            if (this.options.debug) {
-                console.debug(`[ws] 🌿发送用户认证包: `, originAuthInfo)
-            }
-            this.ws.send(encodedAuthInfo)
-        }, 0)
+        if (this.options.debug) {
+            // console.debug(`🌿发送用户认证包: `, auth)
+        }
+        this.ws.send(convertToArrayBuffer(JSON.stringify(auth), WS_CONST.WS_OP_USER_AUTHENTICATION))
     }
 
     /**
@@ -182,20 +184,15 @@ export default class BliveSocket extends EventTarget {
     private heartBeat() {
         clearTimeout(this.HEART_BEAT_INTERVAL)
 
-        const data = convertToArrayBuffer('', WS_CONST.WS_OP_HEARTBEAT)
-        this.ws.send(data)
+        this.ws.send(convertToArrayBuffer('', WS_CONST.WS_OP_HEARTBEAT))
 
         this.HEART_BEAT_INTERVAL = setTimeout(() => {
             this.heartBeat()
-        }, 1000 * this.options.heartBeatInterval)
+        }, 30 * 1000)
     }
 
 
     private onMessage(event: MessageEvent) {
-        if (this.options.debug) {
-            console.debug('[ws] onMessage')
-        }
-
         try {
             const packets = parseArrayBuffer(event.data)
 
@@ -204,12 +201,12 @@ export default class BliveSocket extends EventTarget {
                 switch (packet.op) {
                     // 心跳应答: 3
                     case WS_CONST.WS_OP_HEARTBEAT_REPLY:
-                        this.onHeartBeatReply((packet.body as HeartbeatReplayMessageBody).count)
+                        this.emit('heart_beat_reply', (packet.body as HeartbeatReplayMessageBody).count)
                         break
 
                     // 普通消息: 5
                     case WS_CONST.WS_OP_MESSAGE:
-                        this.onMessageReply(packet.body as NormalMessageBody)
+                        this.emit((packet.body as NormalMessageBody).cmd, packet.body as NormalMessageBody)
                         break
 
                     // 认证结果: 8
@@ -242,35 +239,17 @@ export default class BliveSocket extends EventTarget {
         return this
     }
 
-    /**
-     * 收到普通消息包 (op = 5)
-     * @param data
-     * @private
-     */
-    private onMessageReply(data: NormalMessageBody) {
-        this.emit(data.cmd, data)
-    }
-
-    /**
-     * 收到心跳应答包 (op = 3)
-     * @param count
-     * @private
-     */
-    private onHeartBeatReply(count: number) {
-        this.emit('heart_beat_reply', count)
-    }
-
     private onClose(event: CloseEvent) {
         if (this.options.debug) {
-            console.debug('[ws] onClose')
-            console.debug(this.state)
+            console.debug(`🚫[${now()} ws:close(${this.options.roomid})] ${event.code}:${event.reason}`)
+            console.log('bufferAmount: ', this.ws.bufferedAmount)
         }
 
+        // 清理心跳定时器
         clearTimeout(this.HEART_BEAT_INTERVAL)
 
-        this.emit('close', event, true)
-
         if (this.options.retry) {
+            // 断开重试逻辑
             if (this.checkRetryState()) {
                 setTimeout(() => {
                     console.warn("[ws] Danmaku Websocket Retry .", this.state.retryCount)
@@ -308,11 +287,10 @@ export default class BliveSocket extends EventTarget {
 
     private onError(error: Event | ErrorEvent) {
         if (this.options.debug) {
-            console.debug('[ws] onError')
-            console.debug(this.state)
+            console.debug(`💢[${now()} ws:error(${this.options.roomid})]`)
+            console.log((error.target as WebSocket).url)
+            console.log((error as ErrorEvent).message)
         }
-
-        this.emit('error', error, true)
 
         return this
     }
@@ -339,7 +317,7 @@ export default class BliveSocket extends EventTarget {
      * @private
      */
     private checkRetryState() {
-        if (this.options.retryMaxCount === 0 || this.state.retryCount < this.options.retryMaxCount) {
+        if (this.state.retryCount < this.options.retryMaxCount) {
             this.state.retryCount += 1
             return true
         }
@@ -350,52 +328,14 @@ export default class BliveSocket extends EventTarget {
      * 发射事件
      * @param type 事件名
      * @param payload 数据
-     * @param isNativeEvent payload是否为原生事件
      */
-    emit(type: string, payload?: Event | any, isNativeEvent = false) {
+    emit(type: string, payload?: any) {
         if (this.options.debug) {
-            console.debug(`🔔[emit]: ${type}`)
+            if (!SkipEmitType.includes(type)) {
+                console.debug(`🔔[${now()} emit(${this.options.roomid})]: ${type}`)
+            }
         }
 
-        let event
-        if (isNativeEvent) {
-            const nativeEvent = payload as Event
-            const commonInit = {
-                bubbles: nativeEvent.bubbles,
-                cancelable: nativeEvent.cancelable,
-                composed: nativeEvent.composed,
-            }
-
-            switch (nativeEvent.type) {
-                case 'open':
-                    event = new Event('open', commonInit)
-                    break
-                case 'close':
-                    event = new CloseEvent('close', {
-                        ...commonInit,
-                        wasClean: (nativeEvent as CloseEvent).wasClean,
-                        code: (nativeEvent as CloseEvent).code,
-                        reason: (nativeEvent as CloseEvent).reason,
-                    })
-                    break
-                case 'error':
-                    event = new ErrorEvent('error', {
-                        ...commonInit,
-                        message: (nativeEvent as ErrorEvent).message,
-                        filename: (nativeEvent as ErrorEvent).filename,
-                        lineno: (nativeEvent as ErrorEvent).lineno,
-                        colno: (nativeEvent as ErrorEvent).colno,
-                        error: (nativeEvent as ErrorEvent).error,
-                    })
-                    break
-                default:
-                    console.warn('[ws] 未知事件类型: ', nativeEvent.type)
-                    event = new Event(nativeEvent.type)
-                    break
-            }
-        } else {
-            event = new CustomEvent(type, {detail: payload})
-        }
-        this.dispatchEvent(event)
+        this.dispatchEvent(new CustomEvent(type, {detail: payload}))
     }
 }

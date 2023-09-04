@@ -341,3 +341,9 @@ export const WebSocketReadyState: {
     [WebSocket.CLOSING]: 'CLOSING',
     [WebSocket.CLOSED]: 'CLOSED',
 }
+
+export const config = {
+    uid: 3537123049212422,
+    sessdata: '6cec934b%2C1709359290%2Ce262b%2A91shBAgc7KSVhNlLWAhqZCL-TsoDU6dmMUpd2UMDR2tJYwefU1Jrf63_hdmnBl0etrcvYMjgAAFgA',
+    buvid: '5ED90EDA-4A24-4DE7-BD64-D232739F18EE167622infoc',
+}

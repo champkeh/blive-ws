@@ -21,38 +21,19 @@ export interface BliveSocketOptions {
     // 调试模式
     debug: boolean
 
-    buvid: string | undefined
-
     urlList: string[]
 
-    // 直播间id
-    rid: number
-
-    aid: number
+    // 直播间真实id
+    roomid: number
 
     // 用户id
     uid: number
-
-    from: number
-
-    // 连接超时时间，默认5秒。
-    // 5秒内如果没有连接成功，则自动关闭当前连接 (可能会触发自动重连)。
-    connectTimeout: number
-
-    // 心跳间隔
-    heartBeatInterval: number
 
     // 断开后是否自动重连
     retry: boolean
 
     // 最大重试次数，默认为线路数。
     retryMaxCount: number
-
-    // 重连遍历次数
-    retryConnectCount: number
-
-    // 重试时的连接超时时间，默认10秒。
-    retryConnectTimeout: number
 
     // 重试阈值次数
     retryThreadCount: number

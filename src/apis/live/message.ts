@@ -4,6 +4,7 @@
 
 
 import {get} from '../../common/request.ts'
+import {config} from '../../deno/const.ts'
 
 
 /**
@@ -15,6 +16,6 @@ export async function getDanmuInfo(rid: string | number) {
     const resp = await get('https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo', {
         id: rid,
         type: 0,
-    })
+    }, `SESSDATA=${config.sessdata};buvid3=${config.buvid};`)
     return resp.json()
 }

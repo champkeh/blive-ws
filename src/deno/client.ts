@@ -1,5 +1,5 @@
 import BliveSocket from "./BliveSocket.ts"
-import {CloseReason, SocketCmdType} from "./const.ts"
+import {CloseReason, SocketCmdType, config} from "./const.ts"
 import {getRealRoomId} from "../apis/live/info.ts"
 import {sleep} from "./utils.ts";
 
@@ -197,7 +197,7 @@ async function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
             case "enter":
                 // 确保 rid 为数字类型，否则发送认证包会失败
                 // 用户id固定为1(其实是谁都无所谓，甚至是一个不存在的id都可以，但不能为0，因为0表示未登录)
-                await enterRoom(+userDirective.rid, 1, userDirective.events, this)
+                await enterRoom(+userDirective.rid, config.uid, userDirective.events, this)
                 break
             // 离开房间
             case "leave":
@@ -275,7 +275,7 @@ async function enterRoom(rid: number, uid: number, events: string[], client: Web
             // 初始化直播间
             // 连接 B 站弹幕服务器
             const bliveSocket = new BliveSocket({
-                rid: realId, // 必须传真实的 roomid
+                roomid: realId, // 必须传真实的 roomid
                 uid,
             })
             // 实例化 room
@@ -298,17 +298,6 @@ async function enterRoom(rid: number, uid: number, events: string[], client: Web
  * @param room
  */
 function setupBliveSocketEventHandler(room: RoomEntity) {
-    room.bliveSocket.addEventListener('open', () => {
-        console.log(`🚀open(${room.rid})`)
-    })
-    room.bliveSocket.addEventListener('close', (event) => {
-        const closeEvent = event as CloseEvent
-        console.log(`🚫close(${room.rid}) {code: ${closeEvent.code}, reason: ${closeEvent.reason}}`)
-    })
-    room.bliveSocket.addEventListener('error', (event) => {
-        const errorEvent = event as ErrorEvent
-        console.error(`💢error(${room.rid}) {error: ${errorEvent.error}, message: ${errorEvent.message}}`)
-    })
     room.bliveSocket.addEventListener('authorized', () => {
         // 所有客户端都需要发送 authorized 事件
         room.clients
