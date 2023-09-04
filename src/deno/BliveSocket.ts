@@ -46,6 +46,8 @@ const SkipEmitType = [
     'SUPER_CHAT_MESSAGE',
     'LOG_IN_NOTICE',
     'CARD_MSG',
+    'NOTICE_MSG',
+    'COMMON_NOTICE_DANMAKU',
 ]
 
 /**
@@ -242,7 +244,7 @@ export default class BliveSocket extends EventTarget {
 
     private onClose(event: CloseEvent) {
         if (this.options.debug) {
-            console.debug(`🚫[${now()} ws:close(${this.options.roomid})] ${event.code}:${event.reason}`)
+            console.warn(`🚫[${now()} ws:close(${this.options.roomid})] ${event.code}:${event.reason}`)
         }
 
         // 清理心跳定时器
@@ -287,9 +289,9 @@ export default class BliveSocket extends EventTarget {
 
     private onError(error: Event | ErrorEvent) {
         if (this.options.debug) {
-            console.debug(`💢[${now()} ws:error(${this.options.roomid})]`)
-            console.log((error.target as WebSocket).url)
-            console.log((error as ErrorEvent).message)
+            console.error(`💢[${now()} ws:error(${this.options.roomid})]`)
+            console.info((error.target as WebSocket).url)
+            console.info((error as ErrorEvent).message)
         }
 
         return this
@@ -332,7 +334,7 @@ export default class BliveSocket extends EventTarget {
     emit(type: string, payload?: any) {
         if (this.options.debug) {
             if (!SkipEmitType.includes(type)) {
-                console.debug(`🔔[${now()} emit(${this.options.roomid})]: ${type}`)
+                console.info(`🔔[${now()} emit(${this.options.roomid})]: ${type}`)
             }
         }
 
