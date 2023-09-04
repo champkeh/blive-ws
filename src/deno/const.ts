@@ -343,7 +343,7 @@ export const WebSocketReadyState: {
 }
 
 export const config = {
-    uid: 3537123049212422,
-    sessdata: '6cec934b%2C1709359290%2Ce262b%2A91shBAgc7KSVhNlLWAhqZCL-TsoDU6dmMUpd2UMDR2tJYwefU1Jrf63_hdmnBl0etrcvYMjgAAFgA',
+    uid: 549621446,
+    sessdata: '1937bff7%2C1709361525%2Ca855e%2A91__Bpi8suETQ8q-QMnnPt9uhcuF34zlfo8r4nILi21jUQMZYKqDiOXQldax46ax80e5abugAALgA',
     buvid: '5ED90EDA-4A24-4DE7-BD64-D232739F18EE167622infoc',
 }

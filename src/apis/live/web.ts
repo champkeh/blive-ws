@@ -16,9 +16,9 @@ export function send(roomid: number, msg: string, cookie = '') {
         jumpfrom: 0,
         color: 16777215,
         fontsize: 25,
-        csrf: '349930ccb50d9c07a065f4f1ad26e28c',
-        csrf_token: '349930ccb50d9c07a065f4f1ad26e28c',
-        rnd: 1693807512,
+        csrf: '80b65a122df2585a015e3195e2bccc0a',
+        csrf_token: '80b65a122df2585a015e3195e2bccc0a',
+        rnd: 1693809581,
     }, {
         Cookie: cookie,
     })

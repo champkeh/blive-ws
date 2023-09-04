@@ -45,6 +45,7 @@ const SkipEmitType = [
     'ONLINE_RANK_TOP3',
     'SUPER_CHAT_MESSAGE',
     'LOG_IN_NOTICE',
+    'CARD_MSG',
 ]
 
 /**
