@@ -222,6 +222,8 @@ function clientOnOpen(this: ClientEntity) {
 async function clientOnMessage(this: ClientEntity, event: MessageEvent) {
     console.log(`💬CLIENT ${this.id} >> ${event.data}`)
 
+    if (event.data === 'pong') return
+
     try {
         const userDirective = JSON.parse(event.data) as UserDirective
 

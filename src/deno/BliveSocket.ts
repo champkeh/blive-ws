@@ -48,6 +48,7 @@ const SkipEmitType = [
     'CARD_MSG',
     'NOTICE_MSG',
     'COMMON_NOTICE_DANMAKU',
+    'GUARD_HONOR_THOUSAND', // 成为高能用户
 ]
 
 /**
