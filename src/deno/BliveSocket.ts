@@ -243,7 +243,6 @@ export default class BliveSocket extends EventTarget {
     private onClose(event: CloseEvent) {
         if (this.options.debug) {
             console.debug(`🚫[${now()} ws:close(${this.options.roomid})] ${event.code}:${event.reason}`)
-            console.log('bufferAmount: ', this.ws.bufferedAmount)
         }
 
         // 清理心跳定时器
