@@ -1,7 +1,7 @@
 import BliveSocket from "./BliveSocket.ts"
 import {CloseReason, SocketCmdType, config} from "./const.ts"
 import {getRealRoomId} from "../apis/live/info.ts"
-import {sleep} from "./utils.ts";
+import {sleep} from "./utils.ts"
 
 /**
  * 数据流转图示:
@@ -13,7 +13,7 @@ import {sleep} from "./utils.ts";
 /**
  * 监听的事件
  */
-interface ListenEvent {
+interface ListenItem {
     /**
      * 短房间号
      */
@@ -34,7 +34,7 @@ interface ListenEvent {
 /**
  * 连接到该代理服务器的客户端实例
  */
-interface WebSocketClient {
+interface ClientEntity {
     /**
      * 客户端唯一id
      */
@@ -48,7 +48,7 @@ interface WebSocketClient {
     /**
      * 该客户端需要监听的事件列表
      */
-    listen: ListenEvent[]
+    listens: ListenItem[]
 
     /**
      * 维持该客户端连接的心跳定时器
@@ -79,7 +79,7 @@ interface RoomEntity {
      * 监听该直播间的客户端列表
      * 当该列表为空时，表示没有客户端监听该直播间，20秒后自动销毁直播间实例
      */
-    clients: Set<WebSocketClient>
+    clients: Set<ClientEntity>
 
     /**
      * 房间销毁定时器
@@ -112,12 +112,6 @@ interface UserExitDirective {
     cmd: 'exit'
 }
 
-/**
- * inspect 指令
- */
-interface UserInspectDirective {
-    cmd: 'inspect'
-}
 
 /**
  * 所有的用户指令
@@ -126,7 +120,6 @@ type UserDirective =
     | UserEnterDirective
     | UserLeaveDirective
     | UserExitDirective
-    | UserInspectDirective
 
 type Task = () => any
 
@@ -146,7 +139,7 @@ export async function initializeTaskLoop() {
     while (true) {
         const task = taskQueue.shift()
         if (typeof task === 'function') {
-            task()
+            await task()
         }
         await sleep(200)
     }
@@ -157,10 +150,10 @@ export async function initializeTaskLoop() {
  * @param socket
  */
 export function initClient(socket: WebSocket) {
-    const client: WebSocketClient = {
+    const client: ClientEntity = {
         id: crypto.randomUUID(),
         socket: socket,
-        listen: [],
+        listens: [],
     }
 
     // 为客户端 socket 绑定事件处理器
@@ -174,7 +167,7 @@ export function initClient(socket: WebSocket) {
 /**
  * 客户端连接成功
  */
-function clientOnOpen(this: WebSocketClient) {
+function clientOnOpen(this: ClientEntity) {
     console.log(`🌐Connected to client: ${this.id}`)
 
     this.HEART_BEAT_INTERVAL = setInterval(() => {
@@ -186,7 +179,7 @@ function clientOnOpen(this: WebSocketClient) {
  * 客户端发送的命令
  * @param event
  */
-async function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
+async function clientOnMessage(this: ClientEntity, event: MessageEvent) {
     console.log(`💬CLIENT ${this.id} >> ${event.data}`)
 
     try {
@@ -196,7 +189,6 @@ async function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
             // 进入房间
             case "enter":
                 // 确保 rid 为数字类型，否则发送认证包会失败
-                // 用户id固定为1(其实是谁都无所谓，甚至是一个不存在的id都可以，但不能为0，因为0表示未登录)
                 await enterRoom(+userDirective.rid, config.uid, userDirective.events, this)
                 break
             // 离开房间
@@ -216,15 +208,15 @@ async function clientOnMessage(this: WebSocketClient, event: MessageEvent) {
 /**
  * 客户端连接出错
  */
-function clientOnError(this: WebSocketClient, error: Event | ErrorEvent) {
-    console.log(`💢Client: ${this.id} error: ${error instanceof ErrorEvent ? error.message : error.type}`)
+function clientOnError(this: ClientEntity, error: Event | ErrorEvent) {
+    console.error(`💢Client: ${this.id} occurs error: ${error instanceof ErrorEvent ? error.message : error.type}`)
 }
 
 /**
  * 客户端断开连接
  */
-function clientOnClose(this: WebSocketClient, event: CloseEvent) {
-    console.log(`🎯Disconnected from client: ${this.id}, code: ${event.code} reason: ${CloseReason[event.code]}`)
+function clientOnClose(this: ClientEntity, event: CloseEvent) {
+    console.warn(`🎯Disconnected from client: ${this.id}, code: ${event.code} reason: ${CloseReason[event.code]}`)
     destroyClient(this)
 }
 
@@ -235,7 +227,7 @@ function clientOnClose(this: WebSocketClient, event: CloseEvent) {
  * @param events 监听的事件列表
  * @param client 客户端实例
  */
-async function enterRoom(rid: number, uid: number, events: string[], client: WebSocketClient) {
+async function enterRoom(rid: number, uid: number, events: string[], client: ClientEntity) {
     // 事件规整化
     // 必须监听 authorized 事件
     if (!events.includes('authorized')) {
@@ -254,7 +246,7 @@ async function enterRoom(rid: number, uid: number, events: string[], client: Web
     }
 
     // 设置监听事件
-    client.listen.push(
+    client.listens.push(
         ...events.map(event => ({
             rid: rid,
             roomid: realId,
@@ -315,7 +307,7 @@ function setupBliveSocketEventHandler(room: RoomEntity) {
             // 遍历客户端
             room.clients
                 .forEach(client => {
-                    if (client.listen.some(listen => listen.rid === room.rid && listen.event === eventName)) {
+                    if (client.listens.some(listen => listen.rid === room.rid && listen.event === eventName)) {
                         client.socket.send(JSON.stringify({
                             rid: room.rid,
                             payload: {
@@ -335,7 +327,7 @@ function setupBliveSocketEventHandler(room: RoomEntity) {
  * @param rid 房间号
  * @param client
  */
-async function leaveRoom(rid: number, client: WebSocketClient) {
+async function leaveRoom(rid: number, client: ClientEntity) {
     // 获取真实房间号，确认直播间是存在的
     const realId = await getAndCacheRealRoomId(rid, client)
     if (!realId) {
@@ -352,7 +344,7 @@ async function leaveRoom(rid: number, client: WebSocketClient) {
  * 退出所有房间
  * @param client
  */
-function exit(client: WebSocketClient) {
+function exit(client: ClientEntity) {
     rooms.forEach(room => {
         destroyClientFromRoom(client, room)
     })
@@ -394,7 +386,7 @@ export function getStatus() {
  */
 function destroyRoom(room: RoomEntity) {
     if (room.clients.size !== 0) {
-        console.warn(`💢直播间${room.rid}不为空，不能销毁`)
+        console.warn(`💢直播间(${room.rid})不为空，不能销毁`)
         return
     }
     // 断开与 B 站的 websocket 连接
@@ -406,7 +398,7 @@ function destroyRoom(room: RoomEntity) {
  * 销毁客户端
  * @param client
  */
-function destroyClient(client: WebSocketClient) {
+function destroyClient(client: ClientEntity) {
     // 停止客户端心跳定时器
     clearInterval(client.HEART_BEAT_INTERVAL)
     client.socket.close()
@@ -415,7 +407,12 @@ function destroyClient(client: WebSocketClient) {
     exit(client)
 }
 
-function destroyClientFromRoom(client: WebSocketClient, room: RoomEntity) {
+/**
+ *
+ * @param client
+ * @param room
+ */
+function destroyClientFromRoom(client: ClientEntity, room: RoomEntity) {
     room.clients.delete(client)
 
     // 判断直播间是否为空
@@ -431,18 +428,24 @@ function destroyClientFromRoom(client: WebSocketClient, room: RoomEntity) {
     }
 }
 
-async function getAndCacheRealRoomId(rid: number, client: WebSocketClient) {
+/**
+ * 获取真实房间id，并缓存起来
+ * @param rid
+ * @param client
+ */
+async function getAndCacheRealRoomId(rid: number, client: ClientEntity) {
     // 获取真实房间号，确认直播间是存在的
     let realId: number
     try {
         realId = RoomIdMap.get(rid) || (await getRealRoomId(rid))
         RoomIdMap.set(rid, realId)
         if (realId !== rid) {
-            console.debug(`房间真实id: ${rid} => ${realId}`)
+            console.info(`房间真实id: ${rid} => ${realId}`)
         }
         return realId
     } catch (e) {
         client.socket.send(JSON.stringify({rid, error: e.message}))
+        console.error(`获取真实房间id出错: ${e.message}`)
         // 断开与客户端的连接
         destroyClient(client)
         return

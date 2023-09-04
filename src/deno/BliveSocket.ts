@@ -119,6 +119,8 @@ export default class BliveSocket extends EventTarget {
      * @private
      */
     private initialize(url: string, isRetry = false) {
+        if (!this.options.retry) return
+
         try {
             console.debug(`[ws] ${isRetry ? 're' : ''}initialize to ${url}`)
             this.state.url = url
@@ -254,6 +256,7 @@ export default class BliveSocket extends EventTarget {
             // 断开重试逻辑
             if (this.checkRetryState()) {
                 setTimeout(() => {
+                    if (!this.options.retry) return
                     console.warn("[ws] Danmaku Websocket Retry .", this.state.retryCount)
                     this.state.index += 1
                     const urlListLen = this.options.urlList.length
