@@ -1,5 +1,5 @@
 import {convertToArrayBuffer, parseArrayBuffer, fetchHostList, now} from './utils.ts'
-import {WS_CONST, config} from './const.ts'
+import {WS_CONST, config, CloseReason} from './const.ts'
 import {
     BliveSocketState,
     BliveSocketOptions,
@@ -246,7 +246,7 @@ export default class BliveSocket extends EventTarget {
 
     private onClose(event: CloseEvent) {
         if (this.options.debug) {
-            console.warn(`🚫[${now()} ws:close(${this.options.roomid})] ${event.code}:${event.reason}`)
+            console.warn(`🚫[${now()} ws:close(${this.options.roomid})] ${event.code}:${CloseReason[event.code]}`)
         }
 
         // 清理心跳定时器

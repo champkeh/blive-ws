@@ -2,6 +2,7 @@ import BliveSocket from "./BliveSocket.ts"
 import {CloseReason, SocketCmdType, config} from "./const.ts"
 import {getRealRoomId} from "../apis/live/info.ts"
 import {sleep} from "./utils.ts"
+import {send} from "../apis/live/web.ts";
 
 /**
  * 数据流转图示:
@@ -85,6 +86,9 @@ interface RoomEntity {
      * 房间销毁定时器
      */
     DESTROY_TIMEOUT?: number
+
+    lastMessageTime: number
+    waitTestMsg: boolean
 }
 
 
@@ -136,6 +140,8 @@ const RoomIdMap: Map<number, number> = new Map()
 const taskQueue: Task[] = []
 
 export async function initializeTaskLoop() {
+    setConnectionTest()
+
     while (true) {
         const task = taskQueue.shift()
         if (typeof task === 'function') {
@@ -143,6 +149,40 @@ export async function initializeTaskLoop() {
         }
         await sleep(200)
     }
+}
+
+
+/**
+ * 连通性测试
+ */
+export function setConnectionTest() {
+    setInterval(() => {
+        const now = Date.now()
+        rooms.forEach(room => {
+            if (room.waitTestMsg) {
+                // 仍然在等待测试消息，可以确定服务已经中断了
+                console.warn(`直播间(${room.roomid})长时间接收不到弹幕，尝试重新连接`)
+                reconnectRoom(room)
+                return
+            }
+            if (now - room.lastMessageTime <= 5 * 60 * 1000) {
+                return
+            }
+
+            taskQueue.push(() => {
+                send(room.roomid, '666', `SESSDATA=${config.sessdata}`).then(resp => resp.json()).then(data => {
+                    if (data.code === 0) {
+                        console.log('测试弹幕发送成功')
+                        room.waitTestMsg = true
+                    } else {
+                        console.log(data)
+                    }
+                }).catch(err => {
+                    console.error(err)
+                })
+            })
+        })
+    }, 5 * 60 * 1000)
 }
 
 /**
@@ -276,6 +316,8 @@ async function enterRoom(rid: number, uid: number, events: string[], client: Cli
                 roomid: realId,
                 bliveSocket: bliveSocket,
                 clients: new Set([client]),
+                lastMessageTime: Date.now(),
+                waitTestMsg: false,
             }
             rooms.set(realId, room)
 
@@ -304,6 +346,18 @@ function setupBliveSocketEventHandler(room: RoomEntity) {
     // 监听所有的消息类型
     for (const [_, eventName] of Object.entries(SocketCmdType)) {
         room.bliveSocket.addEventListener(eventName, (event: Event) => {
+            // 处理测试弹幕
+            if (eventName === 'DANMU_MSG') {
+                room.lastMessageTime = Date.now()
+                room.waitTestMsg = false
+
+                const detail = (event as CustomEvent).detail
+                if (detail.info[2][0] === config.uid) {
+                    console.log(`收到直播间(${room.roomid})测试弹幕: ${detail.info[1]}`)
+                    return
+                }
+            }
+
             // 遍历客户端
             room.clients
                 .forEach(client => {
@@ -321,6 +375,34 @@ function setupBliveSocketEventHandler(room: RoomEntity) {
     }
 }
 
+/**
+ * 重新连接直播间
+ * @param room
+ */
+function reconnectRoom(room: RoomEntity) {
+    const {rid, roomid, clients} = room
+    const task = () => {
+        // 初始化直播间
+        // 连接 B 站弹幕服务器
+        const bliveSocket = new BliveSocket({
+            roomid: roomid, // 必须传真实的 roomid
+            uid: config.uid,
+        })
+        // 实例化 room
+        const room: RoomEntity = {
+            rid,
+            roomid: roomid,
+            bliveSocket: bliveSocket,
+            clients: clients,
+            lastMessageTime: Date.now(),
+            waitTestMsg: false,
+        }
+        rooms.set(roomid, room)
+
+        setupBliveSocketEventHandler(room)
+    }
+    taskQueue.push(task)
+}
 
 /**
  * 退出指定房间
