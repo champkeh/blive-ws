@@ -174,6 +174,7 @@ function now() {
 }
 
 const encoder = new TextEncoder()
+const decoder = new TextDecoder()
 
 function mergeArrayBuffer(buf1, buf2) {
     const b1 = new Uint8Array(buf1)
@@ -219,7 +220,7 @@ function parseArrayBuffer(buffer) {
                 const count = new DataView(body).getInt32(0)
                 decode = {count}
             } else {
-                decode = JSON.parse(new TextDecoder().decode(body))
+                decode = JSON.parse(decoder.decode(body))
             }
         } else if (protoVer === 2) {
             // gzip 压缩
@@ -348,6 +349,7 @@ scriptElement.onload = () => {
     start(7734200)
 }
 window.document.head.append(scriptElement)
+
 ```
 
 
