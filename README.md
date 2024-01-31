@@ -28,7 +28,7 @@ B站直播间 WebSocket 代理服务，可用于实时获取直播间弹幕相�
 ![部署第一步](assets/deploy-step1.png)
 
 #### 3. 项目配置 & 部署
-选择刚 fork 的仓库及分支，构建模式选择 **无需构建**，入口文件选择 **src/deno/app.ts**，然后点击 **创建&部署**，如下图所示：
+选择刚 fork 的仓库及分支，构建模式选择 **Github Action**，然后点击 **Add Build Step**，如下图所示：
 ![部署第二步](assets/deploy-step2.png)
 
 #### 4. 获取代理地址
