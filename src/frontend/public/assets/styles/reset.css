@@ -1,0 +1,27 @@
+/* reset.css */
+body {
+    line-height: 1.8;
+    font-size: 16px;
+    /*font-family: "SourceHanSerifCN-Bold",PingFang SC,-apple-system,SF UI Text,Lucida Grande,STheiti,Microsoft YaHei,sans-serif;*/
+}
+.chapterTitle {
+    margin-bottom: 18px;
+    font-size: 24px;
+    font-family: "SourceHanSerifCN-Bold",PingFang SC,-apple-system,SF UI Text,Lucida Grande,STheiti,Microsoft YaHei,sans-serif;
+    color: #0d141e;
+}
+.custom-cover {
+    display: flex;
+    justify-content: center;
+}
+.readerChapterContent pre {
+    background-color: #e6e6e6;
+    color: #0d141e;
+    font-family: Courier,Menlo,Monaco,Consolas,monospace,"PingFang SC",-apple-system,"SF UI Text","Lucida Grande",STheiti,"Microsoft YaHei",sans-serif;
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 12px;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}

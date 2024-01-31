@@ -1,0 +1,32 @@
+name: Deploy
+run-name: ${{ github.actor }} is running Deploy Actions 🚀
+
+on:
+  push:
+    branches: master
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Needed for auth with Deno Deploy
+      contents: read # Needed to clone the repository
+
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 设置 pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.x
+
+      - name: 安装依赖并执行构建
+        run: pnpm i && pnpm --prefix src/frontend i && npm run build
+
+      - name: 部署到 Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: blive
+          entrypoint: src/backend/server.ts

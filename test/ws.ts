@@ -6,8 +6,8 @@ import {config} from "../src/deno/const.ts"
 import type {AuthorizeReplyMessageBody} from "../src/deno/types.d.ts"
 
 const roomid = 7734200
-const url = 'wss://tx-gz-live-comet-03.chat.bilibili.com:443/sub'
-const key = 'MAwBpsZxgjg5qR8mUcl-yYUOybyDh_9RVEllkblmI1h3-3UiwbL89f7bPId_MTxLVG_8lWvHlUBqUU-Ua4zql3Ai2h0br-VUd6MuT6z5yNpLs9fYSlXsXDe4NCTq2y87HNeWY_48t5T4_qdxbXDAm78s'
+const url = 'wss://hw-sh-live-comet-02.chat.bilibili.com:443/sub'
+const key = '6Vx3AnrvOo6DU5u9SOCuQqLgrPofCLfTBoTTTrO50uB3QCba864-HHWsiBbwWSSGIrpFSLaLyhXLSrSJNR2TjCo-EU3IYzn3XWG3Tx4DeoubvHL-PUERCZ1wQJJwzuJG5GspYiC7EjKRxKK9'
 
 
 export const ws = new WebSocket(url)
@@ -20,10 +20,10 @@ ws.addEventListener('open', () => {
     console.log('🚀open')
 
     const auth = {
-        uid: config.uid,
+        uid: 0,
         roomid: roomid,
         protover: 3,
-        buvid: config.buvid,
+        buvid: '',
         platform: 'web',
         type: 2,
         key: key,

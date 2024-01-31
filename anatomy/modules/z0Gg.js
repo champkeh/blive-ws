@@ -1,8 +1,0 @@
-/**
- * id: z0Gg
- * path: ./retry-strategy
- */
-
-(function(require,module,exports) {
-"use strict";var e,r;Object.defineProperty(exports,"__esModule",{value:!0}),exports.useRetryStrategy=exports.RetryStrategies=void 0;var t,o=require("@bilibili-live/web-player-common"),P=((e={})[o.P2PType.HLS_BILI]=o.P2PType.NONE,e[o.P2PType.FLV_QVB]=o.P2PType.HLS_BILI,e[o.P2PType.NONE]=o.P2PType.HLS_NOT_P2P,e[o.P2PType.HLS_NOT_P2P]=o.P2PType.NONE,e);!function(e){e[e.Retry=0]="Retry",e[e.SwitchLine=1]="SwitchLine",e[e.ChangeProtocol=2]="ChangeProtocol",e[e.Failed=3]="Failed"}(t=exports.RetryStrategies||(exports.RetryStrategies={}));var y=((r={})[o.ProtocolType.HTTP_HLS]=[o.P2PType.HLS_BILI,o.P2PType.HLS_NOT_P2P],r[o.ProtocolType.HTTP_STREAM]=[o.P2PType.FLV_QVB,o.P2PType.NONE],r);function T(e,r,T){if(null==e)return t.Retry;var p=e.getCurP2PType();switch(T-r){case 1:case 2:case 3:return o.logger.error("maxRetryTimes: "+T+" retry count: "+r+", auto change line"),e.setCurLine(e.getCurLine()+1),t.SwitchLine;case 0:if(null!=o.wpd.P2PType)return t.Retry;if(o.logger.error("retry count: "+r+", auto change Protocol"),y[o.ProtocolType.HTTP_STREAM].includes(p)&&!e.hasHLSPlayerSupportStream())return t.Failed;var a=P[p];return y[o.ProtocolType.HTTP_HLS].includes(a)?e.useStream({protocol:o.ProtocolType.HTTP_HLS,expectP2PType:a}):e.useStream({protocol:o.ProtocolType.HTTP_STREAM,expectP2PType:a}),t.ChangeProtocol;default:return o.logger.error("maxRetryTimes: "+T+" retry count: "+r+", retry"),t.Retry}}exports.useRetryStrategy=T;
-})()

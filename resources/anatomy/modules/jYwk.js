@@ -1,0 +1,8 @@
+/**
+ * id: jYwk
+ * path: ./connects/conn-subtitle
+ */
+
+(function(require,module,exports) {
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.connSubtitleAndPlayer=void 0;var e=require("@bilibili-live/web-player"),i=require("@bilibili-live/web-player-common"),t=require("@bilibili-live/web-player-subtitle");function r(r){var l=i.userSetting.get("subtitle"),a=new t.Subtitle(r.container,l);function n(){var e=r.getVideoEl();null!=e&&a.setVideoSource(e)}r.ctrl.getCtrlUI().subtitleStatus={visible:l.visible,draggable:l.draggable},a.visible=l.visible,a.draggable=l.draggable,n();var b=r.ctrl.onChange(function(e,t){var r,l;if("subtitle"===e&&null!=t){var n=t;("draggable"in n||"visible"in n)&&(a.draggable=null!==(r=n.draggable)&&void 0!==r?r:a.draggable,a.visible=null!==(l=n.visible)&&void 0!==l?l:a.visible,i.userSetting.set("subtitle",{visible:a.visible,draggable:a.draggable}))}}),o=r.on(i.ExternalEventType.SEIParseData,function(e,t,r){if(e===i.SEIType.BILILIVESUBTITLE)try{for(var l=JSON.parse(r),n=0,b=l;n<b.length;n++){var o=b[n];a.add({id:o.sub_id,roleId:o.role,content:o.sub,duration:o.dt_ms+(1===o.type?5e3:0),offset:1e3*t+o.ot_ms,type:o.type})}}catch(s){i.logger.error(s)}}),s=r.on(e.VideoEventType.FirstFrame,n),u=a.on("dragStart",function(){r.ctrl.hide(!0)}),d=a.on("dragEnded",function(e){r.ctrl.show(),i.userSetting.set("subtitle",{pos:e})});return function(){o(),b(),u(),d(),s(),a.destroy()}}exports.connSubtitleAndPlayer=r;
+})()

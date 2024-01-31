@@ -1,0 +1,8 @@
+/**
+ * id: ZYDn
+ * path: ./drag-element
+ */
+
+(function(require,module,exports) {
+"use strict";function e(e,t,n){return Math.max(t,Math.min(n,e))}function t(t,n,o){var i=0,r=0,u=0,s=0,c=100,v=100,d=0,m=0,a=0,l=function(e){var o=e.clientX,l=e.clientY;u=o,s=l;var p=n.getBoundingClientRect(),f=p.x,h=p.y;d=f,m=h;var E=t.getBoundingClientRect(),y=E.x,L=E.y,g=E.width,b=E.height;i=y,r=L,a=b,c=(n.clientWidth-g)/n.clientWidth*100,v=100-b/n.clientHeight*100},p=function(o){var l=o.clientX,p=o.clientY,f=(i+l-u-d)/n.clientWidth*100,h=100-(r+p-s-m+a)/n.clientHeight*100;t.style.transform="",t.style.left="".concat(e(f,0,c),"%"),t.style.bottom="".concat(e(h,15,v),"%")},f=function(e){l(e.touches[0])},h=function(e){e.preventDefault(),p(e.touches[0])},E=function(e){e.preventDefault(),e.stopPropagation(),p(e)},y=function(e){l(e),document.body.addEventListener("mouseup",L),document.body.addEventListener("mousemove",E),o.onMouseDown()},L=function e(t){t.preventDefault(),t.stopPropagation(),document.body.removeEventListener("mouseup",e),document.body.removeEventListener("mousemove",E),o.onMouseUp()};return t.addEventListener("touchstart",f,{passive:!1}),t.addEventListener("touchmove",h,{passive:!1}),t.addEventListener("mousedown",y),function(){t.removeEventListener("touchstart",f),t.removeEventListener("touchmove",h),t.removeEventListener("mousedown",y),document.body.removeEventListener("mouseup",L),document.body.removeEventListener("mousemove",E)}}Object.defineProperty(exports,"__esModule",{value:!0}),exports.dragElement=void 0,exports.dragElement=t;
+})()

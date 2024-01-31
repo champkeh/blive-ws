@@ -1,0 +1,8 @@
+/**
+ * id: U3yD
+ * path: ./user-setting
+ */
+
+(function(require,module,exports) {
+"use strict";var t=this&&this.__assign||function(){return(t=Object.assign||function(t){for(var e,n=1,a=arguments.length;n<a;n++)for(var r in e=arguments[n])Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r]);return t}).apply(this,arguments)},e=this&&this.__importDefault||function(t){return t&&t.__esModule?t:{default:t}};Object.defineProperty(exports,"__esModule",{value:!0});var n=e(require("./logger")),a="web-player-ui-config",r=0;function o(){var t,e=localStorage.getItem("".concat(a,":").concat(r)),o={volume:{value:90,disabled:!1},danmaku:{display:!0,opacity:100,fontScale:100,density:100,area:4,showMaskOption:!1,enableMask:!0},subtitle:{pos:null,visible:!1,draggable:!1}};if(null===e)return o;try{t=JSON.parse(e)}catch(i){return n.default.error(i),o}return t=Object.assign({},o,t)}function i(t){r=t}function u(){return o().danmaku}function c(){return o().volume}function s(e){var n=o();localStorage.setItem("".concat(a,":").concat(r),JSON.stringify(t(t({},n),{volume:e})))}function l(e){var n=o();localStorage.setItem("".concat(a,":").concat(r),JSON.stringify(t(t({},n),{danmaku:e})))}function f(t){return o()[t]}function g(e,n){var i,u=o();localStorage.setItem("".concat(a,":").concat(r),JSON.stringify(t(t({},u),((i={})[e]=Object.assign({},u[e],n),i))))}exports.default={getDanmaku:u,getVolume:c,init:i,setDanmaku:l,setVolume:s,get:f,set:g};
+})()
